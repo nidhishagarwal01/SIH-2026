@@ -1,64 +1,97 @@
 # 🏛️ HERITAGE SHIELD (SIH 2026 — Team 031 / Qualified)
 > **AI-Assisted, Expert-Validated Predictive Conservation & Living Digital Twin Platform for Built Heritage**  
-> *Domain: Simulation and Digital Twin (Category: Software) · Ministry of Culture & Archaeological Survey of India (ASI)*
+> *Domain: Simulation and Digital Twin (Category: Software) · Ministry of Culture & Archaeological Survey of India (ASI)*  
+> *Somaiya Vidyavihar University*
 
 ---
 
 ## 🎯 Executive Overview
-India preserves over **3,690+ Centrally Protected Monuments of National Importance**. Current conservation workflows remain primarily **reactive, manual, and episodic**—often discovering internal moisture saturation, tensile shear fissures, and biological degradation only after catastrophic material failure.
+India preserves over **3,690+ Centrally Protected Monuments of National Importance** and **45 UNESCO World Heritage Sites**. Current conservation workflows remain primarily **reactive, manual, and episodic**—often discovering internal moisture saturation, tensile shear fissures, and biological degradation only after catastrophic material failure.
 
 **Heritage Shield** solves this challenge with a **6-stage closed-loop architecture**:
 $$\text{Observe (GIS/Images)} \rightarrow \text{Digitise (3D Twin)} \rightarrow \text{Assess (YOLO/CV)} \rightarrow \text{Track (Temporal Delta)} \rightarrow \text{Prioritize (Risk Engine)} \rightarrow \text{Act (ASI Work Order)}$$
 
 ---
 
-## 🚀 Quick Start Instructions
+## 🚀 How to Run & Share with Your Team
 
-### Prerequisites
-- Node.js (v18+) & npm
-- Python (v3.10+)
-
-### Step 1: Start Python FastAPI Backend
-```bash
-cd "heritage-shield-backend"
-./venv/bin/python -m uvicorn app.main:app --reload --port 8000
-```
-- **REST API Live**: `http://localhost:8000`
-- **Interactive Swagger Docs**: `http://localhost:8000/docs`
-- **Database**: SQLite with 13 tables (`heritage_shield.db`) auto-seeded on launch.
-
-### Step 2: Start React Frontend
-```bash
-cd "heritage-shield-ui"
-npm run dev
-```
-- **Web UI Live**: `http://localhost:5173`
+You can run Heritage Shield using **Docker** (recommended for zero-setup 1-click launch) or **Git / Local CLI**.
 
 ---
 
-## 🌟 Delivered Modules & Capabilities
+### 🐳 Method A: 1-Click Launch with Docker (Zero Installation)
+If your teammates have **Docker Desktop** installed, they do not need to install Python, OpenCV, or Node.js.
+
+```bash
+# 1. Clone the repository
+git clone <your-github-repo-url>
+cd "SIH 26"
+
+# 2. Start both Backend & Frontend in 1 command
+docker compose up --build
+```
+- 🏛️ **Frontend Web Application**: `http://localhost:5173`
+- ⚡ **FastAPI Backend & Swagger**: `http://localhost:8000/docs`
+
+---
+
+### 💻 Method B: Local CLI / Dev Setup
+
+#### 1. One-Click Launcher (Mac/Linux):
+```bash
+./run_demo.sh
+```
+
+#### 2. Manual CLI Step-by-Step:
+**Terminal 1 — Backend:**
+```bash
+cd heritage-shield-backend
+python3 -m venv venv
+source venv/bin/activate    # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
+
+**Terminal 2 — Frontend:**
+```bash
+cd heritage-shield-ui
+npm install
+npm run dev
+```
+
+---
+
+### 🧪 Automated Verification Test Suite
+Run the 11-test backend verification suite:
+```bash
+cd heritage-shield-backend
+./venv/bin/python test_suite.py
+```
+*(Runs 11/11 automated end-to-end tests for OpenCV, SQLite, Open-Meteo, USGS seismic stream, and ISO 31000 risk engine).*
+
+---
+
+## 🌟 Key Platform Capabilities
 
 | Module | Feature | Technical Stack |
 | :---: | :--- | :--- |
-| **00** | 🗺️ **National Heritage GIS & Multi-Hazard Map** | Leaflet dark tiles, GeoJSON, BIS IS 1893 Seismic Zone IV/V & Monsoon hazard layers |
-| **01** | 🏛️ **3D Living Digital Twin** | Three.js WebGL procedural twin (Stone, LiDAR wireframe, and Thermal Heatmap inspection modes) |
-| **01B**| 🏗️ **Automated Photogrammetry Scan-to-Twin** | COLMAP Structure-from-Motion simulator (SIFT features, sparse cloud, Poisson mesh decimation) |
-| **02** | 🔍 **AI Visual Damage Assessment** | YOLOv8 + OpenCV (Laplacian blur, Bilateral + Canny edge cracks, HSV dampness, ExG biological growth) |
+| **00** | 🗺️ **National Heritage GIS & Multi-Hazard Map** | Leaflet dark tiles, GeoJSON, BIS IS 1893 Seismic Zone IV/V & Monsoon flood overlays across 24+ UNESCO sites |
+| **01** | 🏛️ **3D Living Digital Twin** | Three.js WebGL procedural twin (9 architectural typologies: Mughal, Dravidian, Nagara, Cave, Stupa, Bastion, Stepwell) |
+| **02** | 🔍 **AI Visual Damage Assessment** | OpenCV 4.10 real-pixel filters (Laplacian variance, Bilateral Canny edge contours, HSV moisture decomposition) |
 | **03** | ⏱️ **Temporal Change Detection** | Multi-epoch slider showing $+38.2\%$ crack extension and $3.45\text{ cm/yr}$ deterioration velocity |
-| **03B**| 📈 **Longitudinal Analytics & 2028 Forecast** | 2020–2028 Time-series ARIMA modeling with $93.4\%$ cost savings ROI calculation |
-| **04** | 📐 **Explainable Heritage Risk Engine** | $R = 0.30C + 0.25D + 0.15H + 0.15E + 0.15S$ (Normalized $0–100$ with live weight tuning) |
-| **04B**| 🌪️ **Extreme Climate & Disaster Simulator** | What-If Stress Testing (+100% Monsoon surge, 7.5M Seismic event, 60Hz Urban vibration) |
-| **05** | 📋 **Authority Priority Intervention Queue** | Ranked triage decision table across monitored national monuments |
-| **06** | 📱 **Heritage Sentinel Ground Telemetry** | Mobile-responsive Field Officer & Crowdsourced Visitor incident reporting feed |
+| **04** | 📐 **Explainable Heritage Risk Engine** | $R = 0.30C + 0.25D + 0.15H + 0.15E + 0.15S$ (ISO 31000 standard with live weights) |
+| **05** | 🌐 **Autonomous Live Data Fetcher** | Real-time synchronization with Open-Meteo meteorological stream and USGS/NCS earthquake feeds |
+| **06** | 📋 **Authority Priority Intervention Queue** | Ranked triage decision table across monitored national monuments |
+| **07** | 📱 **Heritage Sentinel Ground Telemetry** | Mobile-responsive Field Officer & Crowdsourced Visitor incident reporting feed |
 | **DOC**| 📄 **Official ASI Work-Order PDF & JSON Export** | Form HS-2026 with Government letterhead, print-to-PDF, and machine-readable dossier |
 
 ---
 
 ## 🗄️ Database Architecture (SQLite / SQLAlchemy)
 ```text
-Site (Qutub Minar, Hampi, Golconda)
- └── Asset (Minaret Main Tower)
-      └── Component (C-01 North Façade, C-02 Balcony, C-03 Plinth, C-04 Finial)
+Site (Taj Mahal, Qutub Minar, Hampi, Golconda, Konark, etc.)
+ └── Asset (Main Mausoleum / Vimana / Tower)
+      └── Component (Finial, Main Sanctuary, Columns, Base Plinth)
            ├── Images (Photogrammetric raw captures)
            ├── Observations (Field inspection notes)
            ├── Damage Detections (Normalized bounding boxes & metric estimations)
