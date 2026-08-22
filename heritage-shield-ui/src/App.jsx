@@ -417,11 +417,11 @@ export default function App() {
           </div>
 
 
-          {/* Active Monument Switcher Pill */}
+          {/* Active Heritage Site Switcher Pill */}
           <button
             onClick={() => setIsAssetSwitcherOpen(true)}
             className="flex items-center gap-3 bg-[#14171C] hover:bg-[#1C2027] border border-[#2B313D] hover:border-[#C5A059] px-4 py-1.5 rounded-xl transition shadow-md group"
-            title="Switch Monument Asset"
+            title="Switch Heritage Site"
           >
             <span
               className="w-2.5 h-2.5 rounded-full animate-pulse shadow"
@@ -429,7 +429,7 @@ export default function App() {
             />
             <div className="text-left">
               <div className="text-[9px] font-mono uppercase text-gray-400 font-semibold flex items-center gap-1.5">
-                <span>Active Monument:</span>
+                <span>Active Heritage Site:</span>
                 <span className="text-[#C5A059] font-bold">[{curSite.id}]</span>
               </div>
               <div className="text-xs font-serif font-bold text-[#F3EFE6] group-hover:text-[#C5A059] flex items-center gap-1.5">
@@ -1100,7 +1100,7 @@ export default function App() {
                     <tr>
                       <th className="py-3 px-4">Rank</th>
                       <th className="py-3 px-4">Component</th>
-                      <th className="py-3 px-4">Monument Asset</th>
+                      <th className="py-3 px-4">Heritage Site</th>
                       <th className="py-3 px-4">Risk Score</th>
                       <th className="py-3 px-4">Urgency Status</th>
                       <th className="py-3 px-4">Mandated Action</th>

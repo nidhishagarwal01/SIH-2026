@@ -84,7 +84,7 @@ export default function LandingPageView({
       step: '01', 
       kicker: '01 · 3D Digital Twin',
       title: 'Interactive 3D Model of the Site', 
-      desc: 'Instead of just looking at flat photos, explore a live 3D model of the monument. You can rotate, zoom in, and click directly on individual domes, walls, pillars, or foundations to check their condition.'
+      desc: 'Instead of just looking at flat photos, explore a live 3D model of the heritage site. You can rotate, zoom in, and click directly on individual domes, walls, pillars, or foundations to check their condition.'
     },
     { 
       step: '02', 
@@ -108,7 +108,7 @@ export default function LandingPageView({
       step: '05', 
       kicker: '05 · Disaster Risk Layer',
       title: 'Weather & Earthquake Exposure', 
-      desc: 'We combine monument health with real-time weather, flood zones, and earthquake fault lines so authorities can protect vulnerable sites before disasters hit.'
+      desc: 'We combine heritage site health with real-time weather, flood zones, and earthquake fault lines so authorities can protect vulnerable sites before disasters hit.'
     },
     { 
       step: '06', 
@@ -118,15 +118,15 @@ export default function LandingPageView({
     },
     { 
       step: '07', 
-      kicker: '07 · Priority Ranking',
-      title: 'National Priority To-Do List', 
-      desc: 'Automatically ranks all monitored heritage structures across the country by urgency, ensuring funds and conservation teams are sent to the most endangered sites first.'
+      kicker: '07 · Clear Repair Plan',
+      title: 'Prioritised Repair Recommendations', 
+      desc: 'Instead of guessing what to fix next, authorities get an ordered list of urgent repairs with clear timeframes and cost estimates.'
     },
     { 
       step: '08', 
-      kicker: '08 · Official Action Plan',
-      title: 'Actionable Conservation Reports', 
-      desc: 'Generates formal ASI work orders with prescribed mortar mixtures, scaffolding instructions, and cost estimates ready for conservation architects to sign off.'
+      kicker: '08 · Official ASI Reports',
+      title: 'One-Click Compliance Reporting', 
+      desc: 'Generate complete, audit-ready PDF conservation reports for the Archaeological Survey of India (ASI) and Ministry of Culture at the push of a button.'
     }
   ];
 
@@ -143,8 +143,12 @@ export default function LandingPageView({
 
   const faqs = [
     {
-      q: 'How does Heritage Shield generate the 3D Digital Twin?',
-      a: 'The system ingests high-resolution photogrammetric drone scans, LiDAR point clouds, and historical architectural blueprints to synthesize component-indexed 3D PBR models rendered with WebGL / Three.js at 60 FPS.'
+      q: 'How does Heritage Shield adhere to UNESCO & ASI standards?',
+      a: 'The platform integrates ISO 31000 risk management frameworks with UNESCO ICOMOS conservation charters, calculating auditable risk indices across physical, environmental, and socio-cultural factors.'
+    },
+    {
+      q: 'Can inspections be performed in the field without internet?',
+      a: 'Yes. Heritage Shield utilizes local IndexedDB offline storage with service-worker telemetry syncing, allowing conservation officers to log defect surveys in remote areas.'
     },
     {
       q: 'How does the 2030 temporal crack progression API work?',
@@ -156,7 +160,7 @@ export default function LandingPageView({
     },
     {
       q: 'How is national geospatial telemetry integrated?',
-      a: 'The platform links ISRO Bhuvan WGS84 GIS layers, IMD precipitation radar, and BIS IS 1893 seismic hazard fault lines to dynamically update monument vulnerability ratings across all 12 Centrally Protected Monuments.'
+      a: 'The platform links ISRO Bhuvan WGS84 GIS layers, IMD precipitation radar, and BIS IS 1893 seismic hazard fault lines to dynamically update heritage site vulnerability ratings across all 12 Centrally Protected Heritage Sites.'
     }
   ];
 
@@ -196,7 +200,7 @@ export default function LandingPageView({
             <a href="#decision-modules" className="hover:text-[#C5A059] transition">Decision Architecture</a>
             <a href="#sandbox-showcase" className="hover:text-[#C5A059] transition">Live Twin Console</a>
             <a href="#climate-simulator" className="hover:text-[#C5A059] transition">2030 Predictor</a>
-            <a href="#monument-registry" className="hover:text-[#C5A059] transition">Monuments</a>
+            <a href="#monument-registry" className="hover:text-[#C5A059] transition">Heritage Sites</a>
             <a href="#faq" className="hover:text-[#C5A059] transition">FAQ</a>
           </div>
 
@@ -446,17 +450,17 @@ export default function LandingPageView({
                 <div className="lg:col-span-5 space-y-4">
                   <span className="text-xs font-mono text-[#C5A059] uppercase font-bold">Interactive 3D Simulation</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
-                    Living 3D Digital Twin of the Monument
+                    Living 3D Digital Twin of the Heritage Site
                   </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
-                    A realistic 3D model of the monument. You can rotate 360°, zoom in, and click directly on individual domes, balconies, pillars, or base walls to inspect their condition history.
+                    A realistic 3D model of the heritage site. You can rotate 360°, zoom in, and click directly on individual domes, balconies, pillars, or base walls to inspect their condition history.
                   </p>
                   
                   {/* Select 3D Twin Custom Dropdown */}
                   <div className="pt-2 space-y-1.5">
                     <label className="text-xs font-mono text-[#C5A059] block font-bold uppercase tracking-wider flex items-center gap-1.5">
                       <span>🏛️</span>
-                      <span>Select Monument:</span>
+                      <span>Select Heritage Site:</span>
                     </label>
                     <div className="relative">
                       <select
@@ -526,11 +530,11 @@ export default function LandingPageView({
                       Smart computer vision scans inspection photos to detect cracks, peeling stone, and water dampness. It measures the exact length and width of cracks to catch damage early.
                     </p>
                     
-                    {/* Select Monument Dropdown */}
+                    {/* Select Heritage Site Dropdown */}
                     <div className="pt-2 space-y-1.5">
                       <label className="text-xs font-mono text-cyan-400 block font-bold uppercase tracking-wider flex items-center gap-1.5">
                         <span>🏛️</span>
-                        <span>Select Monument:</span>
+                        <span>Select Heritage Site:</span>
                       </label>
                       <div className="relative">
                         <select
@@ -568,11 +572,6 @@ export default function LandingPageView({
                           {curVisionSite.name} · AI Vision Scanner
                         </h3>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/50 font-bold">
-                          ⚡ YOLOv8 Deep Vision
-                        </span>
-                      </div>
                     </div>
 
                     {/* Image Viewport with Dynamic AI Bounding Box */}
@@ -608,7 +607,6 @@ export default function LandingPageView({
                     {/* Footer Strip with Telemetry */}
                     <div className="bg-[#0E1013] border-t border-[#1E2228] px-4 py-2 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] text-gray-400 z-10 shrink-0">
                       <span className="text-gray-300 font-semibold">{curDefect.metrics}</span>
-                      <span className="text-emerald-400 font-bold">● Neural Ingest Active</span>
                     </div>
                   </div>
                 </div>
@@ -669,10 +667,10 @@ export default function LandingPageView({
                 <div className="lg:col-span-5 space-y-4">
                   <span className="text-xs font-mono text-emerald-400 uppercase font-bold">National GIS Map</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
-                    Live Map for All 12 Heritage Monuments
+                    Live Map for All 12 Heritage Sites
                   </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
-                    View all 12 Centrally Protected Monuments across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
+                    View all 12 Centrally Protected Heritage Sites across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
                   </p>
                   <div className="pt-4">
                     <button
@@ -713,7 +711,7 @@ export default function LandingPageView({
             Extreme Climate & Seismic Stress Simulator
           </h2>
           <p className="text-xs text-gray-400 font-sans">
-            Adjust environmental parameters to see how climatic anomalies affect monument degradation in real-time.
+            Adjust environmental parameters to see how climatic anomalies affect heritage site degradation in real-time.
           </p>
         </div>
 

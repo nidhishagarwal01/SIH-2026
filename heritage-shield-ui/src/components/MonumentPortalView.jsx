@@ -211,24 +211,24 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
         <div className="flex flex-wrap justify-between items-end gap-3">
           <div>
             <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-              Centrally Protected Monuments Grid
+              Centrally Protected Heritage Sites Grid
             </span>
             <h3 className="text-xl font-serif font-bold text-[#F3EFE6]">
-              National Heritage Registry Directory
+              National Heritage Sites Directory
             </h3>
           </div>
           <span className="text-xs font-mono text-gray-400">
-            Showing <strong className="text-white font-bold">{filteredSites.length}</strong> Protected Heritage Assets
+            Showing <strong className="text-white font-bold">{filteredSites.length}</strong> Protected Heritage Sites
           </span>
         </div>
 
-        {/* Monument Cards Grid */}
+        {/* Heritage Sites Cards Grid */}
 
         {filteredSites.length === 0 ? (
           <div className="bg-[#121418] border border-[#1E2228] rounded-2xl p-12 text-center space-y-3">
             <div className="text-3xl">🏛️</div>
-            <h3 className="text-base font-serif font-bold text-gray-300">No Heritage Monuments Found</h3>
-            <p className="text-xs text-gray-500 font-mono">No monuments match your current search or filter criteria.</p>
+            <h3 className="text-base font-serif font-bold text-gray-300">No Heritage Sites Found</h3>
+            <p className="text-xs text-gray-500 font-mono">No heritage sites match your current search or filter criteria.</p>
             <button
               onClick={() => { setSearchQuery(''); setStatusFilter('ALL'); setStateFilter('ALL'); }}
               className="mt-2 px-4 py-2 rounded-lg bg-[#C5A059] text-[#090A0C] text-xs font-mono font-bold"

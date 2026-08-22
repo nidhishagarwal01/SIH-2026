@@ -39,7 +39,7 @@ export default function AssetSwitcherModal({
               </span>
             </div>
             <h2 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
-              Select Monument of National Importance
+              Select Heritage Site of National Importance
             </h2>
           </div>
 
@@ -164,7 +164,7 @@ export default function AssetSwitcherModal({
         {/* Footer */}
         <div className="bg-[#0E1013] border-t border-[#1E2228] px-6 py-3 flex justify-between items-center text-xs font-mono">
           <span className="text-gray-500">
-            Clicking a monument updates 3D Digital Twin, Live Open-Meteo Feeds & OpenCV Diagnostics.
+            Clicking a heritage site updates 3D Digital Twin, Live Open-Meteo Feeds & OpenCV Diagnostics.
           </span>
           <button
             onClick={onClose}
