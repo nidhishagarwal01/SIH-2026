@@ -1,5 +1,5 @@
 // Master National Registry of UNESCO World Heritage Sites & Monuments in India
-// Complete with Authentic High-Resolution Photography, GPS Coordinates, and Distinct Architectural Typologies
+// Complete with Authentic High-Resolution Local Photography, GPS Coordinates, and Distinct Architectural Typologies
 
 export const UNESCO_SITES = [
   {
@@ -23,7 +23,7 @@ export const UNESCO_SITES = [
     componentsCount: 4,
     material: "Carved Red Sandstone & Marble Bands",
     builtEra: "1192–1220 CE (Mamluk / Delhi Sultanate)",
-    imageUrl: "https://images.unsplash.com/photo-1590059390046-60868f058097?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/qutub_minar.jpg",
     lastSurvey: "April 2026"
   },
   {
@@ -47,7 +47,7 @@ export const UNESCO_SITES = [
     componentsCount: 6,
     material: "Monolithic Vijayanagara Granite",
     builtEra: "14th–16th Century CE (Vijayanagara Empire)",
-    imageUrl: "https://images.unsplash.com/photo-1600100397608-f010f443b350?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/hampi.jpg",
     lastSurvey: "June 2026"
   },
   {
@@ -71,7 +71,7 @@ export const UNESCO_SITES = [
     componentsCount: 5,
     material: "Massive Granite Ashlar Blocks",
     builtEra: "1518–1687 CE (Qutb Shahi Dynasty)",
-    imageUrl: "https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/golconda.jpg",
     lastSurvey: "May 2026"
   },
   {
@@ -95,7 +95,7 @@ export const UNESCO_SITES = [
     componentsCount: 8,
     material: "Khondalite & Chlorite Stone",
     builtEra: "1250 CE (Eastern Ganga Dynasty)",
-    imageUrl: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/konark.jpg",
     lastSurvey: "March 2026"
   },
   {
@@ -119,7 +119,7 @@ export const UNESCO_SITES = [
     componentsCount: 5,
     material: "Volcanic Basalt Traprock",
     builtEra: "2nd Century BCE – 5th Century CE (Satavahana & Vakataka)",
-    imageUrl: "https://images.unsplash.com/photo-1620766182966-c6eb5ed2b788?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/ajanta.jpg",
     lastSurvey: "May 2026"
   },
   {
@@ -143,7 +143,7 @@ export const UNESCO_SITES = [
     componentsCount: 6,
     material: "Makrana White Marble & Red Sandstone",
     builtEra: "1632–1653 CE (Mughal Empire - Shah Jahan)",
-    imageUrl: "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/taj_mahal.jpg",
     lastSurvey: "July 2026"
   },
   {
@@ -167,7 +167,7 @@ export const UNESCO_SITES = [
     componentsCount: 5,
     material: "Monolithic Deccan Basalt Excavation",
     builtEra: "8th Century CE (Rashtrakuta Dynasty - Krishna I)",
-    imageUrl: "https://images.unsplash.com/photo-1620766182966-c6eb5ed2b788?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/ellora.jpg",
     lastSurvey: "June 2026"
   },
   {
@@ -191,7 +191,7 @@ export const UNESCO_SITES = [
     componentsCount: 6,
     material: "Fine-Grained Panna Sandstone",
     builtEra: "950–1050 CE (Chandela Dynasty)",
-    imageUrl: "https://images.unsplash.com/photo-1608889825103-eb5ed706fc64?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/khajuraho.jpg",
     lastSurvey: "May 2026"
   },
   {
@@ -215,7 +215,7 @@ export const UNESCO_SITES = [
     componentsCount: 4,
     material: "Local Sandstone Masonry",
     builtEra: "3rd Century BCE – 12th Century CE (Mauryan Empire)",
-    imageUrl: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/sanchi.jpg",
     lastSurvey: "June 2026"
   },
   {
@@ -239,7 +239,7 @@ export const UNESCO_SITES = [
     componentsCount: 6,
     material: "Charnockite Hard Granite",
     builtEra: "1010 CE (Chola Dynasty - Raja Raja I)",
-    imageUrl: "https://images.unsplash.com/photo-1616423640778-28d1b53229bd?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/chola_temple.jpg",
     lastSurvey: "April 2026"
   },
   {
@@ -263,7 +263,7 @@ export const UNESCO_SITES = [
     componentsCount: 5,
     material: "Carved Sandstone Siltstone",
     builtEra: "1063 CE (Solanki Dynasty - Queen Udayamati)",
-    imageUrl: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/rani_ki_vav.jpg",
     lastSurvey: "June 2026"
   },
   {
@@ -287,7 +287,7 @@ export const UNESCO_SITES = [
     componentsCount: 4,
     material: "Sun-Dried Mud Brick & Calcarenite",
     builtEra: "3000–1500 BCE (Indus Valley Civilization)",
-    imageUrl: "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "/monuments/dholavira.jpg",
     lastSurvey: "February 2026"
   }
 ];

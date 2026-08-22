@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 export function getPresetsForSite(site) {
   const typ = site?.typology || 'qutub_minar';
   const siteName = site?.name || 'Heritage Monument';
-  const img = site?.imageUrl || 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Qutub_Minar_in_Delhi.jpg/1200px-Qutub_Minar_in_Delhi.jpg';
+  const img = site?.imageUrl || '/monuments/qutub_minar.jpg';
 
   if (typ === 'taj_mahal') {
     return {
@@ -53,7 +53,7 @@ export function getPresetsForSite(site) {
         tabLabel: 'Iwan Arch & Inlay',
         title: `${siteName} — Main Mausoleum Iwan & Pietra Dura Inlay`,
         material: "Makrana Marble with Lapis Lazuli, Jasper & Agate Inlay",
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Taj_Mahal_%28Edited%29.jpeg/1200px-Taj_Mahal_%28Edited%29.jpeg",
+        imageUrl: img,
         detections: [
           {
             id: "DEF-TM-003",
@@ -78,7 +78,7 @@ export function getPresetsForSite(site) {
         tabLabel: 'Riverfront Plinth',
         title: `${siteName} — Yamuna Riverfront Sandstone Terrace Plinth`,
         material: "Deep Red Sandstone & Timber Well Foundation Base",
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Taj_Mahal_%28Edited%29.jpeg/1200px-Taj_Mahal_%28Edited%29.jpeg",
+        imageUrl: img,
         detections: [
           {
             id: "DEF-TM-004",
@@ -133,7 +133,7 @@ export function getPresetsForSite(site) {
         tabLabel: 'Garuda Sanctum',
         title: `${siteName} — Garuda Shrine Masonry Jointing`,
         material: "Granite Ashlar with Interlocking Dowels",
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Stone_Chariot_at_Vittala_Temple_Complex%2C_Hampi.jpg/1200px-Stone_Chariot_at_Vittala_Temple_Complex%2C_Hampi.jpg",
+        imageUrl: img,
         detections: [
           {
             id: "DEF-HP-002",
@@ -158,7 +158,7 @@ export function getPresetsForSite(site) {
         tabLabel: 'Stepped Plinth',
         title: `${siteName} — Adhisthana Stepped Basal Plinth`,
         material: "Dressed Granite Moulding Course",
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Stone_Chariot_at_Vittala_Temple_Complex%2C_Hampi.jpg/1200px-Stone_Chariot_at_Vittala_Temple_Complex%2C_Hampi.jpg",
+        imageUrl: img,
         detections: [
           {
             id: "DEF-HP-003",
@@ -213,7 +213,7 @@ export function getPresetsForSite(site) {
         tabLabel: 'Jagamohana Pyramid',
         title: `${siteName} — Jagamohana Tiered Pida Shikhara`,
         material: "Khondalite Stone Courses & Iron Dowels",
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Konark_Sun_Temple_Wheel.jpg/1200px-Konark_Sun_Temple_Wheel.jpg",
+        imageUrl: img,
         detections: [
           {
             id: "DEF-KN-002",
@@ -238,7 +238,7 @@ export function getPresetsForSite(site) {
         tabLabel: 'Natamandira Plinth',
         title: `${siteName} — Dancing Hall Sculptured Plinth`,
         material: "Khondalite Ashlar Reliefs",
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Konark_Sun_Temple_Wheel.jpg/1200px-Konark_Sun_Temple_Wheel.jpg",
+        imageUrl: img,
         detections: [
           {
             id: "DEF-KN-003",
@@ -569,7 +569,6 @@ export default function InspectionPhotoViewer({
                 e.target.style.display = 'none';
               }}
             />
-
 
             {/* Bounding Box SVG Overlays — Pixel-Accurate */}
             {showMasks && (
