@@ -634,40 +634,439 @@ export default function MonumentViewer3D({
     }
 
     // =========================================================================
-    // 6. DEFAULT / ALL OTHER MONUMENTS (Brihadisvara, Ellora, Khajuraho, Ajanta, Golconda, etc.)
+    // 6. GOLCONDA CITADEL (Telangana) — Concentric Fortress Ramparts & Bala Hissar
+    // =========================================================================
+    else if (typology === 'golconda_citadel') {
+      // 1. Lower Polygonal Curtain Wall & Outer Ramparts
+      const rampartGroup = new THREE.Group();
+      const outerWall = new THREE.Mesh(new THREE.CylinderGeometry(4.8, 5.2, 1.2, 8), materials.graniteStone.clone());
+      outerWall.position.y = 0.6;
+      outerWall.castShadow = true;
+      outerWall.receiveShadow = true;
+      rampartGroup.add(outerWall);
+
+      // Bastions on polygon vertices
+      for (let i = 0; i < 8; i++) {
+        const angle = (i / 8) * Math.PI * 2;
+        const bastion = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.75, 1.4, 16), materials.graniteStone);
+        bastion.position.set(Math.cos(angle) * 5.0, 0.7, Math.sin(angle) * 5.0);
+        bastion.castShadow = true;
+        rampartGroup.add(bastion);
+      }
+      rampartGroup.userData = { componentIndex: 3, name: 'Outer Polygonal Fort Ramparts & Bastions', baseColor: 0x8C8A84 };
+      monumentGroup.add(rampartGroup);
+
+      // 2. Fateh Darwaza Arched Acoustic Gatehouse
+      const gateGroup = new THREE.Group();
+      const gateBody = new THREE.Mesh(new THREE.BoxGeometry(2.4, 1.8, 2.0), materials.graniteStone.clone());
+      gateBody.position.set(0, 1.5, 4.0);
+      gateBody.castShadow = true;
+      gateGroup.add(gateBody);
+
+      const archPortal = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 0.6, 2.2, 16, 1, false, 0, Math.PI), materials.ochreSandstone);
+      archPortal.rotation.z = Math.PI / 2;
+      archPortal.rotation.y = Math.PI / 2;
+      archPortal.position.set(0, 1.2, 4.0);
+      gateGroup.add(archPortal);
+      gateGroup.userData = { componentIndex: 2, name: 'Fateh Darwaza Acoustic Gatehouse', baseColor: 0x8C8A84 };
+      monumentGroup.add(gateGroup);
+
+      // 3. Middle Tier Citadel Fortifications & Arsenal
+      const middleFort = new THREE.Mesh(new THREE.CylinderGeometry(3.0, 3.8, 1.6, 8), materials.graniteStone.clone());
+      middleFort.position.y = 2.0;
+      middleFort.castShadow = true;
+      middleFort.userData = { componentIndex: 1, name: 'Middle Tier Fortress & Armory Walls', baseColor: 0x8C8A84 };
+      monumentGroup.add(middleFort);
+
+      // 4. Bala Hissar Royal Summit Pavilion (+120m Peak)
+      const balaHissarGroup = new THREE.Group();
+      const summitPlinth = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.4, 2.0), materials.graniteStone);
+      summitPlinth.position.y = 3.0;
+      balaHissarGroup.add(summitPlinth);
+
+      const darbarHall = new THREE.Mesh(new THREE.BoxGeometry(1.6, 1.2, 1.6), materials.ochreSandstone);
+      darbarHall.position.y = 3.8;
+      darbarHall.castShadow = true;
+      balaHissarGroup.add(darbarHall);
+
+      const summitDome = new THREE.Mesh(new THREE.SphereGeometry(0.7, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2), materials.goldFinial);
+      summitDome.position.y = 4.4;
+      summitDome.castShadow = true;
+      balaHissarGroup.add(summitDome);
+      balaHissarGroup.userData = { componentIndex: 0, name: 'Bala Hissar Royal Summit Pavilion', baseColor: 0xE8B931 };
+      monumentGroup.add(balaHissarGroup);
+
+      activeMeshes = [balaHissarGroup, middleFort, gateGroup, rampartGroup];
+    }
+
+    // =========================================================================
+    // 7. AJANTA CAVES (Maharashtra) — Horseshoe Basalt Cliff & Chaitya Sun Window
+    // =========================================================================
+    else if (typology === 'ajanta_caves') {
+      // 1. Curved Horseshoe Basalt Cliff Amphitheatre
+      const cliffMesh = new THREE.Mesh(
+        new THREE.CylinderGeometry(5.2, 5.6, 4.2, 32, 1, false, Math.PI * 0.25, Math.PI * 1.5),
+        materials.deccanBasalt.clone()
+      );
+      cliffMesh.material.side = THREE.BackSide;
+      cliffMesh.position.y = 2.1;
+      cliffMesh.receiveShadow = true;
+      cliffMesh.userData = { componentIndex: 3, name: 'Waghora Horseshoe Basalt Cliff Canyon', baseColor: 0x46423E };
+      monumentGroup.add(cliffMesh);
+
+      // 2. Rock-Cut Entrance Courtyard & Plinth Terrace
+      const plinthMesh = new THREE.Mesh(new THREE.BoxGeometry(4.8, 0.6, 3.6), materials.deccanBasalt.clone());
+      plinthMesh.position.set(0, 0.3, 0.5);
+      plinthMesh.castShadow = true;
+      plinthMesh.userData = { componentIndex: 2, name: 'Cave 19 Rock-Cut Courtyard Terrace', baseColor: 0x46423E };
+      monumentGroup.add(plinthMesh);
+
+      // 3. Pillared Rock-Cut Colonnade Verandah
+      const verandahGroup = new THREE.Group();
+      [-1.6, -0.8, 0, 0.8, 1.6].forEach(px => {
+        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.15, 2.2, 8), materials.deccanBasalt);
+        pillar.position.set(px, 1.7, 1.8);
+        pillar.castShadow = true;
+        verandahGroup.add(pillar);
+      });
+      const beam = new THREE.Mesh(new THREE.BoxGeometry(4.0, 0.3, 0.5), materials.deccanBasalt);
+      beam.position.set(0, 2.85, 1.8);
+      verandahGroup.add(beam);
+      verandahGroup.userData = { componentIndex: 1, name: 'Octagonal Rock-Hewn Colonnade Verandah', baseColor: 0x46423E };
+      monumentGroup.add(verandahGroup);
+
+      // 4. Chaitya Horseshoe Sun-Window & Interior Stupa
+      const chaityaGroup = new THREE.Group();
+      const sunWindow = new THREE.Mesh(new THREE.TorusGeometry(0.9, 0.25, 16, 32, Math.PI), materials.ochreSandstone);
+      sunWindow.position.set(0, 3.3, 1.2);
+      sunWindow.castShadow = true;
+      chaityaGroup.add(sunWindow);
+
+      const interiorStupa = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.6, 1.6, 16), materials.ochreSandstone);
+      interiorStupa.position.set(0, 1.4, -0.5);
+      interiorStupa.castShadow = true;
+      chaityaGroup.add(interiorStupa);
+
+      const stupaDome = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2), materials.goldFinial);
+      stupaDome.position.set(0, 2.2, -0.5);
+      chaityaGroup.add(stupaDome);
+
+      chaityaGroup.userData = { componentIndex: 0, name: 'Chaitya Horseshoe Arch & Sanctum Stupa', baseColor: 0xC9A15C };
+      monumentGroup.add(chaityaGroup);
+
+      activeMeshes = [chaityaGroup, verandahGroup, plinthMesh, cliffMesh];
+    }
+
+    // =========================================================================
+    // 8. ELLORA KAILASA TEMPLE (Maharashtra) — Monolithic Excavation & Victory Pillars
+    // =========================================================================
+    else if (typology === 'ellora_kailasa') {
+      // 1. Excavated Basalt Quarry Trench Pit & High Vertical Rock Walls
+      const quarryGroup = new THREE.Group();
+      const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.8, 4.5, 6.0), materials.deccanBasalt);
+      leftWall.position.set(-3.2, 2.25, 0);
+      quarryGroup.add(leftWall);
+      const rightWall = new THREE.Mesh(new THREE.BoxGeometry(0.8, 4.5, 6.0), materials.deccanBasalt);
+      rightWall.position.set(3.2, 2.25, 0);
+      quarryGroup.add(rightWall);
+      const rearWall = new THREE.Mesh(new THREE.BoxGeometry(7.0, 4.5, 0.8), materials.deccanBasalt);
+      rearWall.position.set(0, 2.25, -3.2);
+      quarryGroup.add(rearWall);
+      quarryGroup.userData = { componentIndex: 3, name: 'Monolithic Top-Down Basalt Excavation Pit', baseColor: 0x46423E };
+      monumentGroup.add(quarryGroup);
+
+      // 2. Elephant Sculpted High Base Plinth
+      const plinthGroup = new THREE.Group();
+      const baseBox = new THREE.Mesh(new THREE.BoxGeometry(3.6, 1.0, 4.4), materials.deccanBasalt.clone());
+      baseBox.position.set(0, 0.5, 0);
+      baseBox.castShadow = true;
+      plinthGroup.add(baseBox);
+
+      // Life-size elephant sculpt friezes along base
+      [-1.85, 1.85].forEach(ex => {
+        [-1.2, 0, 1.2].forEach(ez => {
+          const elephant = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.7, 0.55), materials.deccanBasalt);
+          elephant.position.set(ex, 0.5, ez);
+          plinthGroup.add(elephant);
+        });
+      });
+      plinthGroup.userData = { componentIndex: 2, name: 'Elephant Frieze Monolithic Base Plinth', baseColor: 0x46423E };
+      monumentGroup.add(plinthGroup);
+
+      // 3. Two Freestanding Dhwaja Stambha Victory Pillar Columns
+      const pillarGroup = new THREE.Group();
+      [-1.8, 1.8].forEach(px => {
+        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 3.4, 16), materials.deccanBasalt);
+        pillar.position.set(px, 1.7, 2.0);
+        pillar.castShadow = true;
+        const cap = new THREE.Mesh(new THREE.SphereGeometry(0.28, 12, 12), materials.goldFinial);
+        cap.position.set(px, 3.5, 2.0);
+        pillarGroup.add(pillar, cap);
+      });
+      pillarGroup.userData = { componentIndex: 1, name: 'Two Monolithic Dhwaja Stambha Columns', baseColor: 0x46423E };
+      monumentGroup.add(pillarGroup);
+
+      // 4. Central Dravidian Vimana Sanctuary & Shikhara Tower
+      const vimanaGroup = new THREE.Group();
+      const mandapa = new THREE.Mesh(new THREE.BoxGeometry(2.4, 1.6, 2.6), materials.deccanBasalt.clone());
+      mandapa.position.set(0, 1.8, -0.4);
+      mandapa.castShadow = true;
+      vimanaGroup.add(mandapa);
+
+      const shikhara1 = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.8, 1.2, 8), materials.deccanBasalt);
+      shikhara1.position.set(0, 3.2, -0.6);
+      vimanaGroup.add(shikhara1);
+
+      const octDome = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 1.0, 0.8, 8), materials.ochreSandstone);
+      octDome.position.set(0, 4.2, -0.6);
+      vimanaGroup.add(octDome);
+
+      const stupi = new THREE.Mesh(new THREE.ConeGeometry(0.25, 0.6, 16), materials.goldFinial);
+      stupi.position.set(0, 4.8, -0.6);
+      vimanaGroup.add(stupi);
+
+      vimanaGroup.userData = { componentIndex: 0, name: 'Dravidian Vimana Sanctum & Octagonal Shikhara', baseColor: 0xC9A15C };
+      monumentGroup.add(vimanaGroup);
+
+      activeMeshes = [vimanaGroup, pillarGroup, plinthGroup, quarryGroup];
+    }
+
+    // =========================================================================
+    // 9. KHAJURAHO TEMPLE (Madhya Pradesh) — Nagara Curvilinear Shikhara Mountain Spire
+    // =========================================================================
+    else if (typology === 'khajuraho_temple') {
+      // 1. High Sandstone Jagati Terrace
+      const plinthMesh = new THREE.Mesh(new THREE.BoxGeometry(4.8, 0.8, 6.2), materials.ochreSandstone.clone());
+      plinthMesh.position.y = 0.4;
+      plinthMesh.castShadow = true;
+      plinthMesh.receiveShadow = true;
+      plinthMesh.userData = { componentIndex: 3, name: 'Elevated Jagati Terrace & Carved Friezes', baseColor: 0xC9A15C };
+      monumentGroup.add(plinthMesh);
+
+      // 2. Ardha-Mandapa & Mandapa Pyramidal Halls (Samvarana Roofs)
+      const mandapaGroup = new THREE.Group();
+      const porch = new THREE.Mesh(new THREE.ConeGeometry(1.0, 1.4, 4), materials.ochreSandstone.clone());
+      porch.position.set(0, 1.5, 2.0);
+      porch.rotation.y = Math.PI / 4;
+      porch.castShadow = true;
+      mandapaGroup.add(porch);
+
+      const mahaMandapa = new THREE.Mesh(new THREE.ConeGeometry(1.5, 2.2, 4), materials.ochreSandstone.clone());
+      mahaMandapa.position.set(0, 1.9, 0.6);
+      mahaMandapa.rotation.y = Math.PI / 4;
+      mahaMandapa.castShadow = true;
+      mandapaGroup.add(mahaMandapa);
+      mandapaGroup.userData = { componentIndex: 2, name: 'Ardha-Mandapa & Maha-Mandapa Halls', baseColor: 0xC9A15C };
+      monumentGroup.add(mandapaGroup);
+
+      // 3. Clustered Urushringas (Miniature Spires clinging to main tower)
+      const urushringaGroup = new THREE.Group();
+      [[-0.9, -1.0], [0.9, -1.0], [-0.9, -1.8], [0.9, -1.8]].forEach(([ux, uz]) => {
+        const miniSpire = new THREE.Mesh(new THREE.ConeGeometry(0.55, 2.4, 8), materials.ochreSandstone);
+        miniSpire.position.set(ux, 2.0, uz);
+        miniSpire.castShadow = true;
+        urushringaGroup.add(miniSpire);
+      });
+      urushringaGroup.userData = { componentIndex: 1, name: 'Clustered Miniature Spires (Urushringas)', baseColor: 0xC9A15C };
+      monumentGroup.add(urushringaGroup);
+
+      // 4. Main Curvilinear Garbhagriha Shikhara Tower (31m Peak)
+      const shikharaGroup = new THREE.Group();
+      const mainTower = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 1.8, 3.6, 12), materials.ochreSandstone.clone());
+      mainTower.position.set(0, 2.6, -1.4);
+      mainTower.castShadow = true;
+      shikharaGroup.add(mainTower);
+
+      const amalaka = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.9, 0.35, 24), materials.ochreSandstone);
+      amalaka.position.set(0, 4.5, -1.4);
+      shikharaGroup.add(amalaka);
+
+      const kalasha = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.9, 16), materials.goldFinial);
+      kalasha.position.set(0, 5.1, -1.4);
+      shikharaGroup.add(kalasha);
+
+      shikharaGroup.userData = { componentIndex: 0, name: 'Kandariya Curvilinear Shikhara & Kalasha', baseColor: 0xE8B931 };
+      monumentGroup.add(shikharaGroup);
+
+      activeMeshes = [shikharaGroup, urushringaGroup, mandapaGroup, plinthMesh];
+    }
+
+    // =========================================================================
+    // 10. CHOLA BRIHADEESWARA TEMPLE (Tamil Nadu) — 13-Tier 66m Granite Vimana Tower
+    // =========================================================================
+    else if (typology === 'chola_temple') {
+      // 1. Long Dravidian Granite Courtyard Plinth
+      const plinthMesh = new THREE.Mesh(new THREE.BoxGeometry(4.6, 0.7, 6.4), materials.graniteStone.clone());
+      plinthMesh.position.y = 0.35;
+      plinthMesh.castShadow = true;
+      plinthMesh.receiveShadow = true;
+      plinthMesh.userData = { componentIndex: 3, name: 'Upapitha Granite Platform (Rajarajeswaram)', baseColor: 0x8C8A84 };
+      monumentGroup.add(plinthMesh);
+
+      // 2. Frontal Nandi Mandapam Pavilion
+      const nandiGroup = new THREE.Group();
+      const nandiPlinth = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.4, 1.8), materials.graniteStone);
+      nandiPlinth.position.set(0, 0.9, 2.0);
+      nandiGroup.add(nandiPlinth);
+
+      const nandiBull = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.7, 1.2), materials.deccanBasalt);
+      nandiBull.position.set(0, 1.45, 2.0);
+      nandiBull.castShadow = true;
+      nandiGroup.add(nandiBull);
+      nandiGroup.userData = { componentIndex: 2, name: 'Monolithic Nandi Mandapam Shrine', baseColor: 0x8C8A84 };
+      monumentGroup.add(nandiGroup);
+
+      // 3. Soaring 13-Tiered Pyramidal Dravidian Vimana
+      const vimanaGroup = new THREE.Group();
+      const baseSanctum = new THREE.Mesh(new THREE.BoxGeometry(3.2, 1.4, 3.2), materials.graniteStone.clone());
+      baseSanctum.position.set(0, 1.4, -0.8);
+      baseSanctum.castShadow = true;
+      vimanaGroup.add(baseSanctum);
+
+      // 6 stepped pyramid tiers representing the 13 tiers
+      for (let t = 0; t < 6; t++) {
+        const tw = 2.8 - t * 0.38;
+        const tier = new THREE.Mesh(new THREE.BoxGeometry(tw, 0.5, tw), materials.graniteStone);
+        tier.position.set(0, 2.35 + t * 0.48, -0.8);
+        tier.castShadow = true;
+        vimanaGroup.add(tier);
+      }
+      vimanaGroup.userData = { componentIndex: 1, name: '13-Storey Granite Pyramidal Vimana (+66m)', baseColor: 0x8C8A84 };
+      monumentGroup.add(vimanaGroup);
+
+      // 4. Monolithic 80-Tonne Kumbam Capstone Dome & Golden Stupi
+      const apexGroup = new THREE.Group();
+      const kumbam = new THREE.Mesh(new THREE.SphereGeometry(0.75, 16, 12, 0, Math.PI * 2, 0, Math.PI / 2), materials.graniteStone);
+      kumbam.position.set(0, 5.2, -0.8);
+      apexGroup.add(kumbam);
+
+      const stupiFinial = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.9, 16), materials.goldFinial);
+      stupiFinial.position.set(0, 6.0, -0.8);
+      stupiFinial.castShadow = true;
+      apexGroup.add(stupiFinial);
+      apexGroup.userData = { componentIndex: 0, name: '80-Tonne Monolithic Kumbam & Golden Stupi', baseColor: 0xE8B931 };
+      monumentGroup.add(apexGroup);
+
+      activeMeshes = [apexGroup, vimanaGroup, nandiGroup, plinthMesh];
+    }
+
+    // =========================================================================
+    // 11. RANI KI VAV STEPWELL (Gujarat) — 7-Tiered Subterranean Inverted Temple
+    // =========================================================================
+    else if (typology === 'rani_ki_vav') {
+      // 1. Ground Surrounding Surface
+      const groundMesh = new THREE.Mesh(new THREE.BoxGeometry(6.4, 0.4, 6.8), materials.ochreSandstone.clone());
+      groundMesh.position.y = 2.8;
+      groundMesh.userData = { componentIndex: 3, name: 'Ground Entrance Plinth & Pavilion', baseColor: 0xC9A15C };
+      monumentGroup.add(groundMesh);
+
+      // 2. Subterranean Stepped Terrace Well Canyon
+      const terraceGroup = new THREE.Group();
+      for (let s = 0; s < 5; s++) {
+        const stepWidth = 4.2 - s * 0.4;
+        const step = new THREE.Mesh(new THREE.BoxGeometry(stepWidth, 0.45, 1.2), materials.ochreSandstone);
+        step.position.set(0, 2.4 - s * 0.55, 2.2 - s * 0.9);
+        step.receiveShadow = true;
+        terraceGroup.add(step);
+      }
+      terraceGroup.userData = { componentIndex: 2, name: '7-Storey Subterranean Stepped Terraces', baseColor: 0xC9A15C };
+      monumentGroup.add(terraceGroup);
+
+      // 3. Multi-Storeyed Carved Colonnade Pillars
+      const pillarColonnade = new THREE.Group();
+      [-1.4, -0.7, 0.7, 1.4].forEach(px => {
+        [0.8, -0.4, -1.6].forEach(pz => {
+          const col = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.1, 1.6, 8), materials.ochreSandstone);
+          col.position.set(px, 1.2, pz);
+          col.castShadow = true;
+          pillarColonnade.add(col);
+        });
+      });
+      pillarColonnade.userData = { componentIndex: 1, name: 'Sculptural Colonnades & 500+ Avatar Niches', baseColor: 0xC9A15C };
+      monumentGroup.add(pillarColonnade);
+
+      // 4. Deep Cylindrical Water Well Reservoir Shaft
+      const wellGroup = new THREE.Group();
+      const wellShaft = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 3.2, 24, 1, true), materials.ochreSandstone);
+      wellShaft.position.set(0, 1.2, -2.6);
+      wellGroup.add(wellShaft);
+
+      const waterDisc = new THREE.Mesh(
+        new THREE.CircleGeometry(1.35, 24),
+        new THREE.MeshStandardMaterial({ color: 0x1E5E7A, roughness: 0.1, metalness: 0.85 })
+      );
+      waterDisc.rotation.x = -Math.PI / 2;
+      waterDisc.position.set(0, 0.1, -2.6);
+      wellGroup.add(waterDisc);
+      wellGroup.userData = { componentIndex: 0, name: 'Deep Circular Water Well Reservoir Shaft', baseColor: 0x1E5E7A };
+      monumentGroup.add(wellGroup);
+
+      activeMeshes = [wellGroup, pillarColonnade, terraceGroup, groundMesh];
+    }
+
+    // =========================================================================
+    // 12. DHOLAVIRA HARAPPAN CITADEL (Gujarat) — Bronze Age Reservoir & Ramparts
     // =========================================================================
     else {
-      // Robust Multi-Tiered Classical Heritage Template
-      const baseMat = siteIndex === 4 || siteIndex === 6 ? materials.deccanBasalt : materials.ochreSandstone;
+      // 1. Massive Dressed-Stone Fortified Ramparts & Corner Bastions
+      const citadelGroup = new THREE.Group();
+      const ramparts = new THREE.Mesh(new THREE.BoxGeometry(5.2, 1.2, 5.2), materials.ancientBrick.clone());
+      ramparts.position.y = 0.6;
+      ramparts.castShadow = true;
+      ramparts.receiveShadow = true;
+      citadelGroup.add(ramparts);
 
-      const subMesh = new THREE.Mesh(new THREE.BoxGeometry(5.0, 0.8, 5.0), baseMat.clone());
-      subMesh.position.y = 0.4;
-      subMesh.castShadow = true;
-      subMesh.receiveShadow = true;
-      subMesh.userData = { componentIndex: 3, name: 'Structural Plinth & Substructure', baseColor: 0x8C8A84 };
-      monumentGroup.add(subMesh);
+      [[-2.4, -2.4], [2.4, -2.4], [-2.4, 2.4], [2.4, 2.4]].forEach(([bx, bz]) => {
+        const bastion = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.6, 1.4), materials.ancientBrick);
+        bastion.position.set(bx, 0.8, bz);
+        bastion.castShadow = true;
+        citadelGroup.add(bastion);
+      });
+      citadelGroup.userData = { componentIndex: 3, name: 'Massive Dressed-Stone Outer Ramparts & Bastions', baseColor: 0x9E5A3C };
+      monumentGroup.add(citadelGroup);
 
-      const bodyMesh = new THREE.Mesh(new THREE.BoxGeometry(3.6, 2.0, 3.6), baseMat.clone());
-      bodyMesh.position.y = 1.8;
-      bodyMesh.castShadow = true;
-      bodyMesh.userData = { componentIndex: 2, name: 'Central Mandapa & Façade Walls', baseColor: 0xC9A15C };
-      monumentGroup.add(bodyMesh);
+      // 2. Stepped Stone-Masonry Water Reservoir Tank
+      const tankGroup = new THREE.Group();
+      const reservoirWall = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.8, 3.2), materials.ochreSandstone.clone());
+      reservoirWall.position.set(0, 1.2, -0.6);
+      tankGroup.add(reservoirWall);
 
-      const shikharaMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 2.4, 2.4, 8), baseMat.clone());
-      shikharaMesh.position.y = 3.9;
-      shikharaMesh.castShadow = true;
-      shikharaMesh.userData = { componentIndex: 1, name: 'Curvilinear Vimana Shikhara', baseColor: 0xC9A15C };
-      monumentGroup.add(shikharaMesh);
+      const water = new THREE.Mesh(
+        new THREE.PlaneGeometry(2.1, 2.9),
+        new THREE.MeshStandardMaterial({ color: 0x2A7E8C, roughness: 0.15, metalness: 0.8 })
+      );
+      water.rotation.x = -Math.PI / 2;
+      water.position.set(0, 1.4, -0.6);
+      tankGroup.add(water);
+      tankGroup.userData = { componentIndex: 2, name: 'Monolithic Stepped Water Reservoir & Inlets', baseColor: 0x2A7E8C };
+      monumentGroup.add(tankGroup);
 
-      const kalashaGroup = new THREE.Group();
-      const finialMesh = new THREE.Mesh(new THREE.ConeGeometry(0.4, 1.0, 16), materials.goldFinial);
-      finialMesh.position.y = 5.6;
-      finialMesh.castShadow = true;
-      kalashaGroup.add(finialMesh);
-      kalashaGroup.userData = { componentIndex: 0, name: 'Apex Kalasha Finial', baseColor: 0xE8B931 };
-      monumentGroup.add(kalashaGroup);
+      // 3. Monumental Northern Gateway & Ceremonial Steps
+      const gatewayGroup = new THREE.Group();
+      const leftGate = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.8, 1.0), materials.ancientBrick);
+      leftGate.position.set(-1.0, 1.5, 2.2);
+      const rightGate = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.8, 1.0), materials.ancientBrick);
+      rightGate.position.set(1.0, 1.5, 2.2);
+      const lintel = new THREE.Mesh(new THREE.BoxGeometry(2.8, 0.4, 1.0), materials.ochreSandstone);
+      lintel.position.set(0, 2.5, 2.2);
+      gatewayGroup.add(leftGate, rightGate, lintel);
+      gatewayGroup.userData = { componentIndex: 1, name: 'Monumental Northern Ceremonial Gateway', baseColor: 0x9E5A3C };
+      monumentGroup.add(gatewayGroup);
 
-      activeMeshes = [kalashaGroup, shikharaMesh, bodyMesh, subMesh];
+      // 4. Acropolis Castle Summit & Signboard Pillar Mounts
+      const acropolisGroup = new THREE.Group();
+      const acropolisMound = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.6, 1.0, 8), materials.ochreSandstone);
+      acropolisMound.position.set(0, 2.1, 0);
+      acropolisMound.castShadow = true;
+      acropolisGroup.add(acropolisMound);
+
+      const signPillar = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.3, 0.15), materials.makranaMarble);
+      signPillar.position.set(0, 2.8, 0.6);
+      acropolisGroup.add(signPillar);
+      acropolisGroup.userData = { componentIndex: 0, name: 'Acropolis Royal Castle & Signboard Chamber', baseColor: 0xC9A15C };
+      monumentGroup.add(acropolisGroup);
+
+      activeMeshes = [acropolisGroup, gatewayGroup, tankGroup, citadelGroup];
     }
 
     // Ensure all meshes in each component group have componentIndex tagged
