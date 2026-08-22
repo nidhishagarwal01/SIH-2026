@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import HeritageGisMap from './HeritageGisMap';
 
 export default function MonumentPortalView({ sites, onSelectMonument, liveWeather }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -64,22 +65,22 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
       </header>
 
       {/* 🌟 2. PORTAL HERO BANNER */}
-      <section className="bg-gradient-to-b from-[#111317] via-[#0E1013] to-[#090A0C] border-b border-[#1E2228] px-6 py-10">
+      <section className="bg-gradient-to-b from-[#111317] via-[#0E1013] to-[#090A0C] border-b border-[#1E2228] px-6 py-8">
         <div className="max-w-[1600px] mx-auto space-y-6">
           <div className="max-w-3xl space-y-2">
             <span className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-bold bg-[#C5A059]/10 px-3 py-1 rounded-full border border-[#C5A059]/20">
-              National Heritage Registry & Digital Twin Directory
+              National Geospatial Heritage Radar & Interactive Directory
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#F3EFE6] tracking-tight">
               Select a Heritage Monument to Launch Conservation Studio
             </h2>
             <p className="text-sm text-gray-400 leading-relaxed font-sans">
-              Choose a centrally protected monument or UNESCO World Heritage site to open its dedicated 3D living digital twin, run AI defect diagnostics, evaluate multi-hazard vulnerability, and synthesize official ASI conservation work orders.
+              Click any monument on the interactive map of India below or select from the national registry cards to open its dedicated 3D living digital twin, run AI defect diagnostics, evaluate multi-hazard vulnerability, and synthesize official ASI work orders.
             </p>
           </div>
 
           {/* Key Metric Highlights */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl pt-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-4xl pt-1">
             <div className="bg-[#14171C] border border-[#1E2228] p-3.5 rounded-xl">
               <div className="text-[10px] font-mono text-gray-500 uppercase">Monitored UNESCO Sites</div>
               <div className="text-xl font-serif font-bold text-[#C5A059] mt-0.5">12 Flagship Assets</div>
@@ -96,6 +97,53 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
               <div className="text-[10px] font-mono text-gray-500 uppercase">Preventive Conservation ROI</div>
               <div className="text-xl font-serif font-bold text-emerald-400 mt-0.5">93.4% Cost Savings</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 🗺️ 3. INTERACTIVE GEOSPATIAL MAP SECTION */}
+      <section className="px-6 py-6 border-b border-[#1E2228] bg-[#090A0C]">
+        <div className="max-w-[1600px] mx-auto space-y-3">
+          <div className="flex flex-wrap justify-between items-center gap-3">
+            <div>
+              <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
+                National Multi-Hazard Geospatial Radar
+              </span>
+              <h3 className="text-lg font-serif font-bold text-[#F3EFE6]">
+                Interactive Map of India — Click Any Monument Marker to Launch Studio
+              </h3>
+            </div>
+            <div className="text-xs font-mono text-gray-400 bg-[#121418] px-3 py-1 rounded-lg border border-[#1E2228]">
+              Grid: <strong className="text-sky-400">ISRO Bhuvan WGS84 Standard</strong>
+            </div>
+          </div>
+
+          {/* Leaflet Interactive Map Component */}
+          <HeritageGisMap
+            onSelectSite={(idx, targetTab = 'twin') => {
+              if (onSelectMonument) onSelectMonument(idx, targetTab);
+            }}
+          />
+        </div>
+      </section>
+
+      {/* 📋 4. MONUMENT REGISTRY GRID SECTION */}
+      <main className="max-w-[1600px] mx-auto px-6 py-8 flex-1 space-y-6">
+        
+        {/* Section Header & Filters */}
+        <div className="space-y-4">
+          <div className="flex flex-wrap justify-between items-end gap-3">
+            <div>
+              <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
+                Centrally Protected Monuments Grid
+              </span>
+              <h3 className="text-xl font-serif font-bold text-[#F3EFE6]">
+                National Heritage Registry Directory
+              </h3>
+            </div>
+            <span className="text-xs font-mono text-gray-400">
+              Showing <strong className="text-white">{filteredSites.length}</strong> of {sites.length} Protected Heritage Assets
+            </span>
           </div>
 
           {/* Search & Filtering Bar */}
@@ -141,7 +189,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
                     : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
                 }`}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                <span className="w-2 h-2 rounded-full bg-rose-500"></span>
                 <span>Critical Urgency ({criticalCount})</span>
               </button>
 
@@ -153,7 +201,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
                     : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
                 }`}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                <span className="w-2 h-2 rounded-full bg-amber-500"></span>
                 <span>Watch List ({watchCount})</span>
               </button>
 
@@ -165,7 +213,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
                     : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
                 }`}
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                 <span>Stable ({stableCount})</span>
               </button>
 
@@ -173,49 +221,54 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
                 onClick={() => setStatusFilter('ZoneIV_V')}
                 className={`px-3 py-1.5 rounded-lg border transition flex items-center gap-1.5 ${
                   statusFilter === 'ZoneIV_V'
-                    ? 'border-cyan-500 bg-cyan-500/20 text-cyan-300 font-bold'
+                    ? 'border-orange-500 bg-orange-500/20 text-orange-300 font-bold'
                     : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
                 }`}
               >
                 <span>🌋 High Seismic (Zone IV/V)</span>
               </button>
             </div>
+
+            {/* State Dropdown */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono text-gray-500 uppercase">State:</span>
+              <select
+                value={stateFilter}
+                onChange={(e) => setStateFilter(e.target.value)}
+                className="bg-[#0E1013] border border-[#1E2228] text-xs font-mono text-gray-200 px-3 py-1.5 rounded-lg focus:outline-none focus:border-[#C5A059]"
+              >
+                {uniqueStates.map(st => (
+                  <option key={st} value={st}>{st === 'ALL' ? 'All States (National)' : st}</option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* 🏛️ 3. MONUMENT DIRECTORY GRID */}
-      <main className="flex-1 max-w-[1600px] w-full mx-auto px-6 py-8 space-y-6">
-        <div className="flex justify-between items-center text-xs font-mono text-gray-400">
-          <span>Showing <strong>{filteredSites.length}</strong> of {sites.length} Protected Heritage Assets</span>
-          <span>Click any card to launch its 3D Twin & AI Diagnostics Studio</span>
-        </div>
-
+        {/* 12 Monument Cards Grid */}
         {filteredSites.length === 0 ? (
           <div className="bg-[#121418] border border-[#1E2228] rounded-2xl p-12 text-center space-y-3">
-            <span className="text-3xl">🏛️</span>
-            <h3 className="text-base font-serif font-bold text-gray-300">No Monuments Match Your Filter</h3>
-            <p className="text-xs text-gray-500 max-w-md mx-auto">
-              Try adjusting your search keywords or resetting status filters to view the complete UNESCO World Heritage registry.
-            </p>
+            <div className="text-3xl">🏛️</div>
+            <h3 className="text-base font-serif font-bold text-gray-300">No Heritage Monuments Found</h3>
+            <p className="text-xs text-gray-500 font-mono">No monuments match your current search or filter criteria.</p>
             <button
               onClick={() => { setSearchQuery(''); setStatusFilter('ALL'); setStateFilter('ALL'); }}
-              className="mt-2 px-4 py-2 rounded-lg bg-[#C5A059] text-[#090A0C] font-mono font-bold text-xs hover:brightness-110 transition"
+              className="mt-2 px-4 py-2 rounded-lg bg-[#C5A059] text-[#090A0C] text-xs font-mono font-bold"
             >
-              Reset All Filters
+              Reset Filters
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {filteredSites.map((site) => (
               <div
-                key={site.index}
+                key={site.id}
                 onClick={() => onSelectMonument(site.index)}
-                className="group cursor-pointer bg-[#121418] border border-[#1E2228] hover:border-[#C5A059] rounded-2xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-950/20 flex flex-col justify-between"
+                className="group cursor-pointer bg-[#121418] hover:bg-[#15181E] border border-[#1E2228] hover:border-[#C5A059]/60 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-amber-950/20 hover:-translate-y-1 flex flex-col justify-between"
               >
                 <div>
-                  {/* Monument Image Banner */}
-                  <div className="relative h-44 w-full bg-[#181B22] overflow-hidden border-b border-[#1E2228]">
+                  {/* Image Container with Badges */}
+                  <div className="relative h-44 w-full bg-[#1A1D24] overflow-hidden">
                     <img
                       src={site.imageUrl}
                       alt={site.name}
@@ -225,28 +278,29 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
                         e.target.style.display = 'none';
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#121418] via-black/30 to-black/60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#121418] via-transparent to-black/60" />
 
-                    {/* Top Badges over image */}
+                    {/* Top Badges */}
                     <div className="absolute top-3 left-3 right-3 flex justify-between items-center text-[10px] font-mono">
-                      <span className="bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-md text-[#C5A059] border border-[#C5A059]/30 font-bold">
+                      <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md text-[#C5A059] border border-[#C5A059]/30 font-bold">
                         {site.id}
                       </span>
                       <span
-                        className="px-2.5 py-1 rounded-md font-bold uppercase backdrop-blur-md border shadow"
+                        className="px-2 py-0.5 rounded backdrop-blur-md font-bold uppercase tracking-wider text-[9px] flex items-center gap-1 shadow"
                         style={{
-                          backgroundColor: `${site.color}30`,
-                          color: site.color === '#4E878C' ? '#6be0c8' : site.color === '#D4AF37' ? '#ffd868' : '#ff7a66',
-                          borderColor: `${site.color}60`
+                          backgroundColor: `${site.color}25`,
+                          color: site.color,
+                          border: `1px solid ${site.color}50`
                         }}
                       >
-                        ● {site.status}
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: site.color }} />
+                        <span>{site.status}</span>
                       </span>
                     </div>
 
-                    {/* Bottom Title over image */}
+                    {/* Bottom overlay text */}
                     <div className="absolute bottom-3 left-3 right-3">
-                      <span className="text-[10px] font-mono text-gray-300 block uppercase tracking-wider">
+                      <span className="text-[10px] font-mono text-gray-300 block mb-0.5">
                         📍 {site.location}, {site.state}
                       </span>
                       <h3 className="text-base font-serif font-bold text-white group-hover:text-[#C5A059] transition drop-shadow">
