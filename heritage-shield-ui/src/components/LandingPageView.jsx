@@ -140,7 +140,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
     },
     {
       q: 'How is national geospatial telemetry integrated?',
-      a: 'The platform links ISRO Bhuvan WGS84 GIS layers, IMD precipitation radar, and BIS IS 1893 seismic hazard fault lines to dynamically update monument vulnerability ratings across all 3,696 Centrally Protected Monuments.'
+      a: 'The platform links ISRO Bhuvan WGS84 GIS layers, IMD precipitation radar, and BIS IS 1893 seismic hazard fault lines to dynamically update monument vulnerability ratings across all 12 Centrally Protected Monuments.'
     }
   ];
 
@@ -564,10 +564,10 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                 <div className="lg:col-span-5 space-y-4">
                   <span className="text-xs font-mono text-emerald-400 uppercase font-bold">National GIS Map</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
-                    Live Map for All 3,696 Heritage Monuments
+                    Live Map for All 12 Heritage Monuments
                   </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
-                    View all Centrally Protected Monuments across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
+                    View all 12 Centrally Protected Monuments across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
                   </p>
                   <div className="pt-4">
                     <button
