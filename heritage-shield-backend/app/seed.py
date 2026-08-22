@@ -10,7 +10,8 @@ def seed_initial_heritage_data(db: Session):
     qutub = Site(
         asi_code="ASI-DL-001",
         name="Qutub Minar Complex, Delhi",
-        state="Delhi NCT",
+        state="Delhi NCR",
+
         latitude=28.5244,
         longitude=77.1855,
         seismic_zone="Zone IV (High Risk)",

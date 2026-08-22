@@ -21,7 +21,8 @@ UNESCO_WORLD_HERITAGE_SITES_INDIA = [
         "id": "ASI-DL-001",
         "name": "Qutub Minar Complex",
         "location": "Mehrauli, New Delhi",
-        "state": "Delhi NCT",
+        "state": "Delhi NCR",
+
         "coords": [28.5244, 77.1855],
         "inscription_year": 1993,
         "category": "Cultural",
@@ -186,7 +187,8 @@ UNESCO_WORLD_HERITAGE_SITES_INDIA = [
         "id": "ASI-DL-002",
         "name": "Humayun's Tomb",
         "location": "Nizamuddin, New Delhi",
-        "state": "Delhi NCT",
+        "state": "Delhi NCR",
+
         "coords": [28.5933, 77.2507],
         "inscription_year": 1993,
         "category": "Cultural",
@@ -201,7 +203,8 @@ UNESCO_WORLD_HERITAGE_SITES_INDIA = [
         "id": "ASI-DL-003",
         "name": "Red Fort Complex",
         "location": "Old Delhi",
-        "state": "Delhi NCT",
+        "state": "Delhi NCR",
+
         "coords": [28.6562, 77.2410],
         "inscription_year": 2007,
         "category": "Cultural",

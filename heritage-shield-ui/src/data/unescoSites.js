@@ -8,7 +8,8 @@ export const UNESCO_SITES = [
     name: "Qutub Minar Complex",
     shortName: "Qutub Minar",
     location: "Mehrauli, New Delhi",
-    state: "Delhi NCT",
+    state: "Delhi NCR",
+
     circle: "Delhi Circle",
     coords: [28.5244, 77.1855],
     seismicZone: "Zone IV (High Fault)",
