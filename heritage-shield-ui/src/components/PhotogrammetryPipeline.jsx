@@ -276,11 +276,6 @@ export default function PhotogrammetryPipeline() {
             )}
 
           </div>
-
-          {/* Bottom Live Pipeline Legend */}
-          <div className="text-center text-[11px] font-mono text-gray-400 border-t border-[#33353B] pt-2 z-10">
-            Open-Source Photogrammetry Stack: <strong>COLMAP + OpenMVS + Python Mesh Decimation</strong>
-          </div>
         </div>
 
         {/* Right Column: Technical Stage Telemetry & Explanation */}

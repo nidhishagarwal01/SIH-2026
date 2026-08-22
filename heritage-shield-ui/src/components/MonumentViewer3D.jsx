@@ -152,8 +152,8 @@ export default function MonumentViewer3D({
     controls.target.set(0, 2.0, 0);
     controls.autoRotate = autoRotate;
     controls.autoRotateSpeed = 0.8;
-    // Disable scroll wheel zoom when embedded so scrolling the page doesn't zoom 3D model
-    controls.enableZoom = !isEmbedded;
+    // Disable scroll wheel zoom so placing cursor over 3D model scrolls the webpage naturally
+    controls.enableZoom = false;
     controlsRef.current = controls;
 
     // 5. Cinematic Heritage Lighting Rig
@@ -1365,116 +1365,134 @@ export default function MonumentViewer3D({
   }
 
   return (
-    <div className="relative w-full h-[540px] bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">
+    <div className="flex flex-col h-[560px] w-full bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">
       
-      {/* 3D Canvas Mount */}
-      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
-
-      {/* Top Right Controls (Realistic Stone / LiDAR / Heatmap + Camera Angles) */}
-      <div className="absolute top-4 right-4 z-10 flex flex-col sm:flex-row items-end sm:items-center gap-2 pointer-events-auto">
-        <div className="bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] p-1.5 rounded-xl shadow-xl flex items-center gap-1 font-mono text-xs">
-          <button
-            onClick={() => setViewMode('stone')}
-            title="Switch to Realistic 3D Stone Texture view with historical material rendering"
-            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
-              viewMode === 'stone'
-                ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
-                : 'text-gray-400 hover:text-white'
-            }`}
-          >
-            <span>🧱</span>
-            <span>Realistic 3D Stone</span>
-          </button>
-          <button
-            onClick={() => setViewMode('lidar')}
-            title="Switch to LiDAR Wireframe Mesh view to inspect point geometry"
-            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
-              viewMode === 'lidar'
-                ? 'bg-cyan-600 text-white font-bold shadow'
-                : 'text-gray-400 hover:text-white'
-            }`}
-          >
-            <span>🌐</span>
-            <span>LiDAR Wireframe</span>
-          </button>
-          <button
-            onClick={() => setViewMode('heatmap')}
-            title="Switch to Infrared Stress Heatmap to visualize defect vulnerability"
-            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
-              viewMode === 'heatmap'
-                ? 'bg-rose-600 text-white font-bold shadow'
-                : 'text-gray-400 hover:text-white'
-            }`}
-          >
-            <span>🔥</span>
-            <span>Stress Heatmap</span>
-          </button>
+      {/* Top Header Outside 3D Canvas (No Overlap on 3D Model) */}
+      <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-10 shrink-0">
+        <div className="flex items-center gap-2">
+          <h3 className="text-sm font-serif font-bold text-[#F3EFE6] tracking-wide">
+            {siteData?.name || "Protected Heritage Site"} · Living 3D Twin
+          </h3>
         </div>
 
-        {/* Camera Angles */}
-        <div className="bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] p-1.5 rounded-xl shadow-xl flex items-center justify-between gap-1 font-mono text-xs">
-          <button
-            onClick={() => setPresetView('iso')}
-            title="View monument in 3D Isometric Perspective"
-            className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
-              cameraView === 'iso' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
-            }`}
-          >
-            📐 3D Angle
-          </button>
-          <button
-            onClick={() => setPresetView('front')}
-            title="View front elevation at eye-level"
-            className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
-              cameraView === 'front' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
-            }`}
-          >
-            🏛️ Front Elevation
-          </button>
-          <button
-            onClick={() => setPresetView('top')}
-            title="View aerial top-down structural plan"
-            className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
-              cameraView === 'top' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
-            }`}
-          >
-            🗺️ Top-Down Plan
-          </button>
+        {/* View Mode & Camera Angles Controls Outside Canvas */}
+        <div className="flex items-center gap-2 flex-wrap font-mono text-xs">
+          {/* Material Mode Switcher */}
+          <div className="flex items-center gap-1 bg-[#14171E] p-1 rounded-lg border border-[#2B313D]">
+            <button
+              onClick={() => setViewMode('stone')}
+              title="Realistic 3D Stone Texture"
+              className={`px-2.5 py-1 rounded-md transition flex items-center gap-1 cursor-pointer ${
+                viewMode === 'stone'
+                  ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <span>🧱</span>
+              <span>Stone</span>
+            </button>
+            <button
+              onClick={() => setViewMode('lidar')}
+              title="LiDAR Wireframe Mesh"
+              className={`px-2.5 py-1 rounded-md transition flex items-center gap-1 cursor-pointer ${
+                viewMode === 'lidar'
+                  ? 'bg-cyan-600 text-white font-bold shadow'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <span>🌐</span>
+              <span>LiDAR</span>
+            </button>
+            <button
+              onClick={() => setViewMode('heatmap')}
+              title="Stress Heatmap"
+              className={`px-2.5 py-1 rounded-md transition flex items-center gap-1 cursor-pointer ${
+                viewMode === 'heatmap'
+                  ? 'bg-rose-600 text-white font-bold shadow'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <span>🔥</span>
+              <span>Heatmap</span>
+            </button>
+          </div>
+
+          {/* Camera Angles */}
+          <div className="flex items-center gap-1 bg-[#14171E] p-1 rounded-lg border border-[#2B313D]">
+            <button
+              onClick={() => setPresetView('iso')}
+              title="3D Isometric Perspective"
+              className={`px-2 py-1 rounded-md transition cursor-pointer ${
+                cameraView === 'iso' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              📐 3D Angle
+            </button>
+            <button
+              onClick={() => setPresetView('front')}
+              title="Front Elevation"
+              className={`px-2 py-1 rounded-md transition cursor-pointer ${
+                cameraView === 'front' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              🏛️ Front
+            </button>
+            <button
+              onClick={() => setPresetView('top')}
+              title="Top-Down Plan"
+              className={`px-2 py-1 rounded-md transition cursor-pointer ${
+                cameraView === 'top' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              🗺️ Top
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Bottom Controls (360 Orbit & Zoom Controls) */}
-      <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] px-3 py-2 rounded-xl shadow-xl font-mono text-xs pointer-events-auto">
-        <button
-          onClick={() => setAutoRotate(!autoRotate)}
-          title="Toggle continuous 360-degree rotation of the 3D twin"
-          className={`px-3 py-1 rounded-lg border transition cursor-pointer flex items-center gap-1.5 ${
-            autoRotate
-              ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
-              : 'border-[#1E2228] text-gray-400 hover:text-white'
-          }`}
-        >
-          {autoRotate ? '⏸ Pause 360° Orbit' : '▶ Play 360° Orbit'}
-        </button>
+      {/* Pure 3D Canvas Mount (100% Dedicated & Unobstructed, ZERO buttons inside) */}
+      <div className="relative flex-1 w-full min-h-[400px] bg-[#08090C] overflow-hidden">
+        <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+      </div>
 
-        {/* Manual Zoom In / Out Buttons */}
-        <div className="flex items-center bg-[#14171E] border border-[#2B313D] rounded-lg">
+      {/* Bottom Controls Outside 3D Canvas (No Overlap on 3D Model) */}
+      <div className="bg-[#0E1013] border-t border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 font-mono text-xs z-10 shrink-0">
+        <div className="flex items-center gap-2">
           <button
-            onClick={() => handleZoom('in')}
-            title="Zoom In"
-            className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-l-lg transition font-bold cursor-pointer"
+            onClick={() => setAutoRotate(!autoRotate)}
+            title="Toggle continuous 360-degree rotation of the 3D twin"
+            className={`px-3 py-1 rounded-lg border transition cursor-pointer flex items-center gap-1.5 ${
+              autoRotate
+                ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
+                : 'border-[#1E2228] text-gray-400 hover:text-white'
+            }`}
           >
-            +
+            <span>{autoRotate ? '⏸ Pause 360° Orbit' : '▶ Play 360° Orbit'}</span>
           </button>
-          <span className="text-[10px] text-gray-500 px-1 select-none">Zoom</span>
-          <button
-            onClick={() => handleZoom('out')}
-            title="Zoom Out"
-            className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-r-lg transition font-bold cursor-pointer"
-          >
-            −
-          </button>
+
+          {/* Manual Zoom In / Out Buttons */}
+          <div className="flex items-center bg-[#14171E] border border-[#2B313D] rounded-lg">
+            <button
+              onClick={() => handleZoom('in')}
+              title="Zoom In (Click)"
+              className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-l-lg transition font-bold cursor-pointer"
+            >
+              +
+            </button>
+            <span className="text-[10px] text-gray-500 px-1.5 select-none">Zoom</span>
+            <button
+              onClick={() => handleZoom('out')}
+              title="Zoom Out (Click)"
+              className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-r-lg transition font-bold cursor-pointer"
+            >
+              −
+            </button>
+          </div>
         </div>
+
+        <span className="text-[11px] text-gray-500 font-sans hidden sm:inline">
+          🖱️ Click and drag to orbit 360° · Page scroll enabled
+        </span>
       </div>
 
     </div>
