@@ -9,7 +9,8 @@ from app.database import engine, Base, get_db
 from app.models import Site, Asset, Component, ConditionHistory, RiskScore, DamageDetection, ExpertValidation
 from app.seed import seed_initial_heritage_data
 from app.services.vision import process_heritage_image, get_simulated_detection_result
-from app.services.risk import calculate_heritage_risk
+from app.services.risk import calculate_heritage_risk, predict_temporal_decay_trajectory
+
 from app.services.llm_report import generate_conservation_assessment
 from app.services.weather import fetch_live_environmental_telemetry
 from app.services.live_ingest import fetch_and_examine_live_monument_data
@@ -223,6 +224,58 @@ def compute_risk_endpoint(factors: RiskFactorInput):
         weights=factors.weights
     )
     return result
+
+class PredictDecayInput(BaseModel):
+    component_name: Optional[str] = "North Façade Wall (Main Shaft)"
+    material_typology: Optional[str] = "sandstone"
+    seismic_zone: Optional[str] = "Zone IV"
+    monsoon_anomaly_pct: Optional[float] = 20.0
+    initial_crack_cm: Optional[float] = 12.4
+    initial_moisture_pct: Optional[float] = 6.2
+    initial_health: Optional[int] = 91
+    end_year: Optional[int] = 2030
+
+@app.post("/api/predict-decay")
+def predict_decay_post(payload: PredictDecayInput):
+    """
+    Computes physics-informed multi-year temporal crack progression and decay trajectory (2020 to 2030).
+    """
+    return predict_temporal_decay_trajectory(
+        component_name=payload.component_name or "North Façade Wall (Main Shaft)",
+        material_typology=payload.material_typology or "sandstone",
+        seismic_zone=payload.seismic_zone or "Zone IV",
+        monsoon_anomaly_pct=payload.monsoon_anomaly_pct if payload.monsoon_anomaly_pct is not None else 20.0,
+        initial_crack_cm=payload.initial_crack_cm if payload.initial_crack_cm is not None else 12.4,
+        initial_moisture_pct=payload.initial_moisture_pct if payload.initial_moisture_pct is not None else 6.2,
+        initial_health=payload.initial_health if payload.initial_health is not None else 91,
+        end_year=payload.end_year or 2030
+    )
+
+@app.get("/api/predict-decay")
+def predict_decay_get(
+    component_name: Optional[str] = "North Façade Wall (Main Shaft)",
+    material_typology: Optional[str] = "sandstone",
+    seismic_zone: Optional[str] = "Zone IV",
+    monsoon_anomaly_pct: Optional[float] = 20.0,
+    initial_crack_cm: Optional[float] = 12.4,
+    initial_moisture_pct: Optional[float] = 6.2,
+    initial_health: Optional[int] = 91,
+    end_year: Optional[int] = 2030
+):
+    """
+    GET endpoint for temporal crack progression and 2030 decay trajectories.
+    """
+    return predict_temporal_decay_trajectory(
+        component_name=component_name,
+        material_typology=material_typology,
+        seismic_zone=seismic_zone,
+        monsoon_anomaly_pct=monsoon_anomaly_pct,
+        initial_crack_cm=initial_crack_cm,
+        initial_moisture_pct=initial_moisture_pct,
+        initial_health=initial_health,
+        end_year=end_year
+    )
+
 
 # -------------------------------------------------------------
 # EXPERT VALIDATION ENDPOINT (Section 8 & 15 of Blueprint)

@@ -101,9 +101,10 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
       kicker: '06 · Deterioration Prediction',
       title: 'Where is this component headed?', 
       desc: 'Historical condition combined with environmental and hazard variables produces a trajectory — shown with confidence, not false precision.',
-      input: 'Non-linear decay regression models (2024–2028)',
-      output: 'Predictive 24-Month Degradation Curve',
-      action: 'Forecasts critical breach window by Q3 2027'
+      input: 'Non-linear decay regression models (2024–2030)',
+      output: 'Predictive 48-Month Degradation Trajectory',
+      action: 'Forecasts critical breach window by 2027–2030'
+
     },
     { 
       step: '07', 
@@ -825,10 +826,11 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
               <button
                 onClick={onEnterDashboard}
-                className="w-full py-2.5 rounded-xl bg-[#C5A059] text-[#07080A] text-xs font-mono font-bold hover:bg-[#D8B46E] transition"
+                className="w-full py-2.5 rounded-xl bg-[#C5A059] text-[#07080A] text-xs font-mono font-bold hover:bg-[#D8B46E] transition cursor-pointer"
               >
-                Run 2028 Longitudinal Simulation →
+                Run 2030 Longitudinal Simulation →
               </button>
+
             </div>
 
           </div>

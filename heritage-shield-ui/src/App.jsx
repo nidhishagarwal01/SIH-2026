@@ -559,7 +559,8 @@ export default function App() {
             }`}
           >
             <span className="text-sm">📊</span>
-            <span>Risk & 2028 Predictive Lab</span>
+            <span>Risk & 2030 Predictive Lab</span>
+
           </button>
 
           <button
@@ -1029,8 +1030,13 @@ export default function App() {
               baselineRisk={computedRisk}
             />
 
-            {/* Longitudinal Analytics & 2028 Forecast */}
-            <LongitudinalAnalytics activeComponent={curComp.name} />
+            {/* Longitudinal Analytics & 2030 Forecast */}
+            <LongitudinalAnalytics
+              activeComponent={curComp.name}
+              materialTypology={curSite.material || 'sandstone'}
+              seismicZone={curSite.seismicZone || 'Zone IV'}
+            />
+
 
           </div>
         )}
