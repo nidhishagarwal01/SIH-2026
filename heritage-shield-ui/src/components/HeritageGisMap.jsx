@@ -310,7 +310,7 @@ export default function HeritageGisMap({
       {/* 🚀 1. Quick-Select Monument Ribbon (Filters dynamically along with parent) */}
       <div className="bg-[#121418] border border-[#1E2228] p-3 rounded-xl shadow-lg flex items-center gap-2 overflow-x-auto">
         <span className="text-[10px] font-mono text-[#C5A059] uppercase font-bold tracking-wider whitespace-nowrap pl-1">
-          📍 Quick Jump ({heritageSites.length}):
+          📍 Quick Jump:
         </span>
         <div className="flex items-center gap-1.5 flex-nowrap">
           {heritageSites.map((s) => (
@@ -339,9 +339,10 @@ export default function HeritageGisMap({
                 National Heritage Radar
               </span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C5A059]/15 text-[#C5A059] border border-[#C5A059]/30 font-bold">
-                {heritageSites.length} {selectedStatus !== 'ALL' ? selectedStatus : 'Sites Active'}
+                {selectedStatus !== 'ALL' ? `${selectedStatus} Urgency` : 'Active Sentinel'}
               </span>
             </div>
+
             <p className="text-xs text-gray-300 font-sans mt-1">
               {selectedStatus === 'Critical'
                 ? 'Displaying high-urgency monuments requiring immediate conservation triage.'

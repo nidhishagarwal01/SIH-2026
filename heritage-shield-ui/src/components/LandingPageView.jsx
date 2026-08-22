@@ -85,11 +85,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
           {/* Primary Action Buttons */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 bg-[#12151B] border border-[#222834] px-3 py-1.5 rounded-xl text-xs font-mono">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-gray-300">Live Active Sentinel</span>
-            </div>
-
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -114,21 +109,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
         <div className="max-w-[1400px] mx-auto text-center space-y-8 relative z-10">
           
-          {/* Badge Pill */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#12151B]/90 border border-[#C5A059]/30 text-xs font-mono text-gray-200 shadow-xl backdrop-blur-md"
-          >
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A059] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C5A059]"></span>
-            </span>
-            <span className="text-[#C5A059] font-bold">National Built Heritage Intelligence Platform</span>
-          </motion.div>
-
-
           {/* Hero Main Headline */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
@@ -160,7 +140,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               className="px-8 py-3.5 rounded-xl bg-[#C5A059] hover:bg-[#D8B46E] text-[#07080A] font-mono text-sm font-bold tracking-wide shadow-2xl shadow-amber-950/60 transition-all transform hover:-translate-y-0.5 flex items-center gap-3 cursor-pointer"
             >
               <Globe className="w-4 h-4" />
-              <span>Launch National GIS Radar (12 Sites)</span>
+              <span>Launch National GIS Radar</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
@@ -188,9 +168,10 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
             <div className="bg-[#0E1117]/80 backdrop-blur-md border border-[#1A1F29] p-5 rounded-2xl shadow-xl space-y-1">
               <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider block">Living Digital Twins</span>
-              <div className="text-2xl sm:text-3xl font-mono font-bold text-[#C5A059]">12 Nodes</div>
+              <div className="text-2xl sm:text-3xl font-mono font-bold text-[#C5A059]">Active Twins</div>
               <p className="text-[11px] text-gray-400 font-sans">Full PBR 3D Component Models</p>
             </div>
+
 
             <div className="bg-[#0E1117]/80 backdrop-blur-md border border-[#1A1F29] p-5 rounded-2xl shadow-xl space-y-1">
               <span className="text-[10px] font-mono text-sky-400 uppercase tracking-wider block">AI Computer Vision</span>
@@ -381,19 +362,20 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
           <div className="flex flex-wrap justify-between items-end gap-4">
             <div>
               <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-                Centrally Protected Flagship Network
+                Centrally Protected Heritage Network
               </span>
               <h2 className="text-3xl font-serif font-bold text-white">
-                12 Living Heritage Digital Twins
+                Living Heritage Digital Twins
               </h2>
             </div>
             <button
               onClick={onEnterDashboard}
               className="px-4 py-2 rounded-xl bg-[#14171E] hover:bg-[#C5A059] text-gray-200 hover:text-[#07080A] text-xs font-mono font-bold transition border border-[#252C3A]"
             >
-              View Full National Radar & All 12 Sites →
+              View Full National Radar & Directory →
             </button>
           </div>
+
 
           {/* Monuments Card Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

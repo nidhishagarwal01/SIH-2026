@@ -63,10 +63,6 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
 
 
           <div className="flex items-center gap-3 text-xs font-mono">
-            <div className="bg-[#14171C] border border-[#2B313D] px-3.5 py-1.5 rounded-lg flex items-center gap-2 shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-gray-300">National Grid: <strong className="text-emerald-400">Live Active Sentinel</strong></span>
-            </div>
             <div className="hidden sm:flex bg-[#14171C] border border-[#2B313D] px-3.5 py-1.5 rounded-lg items-center gap-2 text-gray-400">
               <span>Standard: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong></span>
             </div>
@@ -114,7 +110,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                     : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
                 }`}
               >
-                All Sites ({sites.length})
+                All Monuments
               </button>
 
               <button
@@ -126,7 +122,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                 }`}
               >
                 <span className="w-2 h-2 rounded-full bg-rose-500"></span>
-                <span>Critical Urgency ({criticalCount})</span>
+                <span>Critical Urgency</span>
               </button>
 
               <button
@@ -138,7 +134,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                 }`}
               >
                 <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                <span>Watch List ({watchCount})</span>
+                <span>Watch List</span>
               </button>
 
               <button
@@ -150,7 +146,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                 }`}
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span>Stable ({stableCount})</span>
+                <span>Stable</span>
               </button>
 
               <button
@@ -164,6 +160,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                 <span>🌋 High Seismic (Zone IV/V)</span>
               </button>
             </div>
+
 
             {/* State Filter Dropdown */}
             <div className="flex items-center gap-2">
@@ -229,11 +226,12 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
             </h3>
           </div>
           <span className="text-xs font-mono text-gray-400">
-            Showing <strong className="text-white font-bold">{filteredSites.length}</strong> of {sites.length} Protected Heritage Assets
+            Showing <strong className="text-white font-bold">{filteredSites.length}</strong> Protected Heritage Assets
           </span>
         </div>
 
-        {/* 12 Monument Cards Grid */}
+        {/* Monument Cards Grid */}
+
         {filteredSites.length === 0 ? (
           <div className="bg-[#121418] border border-[#1E2228] rounded-2xl p-12 text-center space-y-3">
             <div className="text-3xl">🏛️</div>
