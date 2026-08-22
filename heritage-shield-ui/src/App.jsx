@@ -12,8 +12,10 @@ import LongitudinalAnalytics from './components/LongitudinalAnalytics';
 import LiveIngestModal from './components/LiveIngestModal';
 import AssetSwitcherModal from './components/AssetSwitcherModal';
 import HeritageShieldLogo from './components/HeritageShieldLogo';
+import ThemeToggle from './components/ThemeToggle';
 
 import { UNESCO_SITES } from './data/unescoSites';
+
 
 
 export default function App() {
@@ -430,6 +432,8 @@ export default function App() {
 
           {/* Action CTAs */}
           <div className="flex items-center gap-2.5">
+            <ThemeToggle />
+
             <button
               onClick={() => setIsLiveIngestOpen(true)}
               className="px-3.5 py-1.5 rounded-lg bg-cyan-950/40 border border-cyan-700/50 hover:bg-cyan-900/40 text-cyan-300 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm"
@@ -437,6 +441,7 @@ export default function App() {
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
               <span>🌐 Live Ingest & Examine</span>
             </button>
+
 
             <button
               onClick={() => setIsFieldReportOpen(true)}

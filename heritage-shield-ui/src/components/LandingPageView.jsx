@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import HeritageShieldLogo from './HeritageShieldLogo';
+import ThemeToggle from './ThemeToggle';
 import {
+
 
   Shield,
   Layers,
@@ -184,8 +186,10 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
             <a href="#faq" className="hover:text-[#C5A059] transition">FAQ</a>
           </div>
 
-          {/* Primary Action Buttons */}
+          {/* Primary Action Buttons & Theme Toggle */}
           <div className="flex items-center gap-3">
+            <ThemeToggle />
+
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -196,6 +200,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </motion.button>
           </div>
+
 
         </div>
       </motion.nav>

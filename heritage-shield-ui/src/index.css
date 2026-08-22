@@ -79,3 +79,71 @@
 .animate-radar {
   animation: radar-ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
+
+/* ☀️ Light Mode Global Adaptive Overrides */
+html.light body {
+  background-color: #F8F9FA !important;
+  color: #1A1D23 !important;
+}
+
+html.light nav,
+html.light header {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-color: #E2E8F0 !important;
+}
+
+html.light .bg-\[\#07080A\],
+html.light .bg-\[\#090A0C\],
+html.light .bg-\[\#090B0E\],
+html.light .bg-\[\#0A0C10\],
+html.light .bg-\[\#0C0E12\],
+html.light .bg-\[\#0D0E11\],
+html.light .bg-\[\#0E1013\],
+html.light .bg-\[\#0E1117\],
+html.light .bg-\[\#111317\],
+html.light .bg-\[\#121418\],
+html.light .bg-\[\#14171C\],
+html.light .bg-\[\#14171E\],
+html.light .bg-\[\#14171F\],
+html.light .bg-\[\#161920\],
+html.light .bg-\[\#161A22\],
+html.light .bg-\[\#181B22\],
+html.light .bg-\[\#181C24\],
+html.light .bg-\[\#08090C\] {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  color: #1E293B !important;
+}
+
+html.light .text-white,
+html.light .text-\[\#EDE8DE\],
+html.light .text-\[\#F3EFE6\],
+html.light .text-\[\#E8E6E3\] {
+  color: #0F172A !important;
+}
+
+html.light .text-gray-300,
+html.light .text-gray-400 {
+  color: #475569 !important;
+}
+
+html.light .border-\[\#1A1D23\],
+html.light .border-\[\#1A1E26\],
+html.light .border-\[\#1A1F29\],
+html.light .border-\[\#1C212C\],
+html.light .border-\[\#1E2228\],
+html.light .border-\[\#1E232E\],
+html.light .border-\[\#222730\],
+html.light .border-\[\#232A36\],
+html.light .border-\[\#232A38\],
+html.light .border-\[\#252C3A\],
+html.light .border-\[\#282E38\],
+html.light .border-\[\#2B313D\] {
+  border-color: #E2E8F0 !important;
+}
+
+html.light .shadow-2xl,
+html.light .shadow-xl {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04) !important;
+}
+

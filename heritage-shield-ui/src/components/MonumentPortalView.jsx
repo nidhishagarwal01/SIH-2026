@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import HeritageGisMap from './HeritageGisMap';
 import HeritageShieldLogo from './HeritageShieldLogo';
+import ThemeToggle from './ThemeToggle';
 
 export default function MonumentPortalView({ sites, onSelectMonument, onBackToLanding, liveWeather }) {
+
 
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL'); // 'ALL' | 'Critical' | 'Watch' | 'Stable' | 'ZoneIV_V'
@@ -54,7 +56,9 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
             <div className="hidden sm:flex bg-[#14171C] border border-[#2B313D] px-3.5 py-1.5 rounded-lg items-center gap-2 text-gray-400">
               <span>Standard: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong></span>
             </div>
+            <ThemeToggle />
           </div>
+
 
         </div>
       </header>
