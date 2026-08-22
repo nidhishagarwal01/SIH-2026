@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HeritageGisMap from './HeritageGisMap';
 
-export default function MonumentPortalView({ sites, onSelectMonument, liveWeather }) {
+export default function MonumentPortalView({ sites, onSelectMonument, onBackToLanding, liveWeather }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL'); // 'ALL' | 'Critical' | 'Watch' | 'Stable' | 'ZoneIV_V'
   const [stateFilter, setStateFilter] = useState('ALL');
@@ -39,7 +39,19 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
           <div className="flex items-center gap-3.5">
+            {onBackToLanding && (
+              <button
+                onClick={onBackToLanding}
+                className="px-2.5 py-1.5 rounded-lg bg-[#14171C] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-300 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center gap-1 shadow"
+                title="Return to Product Landing Page"
+              >
+                <span>🏠</span>
+                <span>Home</span>
+              </button>
+            )}
+
             <div className="w-10 h-10 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow-lg shadow-amber-950/30">
+
               <div className="w-full h-full bg-[#0E1013] rounded-lg flex items-center justify-center">
                 <span className="font-serif font-black text-[#C5A059] text-base tracking-tighter">HS</span>
               </div>

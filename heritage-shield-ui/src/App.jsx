@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LandingPageView from './components/LandingPageView';
 import MonumentPortalView from './components/MonumentPortalView';
 import MonumentViewer3D from './components/MonumentViewer3D';
 import InspectionPhotoViewer from './components/InspectionPhotoViewer';
@@ -14,8 +15,9 @@ import AssetSwitcherModal from './components/AssetSwitcherModal';
 import { UNESCO_SITES } from './data/unescoSites';
 
 export default function App() {
-  // Navigation Flow: 'portal' (Select Heritage Site) | 'studio' (Work on Selected Monument)
-  const [viewMode, setViewMode] = useState('portal');
+  // Navigation Flow: 'landing' (Product Landing Page) | 'portal' (National Map & Monument Directory) | 'studio' (Work on Selected Monument)
+  const [viewMode, setViewMode] = useState('landing');
+
 
   // Studio Sub-Tabs: 'twin' | 'vision' | 'gis' | 'risk' | 'queue'
   const [activeTab, setActiveTab] = useState('twin');
@@ -334,20 +336,40 @@ export default function App() {
   const curComp = components[activeComponent] || components[0];
 
   // ---------------------------------------------------------------------------
-  // 🌟 VIEW 1: MONUMENT SELECTION PORTAL (LANDING SCREEN)
+  // 🌟 VIEW 1: PRODUCT LANDING PAGE (HERO / 21st.dev UI/UX)
+  // ---------------------------------------------------------------------------
+  if (viewMode === 'landing') {
+    return (
+      <LandingPageView
+        onEnterDashboard={() => {
+          setViewMode('portal');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onSelectMonument={handleLaunchMonumentStudio}
+        sites={sites}
+      />
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // 🗺️ VIEW 2: MONUMENT SELECTION PORTAL & GIS RADAR (MAP PAGE)
   // ---------------------------------------------------------------------------
   if (viewMode === 'portal') {
     return (
       <MonumentPortalView
         sites={sites}
         onSelectMonument={handleLaunchMonumentStudio}
+        onBackToLanding={() => {
+          setViewMode('landing');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
         liveWeather={liveWeather}
       />
     );
   }
 
   // ---------------------------------------------------------------------------
-  // 🏛️ VIEW 2: DEDICATED MONUMENT STUDIO & COMMAND CENTER
+  // 🏛️ VIEW 3: DEDICATED MONUMENT STUDIO & COMMAND CENTER
   // ---------------------------------------------------------------------------
   return (
     <div className="min-h-screen bg-[#090A0C] text-[#E8E6E3] font-sans antialiased selection:bg-[#C5A059] selection:text-[#090A0C] flex flex-col">
@@ -357,17 +379,27 @@ export default function App() {
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
           {/* Brand & Return to Portal Button */}
-          <div className="flex items-center gap-3.5">
+          <div className="flex items-center gap-2.5">
+            <button
+              onClick={() => setViewMode('landing')}
+              className="px-2.5 py-1.5 rounded-lg bg-[#14171C] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-300 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center gap-1 shadow"
+              title="Return to Product Landing Page"
+            >
+              <span>🏠</span>
+              <span>Home</span>
+            </button>
+
             <button
               onClick={() => setViewMode('portal')}
               className="px-3 py-1.5 rounded-lg bg-[#14171C] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-300 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow"
-              title="Return to National Heritage Directory"
+              title="Return to National Map & Directory"
             >
-              <span>←</span>
-              <span>All Monuments</span>
+              <span>🗺️</span>
+              <span>Map Dashboard</span>
             </button>
 
             <div className="w-[1px] h-6 bg-[#1E2228]" />
+
 
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow">
