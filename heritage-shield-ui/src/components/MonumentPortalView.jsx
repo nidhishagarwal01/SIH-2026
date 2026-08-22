@@ -341,11 +341,22 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
         )}
       </main>
 
-      {/* 🏛️ FOOTER */}
-      <footer className="border-t border-[#1E2228] bg-[#0E1013] py-6 px-6 text-center text-xs text-gray-500 font-mono mt-auto space-y-1">
-        <div>HERITAGE SHIELD · Smart India Hackathon '26 · Team ID: 031 (Qualified)</div>
-        <div className="text-[11px] text-gray-600">
-          Domain: Simulation and Digital Twin · Ministry of Culture & Archaeological Survey of India (ASI)
+      {/* 🏛️ NATIONAL HERITAGE SOVEREIGNTY FOOTER */}
+      <footer className="border-t border-[#1E2228] bg-[#07080A] py-8 px-6 mt-auto">
+        <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-6 text-xs font-mono text-gray-400">
+          
+          <div className="flex items-center gap-3">
+            <HeritageShieldLogo size="sm" showText={true} />
+            <span className="text-gray-600">|</span>
+            <span>Smart India Hackathon 2026 · Team Qualified (Team ID: 031)</span>
+          </div>
+
+          <div className="flex items-center gap-6 flex-wrap">
+            <span>Standard: ISRO Bhuvan WGS84</span>
+            <span>Framework: ISO 31000:2018</span>
+            <span>Authority: Archaeological Survey of India (ASI)</span>
+          </div>
+
         </div>
       </footer>
 

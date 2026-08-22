@@ -1463,30 +1463,6 @@ export default function MonumentViewer3D({
         </div>
       </div>
 
-      {/* Interactive Component Quick Switcher Ribbon on 3D Canvas */}
-      {components && components.length > 0 && (
-        <div className="absolute top-28 left-4 z-10 flex flex-wrap gap-1.5 max-w-lg pointer-events-auto">
-          {components.map((comp, idx) => (
-            <button
-              key={idx}
-              onClick={() => {
-                if (typeof onSelectComponent === 'function') onSelectComponent(idx);
-              }}
-              className={`px-2.5 py-1 rounded-lg border text-xs font-mono transition flex items-center gap-1.5 shadow-md cursor-pointer ${
-                activeComponent === idx
-                  ? 'bg-[#C5A059] text-[#07080A] font-bold border-[#DFB76C] ring-2 ring-[#C5A059]/50 scale-105'
-                  : 'bg-[#0E1013]/90 hover:bg-[#181B22] text-gray-300 border-[#2B313D] hover:border-[#C5A059]'
-              }`}
-              title={`Click to focus and inspect ${comp.name}`}
-            >
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: comp.color }} />
-              <span>{comp.name}</span>
-              <span className="text-[10px] opacity-80 font-bold">[{comp.code}]</span>
-            </button>
-          ))}
-        </div>
-      )}
-
       {/* Bottom Controls & Telemetry Bar */}
       <div className="absolute bottom-4 left-4 right-4 z-10 flex flex-wrap justify-between items-center gap-3 bg-[#0E1013]/95 backdrop-blur-md border border-[#1E2228] px-4 py-2.5 rounded-xl shadow-xl font-mono text-xs">
         <div className="flex items-center gap-2">

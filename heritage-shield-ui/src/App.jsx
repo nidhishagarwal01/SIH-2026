@@ -472,55 +472,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* 📡 2. LIVE TELEMETRY RIBBON (HUD) */}
-      <section className="bg-[#111317] border-b border-[#1E2228] px-6 py-2">
-        <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4 text-xs font-mono">
-          
-          <div className="flex items-center gap-6 text-gray-300 flex-wrap">
-            <div className="flex items-center gap-2">
-              <span className="text-gray-500 uppercase text-[10px]">Active Node:</span>
-              <strong className="text-[#F3EFE6] font-semibold">{curSite.name}</strong>
-              <span className="text-[10px] text-[#C5A059] bg-[#C5A059]/10 px-1.5 py-0.2 rounded border border-[#C5A059]/20 font-bold">
-                {curSite.id}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-1.5">
-              <span className="text-gray-500 uppercase text-[10px]">Hazard Exposure:</span>
-              <span className="text-amber-400 font-bold">{curSite.seismicZone}</span>
-            </div>
-
-            <div className="flex items-center gap-1.5">
-              <span className="text-gray-500 uppercase text-[10px]">Live Weather:</span>
-              <span className="text-sky-400">{liveWeather.temp} · {liveWeather.humidity} RH</span>
-            </div>
-
-            <div className="flex items-center gap-1.5">
-              <span className="text-gray-500 uppercase text-[10px]">Active Priority:</span>
-              <span
-                className="font-bold px-2 py-0.5 rounded text-[11px]"
-                style={{
-                  backgroundColor: `${curSite.color}20`,
-                  color: curSite.color,
-                  border: `1px solid ${curSite.color}40`
-                }}
-              >
-                {curComp?.code || 'C-01'} {curComp?.status || 'Active'} ({computedRisk}/100)
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 text-[11px] text-gray-400">
-            <span>Preventive ROI: <strong className="text-emerald-400 font-bold">93.4% Savings</strong></span>
-            <span className="text-gray-600">|</span>
-            <span className="text-gray-400">
-              WGS84: {Array.isArray(curSite.coords) ? `${curSite.coords[0]}° N, ${curSite.coords[1]}° E` : curSite.coords}
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* 🎛️ 3. STUDIO CONSOLE TABS */}
+      {/* 🎛️ 2. STUDIO CONSOLE TABS */}
       <div className="bg-[#0D0E11] border-b border-[#1A1D23] px-6">
         <div className="max-w-[1600px] mx-auto flex items-center gap-1 overflow-x-auto py-1.5">
           
@@ -598,23 +550,50 @@ export default function App() {
           <div className="space-y-6">
             
             {/* Top Studio Control Bar */}
-            <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
-              <div>
-                <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
-                  WebGL 3D Procedural Engine · Multi-Mode Inspection
-                </span>
-                <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
-                  {curSite.name} — Living 3D Digital Twin
-                </h2>
+            <div className="bg-[#121418] border border-[#1E2228] p-4 rounded-xl space-y-3">
+              <div className="flex flex-wrap justify-between items-center gap-4">
+                <div>
+                  <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
+                    WebGL 3D Procedural Engine · Multi-Mode Inspection
+                  </span>
+                  <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
+                    {curSite.name} — Living 3D Digital Twin
+                  </h2>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setShowPhotogrammetryDrawer(!showPhotogrammetryDrawer)}
+                    className="px-3 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-cyan-300 text-xs font-mono font-semibold hover:bg-[#222730] transition flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <span>🏗️ {showPhotogrammetryDrawer ? 'Hide' : 'Show'} Scan-to-Twin Pipeline</span>
+                  </button>
+                </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setShowPhotogrammetryDrawer(!showPhotogrammetryDrawer)}
-                  className="px-3 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-cyan-300 text-xs font-mono font-semibold hover:bg-[#222730] transition flex items-center gap-1.5"
-                >
-                  <span>🏗️ {showPhotogrammetryDrawer ? 'Hide' : 'Show'} Scan-to-Twin Pipeline</span>
-                </button>
+              {/* Clean Organized Telemetry Strip */}
+              <div className="pt-2.5 border-t border-[#1E2228] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-gray-400">
+                <div className="flex items-center gap-4 flex-wrap">
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-gray-500 uppercase text-[10px]">🌋 Hazard:</span>
+                    <strong className="text-amber-400 font-semibold">{curSite.seismicZone}</strong>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-gray-500 uppercase text-[10px]">🌦️ Weather:</span>
+                    <strong className="text-sky-400 font-semibold">{liveWeather.temp} · {liveWeather.humidity} RH</strong>
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="text-gray-500 uppercase text-[10px]">📍 WGS84:</span>
+                    <span className="text-gray-300 font-medium">
+                      {Array.isArray(curSite.coords) ? `${curSite.coords[0]}° N, ${curSite.coords[1]}° E` : curSite.coords}
+                    </span>
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-400 font-bold bg-emerald-950/40 border border-emerald-800/40 px-2.5 py-0.5 rounded text-[11px]">
+                    💰 Preventive ROI: 93.4% Savings
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -1237,11 +1216,22 @@ export default function App() {
         onSelectSite={handleSelectSite}
       />
 
-      {/* 🏛️ FOOTER */}
-      <footer className="border-t border-[#1E2228] bg-[#0E1013] py-6 px-6 text-center text-xs text-gray-500 font-mono mt-auto space-y-1">
-        <div>HERITAGE SHIELD · Smart India Hackathon '26 · Team ID: 031 (Qualified)</div>
-        <div className="text-[11px] text-gray-600">
-          Domain: Simulation and Digital Twin · Ministry of Culture & Archaeological Survey of India (ASI)
+      {/* 🏛️ NATIONAL HERITAGE SOVEREIGNTY FOOTER */}
+      <footer className="border-t border-[#1E2228] bg-[#07080A] py-8 px-6 mt-auto">
+        <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-6 text-xs font-mono text-gray-400">
+          
+          <div className="flex items-center gap-3">
+            <HeritageShieldLogo size="sm" showText={true} />
+            <span className="text-gray-600">|</span>
+            <span>Smart India Hackathon 2026 · Team Qualified (Team ID: 031)</span>
+          </div>
+
+          <div className="flex items-center gap-6 flex-wrap">
+            <span>Standard: ISRO Bhuvan WGS84</span>
+            <span>Framework: ISO 31000:2018</span>
+            <span>Authority: Archaeological Survey of India (ASI)</span>
+          </div>
+
         </div>
       </footer>
 
