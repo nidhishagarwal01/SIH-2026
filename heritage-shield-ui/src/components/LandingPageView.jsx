@@ -2,38 +2,74 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Shield,
-  Activity,
   Layers,
   Eye,
   Clock,
   Compass,
-  FileCheck2,
-  Cpu,
   ArrowRight,
-  Sparkles,
-  ExternalLink,
   ChevronRight,
-  Database,
   BarChart3,
-  MapPin,
-  CheckCircle2,
-  Lock,
   Globe,
-  Radio
+  Radio,
+  AlertTriangle,
+  FileText,
+  Activity,
+  CheckCircle2,
+  TrendingUp,
+  MapPin,
+  Sparkles
 } from 'lucide-react';
 
 export default function LandingPageView({ onEnterDashboard, onSelectMonument, sites = [] }) {
-  const [activeTab, setActiveTab] = useState('loop'); // 'loop' | 'twin' | 'vision' | 'risk'
-
   const coreLoopSteps = [
-    { step: '01', title: 'OBSERVE', desc: 'Ingest historical archival photos, LiDAR point clouds, drone photogrammetry & real-time weather.' },
-    { step: '02', title: 'DIGITISE', desc: 'Generate component-level 3D Living Twin (C-01 to C-04) with PBR stone materials and WGS84 GPS anchor.' },
-    { step: '03', title: 'ASSESS', desc: 'OpenCV 4.10 bilateral filter + Canny edge segmentation to extract sub-mm crack aperture, length & dampness.' },
-    { step: '04', title: 'TRACK', desc: 'Temporal forensic delta comparison between 2024 Baseline vs 2026 Inspection (+38.2% growth rate).' },
-    { step: '05', title: 'PREDICT', desc: 'Multi-year stochastic time-series decay forecasting (2020–2028) with confidence uncertainty bands.' },
-    { step: '06', title: 'PRIORITISE', desc: 'ISO 31000 explainable multi-factor vulnerability ranking (Condition, Velocity, Seismic Hazard, Significance).' },
-    { step: '07', title: 'ACT', desc: 'Generate official ASI Form HS-2026 Conservation Work-Order with officer PIN authentication (PIN 2026).' },
-    { step: '08', title: 'LEARN', desc: 'Closed-loop feedback: post-intervention monitoring updates the asset historical degradation model.' },
+    { 
+      step: '01', 
+      kicker: '01 · Heritage Digital Twin',
+      title: 'A living model of the site, mapped down to the component.', 
+      desc: 'Each hotspot is a structural or architectural component with its own condition history, spatial location and inspection trail — not just a photo of a monument.' 
+    },
+    { 
+      step: '02', 
+      kicker: '02 · AI Visual Condition Assessment',
+      title: 'Upload a photo. AI flags what needs a closer look.', 
+      desc: 'Computer vision identifies cracks, surface loss, discoloration, vegetation intrusion and dampness — every flag is a suggestion for review, never an automatic verdict.' 
+    },
+    { 
+      step: '03', 
+      kicker: '03 · Temporal Change Detection',
+      title: 'The same wall, two inspection cycles apart.', 
+      desc: 'Compare 2024 against 2026. The system aligns repeated observations to the same component so change is measured, not guessed.' 
+    },
+    { 
+      step: '04', 
+      kicker: '04 · Heritage Health Index',
+      title: 'A transparent score, not a black box.', 
+      desc: 'Every score comes with the factors that produced it, weighted by contribution — so authorities know why a number changed, not just that it did.' 
+    },
+    { 
+      step: '05', 
+      kicker: '05 · Risk & Disaster Layer',
+      title: 'Not just "is it damaged" — could a hazard accelerate it?', 
+      desc: 'Flood exposure, rainfall extremes, seismic vulnerability and other hazard layers sit alongside condition data, connecting conservation to disaster management.' 
+    },
+    { 
+      step: '06', 
+      kicker: '06 · Deterioration Prediction',
+      title: 'Where is this component headed?', 
+      desc: 'Historical condition combined with environmental and hazard variables produces a trajectory — shown with confidence, not false precision.' 
+    },
+    { 
+      step: '07', 
+      kicker: '07 · Intervention Priority Engine',
+      title: 'Which component should receive attention first?', 
+      desc: 'Ranked by condition × deterioration rate × hazard exposure × heritage significance — across every monitored asset, not one at a time.' 
+    },
+    { 
+      step: '08', 
+      kicker: '08 · Conservation Recommendation',
+      title: 'Evidence in, a recommendation out — the decision stays human.', 
+      desc: 'Problem detected → Probable factors → Recommended action → Final call with official ASI work-order generation.' 
+    },
   ];
 
   const flagshipSites = sites.slice(0, 6);
@@ -68,19 +104,19 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                 </span>
               </div>
               <p className="text-[11px] text-gray-400 font-mono hidden md:block">
-                Archaeological Survey of India · Ministry of Culture
+                Predictive Conservation Decision Platform
               </p>
             </div>
           </div>
 
-
           {/* Center Links */}
           <div className="hidden lg:flex items-center gap-6 text-xs font-mono text-gray-300">
-            <a href="#features" className="hover:text-[#C5A059] transition">Capabilities</a>
-            <a href="#workflow" className="hover:text-[#C5A059] transition">8-Step Decision Loop</a>
-            <a href="#twin" className="hover:text-[#C5A059] transition">3D Digital Twin</a>
-            <a href="#radar" className="hover:text-[#C5A059] transition">GIS Radar</a>
-            <a href="#architecture" className="hover:text-[#C5A059] transition">Architecture</a>
+            <a href="#twin" className="hover:text-[#C5A059] transition">Digital Twin</a>
+            <a href="#assess" className="hover:text-[#C5A059] transition">Assessment</a>
+            <a href="#temporal" className="hover:text-[#C5A059] transition">Change Detection</a>
+            <a href="#health" className="hover:text-[#C5A059] transition">Health Index</a>
+            <a href="#priority" className="hover:text-[#C5A059] transition">Priority Queue</a>
+            <a href="#workflow" className="hover:text-[#C5A059] transition">8-Step Cycle</a>
           </div>
 
           {/* Primary Action Buttons */}
@@ -91,7 +127,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               onClick={onEnterDashboard}
               className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#DFB76C] text-[#07080A] font-mono text-xs font-bold tracking-wide shadow-lg shadow-amber-950/40 hover:shadow-amber-500/20 transition flex items-center gap-2 group cursor-pointer"
             >
-              <span>National GIS Dashboard</span>
+              <span>Authority Dashboard</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </motion.button>
           </div>
@@ -99,7 +135,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
         </div>
       </motion.nav>
 
-      {/* 🚀 2. HERO SECTION WITH 21st.dev AMBIENT GLOW & TYPOGRAPHY */}
+      {/* 🚀 2. HERO SECTION WITH EXACT PROTOTYPE COPY & 21st.dev AMBIENT GLOW */}
       <section className="relative pt-16 pb-24 px-6 overflow-hidden">
         
         {/* Ambient Glows */}
@@ -109,22 +145,23 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
         <div className="max-w-[1400px] mx-auto text-center space-y-8 relative z-10">
           
-          {/* Hero Main Headline */}
+          {/* Hero Main Headline (Exact words from sample prototype) */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="space-y-4 max-w-5xl mx-auto"
+            transition={{ duration: 0.7 }}
+            className="space-y-6 max-w-5xl mx-auto"
           >
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black tracking-tight text-white leading-[1.1]">
-              AI-Assisted Digital Twin for <br className="hidden sm:inline" />
-              <span className="bg-gradient-to-r from-[#F3EFE6] via-[#C5A059] to-[#38BDF8] bg-clip-text text-transparent">
-                Predictive Conservation
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-white leading-[1.08]">
+              From fragmented heritage evidence to a{' '}
+              <span className="italic font-normal bg-gradient-to-r from-[#F3EFE6] via-[#C5A059] to-[#38BDF8] bg-clip-text text-transparent">
+                living, predictive
               </span>{' '}
-              of India's Heritage
+              conservation decision system.
             </h1>
-            <p className="text-base sm:text-lg text-gray-400 max-w-3xl mx-auto font-sans leading-relaxed">
-              Transforming fragmented historical photographs, drone photogrammetry, and meteorological sensors into an explainable, component-level living 3D decision platform for the Archaeological Survey of India.
+            
+            <p className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto font-sans leading-relaxed">
+              Heritage Shield turns scattered inspection photos, records, GIS data and hazard maps into a continuously updated digital twin — one that tracks deterioration over time and tells authorities which component needs attention first.
             </p>
           </motion.div>
 
@@ -132,7 +169,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
             className="flex flex-wrap items-center justify-center gap-4 pt-2"
           >
             <button
@@ -140,65 +177,64 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               className="px-8 py-3.5 rounded-xl bg-[#C5A059] hover:bg-[#D8B46E] text-[#07080A] font-mono text-sm font-bold tracking-wide shadow-2xl shadow-amber-950/60 transition-all transform hover:-translate-y-0.5 flex items-center gap-3 cursor-pointer"
             >
               <Globe className="w-4 h-4" />
-              <span>Launch National GIS Radar</span>
+              <span>Explore the Digital Twin</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
-            <a
-              href="#workflow"
-              className="px-6 py-3.5 rounded-xl bg-[#11141A] hover:bg-[#181C24] border border-[#232A36] text-gray-200 font-mono text-sm font-medium transition flex items-center gap-2"
+            <button
+              onClick={onEnterDashboard}
+              className="px-6 py-3.5 rounded-xl bg-[#11141A] hover:bg-[#181C24] border border-[#232A36] text-gray-200 font-mono text-sm font-medium transition flex items-center gap-2 cursor-pointer"
             >
-              <span>Explore Technical Architecture</span>
+              <span>Jump to Authority Dashboard</span>
               <ChevronRight className="w-4 h-4 text-gray-400" />
-            </a>
+            </button>
           </motion.div>
 
-          {/* 📊 High-Trust Metric Counters (21st.dev Bento Ribbon) */}
+          {/* 📊 High-Trust Metric Counters (Prototype Stat Strip) */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto pt-8 text-left"
           >
             <div className="bg-[#0E1117]/80 backdrop-blur-md border border-[#1A1F29] p-5 rounded-2xl shadow-xl space-y-1">
+              <div className="text-2xl sm:text-3xl font-serif font-bold text-[#C5A059]">3,696</div>
               <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider block">Protected Assets</span>
-              <div className="text-2xl sm:text-3xl font-mono font-bold text-white">3,696</div>
               <p className="text-[11px] text-gray-400 font-sans">Centrally Protected Monuments (CPMs)</p>
             </div>
 
             <div className="bg-[#0E1117]/80 backdrop-blur-md border border-[#1A1F29] p-5 rounded-2xl shadow-xl space-y-1">
-              <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider block">Living Digital Twins</span>
-              <div className="text-2xl sm:text-3xl font-mono font-bold text-[#C5A059]">Active Twins</div>
-              <p className="text-[11px] text-gray-400 font-sans">Full PBR 3D Component Models</p>
+              <div className="text-2xl sm:text-3xl font-serif font-bold text-white">61 / 100</div>
+              <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider block">Avg. Health Index</span>
+              <p className="text-[11px] text-gray-400 font-sans">Transparent Factor-Driven Score</p>
             </div>
 
-
             <div className="bg-[#0E1117]/80 backdrop-blur-md border border-[#1A1F29] p-5 rounded-2xl shadow-xl space-y-1">
+              <div className="text-2xl sm:text-3xl font-serif font-bold text-sky-400">Sub-mm</div>
               <span className="text-[10px] font-mono text-sky-400 uppercase tracking-wider block">AI Computer Vision</span>
-              <div className="text-2xl sm:text-3xl font-mono font-bold text-sky-400">Sub-mm</div>
-              <p className="text-[11px] text-gray-400 font-sans">OpenCV 4.10 Metric Calibration</p>
+              <p className="text-[11px] text-gray-400 font-sans">Crack Aperture & Growth Velocity</p>
             </div>
 
             <div className="bg-[#0E1117]/80 backdrop-blur-md border border-[#1A1F29] p-5 rounded-2xl shadow-xl space-y-1">
-              <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider block">Spatial Framework</span>
-              <div className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400">ISRO Bhuvan</div>
-              <p className="text-[11px] text-gray-400 font-sans">WGS84 + BIS IS 1893 Seismic Layers</p>
+              <div className="text-2xl sm:text-3xl font-serif font-bold text-emerald-400">2026</div>
+              <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider block">Active Inspection</span>
+              <p className="text-[11px] text-gray-400 font-sans">Closed-Loop Predictive Trajectory</p>
             </div>
           </motion.div>
 
         </div>
       </section>
 
-      {/* 🔄 3. CORE DECISION WORKFLOW (OBSERVE → ACT) */}
+      {/* 🔄 3. CORE 8-STEP VALUE LOOP (FROM PROTOTYPE 01–08) */}
       <section id="workflow" className="py-20 px-6 border-y border-[#161920] bg-[#090B0E]/60 relative">
         <div className="max-w-[1400px] mx-auto space-y-12">
           
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <div className="text-center space-y-3 max-w-3xl mx-auto">
             <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-              SIH '26 Core Value Loop
+              Predictive Conservation Cycle
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">
-              The 8-Step Predictive Conservation Cycle
+              The 8-Step Decision Architecture
             </h2>
             <p className="text-xs sm:text-sm text-gray-400 font-sans">
               "The 3D model is the spatial interface; the real product is the decision workflow."
@@ -207,7 +243,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
           {/* 8-Step Interactive Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {coreLoopSteps.map((item, idx) => (
+            {coreLoopSteps.map((item) => (
               <motion.div
                 key={item.step}
                 whileHover={{ y: -4, borderColor: 'rgba(197, 160, 89, 0.5)' }}
@@ -217,7 +253,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   <span className="font-mono text-xs font-bold text-[#C5A059] bg-[#C5A059]/10 px-2.5 py-1 rounded-lg border border-[#C5A059]/20">
                     STEP {item.step}
                   </span>
-                  <span className="text-[10px] font-mono text-gray-500">PHASE {Math.floor(idx / 2) + 1}</span>
+                  <span className="text-[10px] font-mono text-gray-500">{item.kicker.split('·')[0].trim()}</span>
                 </div>
                 <h3 className="text-base font-serif font-bold text-white group-hover:text-[#C5A059] transition">
                   {item.title}
@@ -232,23 +268,26 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
         </div>
       </section>
 
-      {/* 🏛️ 4. KEY CAPABILITIES BENTO GRID (21st.dev Style) */}
-      <section id="features" className="py-24 px-6 max-w-[1400px] mx-auto space-y-16">
+      {/* 🏛️ 4. KEY CAPABILITIES BENTO GRID (WITH PROTOTYPE SECTION WORDS) */}
+      <section id="twin" className="py-24 px-6 max-w-[1400px] mx-auto space-y-16">
         
         <div className="flex flex-wrap justify-between items-end gap-6 border-b border-[#1A1F29] pb-6">
           <div className="space-y-2">
             <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-              Autonomous Heritage Intelligence
+              01 · Heritage Digital Twin
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">
-              End-to-End Enterprise Architecture
+              A living model of the site, mapped down to the component.
             </h2>
+            <p className="text-sm text-gray-400 max-w-2xl font-sans">
+              Each hotspot is a structural or architectural component with its own condition history, spatial location and inspection trail — not just a photo of a monument.
+            </p>
           </div>
           <button
             onClick={onEnterDashboard}
-            className="text-xs font-mono text-[#C5A059] hover:underline flex items-center gap-1.5"
+            className="text-xs font-mono text-[#C5A059] hover:underline flex items-center gap-1.5 cursor-pointer"
           >
-            <span>Open Live Interactive Platform</span>
+            <span>Open Authority Dashboard</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -256,107 +295,136 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           
-          {/* Bento Card 1: 3D Twin */}
-          <div className="md:col-span-2 bg-[#0E1117] border border-[#1C212C] rounded-3xl p-8 space-y-6 relative overflow-hidden shadow-2xl group hover:border-[#C5A059]/40 transition">
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/25">
-                <Layers className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-xl font-serif font-bold text-white">Component-Level 3D Digital Twin Engine</h3>
-                <p className="text-xs text-gray-400 font-mono">Three.js PBR Shaders · Mesh Segmentation · Sub-Structure Telemetry</p>
-              </div>
-            </div>
-            <p className="text-sm text-gray-300 leading-relaxed font-sans">
-              Precision geometric representations of monuments (Taj Mahal, Qutub Minar, Konark, Sanchi) mapped to granular architectural sub-components (<code className="text-[#C5A059] bg-[#07080A] px-1.5 py-0.5 rounded">C-01</code> Apex to <code className="text-[#C5A059] bg-[#07080A] px-1.5 py-0.5 rounded">C-04</code> Foundation Plinth). Supports PBR Stone, LiDAR Point Cloud, and Thermographic Stress Map view modes.
-            </p>
-            <div className="grid grid-cols-3 gap-3 pt-2 font-mono text-xs text-gray-400">
-              <div className="bg-[#08090C] p-3 rounded-xl border border-[#1A1F29]">
-                <span className="text-[#C5A059] block font-bold">60 FPS</span>
-                <span>WebGL Rendering</span>
-              </div>
-              <div className="bg-[#08090C] p-3 rounded-xl border border-[#1A1F29]">
-                <span className="text-sky-400 block font-bold">PBR Stone</span>
-                <span>Procedural Textures</span>
-              </div>
-              <div className="bg-[#08090C] p-3 rounded-xl border border-[#1A1F29]">
-                <span className="text-emerald-400 block font-bold">Live Sync</span>
-                <span>Open-Meteo Weather</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Bento Card 2: AI Vision */}
-          <div className="bg-[#0E1117] border border-[#1C212C] rounded-3xl p-8 space-y-6 shadow-2xl group hover:border-sky-500/40 transition">
+          {/* Bento Card 1: 02 AI Assessment */}
+          <div id="assess" className="md:col-span-2 bg-[#0E1117] border border-[#1C212C] rounded-3xl p-8 space-y-6 relative overflow-hidden shadow-2xl group hover:border-sky-500/40 transition">
             <div className="flex items-center gap-3">
               <div className="p-2.5 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/25">
                 <Eye className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-xl font-serif font-bold text-white">AI Vision Defect Lab</h3>
-                <p className="text-xs text-gray-400 font-mono">OpenCV 4.10 + PyTorch</p>
+                <span className="text-[10px] font-mono text-sky-400 uppercase tracking-wider block font-bold">02 · AI Visual Condition Assessment</span>
+                <h3 className="text-xl font-serif font-bold text-white">Upload a photo. AI flags what needs a closer look.</h3>
               </div>
             </div>
             <p className="text-sm text-gray-300 leading-relaxed font-sans">
-              Bilateral noise filtering, Canny edge detection, and metric contour approximations quantify crack length (<code className="text-sky-300 bg-[#07080A] px-1 py-0.5 rounded">25.1 cm</code>), aperture (<code className="text-sky-300 bg-[#07080A] px-1 py-0.5 rounded">2.2 mm</code>), and dampness zones.
+              Computer vision identifies cracks, surface loss, discoloration, vegetation intrusion and dampness — every flag is a suggestion for review, never an automatic verdict.
             </p>
-            <div className="bg-[#08090C] p-4 rounded-2xl border border-[#1A1F29] font-mono text-xs space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-400">Detection Confidence:</span>
-                <span className="text-emerald-400 font-bold">96.8%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Defect Classification:</span>
-                <span className="text-amber-300 font-bold">Tensile Fissure</span>
-              </div>
+            <div className="bg-[#08090C] p-4 rounded-2xl border border-[#1A1F29] text-xs font-mono text-gray-400">
+              <span className="text-amber-400 font-bold">Validation principle:</span> AI flags; a conservation professional validates. Confidence scores are shown so reviewers can prioritize what to check first.
             </div>
           </div>
 
-          {/* Bento Card 3: Temporal Scrubbing */}
-          <div className="bg-[#0E1117] border border-[#1C212C] rounded-3xl p-8 space-y-6 shadow-2xl group hover:border-amber-500/40 transition">
+          {/* Bento Card 2: 03 Temporal Change */}
+          <div id="temporal" className="bg-[#0E1117] border border-[#1C212C] rounded-3xl p-8 space-y-6 shadow-2xl group hover:border-[#C5A059]/40 transition">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/25">
+              <div className="p-2.5 rounded-xl bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/25">
                 <Clock className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-xl font-serif font-bold text-white">Temporal Forensic Scrubbing</h3>
-                <p className="text-xs text-gray-400 font-mono">2024 Baseline vs 2026 Inspection</p>
+                <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider block font-bold">03 · Temporal Change Detection</span>
+                <h3 className="text-lg font-serif font-bold text-white">The same wall, two inspection cycles apart.</h3>
               </div>
             </div>
             <p className="text-sm text-gray-300 leading-relaxed font-sans">
-              Interactive temporal split-slider tracking longitudinal deterioration velocity (<code className="text-amber-300 bg-[#07080A] px-1 py-0.5 rounded">3.45 cm/yr</code>) and cross-epoch surface expansion.
+              Drag to compare 2024 against 2026. The system aligns repeated observations to the same component so change is measured, not guessed.
             </p>
-            <div className="bg-[#08090C] p-4 rounded-2xl border border-[#1A1F29] font-mono text-xs flex justify-between items-center">
-              <span className="text-gray-400">Progression Delta:</span>
-              <span className="text-rose-400 font-bold text-sm">+38.2% Growth</span>
+            <div className="space-y-1.5 font-mono text-xs text-gray-400">
+              <div className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-rose-400" /> Crack length +38% since 2024</div>
+              <div className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> New branching fracture detected</div>
+              <div className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-sky-400" /> Classified: Deteriorating trend</div>
             </div>
           </div>
 
-          {/* Bento Card 4: Explainable Risk */}
-          <div className="md:col-span-2 bg-[#0E1117] border border-[#1C212C] rounded-3xl p-8 space-y-6 shadow-2xl group hover:border-emerald-500/40 transition">
+          {/* Bento Card 3: 04 Health Index */}
+          <div id="health" className="bg-[#0E1117] border border-[#1C212C] rounded-3xl p-8 space-y-6 shadow-2xl group hover:border-emerald-500/40 transition">
             <div className="flex items-center gap-3">
               <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
                 <BarChart3 className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-xl font-serif font-bold text-white">Explainable ISO 31000 Risk Formula</h3>
-                <p className="text-xs text-gray-400 font-mono">Dynamic Multi-Factor Weighting & Calibration</p>
+                <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider block font-bold">04 · Heritage Health Index</span>
+                <h3 className="text-lg font-serif font-bold text-white">A transparent score, not a black box.</h3>
               </div>
             </div>
-            <div className="p-4 bg-[#08090C] rounded-2xl border border-[#1A1F29] font-mono text-xs text-[#C5A059]">
-              Risk Score = 0.30·Condition + 0.25·Velocity + 0.15·Hazard + 0.15·Weather + 0.15·Significance
+            <p className="text-sm text-gray-300 leading-relaxed font-sans">
+              Every score comes with the factors that produced it, weighted by contribution — so authorities know why a number changed, not just that it did.
+            </p>
+            <div className="bg-[#08090C] p-3.5 rounded-xl border border-[#1A1F29] font-mono text-xs text-emerald-400">
+              Structural condition + Moisture exposure + Material condition
+            </div>
+          </div>
+
+          {/* Bento Card 4: 07 Priority Engine */}
+          <div id="priority" className="md:col-span-2 bg-[#0E1117] border border-[#1C212C] rounded-3xl p-8 space-y-6 shadow-2xl group hover:border-amber-500/40 transition">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/25">
+                <TrendingUp className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-amber-400 uppercase tracking-wider block font-bold">07 · Intervention Priority Engine</span>
+                <h3 className="text-xl font-serif font-bold text-white">Which component should receive attention first?</h3>
+              </div>
             </div>
             <p className="text-sm text-gray-300 leading-relaxed font-sans">
-              Every score is fully interpretable with exposed factor sliders. Evaluators can simulate what-if scenarios (e.g. monsoon moisture surge, seismic shock) and watch vulnerability scores dynamically recalibrate in real-time.
+              Ranked by <strong className="text-white">Condition × Deterioration Rate × Hazard Exposure × Heritage Significance</strong> — across every monitored asset, not one at a time.
             </p>
+            <div className="p-4 bg-[#08090C] rounded-2xl border border-[#1A1F29] font-mono text-xs text-[#C5A059]">
+              Priority Score = 0.30·Condition + 0.25·Velocity + 0.15·Hazard + 0.15·Weather + 0.15·Significance
+            </div>
           </div>
 
         </div>
 
       </section>
 
-      {/* 🗺️ 5. FLAGSHIP MONUMENTS SHOWCASE */}
-      <section id="radar" className="py-20 px-6 bg-[#090B0E] border-t border-[#1A1F29]">
+      {/* 🧭 5. 08 CONSERVATION RECOMMENDATION FLOW (Exact Prototype Copy) */}
+      <section className="py-20 px-6 bg-[#090B0E] border-t border-[#1A1F29]">
+        <div className="max-w-[1400px] mx-auto space-y-12">
+          
+          <div className="text-center space-y-2 max-w-2xl mx-auto">
+            <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
+              08 · Conservation Recommendation Flow
+            </span>
+            <h2 className="text-3xl font-serif font-bold text-white">
+              Evidence in, a recommendation out — the decision stays human.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="bg-[#0E1117] border border-[#1C212C] p-6 rounded-2xl space-y-2">
+              <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider block font-bold">Problem Detected</span>
+              <p className="text-xs text-gray-300 font-sans leading-relaxed">
+                Branching crack on the north façade, expanding across two inspection cycles.
+              </p>
+            </div>
+
+            <div className="bg-[#0E1117] border border-[#1C212C] p-6 rounded-2xl space-y-2">
+              <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider block font-bold">Probable Factors</span>
+              <p className="text-xs text-gray-300 font-sans leading-relaxed">
+                Rising moisture ingress compounded by above-average monsoon rainfall this season.
+              </p>
+            </div>
+
+            <div className="bg-[#0E1117] border border-[#1C212C] p-6 rounded-2xl space-y-2">
+              <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider block font-bold">Recommended Action</span>
+              <p className="text-xs text-gray-300 font-sans leading-relaxed">
+                Structural inspection within 30 days; assess for moisture barrier repair before next monsoon.
+              </p>
+            </div>
+
+            <div className="bg-[#0E1117] border border-[#1C212C] p-6 rounded-2xl space-y-2">
+              <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider block font-bold">Final Call</span>
+              <p className="text-xs text-gray-300 font-sans leading-relaxed">
+                Routed to the assigned conservation architect for review and sign-off — Heritage Shield does not act on its own.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 🗺️ 6. MONUMENTS SHOWCASE */}
+      <section className="py-20 px-6 bg-[#07080A] border-t border-[#1A1F29]">
         <div className="max-w-[1400px] mx-auto space-y-12">
           
           <div className="flex flex-wrap justify-between items-end gap-4">
@@ -370,12 +438,11 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
             </div>
             <button
               onClick={onEnterDashboard}
-              className="px-4 py-2 rounded-xl bg-[#14171E] hover:bg-[#C5A059] text-gray-200 hover:text-[#07080A] text-xs font-mono font-bold transition border border-[#252C3A]"
+              className="px-4 py-2 rounded-xl bg-[#14171E] hover:bg-[#C5A059] text-gray-200 hover:text-[#07080A] text-xs font-mono font-bold transition border border-[#252C3A] cursor-pointer"
             >
               View Full National Radar & Directory →
             </button>
           </div>
-
 
           {/* Monuments Card Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -437,37 +504,35 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
         </div>
       </section>
 
-      {/* 🚀 6. FINAL CALL TO ACTION */}
+      {/* 🚀 7. FINAL CALL TO ACTION */}
       <section className="py-24 px-6 relative overflow-hidden bg-gradient-to-b from-[#090B0E] to-[#0E1117] border-t border-[#1A1F29] text-center">
         <div className="max-w-3xl mx-auto space-y-8 relative z-10">
-          <span className="px-3.5 py-1.5 rounded-full bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/30 text-xs font-mono font-bold uppercase">
-            Smart India Hackathon 2026 Ready
-          </span>
           <h2 className="text-4xl sm:text-5xl font-serif font-bold text-white">
-            Experience the Future of Heritage Conservation
+            Ready to explore the predictive conservation platform?
           </h2>
           <p className="text-sm text-gray-400 font-sans max-w-xl mx-auto">
-            Ready to explore the national geospatial radar, inspect sub-mm defects in real-time, and test predictive decay simulations?
+            Experience the national geospatial radar, inspect sub-mm defects in real-time, and test predictive decay simulations.
           </p>
           <div className="pt-2">
             <button
               onClick={onEnterDashboard}
               className="px-10 py-4 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#DFB76C] text-[#07080A] font-mono text-base font-bold tracking-wide shadow-2xl shadow-amber-950/60 hover:shadow-amber-500/30 transition transform hover:-translate-y-1 cursor-pointer"
             >
-              Enter National GIS Dashboard & Studio 🚀
+              Enter Authority Dashboard 🚀
             </button>
           </div>
         </div>
       </section>
 
-      {/* 🏛️ 7. FOOTER */}
+      {/* 🏛️ 8. FOOTER */}
       <footer className="border-t border-[#161920] bg-[#07080A] py-8 px-6 text-center font-mono text-xs text-gray-500 space-y-2">
-        <div className="text-gray-400 font-medium">HERITAGE SHIELD · Smart India Hackathon '26 · Team ID: 031 (Qualified)</div>
+        <div className="text-gray-400 font-medium">HERITAGE SHIELD · Predictive Conservation Decision Platform</div>
         <div className="text-[11px] text-gray-600">
-          Somaiya Vidyavihar University · Archaeological Survey of India (ASI) & Ministry of Culture
+          Archaeological Survey of India (ASI) & Ministry of Culture
         </div>
       </footer>
 
     </div>
   );
 }
+
