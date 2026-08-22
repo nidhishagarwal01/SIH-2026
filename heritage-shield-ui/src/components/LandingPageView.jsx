@@ -4,6 +4,7 @@ import HeritageShieldLogo from './HeritageShieldLogo';
 import ThemeToggle from './ThemeToggle';
 import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
+import AuthModal from './AuthModal';
 
 import {
   Shield,
@@ -38,14 +39,28 @@ import {
   Award,
   Box,
   Scan,
-  Workflow
+  Workflow,
+  Lock,
+  LogOut,
+  UserCheck
 } from 'lucide-react';
 
-export default function LandingPageView({ onEnterDashboard, onSelectMonument, onOpenStudio, sites = [] }) {
+export default function LandingPageView({ 
+  onEnterDashboard, 
+  onSelectMonument, 
+  onOpenStudio, 
+  sites = [],
+  currentUser,
+  onLoginSuccess,
+  onLogout
+}) {
   // State for Interactive Hero Banner Display Mode
   const [heroMode, setHeroMode] = useState('split'); // 'split' | 'wireframe' | 'stone'
   const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
   
+  // State for Auth Modal
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   // State for Interactive Sandbox Showcase
   const [showcaseTab, setShowcaseTab] = useState('twin'); // 'twin' | 'vision' | 'temporal' | 'gis'
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -189,15 +204,31 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, on
           <div className="flex items-center gap-3">
             <ThemeToggle />
 
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={onEnterDashboard}
-              className="px-5 py-2 rounded-xl bg-[#D97706] hover:bg-[#B45309] text-white font-mono text-xs font-bold tracking-wide shadow-lg shadow-amber-950/40 transition flex items-center gap-2 group cursor-pointer"
-            >
-              <span>GIS Dashboard</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-            </motion.button>
+            {currentUser ? (
+              <div className="flex items-center gap-2.5 bg-[#14171F] border border-[#2B313D] px-3.5 py-1.5 rounded-xl shadow">
+                <span className="text-xs font-mono font-bold text-[#F3EFE6] flex items-center gap-1.5">
+                  <UserCheck className="w-3.5 h-3.5 text-[#C5A059]" />
+                  <span>{currentUser.role === 'officer' ? '🏛️ ' : '👥 '}{currentUser.name}</span>
+                </span>
+                <button
+                  onClick={onLogout}
+                  title="Sign Out"
+                  className="text-[10px] font-mono text-gray-400 hover:text-rose-400 p-1 rounded transition cursor-pointer"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setIsAuthModalOpen(true)}
+                className="px-4 py-2 rounded-xl bg-[#C5A059] hover:bg-[#D8B46E] text-black font-mono text-xs font-bold tracking-wide shadow-lg shadow-amber-950/40 transition flex items-center gap-1.5 group cursor-pointer"
+              >
+                <Lock className="w-3.5 h-3.5" />
+                <span>Portal Login</span>
+              </motion.button>
+            )}
           </div>
 
         </div>
@@ -283,7 +314,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, on
               className="flex flex-wrap items-center gap-3 pt-2"
             >
               <button
-                onClick={() => onOpenStudio ? onOpenStudio(0) : (onSelectMonument ? onSelectMonument(0) : onEnterDashboard())}
+                onClick={onEnterDashboard}
                 className="px-6 py-3 rounded-xl bg-[#C5A059] hover:bg-[#D8B46E] text-[#07080A] font-mono text-xs font-bold tracking-wide shadow-xl shadow-amber-950/40 transition flex items-center gap-2 cursor-pointer"
               >
                 <span>Launch 3D Digital Twin Studio</span>
@@ -871,6 +902,19 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, on
 
         </div>
       </footer>
+
+      {/* 🔐 Official & Public Login Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        currentUser={currentUser}
+        onLoginSuccess={(user) => {
+          if (typeof onLoginSuccess === 'function') {
+            onLoginSuccess(user);
+          }
+          onEnterDashboard();
+        }}
+      />
 
     </div>
   );

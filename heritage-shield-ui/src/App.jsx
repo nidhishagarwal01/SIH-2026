@@ -240,6 +240,9 @@ export default function App() {
 
   const components = getComponentsForSite(activeSite);
 
+  // Current User Session State (Official ASI or Citizen Sentinel)
+  const [currentUser, setCurrentUser] = useState(null);
+
   // Explainable Risk State
   const [riskFactors, setRiskFactors] = useState(
     components[0]?.defaultRisk || { condition: 50, deterioration: 50, hazard: 50, environment: 50, significance: 90 }
@@ -350,7 +353,13 @@ export default function App() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         onSelectMonument={handleLaunchMonumentStudio}
-        onOpenStudio={(siteIdx = 0) => handleLaunchMonumentStudio(siteIdx)}
+        onOpenStudio={() => {
+          setViewMode('portal');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        currentUser={currentUser}
+        onLoginSuccess={(user) => setCurrentUser(user)}
+        onLogout={() => setCurrentUser(null)}
         sites={sites}
       />
     );
