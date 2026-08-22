@@ -21,17 +21,16 @@ export default function HeritageGisMap({
 
   const heritageSites = UNESCO_SITES;
 
-  // Initialize Map
+  // Initialize Leaflet Map
   useEffect(() => {
     const container = mapContainerRef.current;
     if (!container || mapInstanceRef.current) return;
 
-    // 1. Initialize Leaflet Map centered on India
     const map = L.map(container, {
       center: [21.5, 78.9],
       zoom: 4.8,
       minZoom: 4,
-      maxZoom: 14,
+      maxZoom: 15,
       zoomControl: false
     });
     mapInstanceRef.current = map;
@@ -39,7 +38,7 @@ export default function HeritageGisMap({
     // Zoom control at bottom-right
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    // 2. Base Tile Layer (Dark Matter)
+    // Default Tile Layer (Dark Matter)
     const darkTile = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap',
       subdomains: 'abcd',
@@ -48,13 +47,13 @@ export default function HeritageGisMap({
     darkTile.addTo(map);
     tileLayerRef.current = darkTile;
 
-    // 3. Add Hazard GeoJSON / Circles (Seismic and Monsoon zones)
+    // Seismic Northern Active Fault Belt
     const seismicNorthernBelt = L.polygon([
       [31.5, 74.0], [32.0, 78.5], [29.5, 81.0], [27.5, 88.0], [26.0, 93.0],
       [24.5, 92.5], [26.0, 84.0], [27.5, 77.0], [28.5, 75.0]
     ], {
       color: '#e05a47',
-      weight: 1,
+      weight: 1.5,
       fillColor: '#e05a47',
       fillOpacity: 0.12,
       dashArray: '4, 6'
@@ -116,7 +115,7 @@ export default function HeritageGisMap({
 
     if (baseMapType === 'satellite') {
       const satelliteTile = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'ISRO Bhuvan / Esri High-Resolution Earth Imagery',
+        attribution: 'ISRO Bhuvan / High-Resolution Earth Imagery',
         maxZoom: 19
       });
       satelliteTile.addTo(map);
@@ -148,24 +147,24 @@ export default function HeritageGisMap({
         html: `
           <div style="
             position: relative;
-            width: ${isSelected ? '26px' : '20px'};
-            height: ${isSelected ? '26px' : '20px'};
+            width: ${isSelected ? '28px' : '22px'};
+            height: ${isSelected ? '28px' : '22px'};
             background: ${site.color};
             border: 2px solid ${isSelected ? '#FFF' : '#121418'};
             border-radius: 50%;
-            box-shadow: 0 0 ${isSelected ? '14px' : '6px'} ${site.color};
+            box-shadow: 0 0 ${isSelected ? '16px' : '8px'} ${site.color};
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s ease;
           ">
-            <span style="font-size: 9px; font-weight: bold; color: #121418;">🏛️</span>
+            <span style="font-size: ${isSelected ? '12px' : '10px'}; font-weight: bold; color: #121418;">🏛️</span>
           </div>
         `,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
-        popupAnchor: [0, -12]
+        iconSize: [28, 28],
+        iconAnchor: [14, 14],
+        popupAnchor: [0, -14]
       });
     };
 
@@ -177,49 +176,86 @@ export default function HeritageGisMap({
       });
 
       const popupContent = `
-        <div style="font-family: ui-monospace, SFMono-Regular, monospace; background: #0E1013; color: #EDE8DE; padding: 12px; border-radius: 8px; min-width: 220px; border: 1px solid #2B313D;">
-          <div style="display: flex; justify-content: space-between; font-size: 10px; color: #C5A059; margin-bottom: 4px; font-weight: bold;">
-            <span>${site.id}</span>
-            <span>${site.state}</span>
+        <div style="font-family: ui-sans-serif, system-ui, sans-serif; background: #0E1013; color: #EDE8DE; padding: 14px; border-radius: 12px; min-width: 250px; max-width: 280px; border: 1px solid #2B313D; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
+          
+          <div style="position: relative; width: 100%; height: 110px; border-radius: 8px; overflow: hidden; margin-bottom: 10px; border: 1px solid #2B313D; background: #14171C;">
+            <img src="${site.imageUrl}" alt="${site.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'"/>
+            <span style="position: absolute; top: 6px; left: 6px; background: rgba(14,16,19,0.85); color: #C5A059; font-family: monospace; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(197,160,89,0.3);">
+              ${site.id}
+            </span>
+            <span style="position: absolute; top: 6px; right: 6px; background: rgba(14,16,19,0.85); color: #FFF; font-family: monospace; font-size: 10px; padding: 2px 6px; border-radius: 4px;">
+              ${site.state}
+            </span>
           </div>
-          <h4 style="font-size: 13px; font-weight: bold; margin: 0 0 6px 0; color: #FFF;">${site.name}</h4>
-          <div style="font-size: 11px; margin-bottom: 6px; color: #AAA;">
-            Risk: <strong style="color: ${site.color};">${site.riskScore}/100 (${site.status})</strong>
+
+          <h4 style="font-size: 14px; font-weight: bold; margin: 0 0 4px 0; color: #FFF; font-family: ui-serif, Georgia, serif;">${site.name}</h4>
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-family: monospace; margin-bottom: 8px;">
+            <span style="color: #9CA3AF;">Risk Index:</span>
+            <strong style="color: ${site.color}; background: ${site.color}20; padding: 2px 6px; border-radius: 4px; border: 1px solid ${site.color}40;">
+              ${site.riskScore}/100 (${site.status})
+            </strong>
           </div>
-          <div style="font-size: 10px; color: #888; margin-bottom: 8px; border-top: 1px solid #1E2228; padding-top: 4px;">
-            🧱 ${site.material}<br/>
-            🌋 ${site.seismicZone}
+
+          <div style="font-size: 10px; font-family: monospace; color: #9CA3AF; margin-bottom: 12px; border-top: 1px solid #1E2228; padding-top: 6px; line-height: 1.5;">
+            <div>🧱 <strong>${site.material}</strong></div>
+            <div>🌋 <strong>${site.seismicZone}</strong></div>
           </div>
-          <button id="btn-select-${site.index}" style="
-            width: 100%;
-            background: #C5A059;
-            color: #090A0C;
-            border: none;
-            border-radius: 4px;
-            padding: 5px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-          ">Inspect in 3D Studio →</button>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+            <button id="btn-twin-${site.index}" style="
+              background: #C5A059;
+              color: #090A0C;
+              border: none;
+              border-radius: 6px;
+              padding: 7px 4px;
+              font-size: 10px;
+              font-family: monospace;
+              font-weight: bold;
+              cursor: pointer;
+              transition: all 0.2s;
+            ">🏛️ 3D Twin →</button>
+            <button id="btn-vision-${site.index}" style="
+              background: #181B22;
+              color: #38BDF8;
+              border: 1px solid rgba(56,189,248,0.4);
+              border-radius: 6px;
+              padding: 7px 4px;
+              font-size: 10px;
+              font-family: monospace;
+              font-weight: bold;
+              cursor: pointer;
+              transition: all 0.2s;
+            ">🔍 AI Vision →</button>
+          </div>
+
         </div>
       `;
 
       marker.bindPopup(popupContent, {
         className: 'custom-leaflet-popup',
-        closeButton: true
+        closeButton: true,
+        maxWidth: 300
       });
 
       marker.on('popupopen', () => {
-        const btn = document.getElementById(`btn-select-${site.index}`);
-        if (btn) {
-          btn.onclick = () => {
-            if (onSelectSite) onSelectSite(site.index);
+        const btnTwin = document.getElementById(`btn-twin-${site.index}`);
+        if (btnTwin) {
+          btnTwin.onclick = () => {
+            if (onSelectSite) onSelectSite(site.index, 'twin');
+          };
+        }
+        const btnVision = document.getElementById(`btn-vision-${site.index}`);
+        if (btnVision) {
+          btnVision.onclick = () => {
+            if (onSelectSite) onSelectSite(site.index, 'vision');
           };
         }
       });
 
       marker.on('click', () => {
-        if (onSelectSite) onSelectSite(site.index);
+        // Fly to site on map
+        map.flyTo(site.coords, 8, { duration: 0.8 });
       });
 
       marker.addTo(map);
@@ -249,102 +285,118 @@ export default function HeritageGisMap({
     }
   }, [showSeismicLayer, showRainfallLayer]);
 
-  // Center on active site when changed from outside
-  useEffect(() => {
+  const handleFlyToSite = (index) => {
     const map = mapInstanceRef.current;
-    if (!map || activeSiteIndex === undefined) return;
-    const target = heritageSites[activeSiteIndex];
-    if (target) {
-      map.flyTo(target.coords, 8, { duration: 1.2 });
+    const target = heritageSites[index];
+    if (map && target) {
+      map.flyTo(target.coords, 8, { duration: 1.0 });
+      // Open popup for this marker
+      const marker = markersRef.current[index];
+      if (marker) {
+        marker.openPopup();
+      }
     }
-  }, [activeSiteIndex]);
+  };
 
   return (
-    <div className="relative w-full h-[540px] bg-[#090A0C] rounded-xl overflow-hidden border border-[#1E2228] shadow-2xl">
+    <div className="space-y-3">
       
-      {/* Map Control Overlay */}
-      <div className="absolute top-4 left-4 z-[400] flex flex-col gap-2 max-w-sm">
-        
-        {/* Title & Stats */}
-        <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-3 rounded-xl shadow-xl">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-              National Heritage Radar (ISRO/Bhuvan Grid)
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C5A059]/15 text-[#C5A059] border border-[#C5A059]/30 font-bold">
-              {heritageSites.length} UNESCO Sites Active
-            </span>
-          </div>
-          <p className="text-xs text-gray-300 font-sans mt-1">
-            WGS84 geospatial monitoring aligned with ISRO Bhuvan Heritage Buffer Standards & BIS IS 1893 seismic faults.
-          </p>
-
-          {/* Search Bar */}
-          <div className="mt-2">
-            <input
-              type="text"
-              placeholder="Search monument or circle..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#0E1013] border border-[#2B313D] rounded-lg px-2.5 py-1 text-xs text-white font-mono placeholder-gray-500 focus:outline-none focus:border-[#C5A059]"
-            />
-          </div>
-        </div>
-
-        {/* Base Layer Switcher (Dark vs Satellite) */}
-        <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-2.5 rounded-xl shadow-xl flex items-center justify-between gap-2">
-          <span className="text-[10px] font-mono text-gray-400 uppercase font-semibold">Base Imagery:</span>
-          <div className="flex gap-1">
+      {/* 🚀 1. Quick-Select Monument Ribbon (Click any monument to fly the map camera directly to it) */}
+      <div className="bg-[#121418] border border-[#1E2228] p-3 rounded-xl shadow-lg flex items-center gap-2 overflow-x-auto">
+        <span className="text-[10px] font-mono text-[#C5A059] uppercase font-bold tracking-wider whitespace-nowrap pl-1">
+          📍 Map Quick Jump:
+        </span>
+        <div className="flex items-center gap-1.5 flex-nowrap">
+          {heritageSites.map((s) => (
             <button
-              onClick={() => setBaseMapType('dark')}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition ${
-                baseMapType === 'dark'
-                  ? 'bg-[#C5A059] text-[#090A0C] font-bold'
-                  : 'bg-[#181B22] text-gray-400 hover:text-white border border-[#2B313D]'
-              }`}
+              key={s.index}
+              onClick={() => handleFlyToSite(s.index)}
+              className="px-2.5 py-1 rounded-lg bg-[#0E1013] hover:bg-[#181B22] border border-[#2B313D] hover:border-[#C5A059] text-xs font-mono text-gray-200 transition flex items-center gap-1.5 whitespace-nowrap group"
             >
-              🌑 Dark Tactical
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: s.color }} />
+              <span className="group-hover:text-[#C5A059] font-medium">{s.shortName}</span>
             </button>
-            <button
-              onClick={() => setBaseMapType('satellite')}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition ${
-                baseMapType === 'satellite'
-                  ? 'bg-sky-600 text-white font-bold'
-                  : 'bg-[#181B22] text-gray-400 hover:text-white border border-[#2B313D]'
-              }`}
-            >
-              🛰️ ISRO / Satellite
-            </button>
-          </div>
+          ))}
         </div>
-
-        {/* Hazard Layer Toggles */}
-        <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-2.5 rounded-xl shadow-xl flex items-center gap-3">
-          <span className="text-[10px] font-mono text-gray-400 uppercase font-semibold">Hazard Layers:</span>
-          <label className="flex items-center gap-1.5 text-xs font-mono text-rose-300 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={showSeismicLayer}
-              onChange={(e) => setShowSeismicLayer(e.target.checked)}
-              className="rounded text-rose-500 focus:ring-0"
-            />
-            <span>Seismic Faults</span>
-          </label>
-          <label className="flex items-center gap-1.5 text-xs font-mono text-sky-300 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={showRainfallLayer}
-              onChange={(e) => setShowRainfallLayer(e.target.checked)}
-              className="rounded text-sky-500 focus:ring-0"
-            />
-            <span>Monsoon Belt</span>
-          </label>
-        </div>
-
       </div>
 
-      {/* Map Container */}
-      <div ref={mapContainerRef} className="w-full h-full" />
+      {/* 🗺️ 2. Main Interactive Map Container */}
+      <div className="relative w-full h-[540px] bg-[#090A0C] rounded-xl overflow-hidden border border-[#1E2228] shadow-2xl">
+        
+        {/* Map Control Overlay */}
+        <div className="absolute top-4 left-4 z-[400] flex flex-col gap-2 max-w-sm">
+          
+          {/* Title & Stats */}
+          <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-3 rounded-xl shadow-xl">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
+                National Heritage Radar (ISRO Grid)
+              </span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C5A059]/15 text-[#C5A059] border border-[#C5A059]/30 font-bold">
+                {heritageSites.length} UNESCO Sites
+              </span>
+            </div>
+            <p className="text-xs text-gray-300 font-sans mt-1">
+              Click any pin on the map of India to inspect its health, risk, and launch its 3D twin.
+            </p>
+          </div>
+
+          {/* Base Layer Switcher (Dark vs Satellite) */}
+          <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-2.5 rounded-xl shadow-xl flex items-center justify-between gap-2">
+            <span className="text-[10px] font-mono text-gray-400 uppercase font-semibold">Base Map:</span>
+            <div className="flex gap-1">
+              <button
+                onClick={() => setBaseMapType('dark')}
+                className={`px-2.5 py-1 rounded text-xs font-mono transition ${
+                  baseMapType === 'dark'
+                    ? 'bg-[#C5A059] text-[#090A0C] font-bold'
+                    : 'bg-[#181B22] text-gray-400 hover:text-white border border-[#2B313D]'
+                }`}
+              >
+                🌑 Dark GIS
+              </button>
+              <button
+                onClick={() => setBaseMapType('satellite')}
+                className={`px-2.5 py-1 rounded text-xs font-mono transition ${
+                  baseMapType === 'satellite'
+                    ? 'bg-sky-600 text-white font-bold'
+                    : 'bg-[#181B22] text-gray-400 hover:text-white border border-[#2B313D]'
+                }`}
+              >
+                🛰️ Satellite View
+              </button>
+            </div>
+          </div>
+
+          {/* Hazard Layer Toggles */}
+          <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-2.5 rounded-xl shadow-xl flex items-center gap-3">
+            <span className="text-[10px] font-mono text-gray-400 uppercase font-semibold">Overlays:</span>
+            <label className="flex items-center gap-1.5 text-xs font-mono text-rose-300 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={showSeismicLayer}
+                onChange={(e) => setShowSeismicLayer(e.target.checked)}
+                className="rounded text-rose-500 focus:ring-0"
+              />
+              <span>Seismic Faults</span>
+            </label>
+            <label className="flex items-center gap-1.5 text-xs font-mono text-sky-300 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={showRainfallLayer}
+                onChange={(e) => setShowRainfallLayer(e.target.checked)}
+                className="rounded text-sky-500 focus:ring-0"
+              />
+              <span>Monsoon Belt</span>
+            </label>
+          </div>
+
+        </div>
+
+        {/* Map Container */}
+        <div ref={mapContainerRef} className="w-full h-full" />
+
+      </div>
 
     </div>
   );

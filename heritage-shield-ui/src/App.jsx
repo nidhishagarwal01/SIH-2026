@@ -851,14 +851,15 @@ export default function App() {
               </div>
             </div>
 
-            {/* Interactive Leaflet Map */}
+            {/* Interactive Leaflet Map with Bhuvan Satellite Mode */}
             <HeritageGisMap
               activeSiteIndex={activeSite}
-              onSelectSite={(idx) => {
+              onSelectSite={(idx, targetTab = 'twin') => {
                 handleSelectSite(idx);
-                setActiveTab('twin');
+                setActiveTab(targetTab);
               }}
             />
+
 
           </div>
         )}
