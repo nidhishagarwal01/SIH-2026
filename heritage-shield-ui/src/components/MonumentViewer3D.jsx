@@ -848,36 +848,19 @@ export default function MonumentViewer3D({
     return (
       <div className="flex flex-col h-full w-full bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">
         
-        {/* Top Header Outside 3D Canvas */}
-        <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-10">
-          <div className="flex items-center gap-2.5">
-            {availableSites && availableSites.length > 0 && typeof onSelectSite === 'function' ? (
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-mono text-[#C5A059] uppercase font-bold">3D Twin:</span>
-                <select
-                  value={siteIndex}
-                  onChange={(e) => onSelectSite(Number(e.target.value))}
-                  className="bg-[#14171E] border border-[#2B313D] text-xs font-serif font-bold text-[#F3EFE6] px-2.5 py-1 rounded-lg focus:outline-none focus:border-[#C5A059] cursor-pointer"
-                >
-                  {availableSites.map((s, idx) => (
-                    <option key={s.id || idx} value={idx} className="bg-[#0E1013] text-gray-200">
-                      {s.name} ({s.state})
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ) : (
-              <span className="text-sm font-serif font-bold text-[#F3EFE6]">
-                {siteData?.name || "Qutub Minar Complex"}
-              </span>
-            )}
-            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50 font-bold">
+        {/* Top Header Outside 3D Canvas (Single Row, No Overlap) */}
+        <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex items-center justify-between gap-3 z-10 shrink-0">
+          <div className="flex items-center gap-2">
+            <h3 className="text-sm sm:text-base font-serif font-bold text-[#F3EFE6] tracking-wide truncate max-w-[220px] sm:max-w-xs">
+              {siteData?.name || "Qutub Minar Complex"}
+            </h3>
+            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50 font-bold whitespace-nowrap">
               ● 3D Twin
             </span>
           </div>
 
           {/* Mode Switcher Buttons */}
-          <div className="flex items-center gap-1.5 font-mono text-xs">
+          <div className="flex items-center gap-1.5 font-mono text-xs shrink-0">
             <button
               onClick={() => setViewMode('stone')}
               className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
@@ -915,7 +898,7 @@ export default function MonumentViewer3D({
         </div>
 
         {/* Pure 3D Canvas Mount (100% Unobstructed) */}
-        <div className="relative flex-1 w-full min-h-[380px] bg-[#08090C] overflow-hidden">
+        <div className="relative flex-1 w-full min-h-[360px] bg-[#08090C] overflow-hidden">
           <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
         </div>
 

@@ -458,14 +458,12 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   </div>
                 </div>
 
-                <div className="lg:col-span-7 h-[480px] min-h-[480px] relative rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-[#060709]">
+                <div className="lg:col-span-7 h-[530px] min-h-[530px] relative rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-[#060709]">
                   <MonumentViewer3D
                     siteIndex={selectedTwinSiteIdx}
                     siteData={sites[selectedTwinSiteIdx] || sites[0]}
                     activeComponent={0}
                     isEmbedded={true}
-                    availableSites={sites}
-                    onSelectSite={setSelectedTwinSiteIdx}
                   />
                 </div>
               </div>
