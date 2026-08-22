@@ -1365,38 +1365,18 @@ export default function MonumentViewer3D({
   }
 
   return (
-    <div className="relative w-full h-[520px] bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">
+    <div className="relative w-full h-[540px] bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">
       
       {/* 3D Canvas Mount */}
       <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
-      {/* Top Left Title & Telemetry Header */}
-      <div className="absolute top-4 left-4 z-10 space-y-1 max-w-sm pointer-events-none">
-        <div className="bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] p-3 rounded-xl shadow-xl pointer-events-auto">
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-[10px] font-mono text-[#C5A059] uppercase font-bold tracking-wider">
-              3D Digital Twin Engine · Three.js PBR
-            </span>
-            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50 font-bold">
-              ● 60 FPS SYNC
-            </span>
-          </div>
-          <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
-            {currentTitle}
-          </h3>
-          <p className="text-[11px] text-gray-400 font-sans mt-1">
-            Component-mapped architectural twin. Click components below or rotate with mouse.
-          </p>
-        </div>
-      </div>
-
-      {/* Top Right View Mode Switcher (PBR Stone / LiDAR Cloud / Heatmap) */}
-      <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
+      {/* Top Right Controls (Realistic Stone / LiDAR / Heatmap + Camera Angles) */}
+      <div className="absolute top-4 right-4 z-10 flex flex-col sm:flex-row items-end sm:items-center gap-2 pointer-events-auto">
         <div className="bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] p-1.5 rounded-xl shadow-xl flex items-center gap-1 font-mono text-xs">
           <button
             onClick={() => setViewMode('stone')}
             title="Switch to Realistic 3D Stone Texture view with historical material rendering"
-            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
               viewMode === 'stone'
                 ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
                 : 'text-gray-400 hover:text-white'
@@ -1408,7 +1388,7 @@ export default function MonumentViewer3D({
           <button
             onClick={() => setViewMode('lidar')}
             title="Switch to LiDAR Wireframe Mesh view to inspect point geometry"
-            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
               viewMode === 'lidar'
                 ? 'bg-cyan-600 text-white font-bold shadow'
                 : 'text-gray-400 hover:text-white'
@@ -1420,7 +1400,7 @@ export default function MonumentViewer3D({
           <button
             onClick={() => setViewMode('heatmap')}
             title="Switch to Infrared Stress Heatmap to visualize defect vulnerability"
-            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
               viewMode === 'heatmap'
                 ? 'bg-rose-600 text-white font-bold shadow'
                 : 'text-gray-400 hover:text-white'
@@ -1436,7 +1416,7 @@ export default function MonumentViewer3D({
           <button
             onClick={() => setPresetView('iso')}
             title="View monument in 3D Isometric Perspective"
-            className={`px-2.5 py-1 rounded-lg transition ${
+            className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
               cameraView === 'iso' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -1445,7 +1425,7 @@ export default function MonumentViewer3D({
           <button
             onClick={() => setPresetView('front')}
             title="View front elevation at eye-level"
-            className={`px-2.5 py-1 rounded-lg transition ${
+            className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
               cameraView === 'front' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -1454,7 +1434,7 @@ export default function MonumentViewer3D({
           <button
             onClick={() => setPresetView('top')}
             title="View aerial top-down structural plan"
-            className={`px-2.5 py-1 rounded-lg transition ${
+            className={`px-2.5 py-1 rounded-lg transition cursor-pointer ${
               cameraView === 'top' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -1463,47 +1443,39 @@ export default function MonumentViewer3D({
         </div>
       </div>
 
-      {/* Bottom Controls & Telemetry Bar */}
-      <div className="absolute bottom-4 left-4 right-4 z-10 flex flex-wrap justify-between items-center gap-3 bg-[#0E1013]/95 backdrop-blur-md border border-[#1E2228] px-4 py-2.5 rounded-xl shadow-xl font-mono text-xs">
-        <div className="flex items-center gap-2">
-          <span className="text-gray-400">360° Orbit:</span>
+      {/* Bottom Controls (360 Orbit & Zoom Controls) */}
+      <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2 bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] px-3 py-2 rounded-xl shadow-xl font-mono text-xs pointer-events-auto">
+        <button
+          onClick={() => setAutoRotate(!autoRotate)}
+          title="Toggle continuous 360-degree rotation of the 3D twin"
+          className={`px-3 py-1 rounded-lg border transition cursor-pointer flex items-center gap-1.5 ${
+            autoRotate
+              ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
+              : 'border-[#1E2228] text-gray-400 hover:text-white'
+          }`}
+        >
+          {autoRotate ? '⏸ Pause 360° Orbit' : '▶ Play 360° Orbit'}
+        </button>
+
+        {/* Manual Zoom In / Out Buttons */}
+        <div className="flex items-center bg-[#14171E] border border-[#2B313D] rounded-lg">
           <button
-            onClick={() => setAutoRotate(!autoRotate)}
-            title="Toggle continuous 360-degree rotation of the 3D twin"
-            className={`px-3 py-1 rounded-lg border transition cursor-pointer ${
-              autoRotate
-                ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
-                : 'border-[#1E2228] text-gray-400 hover:text-white'
-            }`}
+            onClick={() => handleZoom('in')}
+            title="Zoom In"
+            className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-l-lg transition font-bold cursor-pointer"
           >
-            {autoRotate ? '⏸ Pause 360° Rotation' : '▶ Play 360° Rotation'}
+            +
+          </button>
+          <span className="text-[10px] text-gray-500 px-1 select-none">Zoom</span>
+          <button
+            onClick={() => handleZoom('out')}
+            title="Zoom Out"
+            className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-r-lg transition font-bold cursor-pointer"
+          >
+            −
           </button>
         </div>
-
-        {/* Selected Component Status */}
-        <div className="flex items-center gap-2.5">
-          <span className="text-gray-400">Selected Node:</span>
-          <div className="flex items-center gap-2 bg-[#14171C] px-3 py-1 rounded-lg border border-[#2B313D]">
-            <span
-              className="w-2 h-2 rounded-full animate-ping"
-              style={{ backgroundColor: components[activeComponent]?.color || '#C5A059' }}
-            />
-            <span className="text-[#F3EFE6] font-bold">
-              {components[activeComponent]?.name || `Node C-0${activeComponent + 1}`}
-            </span>
-            <span
-              className="text-[10px] px-1.5 py-0.2 rounded font-bold uppercase"
-              style={{
-                backgroundColor: `${components[activeComponent]?.color || '#C5A059'}25`,
-                color: components[activeComponent]?.color || '#C5A059'
-              }}
-            >
-              {components[activeComponent]?.status || 'Active'} · Health {components[activeComponent]?.score || 75}/100
-            </span>
-          </div>
-        </div>
       </div>
-
 
     </div>
   );

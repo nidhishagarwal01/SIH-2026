@@ -501,18 +501,6 @@ export default function App() {
           </button>
 
           <button
-            onClick={() => setActiveTab('gis')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
-              activeTab === 'gis'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
-            }`}
-          >
-            <span className="text-sm">🗺️</span>
-            <span>National GIS Command Radar</span>
-          </button>
-
-          <button
             onClick={() => setActiveTab('risk')}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
               activeTab === 'risk'
@@ -627,7 +615,6 @@ export default function App() {
                     <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 font-bold">
                       Architectural Nodes
                     </span>
-                    <span className="text-[10px] font-mono text-[#C5A059]">{components.length} Persistent IDs</span>
                   </div>
 
                   <div className="space-y-2">
