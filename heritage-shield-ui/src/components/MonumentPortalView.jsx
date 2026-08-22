@@ -327,20 +327,23 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                       e.stopPropagation();
                       onSelectMonument(site.index, 'twin');
                     }}
-                    className="py-2 rounded-xl bg-[#181B22] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-200 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center justify-center gap-1 shadow"
+                    className="py-2.5 rounded-xl bg-[#181B22] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-200 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 shadow"
+                    title="Open 3D Living Twin to inspect structural components"
                   >
-                    <span>🏛️ 3D Twin</span>
+                    <span>🏛️ Explore 3D Twin</span>
                   </button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       onSelectMonument(site.index, 'vision');
                     }}
-                    className="py-2 rounded-xl bg-sky-950/40 hover:bg-sky-600 border border-sky-700/50 hover:border-sky-500 text-sky-300 hover:text-white text-xs font-mono font-bold transition flex items-center justify-center gap-1 shadow"
+                    className="py-2.5 rounded-xl bg-sky-950/40 hover:bg-sky-600 border border-sky-700/50 hover:border-sky-500 text-sky-300 hover:text-white text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 shadow"
+                    title="Run AI Computer Vision to detect and quantify defects"
                   >
-                    <span>🔍 AI Vision</span>
+                    <span>🔍 Inspect AI Vision</span>
                   </button>
                 </div>
+
 
               </div>
             ))}

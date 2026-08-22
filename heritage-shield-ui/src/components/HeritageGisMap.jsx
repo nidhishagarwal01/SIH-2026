@@ -356,24 +356,29 @@ export default function HeritageGisMap({
             <div className="flex gap-1">
               <button
                 onClick={() => setBaseMapType('dark')}
-                className={`px-2.5 py-1 rounded text-xs font-mono transition ${
+                title="Switch to Dark GIS Grid Map with Carto tiles"
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition flex items-center gap-1.5 ${
                   baseMapType === 'dark'
-                    ? 'bg-[#C5A059] text-[#090A0C] font-bold'
+                    ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
                     : 'bg-[#181B22] text-gray-400 hover:text-white border border-[#2B313D]'
                 }`}
               >
-                🌑 Dark GIS
+                <span>🗺️</span>
+                <span>Dark GIS Grid</span>
               </button>
               <button
                 onClick={() => setBaseMapType('satellite')}
-                className={`px-2.5 py-1 rounded text-xs font-mono transition ${
+                title="Switch to High-Resolution Satellite Imagery"
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition flex items-center gap-1.5 ${
                   baseMapType === 'satellite'
-                    ? 'bg-sky-600 text-white font-bold'
+                    ? 'bg-sky-600 text-white font-bold shadow'
                     : 'bg-[#181B22] text-gray-400 hover:text-white border border-[#2B313D]'
                 }`}
               >
-                🛰️ Satellite View
+                <span>🛰️</span>
+                <span>Satellite Imagery</span>
               </button>
+
             </div>
           </div>
 

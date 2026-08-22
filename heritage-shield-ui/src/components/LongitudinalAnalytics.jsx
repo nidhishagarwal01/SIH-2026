@@ -60,33 +60,39 @@ export default function LongitudinalAnalytics({
         <div className="flex items-center gap-1.5 bg-[#0E1013] p-1 rounded-lg border border-[#1E2228]">
           <button
             onClick={() => setSelectedMetric('health')}
-            className={`text-xs px-3 py-1.5 rounded-lg font-mono transition ${
+            title="Display historical and projected overall health score (0-100)"
+            className={`text-xs px-3.5 py-1.5 rounded-lg font-mono transition flex items-center gap-1.5 ${
               selectedMetric === 'health'
                 ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            📊 Health Index (0-100)
+            <span>📊</span>
+            <span>Overall Health Score (0–100)</span>
           </button>
           <button
             onClick={() => setSelectedMetric('crack')}
-            className={`text-xs px-3 py-1.5 rounded-lg font-mono transition ${
+            title="Display structural crack expansion history and velocity (cm)"
+            className={`text-xs px-3.5 py-1.5 rounded-lg font-mono transition flex items-center gap-1.5 ${
               selectedMetric === 'crack'
                 ? 'bg-rose-600 text-white font-bold shadow'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            🔴 Crack Growth (cm)
+            <span>🔴</span>
+            <span>Crack Growth (cm)</span>
           </button>
           <button
             onClick={() => setSelectedMetric('moisture')}
-            className={`text-xs px-3 py-1.5 rounded-lg font-mono transition ${
+            title="Display surface and sub-surface moisture saturation history (%)"
+            className={`text-xs px-3.5 py-1.5 rounded-lg font-mono transition flex items-center gap-1.5 ${
               selectedMetric === 'moisture'
                 ? 'bg-sky-600 text-white font-bold shadow'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            🟡 Moisture Saturation (%)
+            <span>💧</span>
+            <span>Moisture Ingress (%)</span>
           </button>
         </div>
       </div>

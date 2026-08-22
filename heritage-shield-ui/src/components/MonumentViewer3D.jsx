@@ -766,33 +766,39 @@ export default function MonumentViewer3D({
         <div className="bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] p-1.5 rounded-xl shadow-xl flex items-center gap-1 font-mono text-xs">
           <button
             onClick={() => setViewMode('stone')}
-            className={`px-3 py-1.5 rounded-lg transition ${
+            title="Switch to Realistic 3D Stone Texture view with historical material rendering"
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
               viewMode === 'stone'
                 ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            🧱 PBR Stone
+            <span>🧱</span>
+            <span>Realistic 3D Stone</span>
           </button>
           <button
             onClick={() => setViewMode('lidar')}
-            className={`px-3 py-1.5 rounded-lg transition ${
+            title="Switch to LiDAR Wireframe Mesh view to inspect point geometry"
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
               viewMode === 'lidar'
                 ? 'bg-cyan-600 text-white font-bold shadow'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            🌐 LiDAR Mesh
+            <span>🌐</span>
+            <span>LiDAR Wireframe</span>
           </button>
           <button
             onClick={() => setViewMode('heatmap')}
-            className={`px-3 py-1.5 rounded-lg transition ${
+            title="Switch to Infrared Stress Heatmap to visualize defect vulnerability"
+            className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 ${
               viewMode === 'heatmap'
                 ? 'bg-rose-600 text-white font-bold shadow'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            🔥 Stress Map
+            <span>🔥</span>
+            <span>Stress Heatmap</span>
           </button>
         </div>
 
@@ -800,27 +806,30 @@ export default function MonumentViewer3D({
         <div className="bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] p-1.5 rounded-xl shadow-xl flex items-center justify-between gap-1 font-mono text-xs">
           <button
             onClick={() => setPresetView('iso')}
+            title="View monument in 3D Isometric Perspective"
             className={`px-2.5 py-1 rounded-lg transition ${
-              cameraView === 'iso' ? 'bg-[#1E2228] text-[#C5A059] font-bold' : 'text-gray-400 hover:text-white'
+              cameraView === 'iso' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
             }`}
           >
-            Perspective
+            📐 3D Angle
           </button>
           <button
             onClick={() => setPresetView('front')}
+            title="View front elevation at eye-level"
             className={`px-2.5 py-1 rounded-lg transition ${
-              cameraView === 'front' ? 'bg-[#1E2228] text-[#C5A059] font-bold' : 'text-gray-400 hover:text-white'
+              cameraView === 'front' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
             }`}
           >
-            Elevation
+            🏛️ Front Elevation
           </button>
           <button
             onClick={() => setPresetView('top')}
+            title="View aerial top-down structural plan"
             className={`px-2.5 py-1 rounded-lg transition ${
-              cameraView === 'top' ? 'bg-[#1E2228] text-[#C5A059] font-bold' : 'text-gray-400 hover:text-white'
+              cameraView === 'top' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
             }`}
           >
-            Plan View
+            🗺️ Top-Down Plan
           </button>
         </div>
       </div>
@@ -828,18 +837,20 @@ export default function MonumentViewer3D({
       {/* Bottom Controls Bar */}
       <div className="absolute bottom-4 left-4 right-4 z-10 flex flex-wrap justify-between items-center gap-3 bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] px-4 py-2.5 rounded-xl shadow-xl font-mono text-xs">
         <div className="flex items-center gap-2">
-          <span className="text-gray-400">Rotation:</span>
+          <span className="text-gray-400">360° Orbit:</span>
           <button
             onClick={() => setAutoRotate(!autoRotate)}
+            title="Toggle continuous 360-degree rotation of the 3D twin"
             className={`px-3 py-1 rounded-lg border transition ${
               autoRotate
                 ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
                 : 'border-[#1E2228] text-gray-400 hover:text-white'
             }`}
           >
-            {autoRotate ? '⏸ Pause Orbit' : '▶ Play Orbit'}
+            {autoRotate ? '⏸ Pause 360° Rotation' : '▶ Play 360° Rotation'}
           </button>
         </div>
+
 
         {/* Selected Node Status */}
         <div className="flex items-center gap-2">
