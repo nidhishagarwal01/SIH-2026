@@ -107,9 +107,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
               <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#F3EFE6]">
                 Portal Login & Access
               </h2>
-              <p className="text-xs text-gray-400 font-mono">
-                Secure unified gateway for ASI Conservation Officials and Citizen Science Sentinels.
-              </p>
             </div>
 
             {/* Role Switcher Tabs */}
@@ -222,15 +219,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
                       </>
                     )}
                   </button>
-
-                  <button
-                    type="button"
-                    onClick={handleOfficerLogin}
-                    className="w-full py-2 rounded-xl bg-[#1A1E27] hover:bg-[#232936] text-amber-300 font-mono text-[11px] border border-amber-700/30 transition flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
-                    <span>Instant Demo: Sign In as ASI Lead Architect</span>
-                  </button>
                 </div>
               </form>
             )}
@@ -307,15 +295,6 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={handlePublicLogin}
-                    className="w-full py-2 rounded-xl bg-[#1A1E27] hover:bg-[#232936] text-emerald-300 font-mono text-[11px] border border-emerald-700/30 transition flex items-center justify-center gap-1.5 cursor-pointer"
-                  >
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Instant Demo: Sign In as Citizen Sentinel</span>
                   </button>
                 </div>
               </form>

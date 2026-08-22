@@ -448,10 +448,6 @@ export default function LandingPageView({
             {showcaseTab === 'twin' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 space-y-4">
-                  <span className="text-xs font-mono text-[#C5A059] uppercase font-bold">Interactive 3D Simulation</span>
-                  <h3 className="text-2xl font-serif font-bold text-white">
-                    Living 3D Digital Twin of the Heritage Site
-                  </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     A realistic 3D model of the heritage site. You can rotate 360°, zoom in, and click directly on individual domes, balconies, pillars, or base walls to inspect their condition history.
                   </p>
@@ -522,10 +518,6 @@ export default function LandingPageView({
               return (
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   <div className="lg:col-span-5 space-y-4">
-                    <span className="text-xs font-mono text-cyan-400 uppercase font-bold">AI Image Scanner</span>
-                    <h3 className="text-2xl font-serif font-bold text-white">
-                      Automatic Damage & Crack Detection
-                    </h3>
                     <p className="text-sm text-gray-300 leading-relaxed font-sans">
                       Smart computer vision scans inspection photos to detect cracks, peeling stone, and water dampness. It measures the exact length and width of cracks to catch damage early.
                     </p>
@@ -616,14 +608,10 @@ export default function LandingPageView({
             {showcaseTab === 'temporal' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 space-y-4">
-                  <span className="text-xs font-mono text-purple-400 uppercase font-bold">Future Forecasting</span>
-                  <h3 className="text-2xl font-serif font-bold text-white">
-                    Predicting Structural Decay Till 2030
-                  </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     Forecasting how damage will worsen over the next 4 to 6 years if left untreated. It proves that fixing minor cracks early for ₹3 Lakhs avoids ₹70+ Lakhs in emergency rebuilds later.
                   </p>
-                  <div className="pt-4">
+                  <div className="pt-2">
                     <button
                       onClick={onEnterDashboard}
                       className="px-6 py-2.5 rounded-xl bg-purple-600 text-white font-mono text-xs font-bold hover:bg-purple-500 transition cursor-pointer"
@@ -665,14 +653,10 @@ export default function LandingPageView({
             {showcaseTab === 'gis' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 space-y-4">
-                  <span className="text-xs font-mono text-emerald-400 uppercase font-bold">National GIS Map</span>
-                  <h3 className="text-2xl font-serif font-bold text-white">
-                    Live Map for All 12 Heritage Sites
-                  </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     View all 12 Centrally Protected Heritage Sites across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
                   </p>
-                  <div className="pt-4">
+                  <div className="pt-2">
                     <button
                       onClick={onEnterDashboard}
                       className="px-6 py-2.5 rounded-xl bg-emerald-600 text-white font-mono text-xs font-bold hover:bg-emerald-500 transition cursor-pointer"

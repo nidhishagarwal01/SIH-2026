@@ -178,15 +178,9 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
           
           <div className="flex flex-wrap justify-between items-center gap-3">
             <div>
-              <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-                Geospatial Telemetry & GIS Radar
-              </span>
               <h3 className="text-xl font-serif font-bold text-[#F3EFE6]">
                 National Built Heritage Radar
               </h3>
-            </div>
-            <div className="text-xs font-mono text-gray-400 bg-[#121418] px-3 py-1.5 rounded-lg border border-[#1E2228]">
-              Grid: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong>
             </div>
           </div>
 
