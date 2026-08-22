@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import HeritageShieldLogo from './HeritageShieldLogo';
 import ThemeToggle from './ThemeToggle';
+import MonumentViewer3D from './MonumentViewer3D';
+import HeritageGisMap from './HeritageGisMap';
+
 import {
   Shield,
   Layers,
@@ -303,38 +306,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
       </section>
 
       {/* ========================================================================= */}
-      {/* 🧭 3. PROCESS FLOW RIBBON (OBSERVE → DIGITISE → ... → ACT)                 */}
-      {/* ========================================================================= */}
-      <section id="workflow-ribbon" className="border-y border-[#181C24] bg-[#0A0C10] py-4 px-6">
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-2 overflow-x-auto">
-          
-          <div className="flex items-center gap-2 sm:gap-3 flex-nowrap text-xs font-mono">
-            {processFlowItems.map((item, idx) => (
-              <React.Fragment key={item.label}>
-                <div
-                  onClick={() => setActiveWorkflowIndex(idx)}
-                  className={`px-3 py-1.5 rounded-lg border transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
-                    activeWorkflowIndex === idx
-                      ? 'border-[#C5A059] bg-[#C5A059]/15 text-[#F3EFE6] font-bold shadow'
-                      : 'border-[#1E232E] bg-[#0E1013] text-gray-400 hover:border-gray-500 hover:text-gray-200'
-                  }`}
-                >
-                  <span className="text-[10px] text-[#C5A059] font-bold">0{idx + 1}.</span>
-                  <span>{item.label}</span>
-                </div>
-
-                {idx < processFlowItems.length - 1 && (
-                  <span className="text-gray-600 font-bold text-xs select-none">→</span>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 🏛️ 4. "THE DECISION LAYER, MODULE BY MODULE" (8 DETAILED MODULES)          */}
+      {/* 🏛️ 3. "THE DECISION LAYER, MODULE BY MODULE" (8 DETAILED MODULES)          */}
       {/* ========================================================================= */}
       <section id="decision-modules" className="py-20 px-6 max-w-[1600px] mx-auto space-y-12">
         
@@ -389,9 +361,8 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
       </section>
 
-
       {/* ========================================================================= */}
-      {/* 💻 5. INTERACTIVE LIVE CONSOLE SANDBOX SHOWCASE                           */}
+      {/* 💻 4. INTERACTIVE LIVE CONSOLE SANDBOX SHOWCASE                           */}
       {/* ========================================================================= */}
       <section id="sandbox-showcase" className="py-16 px-6 bg-[#090B0E] border-y border-[#181C24]">
         <div className="max-w-[1600px] mx-auto space-y-8">
@@ -452,7 +423,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
             
             {showcaseTab === 'twin' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-7 space-y-4">
+                <div className="lg:col-span-5 space-y-4">
                   <span className="text-xs font-mono text-[#C5A059] uppercase font-bold">Interactive 3D Simulation</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
                     Living 3D Digital Twin of the Monument
@@ -475,24 +446,19 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 relative aspect-square rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-black">
-                  <img
-                    src="/monuments/qutub_minar.jpg"
-                    alt="Qutub Minar 3D Model"
-                    className="w-full h-full object-cover filter brightness-90 contrast-110"
+                <div className="lg:col-span-7 h-[480px] min-h-[480px] relative rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-[#060709]">
+                  <MonumentViewer3D
+                    siteIndex={0}
+                    siteData={sites[0]}
+                    activeComponent={0}
                   />
-                  <div className="absolute inset-0 bg-wireframe-grid opacity-60" />
-                  <div className="absolute bottom-3 left-3 right-3 bg-[#090A0C]/90 backdrop-blur border border-[#1E2228] p-3 rounded-lg text-xs font-mono flex justify-between items-center">
-                    <span className="text-[#C5A059] font-bold">Node C-01: Main Shaft</span>
-                    <span className="text-rose-400 font-bold">Score: 62/100</span>
-                  </div>
                 </div>
               </div>
             )}
 
             {showcaseTab === 'vision' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-7 space-y-4">
+                <div className="lg:col-span-5 space-y-4">
                   <span className="text-xs font-mono text-cyan-400 uppercase font-bold">AI Image Scanner</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
                     Automatic Damage & Crack Detection
@@ -515,15 +481,15 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 relative aspect-square rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-black">
+                <div className="lg:col-span-7 h-[480px] min-h-[480px] relative rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-black flex items-center justify-center">
                   <img
                     src="/monuments/taj_mahal.jpg"
                     alt="AI Defect Segmentation"
                     className="w-full h-full object-cover filter brightness-95"
                   />
-                  <div className="absolute inset-10 border-2 border-rose-500 bg-rose-500/15 rounded">
-                    <span className="absolute -top-5 left-0 bg-rose-500 text-black text-[10px] font-mono px-1.5 py-0.5 rounded font-bold">
-                      DEF-01 · Crack · 94.2% Confidence
+                  <div className="absolute inset-16 border-2 border-rose-500 bg-rose-500/15 rounded-lg pointer-events-none">
+                    <span className="absolute -top-6 left-0 bg-rose-500 text-black text-[11px] font-mono px-2 py-0.5 rounded font-bold">
+                      DEF-01 · Micro-Fracture · 94.8% AI Confidence
                     </span>
                   </div>
                 </div>
@@ -532,7 +498,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
             {showcaseTab === 'temporal' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-7 space-y-4">
+                <div className="lg:col-span-5 space-y-4">
                   <span className="text-xs font-mono text-purple-400 uppercase font-bold">Future Forecasting</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
                     Predicting Structural Decay Till 2030
@@ -560,26 +526,30 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 bg-[#090A0C] p-6 rounded-xl border border-[#2B313D] space-y-3 font-mono text-xs">
-                  <div className="flex justify-between items-center text-gray-400 border-b border-[#1E2228] pb-2">
-                    <span>Year</span>
-                    <span>Health Score</span>
+                <div className="lg:col-span-7 bg-[#090A0C] p-6 rounded-xl border border-[#2B313D] space-y-3 font-mono text-xs h-[480px] flex flex-col justify-center">
+                  <div className="flex justify-between items-center text-gray-400 border-b border-[#1E2228] pb-3 text-sm">
+                    <span>Forecast Year</span>
+                    <span>Predicted Health Score</span>
                   </div>
-                  <div className="flex justify-between items-center text-gray-300">
-                    <span>2020 Baseline</span>
-                    <span className="text-emerald-400 font-bold">91/100 (Safe)</span>
+                  <div className="flex justify-between items-center text-gray-300 py-2 border-b border-[#14171E]">
+                    <span>2020 Baseline Survey</span>
+                    <span className="text-emerald-400 font-bold">91 / 100 (Safe)</span>
                   </div>
-                  <div className="flex justify-between items-center text-gray-300">
-                    <span>2026 Today</span>
-                    <span className="text-amber-400 font-bold">62/100 (Needs Attention)</span>
+                  <div className="flex justify-between items-center text-gray-300 py-2 border-b border-[#14171E]">
+                    <span>2024 Interim Survey</span>
+                    <span className="text-emerald-300 font-bold">82 / 100 (Stable)</span>
                   </div>
-                  <div className="flex justify-between items-center text-rose-400 font-bold">
-                    <span>2028 Untreated</span>
-                    <span>32/100 (Critical)</span>
+                  <div className="flex justify-between items-center text-gray-300 py-2 border-b border-[#14171E]">
+                    <span>2026 Today (Current Scan)</span>
+                    <span className="text-amber-400 font-bold">62 / 100 (Needs Attention)</span>
                   </div>
-                  <div className="flex justify-between items-center text-rose-500 font-bold">
-                    <span>2030 Untreated</span>
-                    <span>14/100 (Failure Risk)</span>
+                  <div className="flex justify-between items-center text-rose-400 font-bold py-2 border-b border-[#14171E]">
+                    <span>2028 Projected (Untreated)</span>
+                    <span>32 / 100 (Critical)</span>
+                  </div>
+                  <div className="flex justify-between items-center text-rose-500 font-bold py-2">
+                    <span>2030 Projected (Failure Risk)</span>
+                    <span>14 / 100 (Immediate Action Required)</span>
                   </div>
                 </div>
               </div>
@@ -587,7 +557,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
             {showcaseTab === 'gis' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-7 space-y-4">
+                <div className="lg:col-span-5 space-y-4">
                   <span className="text-xs font-mono text-emerald-400 uppercase font-bold">National GIS Map</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
                     Live Map for All 3,696 Heritage Monuments
@@ -610,21 +580,17 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 relative aspect-square rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-black">
-                  <img
-                    src="/monuments/konark.jpg"
-                    alt="Konark GIS Site"
-                    className="w-full h-full object-cover filter brightness-90"
+                <div className="lg:col-span-7 h-[480px] min-h-[480px] relative rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-[#060709]">
+                  <HeritageGisMap
+                    activeSiteIndex={0}
+                    onSelectSite={(idx) => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
+                    filterSites={sites}
                   />
-                  <div className="absolute top-4 left-4 bg-[#090A0C]/90 px-3 py-1 rounded border border-[#1E2228] text-xs font-mono text-[#C5A059]">
-                    📍 Konark Sun Temple · Odisha
-                  </div>
                 </div>
               </div>
             )}
 
           </div>
-
 
         </div>
       </section>
@@ -684,7 +650,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
           <div className="lg:col-span-5 bg-[#14171E] border border-[#232A38] p-6 rounded-xl text-center space-y-3">
             <span className="text-[10px] font-mono uppercase text-gray-400">Simulated Health Score</span>
             <div className="text-5xl font-serif font-bold text-[#C5A059]">
-              {simHealthColor => null}
               <span style={{ color: simulatedHealth < 45 ? '#F43F5E' : simulatedHealth < 70 ? '#F59E0B' : '#10B981' }}>
                 {simulatedHealth}
               </span>
