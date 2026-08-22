@@ -109,11 +109,18 @@ export default function AssetSwitcherModal({
 
                   {/* Thumbnail & Title */}
                   <div className="flex gap-3 items-center mb-3">
-                    <img
-                      src={site.imageUrl}
-                      alt={site.name}
-                      className="w-14 h-14 rounded-lg object-cover border border-[#2B313D] shadow"
-                    />
+                    <div className="w-14 h-14 rounded-lg overflow-hidden border border-[#2B313D] shadow flex-shrink-0 bg-[#1A1D24] relative flex items-center justify-center">
+                      <img
+                        src={site.imageUrl}
+                        alt={site.name}
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                      <span className="text-xl select-none">🏛️</span>
+                    </div>
                     <div>
                       <h4 className="text-xs font-serif font-bold text-[#F3EFE6] leading-snug group-hover:text-[#C5A059] transition">
                         {site.name}
@@ -123,6 +130,7 @@ export default function AssetSwitcherModal({
                       </p>
                     </div>
                   </div>
+
 
                   {/* Hazard & Material tags */}
                   <div className="space-y-1 text-[10px] font-mono text-gray-400 bg-[#121418] p-2 rounded-lg border border-[#1E2228]">

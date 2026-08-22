@@ -563,11 +563,13 @@ export default function InspectionPhotoViewer({
             <img
               src={uploadedImage || curPreset.imageUrl}
               alt={curPreset.title}
+              referrerPolicy="no-referrer"
               className="w-full h-full object-cover filter contrast-105 brightness-95"
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
             />
+
 
             {/* Bounding Box SVG Overlays — Pixel-Accurate */}
             {showMasks && (
