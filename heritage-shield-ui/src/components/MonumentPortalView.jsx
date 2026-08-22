@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import HeritageGisMap from './HeritageGisMap';
+import HeritageShieldLogo from './HeritageShieldLogo';
 
 export default function MonumentPortalView({ sites, onSelectMonument, onBackToLanding, liveWeather }) {
+
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL'); // 'ALL' | 'Critical' | 'Watch' | 'Stable' | 'ZoneIV_V'
   const [stateFilter, setStateFilter] = useState('ALL');
@@ -39,22 +41,12 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
           {/* Clickable Home Brand */}
-          <div
+          <HeritageShieldLogo
+            size="md"
+            showText={true}
             onClick={onBackToLanding}
-            className="flex items-center gap-3.5 cursor-pointer group"
-            title="Return to Heritage Shield Home"
-          >
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow-lg shadow-amber-950/30 group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-[#0E1013] rounded-lg flex items-center justify-center">
-                <span className="font-serif font-black text-[#C5A059] group-hover:text-white text-base tracking-tighter transition-colors">HS</span>
-              </div>
-            </div>
-            <div>
-              <h1 className="text-base font-serif font-bold tracking-wide text-[#F3EFE6] group-hover:text-[#C5A059] transition-colors">
-                HERITAGE SHIELD
-              </h1>
-            </div>
-          </div>
+          />
+
 
 
 

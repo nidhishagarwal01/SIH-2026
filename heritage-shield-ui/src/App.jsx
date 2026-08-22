@@ -11,8 +11,10 @@ import PhotogrammetryPipeline from './components/PhotogrammetryPipeline';
 import LongitudinalAnalytics from './components/LongitudinalAnalytics';
 import LiveIngestModal from './components/LiveIngestModal';
 import AssetSwitcherModal from './components/AssetSwitcherModal';
+import HeritageShieldLogo from './components/HeritageShieldLogo';
 
 import { UNESCO_SITES } from './data/unescoSites';
+
 
 export default function App() {
   // Navigation Flow: 'landing' (Product Landing Page) | 'portal' (National Map & Monument Directory) | 'studio' (Work on Selected Monument)
@@ -381,20 +383,13 @@ export default function App() {
           {/* Brand & Return to Portal Button */}
           <div className="flex items-center gap-3">
             {/* Clickable Home Brand */}
-            <div 
+            <HeritageShieldLogo
+              size="sm"
+              showText={true}
+              textClassName="text-sm"
               onClick={() => setViewMode('landing')}
-              className="flex items-center gap-2.5 cursor-pointer group"
-              title="Return to Heritage Shield Home"
-            >
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow group-hover:scale-105 transition-transform">
-                <div className="w-full h-full bg-[#0E1013] rounded-lg flex items-center justify-center">
-                  <span className="font-serif font-black text-[#C5A059] group-hover:text-white text-xs transition-colors">HS</span>
-                </div>
-              </div>
-              <div>
-                <h1 className="text-sm font-serif font-bold text-[#F3EFE6] group-hover:text-[#C5A059] leading-tight transition-colors">HERITAGE SHIELD</h1>
-              </div>
-            </div>
+            />
+
 
 
             <div className="w-[1px] h-6 bg-[#1E2228]" />

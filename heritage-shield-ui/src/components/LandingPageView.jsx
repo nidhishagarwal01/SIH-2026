@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import HeritageShieldLogo from './HeritageShieldLogo';
 import {
+
   Shield,
   Layers,
   Eye,
@@ -164,22 +166,13 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
         <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
           
           {/* Clickable Home Brand */}
-          <div 
+          <HeritageShieldLogo
+            size="md"
+            showText={true}
+            textClassName="text-lg"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-3 cursor-pointer group"
-            title="Heritage Shield — Home"
-          >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#C5A059] via-[#8C6D38] to-[#38BDF8] p-[1px] shadow-lg shadow-amber-950/40 group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-[#0E1013] rounded-xl flex items-center justify-center">
-                <Shield className="w-5 h-5 text-[#C5A059] group-hover:text-white transition-colors" />
-              </div>
-            </div>
-            <div>
-              <span className="font-serif font-black text-lg tracking-wide text-white group-hover:text-[#C5A059] transition-colors">
-                HERITAGE SHIELD
-              </span>
-            </div>
-          </div>
+          />
+
 
           {/* Center Links */}
           <div className="hidden lg:flex items-center gap-6 text-xs font-mono text-gray-300">
@@ -1032,12 +1025,13 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
       </section>
 
       {/* 🏛️ 11. FOOTER */}
-      <footer className="border-t border-[#161920] bg-[#07080A] py-8 px-6 text-center font-mono text-xs text-gray-500 space-y-2">
-        <div className="text-gray-400 font-medium">HERITAGE SHIELD</div>
+      <footer className="border-t border-[#161920] bg-[#07080A] py-8 px-6 text-center font-mono text-xs text-gray-500 space-y-3 flex flex-col items-center justify-center">
+        <HeritageShieldLogo size="sm" showText={true} />
         <div className="text-[11px] text-gray-600">
           Archaeological Survey of India (ASI) & Ministry of Culture
         </div>
       </footer>
+
 
     </div>
   );
