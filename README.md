@@ -1,7 +1,6 @@
-# 🏛️ HERITAGE SHIELD (SIH 2026 — Team 031 / Qualified)
-> **AI-Assisted, Expert-Validated Predictive Conservation & Living Digital Twin Platform for Built Heritage**  
-> *Domain: Simulation and Digital Twin (Category: Software) · Ministry of Culture & Archaeological Survey of India (ASI)*  
-> *Somaiya Vidyavihar University*
+# 🛡️ Heritage Shield (SIH 2026)
+### AI-Powered Multi-Scale Predictive Conservation & Resilient Digital Twin for Built Heritage
+> *Smart India Hackathon 2026 · Team Qualified (Team ID: 031)*
 
 ---
 
@@ -107,5 +106,5 @@ Complete slide-by-slide scripts and answers to the **7 Deadly Judge Trap Questio
 - [`presentation_and_defense_guide.md`](file:///Users/nidhishagarwal/.gemini/antigravity/brain/1dc9c51f-c2da-4612-8164-b110bc248221/presentation_and_defense_guide.md)
 - [`walkthrough.md`](file:///Users/nidhishagarwal/.gemini/antigravity/brain/1dc9c51f-c2da-4612-8164-b110bc248221/walkthrough.md)
 
----
-*Smart India Hackathon 2026 · Team Qualified (Team ID: 031) · Somaiya Vidyavihar University*
+*Smart India Hackathon 2026 · Team Qualified (Team ID: 031)*
+

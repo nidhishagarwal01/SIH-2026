@@ -80,7 +80,8 @@ export default function MonumentViewer3D({
   siteData = null,
   activeComponent = 0,
   onSelectComponent,
-  components = []
+  components = [],
+  isEmbedded = false
 }) {
   const mountRef = useRef(null);
   const [viewMode, setViewMode] = useState('stone'); // 'stone' | 'lidar' | 'heatmap'
@@ -104,9 +105,8 @@ export default function MonumentViewer3D({
   }, [activeComponent, onSelectComponent]);
 
   const currentTitle = siteData?.name
-    ? `${siteData.name} · Precision 3D Digital Twin`
-    : `3D Digital Twin Model (Site #${siteIndex + 1})`;
-
+    ? `${siteData.name}`
+    : `Qutub Minar Complex`;
 
   useEffect(() => {
     const container = mountRef.current;
@@ -119,12 +119,13 @@ export default function MonumentViewer3D({
     scene.fog = new THREE.FogExp2(0x08090C, 0.025);
 
     const width = container.clientWidth;
-    const height = container.clientHeight || 520;
+    const height = container.clientHeight || (isEmbedded ? 380 : 520);
 
     // 2. Camera
-    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
-    camera.position.set(7.5, 5.2, 9.5);
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+    camera.position.set(0, 3.5, 11);
     cameraRef.current = camera;
+
 
     // 3. Renderer with high-fidelity soft shadows
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
@@ -829,6 +830,109 @@ export default function MonumentViewer3D({
       controls.target.set(0, 1.9, 0);
     }
   };
+
+  if (isEmbedded) {
+    return (
+      <div className="flex flex-col h-full w-full bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">
+        
+        {/* Top Header Outside 3D Canvas */}
+        <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-10">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-serif font-bold text-[#F3EFE6]">
+              {siteData?.name || "Qutub Minar Complex"}
+            </span>
+            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50 font-bold">
+              ● 3D Twin
+            </span>
+          </div>
+
+          {/* Mode Switcher Buttons */}
+          <div className="flex items-center gap-1.5 font-mono text-xs">
+            <button
+              onClick={() => setViewMode('stone')}
+              className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
+                viewMode === 'stone'
+                  ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
+                  : 'text-gray-400 hover:text-white bg-[#14171E] border border-[#2B313D]'
+              }`}
+            >
+              <span>🧱</span>
+              <span>Realistic 3D Stone</span>
+            </button>
+            <button
+              onClick={() => setViewMode('lidar')}
+              className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
+                viewMode === 'lidar'
+                  ? 'bg-cyan-600 text-white font-bold shadow'
+                  : 'text-gray-400 hover:text-white bg-[#14171E] border border-[#2B313D]'
+              }`}
+            >
+              <span>🌐</span>
+              <span>LiDAR Wireframe</span>
+            </button>
+            <button
+              onClick={() => setViewMode('heatmap')}
+              className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
+                viewMode === 'heatmap'
+                  ? 'bg-rose-600 text-white font-bold shadow'
+                  : 'text-gray-400 hover:text-white bg-[#14171E] border border-[#2B313D]'
+              }`}
+            >
+              <span>🔥</span>
+              <span>Heatmap</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Pure 3D Canvas Mount (100% Unobstructed) */}
+        <div className="relative flex-1 w-full min-h-[380px] bg-[#08090C] overflow-hidden">
+          <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+        </div>
+
+        {/* Bottom Control Ribbon Outside 3D Canvas */}
+        <div className="bg-[#0E1013] border-t border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 font-mono text-xs z-10">
+          <button
+            onClick={() => setAutoRotate(!autoRotate)}
+            className={`px-3 py-1 rounded-lg border transition cursor-pointer flex items-center gap-1.5 ${
+              autoRotate
+                ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
+                : 'border-[#1E2228] text-gray-400 hover:text-white'
+            }`}
+          >
+            <span>{autoRotate ? '⏸ Pause 360° Orbit' : '▶ Play 360° Orbit'}</span>
+          </button>
+
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => setPresetView('iso')}
+              className={`px-2.5 py-1 rounded-lg transition text-xs ${
+                cameraView === 'iso' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              📐 3D Angle
+            </button>
+            <button
+              onClick={() => setPresetView('front')}
+              className={`px-2.5 py-1 rounded-lg transition text-xs ${
+                cameraView === 'front' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              🏛️ Front
+            </button>
+            <button
+              onClick={() => setPresetView('top')}
+              className={`px-2.5 py-1 rounded-lg transition text-xs ${
+                cameraView === 'top' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              🗺️ Top
+            </button>
+          </div>
+        </div>
+
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-[520px] bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">

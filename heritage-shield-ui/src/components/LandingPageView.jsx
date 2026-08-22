@@ -369,9 +369,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
           
           <div className="flex flex-wrap justify-between items-end gap-4">
             <div>
-              <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-                Live Interactive Sandbox
-              </span>
               <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#F3EFE6] mt-1">
                 Experience the 4 Core Intelligence Consoles
               </h2>
@@ -451,6 +448,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                     siteIndex={0}
                     siteData={sites[0]}
                     activeComponent={0}
+                    isEmbedded={true}
                   />
                 </div>
               </div>
@@ -585,6 +583,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                     activeSiteIndex={0}
                     onSelectSite={(idx) => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
                     filterSites={sites}
+                    hideQuickJump={true}
                   />
                 </div>
               </div>
@@ -792,7 +791,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
           <div className="flex items-center gap-3">
             <HeritageShieldLogo size="sm" showText={true} />
             <span className="text-gray-600">|</span>
-            <span>SIH 2026 Team Qualified · Somaiya Vidyavihar University</span>
+            <span>Smart India Hackathon 2026 · Team Qualified (Team ID: 031)</span>
           </div>
 
           <div className="flex items-center gap-6">

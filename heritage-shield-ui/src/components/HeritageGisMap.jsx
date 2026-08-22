@@ -8,7 +8,8 @@ export default function HeritageGisMap({
   onSelectSite,
   filterSites,
   selectedStatus = 'ALL',
-  searchQuery = ''
+  searchQuery = '',
+  hideQuickJump = false
 }) {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -321,31 +322,34 @@ export default function HeritageGisMap({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 h-full">
       
       {/* 🚀 1. Quick-Select Monument Ribbon (Major Flagship Heritage Sites) */}
-      <div className="bg-[#121418] border border-[#1E2228] p-2.5 rounded-xl shadow-lg flex items-center gap-2 overflow-x-auto">
-        <span className="text-[10px] font-mono text-[#C5A059] uppercase font-bold tracking-wider whitespace-nowrap pl-1 flex items-center gap-1">
-          <span>📍</span>
-          <span>Quick Jump:</span>
-        </span>
-        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-          {majorQuickSites.map((s) => (
-            <button
-              key={s.index}
-              onClick={() => handleFlyToSite(s.index)}
-              className="px-3 py-1 rounded-lg bg-[#0E1013] hover:bg-[#181B22] border border-[#2B313D] hover:border-[#C5A059] text-xs font-mono text-gray-200 transition flex items-center gap-1.5 whitespace-nowrap group cursor-pointer shadow-sm"
-            >
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: s.color }} />
-              <span className="group-hover:text-[#C5A059] font-medium">{s.shortName}</span>
-            </button>
-          ))}
+      {!hideQuickJump && (
+        <div className="bg-[#121418] border border-[#1E2228] p-2.5 rounded-xl shadow-lg flex items-center gap-2 overflow-x-auto">
+          <span className="text-[10px] font-mono text-[#C5A059] uppercase font-bold tracking-wider whitespace-nowrap pl-1 flex items-center gap-1">
+            <span>📍</span>
+            <span>Quick Jump:</span>
+          </span>
+          <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+            {majorQuickSites.map((s) => (
+              <button
+                key={s.index}
+                onClick={() => handleFlyToSite(s.index)}
+                className="px-3 py-1 rounded-lg bg-[#0E1013] hover:bg-[#181B22] border border-[#2B313D] hover:border-[#C5A059] text-xs font-mono text-gray-200 transition flex items-center gap-1.5 whitespace-nowrap group cursor-pointer shadow-sm"
+              >
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: s.color }} />
+                <span className="group-hover:text-[#C5A059] font-medium">{s.shortName}</span>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
 
       {/* 🗺️ 2. Main Interactive Map Container */}
-      <div className="relative w-full h-[540px] bg-[#090A0C] rounded-xl overflow-hidden border border-[#1E2228] shadow-2xl">
+      <div className={`relative w-full ${hideQuickJump ? 'h-full min-h-[460px]' : 'h-[540px]'} bg-[#090A0C] rounded-xl overflow-hidden border border-[#1E2228] shadow-2xl`}>
+
         
         {/* Map Control Overlay */}
         <div className="absolute top-4 left-4 z-[400] flex flex-col gap-2 max-w-sm">

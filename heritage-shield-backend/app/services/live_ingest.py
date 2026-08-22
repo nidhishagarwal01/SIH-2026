@@ -45,7 +45,8 @@ def fetch_and_examine_live_monument_data(
         )
         req = urllib.request.Request(
             wiki_api,
-            headers={"User-Agent": "HeritageShield-SIH26-Bot/1.0 (Somaiya Vidyavihar University; SIH Hackathon)"}
+            headers={"User-Agent": "HeritageShield-SIH26-Bot/1.0 (Team Qualified; SIH Hackathon)"}
+
         )
         with urllib.request.urlopen(req, timeout=4) as response:
             data = json.loads(response.read().decode('utf-8'))
