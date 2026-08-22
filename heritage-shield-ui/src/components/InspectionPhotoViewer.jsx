@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 export default function InspectionPhotoViewer({
+  siteData = null,
   activeComponent = 'North Façade Wall (Main Shaft)',
   onDetectionsLoaded
 }) {
+
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [selectedDefect, setSelectedDefect] = useState(0);
   const [showMasks, setShowMasks] = useState(true);
@@ -314,14 +316,15 @@ export default function InspectionPhotoViewer({
             
             {/* Real Photographic Inspection Image */}
             <img
-              src={uploadedImage || curPreset.imageUrl}
-              alt="Architectural Masonry Inspection"
+              src={uploadedImage || (activePreset === 'north_facade' && siteData?.imageUrl ? siteData.imageUrl : curPreset.imageUrl)}
+              alt={siteData?.name || "Architectural Masonry Inspection"}
               className="w-full h-full object-cover filter contrast-105 brightness-95"
               onError={(e) => {
                 // High-fidelity textured fallback if offline
                 e.target.style.display = 'none';
               }}
             />
+
 
             {/* Bounding Box SVG Overlays — Pixel-Accurate */}
             {showMasks && (

@@ -8,6 +8,7 @@ import FieldReportModal from './components/FieldReportModal';
 import PhotogrammetryPipeline from './components/PhotogrammetryPipeline';
 import LongitudinalAnalytics from './components/LongitudinalAnalytics';
 import LiveIngestModal from './components/LiveIngestModal';
+import AssetSwitcherModal from './components/AssetSwitcherModal';
 
 import { UNESCO_SITES } from './data/unescoSites';
 
@@ -20,7 +21,9 @@ export default function App() {
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isFieldReportOpen, setIsFieldReportOpen] = useState(false);
   const [isLiveIngestOpen, setIsLiveIngestOpen] = useState(false);
+  const [isAssetSwitcherOpen, setIsAssetSwitcherOpen] = useState(false);
   const [showPhotogrammetryDrawer, setShowPhotogrammetryDrawer] = useState(false);
+
 
   // Live Weather / Environment state
   const [liveWeather, setLiveWeather] = useState({
@@ -464,35 +467,29 @@ export default function App() {
             </div>
           </div>
 
-          {/* Quick National Asset Selector */}
-          <div className="flex items-center gap-1.5 bg-[#14171C] p-1 rounded-lg border border-[#222730] overflow-x-auto">
-            <span className="text-[10px] font-mono uppercase text-gray-400 px-2 font-semibold whitespace-nowrap">Asset:</span>
-            {sites.slice(0, 5).map((s, idx) => (
-              <button
-                key={idx}
-                onClick={() => handleSelectSite(idx)}
-                className={`px-2.5 py-1 rounded text-xs font-mono transition flex items-center gap-1.5 whitespace-nowrap ${
-                  activeSite === idx
-                    ? 'bg-[#222730] text-[#C5A059] font-bold border border-[#C5A059]/40 shadow'
-                    : 'text-gray-400 hover:text-gray-200'
-                }`}
-              >
-                <span>{s.name.split(' ')[0]}</span>
-                <span className="text-[9px] text-gray-500 font-mono">({s.id.split('-')[1]})</span>
-              </button>
-            ))}
-            <select
-              value={activeSite}
-              onChange={(e) => handleSelectSite(Number(e.target.value))}
-              className="bg-[#0E1013] text-[#C5A059] border border-[#2B313D] rounded px-2 py-1 text-xs font-mono outline-none cursor-pointer hover:border-[#C5A059]"
-            >
-              {sites.map((s, idx) => (
-                <option key={idx} value={idx}>
-                  🏛️ {s.name} ({s.state})
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Enterprise Heritage Asset Switcher Button */}
+          <button
+            onClick={() => setIsAssetSwitcherOpen(true)}
+            className="flex items-center gap-3 bg-[#14171C] hover:bg-[#1C2027] border border-[#2B313D] hover:border-[#C5A059] px-4 py-1.5 rounded-xl transition shadow-md group"
+            title="Click to search & switch UNESCO monuments across India"
+          >
+            <span
+              className="w-2.5 h-2.5 rounded-full animate-pulse shadow"
+              style={{ backgroundColor: curSite.color }}
+            />
+            <div className="text-left">
+              <div className="text-[9px] font-mono uppercase text-gray-400 font-semibold flex items-center gap-1.5">
+                <span>Active Monument:</span>
+                <span className="text-[#C5A059] font-bold">[{curSite.id}]</span>
+              </div>
+              <div className="text-xs font-serif font-bold text-[#F3EFE6] group-hover:text-[#C5A059] flex items-center gap-1.5">
+                <span>{curSite.name}</span>
+                <span className="text-[10px] text-gray-400 font-mono">({curSite.state})</span>
+                <span className="text-[10px] text-[#C5A059] font-mono">▼ Switch</span>
+              </div>
+            </div>
+          </button>
+
 
 
           {/* Action CTAs */}
@@ -799,7 +796,8 @@ export default function App() {
             </div>
 
             {/* Bounding Box Defect Canvas */}
-            <InspectionPhotoViewer activeComponent={curComp.name} />
+            <InspectionPhotoViewer siteData={curSite} activeComponent={curComp.name} />
+
 
             {/* Longitudinal Delta Comparison Strip */}
             <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4">
@@ -1210,6 +1208,15 @@ export default function App() {
         onClose={() => setIsLiveIngestOpen(false)}
         currentSite={curSite}
       />
+
+      {/* 🏛️ NATIONAL ASSET MATRIX SWITCHER MODAL */}
+      <AssetSwitcherModal
+        isOpen={isAssetSwitcherOpen}
+        onClose={() => setIsAssetSwitcherOpen(false)}
+        activeSiteIndex={activeSite}
+        onSelectSite={handleSelectSite}
+      />
+
 
 
       {/* 🏛️ FOOTER */}
