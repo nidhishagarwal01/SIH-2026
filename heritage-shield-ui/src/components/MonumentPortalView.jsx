@@ -72,11 +72,12 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
             <input
               type="text"
-              placeholder="Search 3,696 Centrally Protected Monuments by name, state, or stone material (e.g. Taj Mahal, Konark, Makrana Marble, Red Sandstone)..."
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#090A0C] border border-[#2B313D] focus:border-[#C5A059] rounded-xl pl-11 pr-24 py-3 text-sm text-gray-100 placeholder-gray-500 focus:outline-none transition shadow-inner font-sans"
             />
+
 
             {searchQuery && (
               <button

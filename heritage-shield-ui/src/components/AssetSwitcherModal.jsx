@@ -56,11 +56,12 @@ export default function AssetSwitcherModal({
           <div className="flex-1 min-w-[240px]">
             <input
               type="text"
-              placeholder="🔍 Search monument name, ASI ID, material (e.g. Marble, Granite, Sandstone)..."
+              placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full bg-[#121418] border border-[#2B313D] rounded-xl px-4 py-2 text-xs font-mono text-white placeholder-gray-500 focus:outline-none focus:border-[#C5A059]"
             />
+
           </div>
 
           <div className="flex items-center gap-1.5 overflow-x-auto">
