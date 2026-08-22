@@ -33,12 +33,20 @@ export default function HeritageGisMap({
       zoom: 4.8,
       minZoom: 4,
       maxZoom: 15,
-      zoomControl: false
+      zoomControl: false,
+      scrollWheelZoom: false // Prevents hijacking page scroll when cursor is over the map
     });
     mapInstanceRef.current = map;
 
+    // Enable scroll wheel zoom only on intentional click, disable immediately on mouseleave
+    const handleMapClick = () => map.scrollWheelZoom.enable();
+    const handleMapMouseLeave = () => map.scrollWheelZoom.disable();
+    container.addEventListener('click', handleMapClick);
+    container.addEventListener('mouseleave', handleMapMouseLeave);
+
     // Zoom control at bottom-right
     L.control.zoom({ position: 'bottomright' }).addTo(map);
+
 
     // Default Tile Layer (Dark Matter)
     const darkTile = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -106,10 +114,13 @@ export default function HeritageGisMap({
     if (showRainfallLayer) rainfallGroup.addTo(map);
 
     return () => {
+      container.removeEventListener('click', handleMapClick);
+      container.removeEventListener('mouseleave', handleMapMouseLeave);
       map.remove();
       mapInstanceRef.current = null;
     };
   }, []);
+
 
   // Handle Base Map Switching (Dark vs Bhuvan Satellite)
   useEffect(() => {
