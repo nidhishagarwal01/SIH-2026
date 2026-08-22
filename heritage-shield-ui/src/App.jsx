@@ -350,6 +350,7 @@ export default function App() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         onSelectMonument={handleLaunchMonumentStudio}
+        onOpenStudio={(siteIdx = 0) => handleLaunchMonumentStudio(siteIdx)}
         sites={sites}
       />
     );

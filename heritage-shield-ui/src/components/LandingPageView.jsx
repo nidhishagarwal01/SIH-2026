@@ -41,7 +41,7 @@ import {
   Workflow
 } from 'lucide-react';
 
-export default function LandingPageView({ onEnterDashboard, onSelectMonument, sites = [] }) {
+export default function LandingPageView({ onEnterDashboard, onSelectMonument, onOpenStudio, sites = [] }) {
   // State for Interactive Hero Banner Display Mode
   const [heroMode, setHeroMode] = useState('split'); // 'split' | 'wireframe' | 'stone'
   const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
@@ -194,7 +194,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               onClick={onEnterDashboard}
               className="px-5 py-2 rounded-xl bg-[#D97706] hover:bg-[#B45309] text-white font-mono text-xs font-bold tracking-wide shadow-lg shadow-amber-950/40 transition flex items-center gap-2 group cursor-pointer"
             >
-              <span>Dashboard</span>
+              <span>GIS Dashboard</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </motion.button>
           </div>
@@ -282,10 +282,10 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               className="flex flex-wrap items-center gap-3 pt-2"
             >
               <button
-                onClick={onEnterDashboard}
+                onClick={() => onOpenStudio ? onOpenStudio(0) : (onSelectMonument ? onSelectMonument(0) : onEnterDashboard())}
                 className="px-6 py-3 rounded-xl bg-[#C5A059] hover:bg-[#D8B46E] text-[#07080A] font-mono text-xs font-bold tracking-wide shadow-xl shadow-amber-950/40 transition flex items-center gap-2 cursor-pointer"
               >
-                <span>Open Authority Studio</span>
+                <span>Launch 3D Digital Twin Studio</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </motion.div>
