@@ -177,8 +177,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
           {/* Navigation Links */}
           <div className="hidden lg:flex items-center gap-7 text-xs font-mono text-gray-300">
-            <a href="#hero-banner" className="hover:text-[#C5A059] transition">Overview</a>
-            <a href="#workflow-ribbon" className="hover:text-[#C5A059] transition">Process Loop</a>
             <a href="#decision-modules" className="hover:text-[#C5A059] transition">Decision Architecture</a>
             <a href="#sandbox-showcase" className="hover:text-[#C5A059] transition">Live Twin Console</a>
             <a href="#climate-simulator" className="hover:text-[#C5A059] transition">2030 Predictor</a>
@@ -290,14 +288,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                 <span>Open Authority Studio</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-
-              <a
-                href="#sandbox-showcase"
-                className="px-5 py-3 rounded-xl bg-[#14171E] hover:bg-[#1C212B] border border-[#2B313D] text-gray-200 font-mono text-xs font-semibold transition flex items-center gap-2 cursor-pointer"
-              >
-                <Scan className="w-4 h-4 text-cyan-400" />
-                <span>Explore Interactive Showcase</span>
-              </a>
             </motion.div>
 
           </div>
