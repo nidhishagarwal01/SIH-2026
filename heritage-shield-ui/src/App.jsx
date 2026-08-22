@@ -13,9 +13,10 @@ import AssetSwitcherModal from './components/AssetSwitcherModal';
 import { UNESCO_SITES } from './data/unescoSites';
 
 export default function App() {
-  // Navigation Tabs: 'twin' | 'vision' | 'gis' | 'risk' | 'queue'
-  const [activeTab, setActiveTab] = useState('twin');
+  // Navigation Tabs: 'gis' (default landing) | 'twin' | 'vision' | 'risk' | 'queue'
+  const [activeTab, setActiveTab] = useState('gis');
   const [activeSite, setActiveSite] = useState(0);
+
   const [activeComponent, setActiveComponent] = useState(2);
   const [sliderPos, setSliderPos] = useState(50);
   const [isReportOpen, setIsReportOpen] = useState(false);
@@ -828,6 +829,18 @@ export default function App() {
         <div className="max-w-[1600px] mx-auto flex items-center gap-1 overflow-x-auto py-1.5">
           
           <button
+            onClick={() => setActiveTab('gis')}
+            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
+              activeTab === 'gis'
+                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
+            }`}
+          >
+            <span className="text-sm">🗺️</span>
+            <span>National GIS Command Radar</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('twin')}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
               activeTab === 'twin'
@@ -849,18 +862,6 @@ export default function App() {
           >
             <span className="text-sm">🔍</span>
             <span>AI Defect Diagnostics Lab</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('gis')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
-              activeTab === 'gis'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
-            }`}
-          >
-            <span className="text-sm">🗺️</span>
-            <span>National GIS Hazard Radar</span>
           </button>
 
           <button
@@ -886,6 +887,7 @@ export default function App() {
             <span className="text-sm">📋</span>
             <span>Authority Queue & Sentinel Feed</span>
           </button>
+
         </div>
       </div>
 
@@ -1176,7 +1178,7 @@ export default function App() {
         )}
 
         {/* ========================================================================= */}
-        {/* CONSOLE 3: NATIONAL GEOSPATIAL GIS HAZARD RADAR                           */}
+        {/* CONSOLE 1 (DEFAULT LANDING): NATIONAL GEOSPATIAL GIS COMMAND RADAR        */}
         {/* ========================================================================= */}
         {activeTab === 'gis' && (
           <div className="space-y-6">
@@ -1192,11 +1194,17 @@ export default function App() {
                 </h2>
               </div>
 
-              <div className="text-xs font-mono text-gray-400 bg-[#0E1013] px-3 py-1.5 rounded-lg border border-[#1E2228]">
-                Protected Sites Active: <strong className="text-[#C5A059]">3,690+ National Grid</strong>
+              <div className="flex items-center gap-3 text-xs font-mono">
+                <span className="text-gray-400 bg-[#0E1013] px-3 py-1.5 rounded-lg border border-[#1E2228]">
+                  Protected Sites Active: <strong className="text-[#C5A059]">12 UNESCO Flagship Nodes</strong>
+                </span>
+                <span className="text-gray-400 bg-[#0E1013] px-3 py-1.5 rounded-lg border border-[#1E2228]">
+                  Grid Standard: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong>
+                </span>
               </div>
             </div>
 
+            {/* Interactive Leaflet + Bhuvan Satellite Map */}
             <HeritageGisMap
               activeSiteIndex={activeSite}
               onSelectSite={(idx) => {
@@ -1205,8 +1213,96 @@ export default function App() {
               }}
             />
 
+            {/* National Built Heritage Selection Matrix */}
+            <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4">
+              <div className="flex flex-wrap justify-between items-center gap-3">
+                <div>
+                  <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
+                    Centrally Protected Monuments Directory
+                  </span>
+                  <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+                    Select a Heritage Monument to Launch 3D Digital Twin & AI Diagnostics
+                  </h3>
+                </div>
+                <span className="text-xs font-mono text-gray-400 bg-[#0E1013] px-3 py-1 rounded border border-[#1E2228]">
+                  Clicking any monument opens its Live 3D Twin & Meteorological Feeds
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {sites.map((site) => {
+                  const isSelected = activeSite === site.index;
+                  return (
+                    <div
+                      key={site.index}
+                      onClick={() => {
+                        handleSelectSite(site.index);
+                        setActiveTab('twin');
+                      }}
+                      className={`group cursor-pointer rounded-xl border p-4 transition-all duration-200 flex flex-col justify-between hover:scale-[1.02] ${
+                        isSelected
+                          ? 'border-[#C5A059] bg-[#C5A059]/10 shadow-lg shadow-amber-950/20 ring-1 ring-[#C5A059]'
+                          : 'border-[#1E2228] bg-[#0E1013] hover:border-[#3A4250] hover:bg-[#14171C]'
+                      }`}
+                    >
+                      <div>
+                        {/* Top: ASI ID & State */}
+                        <div className="flex justify-between items-center text-[10px] font-mono text-gray-400 mb-2">
+                          <span className="font-bold text-[#C5A059]">{site.id}</span>
+                          <span className="bg-[#181B22] px-2 py-0.5 rounded text-gray-300 border border-[#2B313D]">
+                            {site.state}
+                          </span>
+                        </div>
+
+                        {/* Thumbnail & Title */}
+                        <div className="flex gap-3 items-center mb-3">
+                          <div className="w-14 h-14 rounded-lg overflow-hidden border border-[#2B313D] shadow flex-shrink-0 bg-[#1A1D24] relative flex items-center justify-center">
+                            <img
+                              src={site.imageUrl}
+                              alt={site.name}
+                              referrerPolicy="no-referrer"
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                              }}
+                            />
+                            <span className="text-xl select-none">🏛️</span>
+                          </div>
+                          <div>
+                            <h4 className="text-xs font-serif font-bold text-[#F3EFE6] leading-snug group-hover:text-[#C5A059] transition">
+                              {site.name}
+                            </h4>
+                            <p className="text-[10px] text-gray-400 font-mono mt-0.5">
+                              {site.builtEra.split('(')[0]}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Hazard & Material tags */}
+                        <div className="space-y-1 text-[10px] font-mono text-gray-400 bg-[#121418] p-2 rounded-lg border border-[#1E2228]">
+                          <div className="truncate">🧱 {site.material}</div>
+                          <div className="truncate">🌋 {site.seismicZone}</div>
+                        </div>
+                      </div>
+
+                      {/* Bottom Button Strip */}
+                      <div className="mt-3 pt-2.5 border-t border-[#1E2228] flex justify-between items-center text-[10px] font-mono">
+                        <span className="text-gray-400">
+                          Risk: <strong style={{ color: site.color }}>{site.riskScore}/100</strong>
+                        </span>
+                        <span className="px-2 py-1 rounded bg-[#C5A059] text-[#090A0C] font-bold group-hover:brightness-110 transition flex items-center gap-1">
+                          Inspect Twin →
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
           </div>
         )}
+
 
         {/* ========================================================================= */}
         {/* CONSOLE 4: RISK ENGINE & 2028 PREDICTIVE SIMULATOR                        */}
