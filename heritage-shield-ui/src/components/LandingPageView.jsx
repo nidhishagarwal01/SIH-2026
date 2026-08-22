@@ -50,6 +50,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, on
   const [showcaseTab, setShowcaseTab] = useState('twin'); // 'twin' | 'vision' | 'temporal' | 'gis'
   const [sliderPosition, setSliderPosition] = useState(50);
   const [selectedTwinSiteIdx, setSelectedTwinSiteIdx] = useState(0);
+  const [selectedVisionSiteIdx, setSelectedVisionSiteIdx] = useState(0);
   
   // State for Environmental Stress Simulator
   const [simMonsoon, setSimMonsoon] = useState(35);
@@ -465,40 +466,123 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, on
               </div>
             )}
 
-            {showcaseTab === 'vision' && (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-5 space-y-4">
-                  <span className="text-xs font-mono text-cyan-400 uppercase font-bold">AI Image Scanner</span>
-                  <h3 className="text-2xl font-serif font-bold text-white">
-                    Automatic Damage & Crack Detection
-                  </h3>
-                  <p className="text-sm text-gray-300 leading-relaxed font-sans">
-                    Smart computer vision scans inspection photos to detect cracks, peeling stone, and water dampness. It measures the exact length and width of cracks to catch damage early.
-                  </p>
-                  <div className="pt-4">
-                    <button
-                      onClick={onEnterDashboard}
-                      className="px-6 py-2.5 rounded-xl bg-cyan-600 text-white font-mono text-xs font-bold hover:bg-cyan-500 transition cursor-pointer"
-                    >
-                      Open AI Diagnostics Lab →
-                    </button>
-                  </div>
-                </div>
+            {showcaseTab === 'vision' && (() => {
+              const curVisionSite = sites[selectedVisionSiteIdx] || sites[0];
+              const defectMap = [
+                { id: "DEF-DL01", type: "Vertical Tensile Fissure", conf: "96.4%", sev: "High", top: "25%", left: "30%", width: "40%", height: "50%", metrics: "Width: 3.2mm · Depth: 18mm · Sandstone joint" },
+                { id: "DEF-KA01", type: "Granite Exfoliation & Spalling", conf: "92.1%", sev: "Moderate", top: "35%", left: "22%", width: "55%", height: "45%", metrics: "Area: 140cm² · Monolithic granite wheel" },
+                { id: "DEF-TS01", type: "Capillary Moisture Seepage", conf: "95.8%", sev: "High", top: "30%", left: "18%", width: "64%", height: "52%", metrics: "RH: 84% · Salt efflorescence on bastion" },
+                { id: "DEF-OD01", type: "Saline Marine Chlorite Erosion", conf: "97.2%", sev: "Critical", top: "20%", left: "25%", width: "50%", height: "58%", metrics: "Pitting: 6.4mm · Coastal salt crust" },
+                { id: "DEF-MH01", type: "Basalt Cliff Delamination", conf: "93.6%", sev: "Moderate", top: "22%", left: "20%", width: "60%", height: "55%", metrics: "Fissure: 42cm · Rock seepage trace" },
+                { id: "DEF-UP01", type: "Marble Surface Micro-Fracture", conf: "98.1%", sev: "Watch", top: "18%", left: "22%", width: "56%", height: "62%", metrics: "Crack Width: 0.8mm · Discoloration 12%" },
+                { id: "DEF-MH02", type: "Volcanic Basalt Shear Fracture", conf: "94.5%", sev: "High", top: "28%", left: "24%", width: "52%", height: "48%", metrics: "Trench Stress: 14.2 MPa · Joint fault" },
+                { id: "DEF-MP01", type: "Sandstone Frieze Bracket Spalling", conf: "91.8%", sev: "Moderate", top: "26%", left: "28%", width: "46%", height: "50%", metrics: "Profile Loss: 18% · Shikhara rainwater scour" },
+                { id: "DEF-MP02", type: "Torana Arch Joint Separation", conf: "89.7%", sev: "Watch", top: "15%", left: "26%", width: "48%", height: "65%", metrics: "Lintel Gap: 1.4mm · Lichen coverage 8%" },
+                { id: "DEF-TN01", type: "Granite Vimana Tier Dislocation", conf: "95.2%", sev: "High", top: "18%", left: "32%", width: "38%", height: "62%", metrics: "Shift: 2.1mm · Upper tier seismic vibration" },
+                { id: "DEF-GJ01", type: "Subterranean Salt Ingress & Dampness", conf: "96.9%", sev: "High", top: "30%", left: "15%", width: "70%", height: "55%", metrics: "RH: 92% · Pillar base mineral leaching" },
+                { id: "DEF-GJ02", type: "Harappan Dressed-Stone Weathering", conf: "90.4%", sev: "Moderate", top: "32%", left: "20%", width: "60%", height: "48%", metrics: "Mortar Wash: 35mm · Reservoir erosion" }
+              ];
+              const curDefect = defectMap[selectedVisionSiteIdx] || defectMap[0];
 
-                <div className="lg:col-span-7 h-[480px] min-h-[480px] relative rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-black flex items-center justify-center">
-                  <img
-                    src="/monuments/taj_mahal.jpg"
-                    alt="AI Defect Segmentation"
-                    className="w-full h-full object-cover filter brightness-95"
-                  />
-                  <div className="absolute inset-16 border-2 border-rose-500 bg-rose-500/15 rounded-lg pointer-events-none">
-                    <span className="absolute -top-6 left-0 bg-rose-500 text-black text-[11px] font-mono px-2 py-0.5 rounded font-bold">
-                      DEF-01 · Micro-Fracture · 94.8% AI Confidence
-                    </span>
+              return (
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  <div className="lg:col-span-5 space-y-4">
+                    <span className="text-xs font-mono text-cyan-400 uppercase font-bold">AI Image Scanner</span>
+                    <h3 className="text-2xl font-serif font-bold text-white">
+                      Automatic Damage & Crack Detection
+                    </h3>
+                    <p className="text-sm text-gray-300 leading-relaxed font-sans">
+                      Smart computer vision scans inspection photos to detect cracks, peeling stone, and water dampness. It measures the exact length and width of cracks to catch damage early.
+                    </p>
+                    
+                    {/* Select Monument Dropdown */}
+                    <div className="pt-2 space-y-1.5">
+                      <label className="text-xs font-mono text-cyan-400 block font-bold uppercase tracking-wider flex items-center gap-1.5">
+                        <span>🏛️</span>
+                        <span>Select Monument:</span>
+                      </label>
+                      <div className="relative">
+                        <select
+                          value={selectedVisionSiteIdx}
+                          onChange={(e) => setSelectedVisionSiteIdx(Number(e.target.value))}
+                          className="w-full appearance-none bg-gradient-to-r from-[#12151B] to-[#181C24] border border-[#2B313D] hover:border-cyan-400 text-gray-100 text-sm font-serif font-bold py-3 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-1 focus:ring-cyan-400 focus:border-cyan-400 cursor-pointer shadow-lg transition duration-200"
+                        >
+                          {sites.map((s, idx) => (
+                            <option key={s.id || idx} value={idx} className="bg-[#0B0D11] text-gray-200 py-2">
+                              {s.name} ({s.state})
+                            </option>
+                          ))}
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-cyan-400">
+                          <ChevronDown className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pt-2">
+                      <button
+                        onClick={() => onSelectMonument ? onSelectMonument(selectedVisionSiteIdx, 'vision') : onEnterDashboard()}
+                        className="px-6 py-2.5 rounded-xl bg-cyan-600 text-white font-mono text-xs font-bold hover:bg-cyan-500 transition cursor-pointer shadow-lg"
+                      >
+                        Open AI Diagnostics Lab →
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-7 h-[530px] min-h-[530px] relative rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-[#060709] flex flex-col justify-between">
+                    {/* Header Strip */}
+                    <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex items-center justify-between z-10 shrink-0">
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-sm font-serif font-bold text-[#F3EFE6]">
+                          {curVisionSite.name} · AI Vision Scanner
+                        </h3>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/50 font-bold">
+                          ⚡ YOLOv8 Deep Vision
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Image Viewport with Dynamic AI Bounding Box */}
+                    <div className="relative flex-1 w-full overflow-hidden bg-black flex items-center justify-center">
+                      <img
+                        src={curVisionSite.imageUrl || '/monuments/qutub_minar.jpg'}
+                        alt={curVisionSite.name}
+                        className="w-full h-full object-cover filter brightness-95"
+                      />
+                      
+                      {/* Dynamic AI Detection Box */}
+                      <div
+                        className="absolute border-2 border-rose-500 bg-rose-500/15 rounded-lg pointer-events-none transition-all duration-500 animate-pulse"
+                        style={{
+                          top: curDefect.top,
+                          left: curDefect.left,
+                          width: curDefect.width,
+                          height: curDefect.height
+                        }}
+                      >
+                        <span className="absolute -top-6 left-0 bg-rose-500 text-black text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded font-bold whitespace-nowrap shadow-lg">
+                          {curDefect.id} · {curDefect.type} · {curDefect.conf} AI Confidence
+                        </span>
+                        
+                        {/* Target Crosshair Corners */}
+                        <div className="absolute -top-1 -left-1 w-3 h-3 border-t-2 border-l-2 border-cyan-400" />
+                        <div className="absolute -top-1 -right-1 w-3 h-3 border-t-2 border-r-2 border-cyan-400" />
+                        <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-cyan-400" />
+                        <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-cyan-400" />
+                      </div>
+                    </div>
+
+                    {/* Footer Strip with Telemetry */}
+                    <div className="bg-[#0E1013] border-t border-[#1E2228] px-4 py-2 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] text-gray-400 z-10 shrink-0">
+                      <span className="text-gray-300 font-semibold">{curDefect.metrics}</span>
+                      <span className="text-emerald-400 font-bold">● Neural Ingest Active</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
             {showcaseTab === 'temporal' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
