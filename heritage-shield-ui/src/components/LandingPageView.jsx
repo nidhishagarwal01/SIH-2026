@@ -430,22 +430,28 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                     A realistic 3D model of the monument. You can rotate 360°, zoom in, and click directly on individual domes, balconies, pillars, or base walls to inspect their condition history.
                   </p>
                   
-                  {/* Select 3D Twin Dropdown */}
-                  <div className="pt-1">
-                    <label className="text-xs font-mono text-[#C5A059] block mb-1.5 font-bold uppercase tracking-wider">
-                      🏛️ Choose 3D Monument Twin:
+                  {/* Select 3D Twin Custom Dropdown */}
+                  <div className="pt-2 space-y-1.5">
+                    <label className="text-xs font-mono text-[#C5A059] block font-bold uppercase tracking-wider flex items-center gap-1.5">
+                      <span>🏛️</span>
+                      <span>Select Monument:</span>
                     </label>
-                    <select
-                      value={selectedTwinSiteIdx}
-                      onChange={(e) => setSelectedTwinSiteIdx(Number(e.target.value))}
-                      className="w-full bg-[#14171E] border border-[#2B313D] hover:border-[#C5A059] text-xs font-serif font-bold text-[#F3EFE6] px-3.5 py-2.5 rounded-xl focus:outline-none focus:border-[#C5A059] cursor-pointer shadow-md transition"
-                    >
-                      {sites.map((s, idx) => (
-                        <option key={s.id || idx} value={idx} className="bg-[#0E1013] text-gray-200">
-                          {s.name} ({s.state})
-                        </option>
-                      ))}
-                    </select>
+                    <div className="relative">
+                      <select
+                        value={selectedTwinSiteIdx}
+                        onChange={(e) => setSelectedTwinSiteIdx(Number(e.target.value))}
+                        className="w-full appearance-none bg-gradient-to-r from-[#12151B] to-[#181C24] border border-[#2B313D] hover:border-[#C5A059] text-gray-100 text-sm font-serif font-bold py-3 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#C5A059] focus:border-[#C5A059] cursor-pointer shadow-lg transition duration-200"
+                      >
+                        {sites.map((s, idx) => (
+                          <option key={s.id || idx} value={idx} className="bg-[#0B0D11] text-gray-200 py-2">
+                            {s.name} ({s.state})
+                          </option>
+                        ))}
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-[#C5A059]">
+                        <ChevronDown className="w-4 h-4" />
+                      </div>
+                    </div>
                   </div>
 
                   <div className="pt-2">

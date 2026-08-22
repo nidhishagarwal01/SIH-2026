@@ -851,12 +851,9 @@ export default function MonumentViewer3D({
         {/* Top Header Outside 3D Canvas (Single Row, No Overlap) */}
         <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex items-center justify-between gap-3 z-10 shrink-0">
           <div className="flex items-center gap-2">
-            <h3 className="text-sm sm:text-base font-serif font-bold text-[#F3EFE6] tracking-wide truncate max-w-[220px] sm:max-w-xs">
-              {siteData?.name || "Qutub Minar Complex"}
+            <h3 className="text-sm sm:text-base font-serif font-bold text-[#F3EFE6] tracking-wide truncate">
+              {siteData?.name || "Qutub Minar Complex"} · 3D Twin
             </h3>
-            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50 font-bold whitespace-nowrap">
-              ● 3D Twin
-            </span>
           </div>
 
           {/* Mode Switcher Buttons */}
