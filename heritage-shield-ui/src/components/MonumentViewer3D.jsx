@@ -124,9 +124,9 @@ export default function MonumentViewer3D({
     const height = container.clientHeight || (isEmbedded ? 380 : 520);
 
     // 2. Camera with generous framing to ensure full monument is in view
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    const initDist = isEmbedded ? 14.5 : 12.0;
-    camera.position.set(0, 3.2, initDist);
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    const initDist = isEmbedded ? 14.5 : 14.0;
+    camera.position.set(0, 2.5, initDist);
     cameraRef.current = camera;
 
 
@@ -1489,10 +1489,6 @@ export default function MonumentViewer3D({
             </button>
           </div>
         </div>
-
-        <span className="text-[11px] text-gray-500 font-sans hidden sm:inline">
-          🖱️ Click and drag to orbit 360° · Page scroll enabled
-        </span>
       </div>
 
     </div>

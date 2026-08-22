@@ -430,7 +430,6 @@ export default function App() {
             <div className="text-left">
               <div className="text-[9px] font-mono uppercase text-gray-400 font-semibold flex items-center gap-1.5">
                 <span>Active Heritage Site:</span>
-                <span className="text-[#C5A059] font-bold">[{curSite.id}]</span>
               </div>
               <div className="text-xs font-serif font-bold text-[#F3EFE6] group-hover:text-[#C5A059] flex items-center gap-1.5">
                 <span>{curSite.name}</span>
@@ -575,22 +574,6 @@ export default function App() {
                   </span>
                 </div>
               </div>
-
-              {/* Preventive ROI Savings Card */}
-              <div className="mt-3 bg-emerald-950/20 border border-emerald-800/30 rounded-xl p-3">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider font-bold">💰 Preventive Conservation ROI</span>
-                  <span className="text-lg font-bold text-emerald-400 font-mono">93.4%</span>
-                </div>
-                <div className="w-full bg-[#0E1013] rounded-full h-2 mb-2">
-                  <div className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2 rounded-full" style={{ width: '93.4%' }} />
-                </div>
-                <div className="flex items-center justify-between text-[10px] font-mono text-gray-400">
-                  <span>Reactive Cost: <strong className="text-rose-400">₹14.2 Cr</strong></span>
-                  <span>Preventive Cost: <strong className="text-emerald-400">₹0.94 Cr</strong></span>
-                  <span>Savings: <strong className="text-emerald-300">₹13.26 Cr</strong></span>
-                </div>
-              </div>
             </div>
 
             {/* Photogrammetry Drawer */}
@@ -721,12 +704,6 @@ export default function App() {
                 <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
                   AI Visual Condition Diagnostics — {curComp.name} ({curSite.name})
                 </h2>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-mono text-emerald-400 bg-[#0E1013] px-3 py-1 rounded border border-[#1E2228]">
-                  API Engine: <strong>/api/process/images</strong>
-                </span>
               </div>
             </div>
 
@@ -1004,6 +981,48 @@ export default function App() {
                 >
                   <span>📄 Generate Official ASI Dossier</span>
                 </button>
+              </div>
+            </div>
+
+            {/* 💰 Preventive Conservation ROI Analysis */}
+            <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4">
+              <div className="flex flex-wrap justify-between items-center gap-3">
+                <div>
+                  <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
+                    Cost-Benefit Intelligence · Preventive vs Reactive
+                  </span>
+                  <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+                    Preventive Conservation ROI Analysis — {curSite.name}
+                  </h3>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                {/* Reactive Cost */}
+                <div className="bg-[#0E1013] border border-rose-800/30 rounded-xl p-4 text-center">
+                  <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider">Reactive Restoration Cost</span>
+                  <div className="text-3xl font-bold text-rose-400 font-mono mt-2">₹14.2 Cr</div>
+                  <p className="text-[10px] text-gray-500 mt-1 font-mono">Emergency repairs, structural rebuilding, loss of heritage fabric</p>
+                </div>
+
+                {/* Preventive Cost */}
+                <div className="bg-[#0E1013] border border-emerald-800/30 rounded-xl p-4 text-center">
+                  <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider">Preventive Monitoring Cost</span>
+                  <div className="text-3xl font-bold text-emerald-400 font-mono mt-2">₹0.94 Cr</div>
+                  <p className="text-[10px] text-gray-500 mt-1 font-mono">IoT sensors, routine inspections, micro-interventions, AI diagnostics</p>
+                </div>
+
+                {/* Net Savings */}
+                <div className="bg-emerald-950/20 border border-emerald-700/40 rounded-xl p-4 text-center">
+                  <span className="text-[10px] font-mono uppercase text-emerald-400 tracking-wider font-bold">Net Savings</span>
+                  <div className="text-3xl font-bold text-emerald-300 font-mono mt-2">₹13.26 Cr</div>
+                  <div className="mt-2">
+                    <div className="w-full bg-[#0E1013] rounded-full h-2.5">
+                      <div className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2.5 rounded-full transition-all duration-700" style={{ width: '93.4%' }} />
+                    </div>
+                    <span className="text-xs font-mono text-emerald-400 font-bold mt-1 inline-block">93.4% ROI Efficiency</span>
+                  </div>
+                </div>
               </div>
             </div>
 
