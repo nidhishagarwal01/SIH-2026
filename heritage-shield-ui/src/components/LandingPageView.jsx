@@ -62,77 +62,54 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
   const workflowSteps = [
     { 
       step: '01', 
-      kicker: '01 · Heritage Digital Twin',
-      title: 'A living model of the site, mapped down to the component.', 
-      desc: 'Each hotspot is a structural or architectural component with its own condition history, spatial location and inspection trail — not just a photo of a monument.',
-      input: 'Photogrammetry LiDAR + Spatial BIM Models',
-      output: 'Component-Indexed Interactive 3D Mesh',
-      action: 'Select and isolate stone blocks, arches, or spires'
+      kicker: '01 · 3D Digital Twin',
+      title: 'Interactive 3D Model of the Site', 
+      desc: 'Instead of just looking at flat photos, explore a live 3D model of the monument. You can rotate, zoom in, and click directly on individual domes, walls, pillars, or foundations to check their condition.'
     },
     { 
       step: '02', 
-      kicker: '02 · AI Visual Condition Assessment',
-      title: 'Upload a photo. AI flags what needs a closer look.', 
-      desc: 'Computer vision identifies cracks, surface loss, discoloration, vegetation intrusion and dampness — every flag is a suggestion for review, never an automatic verdict.',
-      input: 'High-Res Drone & Inspection Imagery',
-      output: 'OpenCV Defect Aperture & Bounding Vectors',
-      action: 'Flags 0.42mm micro-fractures with 94.8% confidence'
+      kicker: '02 · AI Defect Scanner',
+      title: 'Smart Image Damage Detection', 
+      desc: 'Upload an inspection photo and AI instantly scans for cracks, moisture patches, peeling stone, and erosion. It highlights subtle hairline defects that might otherwise be missed.'
     },
     { 
       step: '03', 
-      kicker: '03 · Temporal Change Detection',
-      title: 'The same wall, two inspection cycles apart.', 
-      desc: 'Compare 2024 against 2026. The system aligns repeated observations to the same component so change is measured, not guessed.',
-      input: 'Historical 2024 Baseline vs 2026 Cycle',
-      output: 'Component Delta Heatmap & Vector Expansion',
-      action: 'Calculates +38% crack elongation rate'
+      kicker: '03 · Change Over Time',
+      title: 'Tracking Damage Growth', 
+      desc: 'Compare photos from previous years against today. The system clearly measures whether a crack has expanded or if dampness has spread after heavy monsoon rains.'
     },
     { 
       step: '04', 
-      kicker: '04 · Heritage Health Index',
-      title: 'A transparent score, not a black box.', 
-      desc: 'Every score comes with the factors that produced it, weighted by contribution — so authorities know why a number changed, not just that it did.',
-      input: 'Structural + Moisture + Material Weights',
-      output: 'Formula-Driven Health Index (0–100)',
-      action: 'Score = 61/100 (Decay trajectory quantified)'
+      kicker: '04 · Health Score (0–100)',
+      title: 'Simple, Transparent Health Rating', 
+      desc: 'Every structural part gets a clear score from 0 to 100 with simple color codes: Green is safe, Yellow needs monitoring, and Red requires urgent repair.'
     },
     { 
       step: '05', 
-      kicker: '05 · Risk & Disaster Layer',
-      title: 'Not just "is it damaged" — could a hazard accelerate it?', 
-      desc: 'Flood exposure, rainfall extremes, seismic vulnerability and other hazard layers sit alongside condition data, connecting conservation to disaster management.',
-      input: 'ISRO Bhuvan + IMD Radar + BIS IS 1893:2016',
-      output: 'Multi-Hazard Risk Vulnerability Matrix',
-      action: 'Cross-references Zone V seismic fault line proximity'
+      kicker: '05 · Disaster Risk Layer',
+      title: 'Weather & Earthquake Exposure', 
+      desc: 'We combine monument health with real-time weather, flood zones, and earthquake fault lines so authorities can protect vulnerable sites before disasters hit.'
     },
     { 
       step: '06', 
-      kicker: '06 · Deterioration Prediction',
-      title: 'Where is this component headed till 2030?', 
-      desc: 'Historical condition combined with environmental and hazard variables produces a non-linear trajectory — shown with confidence, not false precision.',
-      input: 'Physics-Informed Fracture Mechanics (2020–2030)',
-      output: 'Predictive 48-Month Degradation Trajectory',
-      action: 'Forecasts critical breach window by 2027–2030'
+      kicker: '06 · Future Decay Prediction',
+      title: 'Forecasting Decay Till 2030', 
+      desc: 'See how cracks will grow over the next 4 to 6 years if left untreated. Fixing a minor crack today for ₹3 Lakhs prevents ₹70+ Lakhs in catastrophic rebuild costs later.'
     },
     { 
       step: '07', 
-      kicker: '07 · Intervention Priority Engine',
-      title: 'Which component should receive attention first?', 
-      desc: 'Ranked by condition × deterioration rate × hazard exposure × heritage significance — across every monitored asset, not one at a time.',
-      input: 'Multi-Criteria Decision Analysis (ISO 31000)',
-      output: 'Ranked National Intervention Queue',
-      action: 'Ranks North Façade as Priority #1 nationwide'
+      kicker: '07 · Priority Ranking',
+      title: 'National Priority To-Do List', 
+      desc: 'Automatically ranks all monitored heritage structures across the country by urgency, ensuring funds and conservation teams are sent to the most endangered sites first.'
     },
     { 
       step: '08', 
-      kicker: '08 · Conservation Recommendation',
-      title: 'Evidence in, a recommendation out — the decision stays human.', 
-      desc: 'Problem detected → Probable factors → Recommended action → Final call with official ASI work-order generation.',
-      input: 'Synthesized Diagnostics & Heritage Norms',
-      output: 'Formal ASI Work-Order & Grout Formula',
-      action: 'Conservation architect one-click sign-off'
+      kicker: '08 · Official Action Plan',
+      title: 'Actionable Conservation Reports', 
+      desc: 'Generates formal ASI work orders with prescribed mortar mixtures, scaffolding instructions, and cost estimates ready for conservation architects to sign off.'
     }
   ];
+
 
   const processFlowItems = [
     { label: 'Observe', desc: 'Field Imagery & Drone Scans' },
@@ -267,11 +244,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                 <div className="absolute top-1/3 right-1/3 w-2.5 h-2.5 rounded-full bg-[#38BDF8] animate-pulse" />
                 <div className="absolute bottom-1/3 right-1/5 w-3 h-3 rounded-full bg-emerald-400 animate-ping" />
                 <div className="absolute bottom-1/4 right-2/5 w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-
-                {/* Floating Telemetry Coordinates Tag */}
-                <div className="absolute top-6 right-6 bg-[#0E1117]/90 backdrop-blur-md border border-[#2B313D] px-3 py-1.5 rounded-lg text-[10px] font-mono text-[#C5A059] shadow-xl">
-                  <span>LiDAR Mesh · 0.8mm Point Resolution</span>
-                </div>
               </div>
             )}
 
@@ -324,36 +296,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               </a>
             </motion.div>
 
-            {/* Hero Interactive View Mode Selector */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex items-center gap-2 pt-4 font-mono text-[11px]"
-            >
-              <span className="text-gray-500">Visual Mode:</span>
-              <div className="bg-[#0E1013]/90 p-1 rounded-lg border border-[#222733] flex items-center gap-1">
-                <button
-                  onClick={() => setHeroMode('split')}
-                  className={`px-2.5 py-1 rounded transition ${heroMode === 'split' ? 'bg-[#C5A059] text-black font-bold' : 'text-gray-400 hover:text-white'}`}
-                >
-                  ⚡ Dual Split
-                </button>
-                <button
-                  onClick={() => setHeroMode('stone')}
-                  className={`px-2.5 py-1 rounded transition ${heroMode === 'stone' ? 'bg-[#C5A059] text-black font-bold' : 'text-gray-400 hover:text-white'}`}
-                >
-                  🧱 Stone Facade
-                </button>
-                <button
-                  onClick={() => setHeroMode('wireframe')}
-                  className={`px-2.5 py-1 rounded transition ${heroMode === 'wireframe' ? 'bg-cyan-600 text-white font-bold' : 'text-gray-400 hover:text-white'}`}
-                >
-                  🌐 3D LiDAR Mesh
-                </button>
-              </div>
-            </motion.div>
-
           </div>
 
         </div>
@@ -386,10 +328,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                 )}
               </React.Fragment>
             ))}
-          </div>
-
-          <div className="hidden xl:flex items-center gap-2 text-[11px] font-mono text-[#C5A059] bg-[#14171E] px-3 py-1 rounded-lg border border-[#2B313D] whitespace-nowrap">
-            <span>⚡ Continuous Closed-Loop Feedback Architecture</span>
           </div>
 
         </div>
@@ -439,21 +377,9 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                     {mod.title}
                   </h3>
 
-                  <p className="text-xs text-gray-400 font-sans leading-relaxed">
+                  <p className="text-xs text-gray-300 font-sans leading-relaxed">
                     {mod.desc}
                   </p>
-                </div>
-
-                {/* Module Technical Payload Box */}
-                <div className="bg-[#08090C] border border-[#1A1F29] p-3 rounded-xl space-y-1.5 text-[11px] font-mono">
-                  <div className="flex justify-between text-gray-500">
-                    <span>Input:</span>
-                    <span className="text-gray-300 truncate max-w-[180px]">{mod.input}</span>
-                  </div>
-                  <div className="flex justify-between text-[#C5A059]">
-                    <span>Output:</span>
-                    <span className="font-semibold truncate max-w-[180px]">{mod.output}</span>
-                  </div>
                 </div>
 
               </div>
@@ -462,6 +388,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
         </div>
 
       </section>
+
 
       {/* ========================================================================= */}
       {/* 💻 5. INTERACTIVE LIVE CONSOLE SANDBOX SHOWCASE                           */}
@@ -526,24 +453,24 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
             {showcaseTab === 'twin' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-4">
-                  <span className="text-xs font-mono text-[#C5A059] uppercase font-bold">WebGL Three.js PBR Engine</span>
+                  <span className="text-xs font-mono text-[#C5A059] uppercase font-bold">Interactive 3D Simulation</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
-                    Component-Mapped 3D Structural Digital Twin
+                    Living 3D Digital Twin of the Monument
                   </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
-                    Every monument is decomposed into persistent architectural nodes (Finials, Balconies, Main Shafts, and Base Plinths). Inspect geometry, toggle realistic stone textures vs wireframe LiDAR point clouds, and click any component to inspect its condition history.
+                    A realistic 3D model of the monument. You can rotate 360°, zoom in, and click directly on individual domes, balconies, pillars, or base walls to inspect their condition history.
                   </p>
                   <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono">
-                    <span className="bg-[#14171E] text-emerald-400 px-3 py-1 rounded-lg border border-[#2B313D]">● 60 FPS Hardware Accelerated</span>
-                    <span className="bg-[#14171E] text-sky-400 px-3 py-1 rounded-lg border border-[#2B313D]">● Raycast Part Selection</span>
-                    <span className="bg-[#14171E] text-[#C5A059] px-3 py-1 rounded-lg border border-[#2B313D]">● 360° Continuous Orbit</span>
+                    <span className="bg-[#14171E] text-emerald-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Full 360° 3D Rotation</span>
+                    <span className="bg-[#14171E] text-sky-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Click Any Wall or Pillar</span>
+                    <span className="bg-[#14171E] text-[#C5A059] px-3 py-1 rounded-lg border border-[#2B313D]">✔ Real Stone & Wireframe Modes</span>
                   </div>
                   <div className="pt-4">
                     <button
                       onClick={onEnterDashboard}
                       className="px-6 py-2.5 rounded-xl bg-[#C5A059] text-black font-mono text-xs font-bold hover:bg-[#D8B46E] transition cursor-pointer"
                     >
-                      Launch Full 3D Studio →
+                      Open 3D Studio →
                     </button>
                   </div>
                 </div>
@@ -566,17 +493,17 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
             {showcaseTab === 'vision' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-4">
-                  <span className="text-xs font-mono text-cyan-400 uppercase font-bold">OpenCV 4.10 + YOLOv8 Vision</span>
+                  <span className="text-xs font-mono text-cyan-400 uppercase font-bold">AI Image Scanner</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
-                    Sub-Millimeter AI Defect Aperture & Vector Extraction
+                    Automatic Damage & Crack Detection
                   </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
-                    Automatically segment structural cracks, surface spalling, moisture capillary dampness, and biological patina from drone photography with normalized pixel metrics and growth velocities.
+                    Smart computer vision scans inspection photos to detect cracks, peeling stone, and water dampness. It measures the exact length and width of cracks to catch damage early.
                   </p>
                   <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono">
-                    <span className="bg-[#14171E] text-rose-400 px-3 py-1 rounded-lg border border-[#2B313D]">🔴 Crack Aperture: 0.85 mm</span>
-                    <span className="bg-[#14171E] text-amber-400 px-3 py-1 rounded-lg border border-[#2B313D]">🟡 Moisture: 14.8% Area</span>
-                    <span className="bg-[#14171E] text-cyan-400 px-3 py-1 rounded-lg border border-[#2B313D]">🔵 Growth Velocity: 3.45 cm/yr</span>
+                    <span className="bg-[#14171E] text-rose-400 px-3 py-1 rounded-lg border border-[#2B313D]">🔴 Crack Width: 0.85 mm</span>
+                    <span className="bg-[#14171E] text-amber-400 px-3 py-1 rounded-lg border border-[#2B313D]">🟡 Damp Patches Detected</span>
+                    <span className="bg-[#14171E] text-cyan-400 px-3 py-1 rounded-lg border border-[#2B313D]">🔵 Speed: 3.45 cm / year</span>
                   </div>
                   <div className="pt-4">
                     <button
@@ -596,7 +523,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   />
                   <div className="absolute inset-10 border-2 border-rose-500 bg-rose-500/15 rounded">
                     <span className="absolute -top-5 left-0 bg-rose-500 text-black text-[10px] font-mono px-1.5 py-0.5 rounded font-bold">
-                      DEF-01 · Crack · 94.2%
+                      DEF-01 · Crack · 94.2% Confidence
                     </span>
                   </div>
                 </div>
@@ -606,21 +533,21 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
             {showcaseTab === 'temporal' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-4">
-                  <span className="text-xs font-mono text-purple-400 uppercase font-bold">FastAPI Non-Linear Decay Engine</span>
+                  <span className="text-xs font-mono text-purple-400 uppercase font-bold">Future Forecasting</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
-                    Physics-Informed 2020–2030 Longitudinal Forecasting
+                    Predicting Structural Decay Till 2030
                   </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
-                    Simulates crack expansion trajectories and moisture degradation through 2030 using the Paris-Erdogan fracture mechanics law coupled with localized weather stress and seismic variables.
+                    Forecasting how damage will worsen over the next 4 to 6 years if left untreated. It proves that fixing minor cracks early for ₹3 Lakhs avoids ₹70+ Lakhs in emergency rebuilds later.
                   </p>
                   <div className="grid grid-cols-2 gap-3 text-xs font-mono pt-2">
                     <div className="bg-[#14171E] p-3 rounded-lg border border-rose-900/50">
-                      <span className="text-rose-400 font-bold block">Path A (No Action by 2030):</span>
+                      <span className="text-rose-400 font-bold block">No Action by 2030:</span>
                       <span className="text-gray-300 text-[11px]">Crack reaches 72.5 cm · ₹72.8L Repair Cost</span>
                     </div>
                     <div className="bg-[#14171E] p-3 rounded-lg border border-emerald-900/50">
-                      <span className="text-emerald-400 font-bold block">Path B (2026 Sealing):</span>
-                      <span className="text-gray-300 text-[11px]">Arrests growth at 25.1 cm · 95.6% Budget Saved</span>
+                      <span className="text-emerald-400 font-bold block">Fixed Today (2026):</span>
+                      <span className="text-gray-300 text-[11px]">Crack stays at 25.1 cm · 95.6% Budget Saved</span>
                     </div>
                   </div>
                   <div className="pt-4">
@@ -635,23 +562,23 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
                 <div className="lg:col-span-5 bg-[#090A0C] p-6 rounded-xl border border-[#2B313D] space-y-3 font-mono text-xs">
                   <div className="flex justify-between items-center text-gray-400 border-b border-[#1E2228] pb-2">
-                    <span>Epoch Timeline</span>
-                    <span>Projected Health Index</span>
+                    <span>Year</span>
+                    <span>Health Score</span>
                   </div>
                   <div className="flex justify-between items-center text-gray-300">
                     <span>2020 Baseline</span>
-                    <span className="text-emerald-400 font-bold">91/100</span>
+                    <span className="text-emerald-400 font-bold">91/100 (Safe)</span>
                   </div>
                   <div className="flex justify-between items-center text-gray-300">
-                    <span>2026 Current Scan</span>
-                    <span className="text-amber-400 font-bold">62/100</span>
+                    <span>2026 Today</span>
+                    <span className="text-amber-400 font-bold">62/100 (Needs Attention)</span>
                   </div>
                   <div className="flex justify-between items-center text-rose-400 font-bold">
-                    <span>2028 Unmitigated</span>
+                    <span>2028 Untreated</span>
                     <span>32/100 (Critical)</span>
                   </div>
                   <div className="flex justify-between items-center text-rose-500 font-bold">
-                    <span>2030 Horizon</span>
+                    <span>2030 Untreated</span>
                     <span>14/100 (Failure Risk)</span>
                   </div>
                 </div>
@@ -661,24 +588,24 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
             {showcaseTab === 'gis' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-7 space-y-4">
-                  <span className="text-xs font-mono text-emerald-400 uppercase font-bold">ISRO Bhuvan + IMD + BIS Hazard Grid</span>
+                  <span className="text-xs font-mono text-emerald-400 uppercase font-bold">National GIS Map</span>
                   <h3 className="text-2xl font-serif font-bold text-white">
-                    National Built Heritage GIS Radar
+                    Live Map for All 3,696 Heritage Monuments
                   </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
-                    Geospatial monitoring across all 3,696 Centrally Protected Monuments. Layer live seismic fault lines, monsoon rainfall anomalies, and urban traffic vibration radii.
+                    View all Centrally Protected Monuments across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
                   </p>
                   <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono">
-                    <span className="bg-[#14171E] text-sky-400 px-3 py-1 rounded-lg border border-[#2B313D]">● ISRO Bhuvan Satellite Layer</span>
-                    <span className="bg-[#14171E] text-amber-400 px-3 py-1 rounded-lg border border-[#2B313D]">● BIS Seismic Fault Buffer</span>
-                    <span className="bg-[#14171E] text-emerald-400 px-3 py-1 rounded-lg border border-[#2B313D]">● Quick Jump to Major Sites</span>
+                    <span className="bg-[#14171E] text-sky-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Satellite Imagery Layer</span>
+                    <span className="bg-[#14171E] text-amber-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Earthquake Fault Zones</span>
+                    <span className="bg-[#14171E] text-emerald-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Quick Jump to Major Sites</span>
                   </div>
                   <div className="pt-4">
                     <button
                       onClick={onEnterDashboard}
                       className="px-6 py-2.5 rounded-xl bg-emerald-600 text-white font-mono text-xs font-bold hover:bg-emerald-500 transition cursor-pointer"
                     >
-                      Open National GIS Radar →
+                      Open National GIS Map →
                     </button>
                   </div>
                 </div>
@@ -690,13 +617,14 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                     className="w-full h-full object-cover filter brightness-90"
                   />
                   <div className="absolute top-4 left-4 bg-[#090A0C]/90 px-3 py-1 rounded border border-[#1E2228] text-xs font-mono text-[#C5A059]">
-                    📍 Konark · 19.8876° N, 86.0945° E
+                    📍 Konark Sun Temple · Odisha
                   </div>
                 </div>
               </div>
             )}
 
           </div>
+
 
         </div>
       </section>
