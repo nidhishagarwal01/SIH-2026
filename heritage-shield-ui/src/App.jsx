@@ -1065,55 +1065,112 @@ export default function App() {
 
 
             {/* Longitudinal Delta Comparison Strip */}
-            <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4">
-              <div className="flex justify-between items-center">
+            <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4 shadow-xl">
+              <div className="flex flex-wrap justify-between items-center gap-3">
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-[#C5A059] font-bold">
-                    Longitudinal Delta Analysis
+                  <span className="text-[10px] font-mono uppercase text-[#C5A059] font-bold tracking-wider">
+                    Longitudinal Delta Analysis · Computer Vision Forensic Scrubbing
                   </span>
                   <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
-                    Temporal Comparison (2024 Baseline vs. 2026 Inspection)
+                    Temporal Crack Progression (2024 Baseline vs. 2026 Inspection)
                   </h3>
                 </div>
-                <span className="text-xs font-mono text-rose-400 font-bold bg-[#0E1013] px-3 py-1 rounded border border-[#1E2228]">
-                  Measured Delta: +38.2% Crack Growth
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono text-[#C5A059] font-bold bg-[#14171C] px-3 py-1 rounded border border-[#2B313D]">
+                    Epoch: {sliderPos === 0 ? 'Jan 2024 (Baseline)' : sliderPos === 100 ? 'Apr 2026 (Live Survey)' : `Cycle ${(2024 + (sliderPos / 100) * 2).toFixed(1)}`}
+                  </span>
+                  <span className={`text-xs font-mono font-bold px-3 py-1 rounded border ${
+                    sliderPos >= 70 ? 'bg-rose-950/60 text-rose-300 border-rose-800/40' : 'bg-amber-950/60 text-amber-300 border-amber-800/40'
+                  }`}>
+                    Measured Growth: +{((sliderPos / 100) * 38.2).toFixed(1)}%
+                  </span>
+                </div>
               </div>
 
-              <div className="bg-[#0E1013] p-4 rounded-xl border border-[#1E2228]">
-                <div className="flex justify-between text-xs font-mono text-gray-400 mb-2">
-                  <span>◄ 2024 Baseline (18.2 cm, 1.1 mm)</span>
-                  <span className="text-[#C5A059] font-semibold">Slide to scrub temporal evolution</span>
-                  <span>2026 Inspection (25.1 cm, branching) ►</span>
+              <div className="bg-[#0E1013] p-5 rounded-xl border border-[#1E2228] space-y-4">
+                
+                {/* Timeline Scrub Controls */}
+                <div>
+                  <div className="flex justify-between text-xs font-mono text-gray-400 mb-2">
+                    <span className={sliderPos === 0 ? 'text-[#C5A059] font-bold' : ''}>◄ 2024 Baseline (18.2 cm · 1.1 mm)</span>
+                    <span className="text-[#C5A059] font-semibold">● Slide to scrub temporal evolution ({sliderPos}%) ●</span>
+                    <span className={sliderPos === 100 ? 'text-rose-400 font-bold' : ''}>2026 Inspection (25.1 cm · 2.2 mm) ►</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={sliderPos}
+                    onChange={(e) => setSliderPos(Number(e.target.value))}
+                    className="w-full accent-[#C5A059] h-2.5 bg-[#1E2228] rounded-lg cursor-ew-resize transition-all"
+                  />
+                  <div className="flex justify-between text-[10px] font-mono text-gray-500 mt-1">
+                    <span>2024 Baseline Laser Mesh</span>
+                    <span>2025 Interim Monsoonal Cycle</span>
+                    <span>2026 High-Resolution Photogrammetry</span>
+                  </div>
                 </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={sliderPos}
-                  onChange={(e) => setSliderPos(Number(e.target.value))}
-                  className="w-full accent-[#C5A059] h-2 bg-[#1E2228] rounded-lg cursor-ew-resize"
-                />
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 text-center font-mono">
-                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
-                    <div className="text-[10px] text-gray-400 uppercase">Crack Extension</div>
-                    <div className="text-lg font-bold text-rose-400 mt-0.5">+6.9 cm</div>
-                    <div className="text-[10px] text-gray-500">18.2cm → 25.1cm</div>
-                  </div>
-                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
-                    <div className="text-[10px] text-gray-400 uppercase">Progression Rate</div>
-                    <div className="text-lg font-bold text-amber-400 mt-0.5">3.45 cm/yr</div>
-                    <div className="text-[10px] text-gray-500">Above baseline limit</div>
-                  </div>
-                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
-                    <div className="text-[10px] text-gray-400 uppercase">Primary Driver</div>
-                    <div className="text-lg font-bold text-sky-400 mt-0.5">Capillary Moisture</div>
-                    <div className="text-[10px] text-gray-500">14.8% saturation</div>
+                {/* Live Visual Crack Propagation Visualizer */}
+                <div className="bg-[#14171C] p-3 rounded-lg border border-[#222730] flex items-center justify-between gap-4">
+                  <span className="text-[11px] font-mono text-gray-400">Forensic Crack Path:</span>
+                  <div className="flex-1 bg-[#090A0C] h-4 rounded-full overflow-hidden border border-[#2B313D] relative flex items-center p-0.5">
+                    <div
+                      className="h-full rounded-full transition-all duration-100 bg-gradient-to-r from-amber-500 via-rose-500 to-rose-600 shadow"
+                      style={{ width: `${Math.max(12, sliderPos)}%` }}
+                    />
+                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-mono font-bold text-white drop-shadow">
+                      {(18.2 + (sliderPos / 100) * 6.9).toFixed(1)} cm length · {(1.1 + (sliderPos / 100) * 1.1).toFixed(2)} mm aperture
+                    </span>
                   </div>
                 </div>
+
+                {/* 4 Dynamic Calculated Metric Cards */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
+                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
+                    <div className="text-[10px] text-gray-400 uppercase font-semibold">Crack Length</div>
+                    <div className="text-lg font-bold text-rose-400 mt-0.5">
+                      {(18.2 + (sliderPos / 100) * 6.9).toFixed(1)} cm
+                    </div>
+                    <div className="text-[10px] text-gray-400">
+                      Delta: +{((sliderPos / 100) * 6.9).toFixed(1)} cm
+                    </div>
+                  </div>
+
+                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
+                    <div className="text-[10px] text-gray-400 uppercase font-semibold">Aperture Width</div>
+                    <div className="text-lg font-bold text-amber-400 mt-0.5">
+                      {(1.1 + (sliderPos / 100) * 1.1).toFixed(2)} mm
+                    </div>
+                    <div className="text-[10px] text-gray-400">
+                      Initial: 1.10 mm
+                    </div>
+                  </div>
+
+                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
+                    <div className="text-[10px] text-gray-400 uppercase font-semibold">Velocity Rate</div>
+                    <div className="text-lg font-bold text-sky-400 mt-0.5">
+                      {(2.1 + (sliderPos / 100) * 1.35).toFixed(2)} cm/yr
+                    </div>
+                    <div className="text-[10px] text-gray-400">
+                      {sliderPos >= 50 ? 'Accelerating' : 'Baseline pace'}
+                    </div>
+                  </div>
+
+                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
+                    <div className="text-[10px] text-gray-400 uppercase font-semibold">Capillary Saturation</div>
+                    <div className="text-lg font-bold text-emerald-400 mt-0.5">
+                      {(8.4 + (sliderPos / 100) * 6.4).toFixed(1)}%
+                    </div>
+                    <div className="text-[10px] text-gray-400">
+                      Pore moisture
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
+
 
           </div>
         )}
