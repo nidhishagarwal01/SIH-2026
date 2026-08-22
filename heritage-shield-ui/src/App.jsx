@@ -389,7 +389,7 @@ export default function App() {
     <div className="min-h-screen bg-[#090A0C] text-[#E8E6E3] font-sans antialiased selection:bg-[#C5A059] selection:text-[#090A0C] flex flex-col">
       
       {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
-      <header className="sticky top-0 z-50 bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-2.5 shadow-2xl">
+      <header className="sticky top-0 z-[9999] bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-2.5 shadow-2xl">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
           {/* Brand & Return to Portal Button */}

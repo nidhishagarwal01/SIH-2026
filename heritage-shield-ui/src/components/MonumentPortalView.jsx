@@ -39,7 +39,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
     <div className="min-h-screen bg-[#090A0C] text-[#E8E6E3] font-sans flex flex-col selection:bg-[#C5A059] selection:text-[#090A0C]">
       
       {/* 🏛️ 1. TOP ENTERPRISE GOVT / ASI COMMAND BAR (Sticky Top Header with Persistent Search) */}
-      <header className="sticky top-0 z-50 bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-2.5 shadow-2xl">
+      <header className="sticky top-0 z-[9999] bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-2.5 shadow-2xl">
         <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
           
           {/* Clickable Home Brand */}
@@ -54,7 +54,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
             <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">🔍</span>
             <input
               type="text"
-              placeholder="Search heritage sites, locations, materials..."
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#14171E] border border-[#2B313D] focus:border-[#C5A059] rounded-xl pl-10 pr-20 py-2 text-xs sm:text-sm text-gray-100 placeholder-gray-500 focus:outline-none transition shadow-inner font-sans"

@@ -348,7 +348,7 @@ export default function HeritageGisMap({
 
 
       {/* 🗺️ 2. Main Interactive Map Container */}
-      <div className={`relative w-full ${hideQuickJump ? 'h-full min-h-[460px]' : 'h-[540px]'} bg-[#090A0C] rounded-xl overflow-hidden border border-[#1E2228] shadow-2xl`}>
+      <div className={`relative isolate z-0 w-full ${hideQuickJump ? 'h-full min-h-[460px]' : 'h-[540px]'} bg-[#090A0C] rounded-xl overflow-hidden border border-[#1E2228] shadow-2xl`}>
 
         
         {/* Map Control Overlay */}

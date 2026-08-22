@@ -183,7 +183,7 @@ export default function LandingPageView({
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="sticky top-0 z-50 bg-[#090B0E]/90 backdrop-blur-xl border-b border-[#1C2029] px-6 py-3.5 shadow-2xl"
+        className="sticky top-0 z-[9999] bg-[#090B0E]/90 backdrop-blur-xl border-b border-[#1C2029] px-6 py-3.5 shadow-2xl"
       >
         <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
           
