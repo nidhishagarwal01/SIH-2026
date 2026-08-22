@@ -9,16 +9,19 @@ export default function HeritageGisMap({
 }) {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const tileLayerRef = useRef(null);
   const markersRef = useRef([]);
   const hazardLayersRef = useRef({});
 
   const [activeFilter, setActiveFilter] = useState('all');
+  const [baseMapType, setBaseMapType] = useState('dark'); // 'dark' | 'satellite'
   const [showSeismicLayer, setShowSeismicLayer] = useState(true);
   const [showRainfallLayer, setShowRainfallLayer] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const heritageSites = UNESCO_SITES;
 
+  // Initialize Map
   useEffect(() => {
     const container = mapContainerRef.current;
     if (!container || mapInstanceRef.current) return;
@@ -28,7 +31,7 @@ export default function HeritageGisMap({
       center: [21.5, 78.9],
       zoom: 4.8,
       minZoom: 4,
-      maxZoom: 12,
+      maxZoom: 14,
       zoomControl: false
     });
     mapInstanceRef.current = map;
@@ -36,12 +39,14 @@ export default function HeritageGisMap({
     // Zoom control at bottom-right
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    // 2. Add CartoDB Dark Matter tile layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    // 2. Base Tile Layer (Dark Matter)
+    const darkTile = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
       attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap',
       subdomains: 'abcd',
       maxZoom: 19
-    }).addTo(map);
+    });
+    darkTile.addTo(map);
+    tileLayerRef.current = darkTile;
 
     // 3. Add Hazard GeoJSON / Circles (Seismic and Monsoon zones)
     const seismicNorthernBelt = L.polygon([
@@ -94,11 +99,50 @@ export default function HeritageGisMap({
     hazardLayersRef.current.rainfall = rainfallGroup;
     if (showRainfallLayer) rainfallGroup.addTo(map);
 
-    // 4. Custom Marker Icons for Monuments
-    const createCustomIcon = (site) => {
-      const isCritical = site.status === 'High Urgency';
-      const isSelected = activeSiteIndex === site.index;
+    return () => {
+      map.remove();
+      mapInstanceRef.current = null;
+    };
+  }, []);
 
+  // Handle Base Map Switching (Dark vs Bhuvan Satellite)
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    if (tileLayerRef.current) {
+      map.removeLayer(tileLayerRef.current);
+    }
+
+    if (baseMapType === 'satellite') {
+      const satelliteTile = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'ISRO Bhuvan / Esri High-Resolution Earth Imagery',
+        maxZoom: 19
+      });
+      satelliteTile.addTo(map);
+      tileLayerRef.current = satelliteTile;
+    } else {
+      const darkTile = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; CARTO &copy; OpenStreetMap',
+        subdomains: 'abcd',
+        maxZoom: 19
+      });
+      darkTile.addTo(map);
+      tileLayerRef.current = darkTile;
+    }
+  }, [baseMapType]);
+
+  // Update Markers
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+
+    // Clear existing markers
+    markersRef.current.forEach(m => m.remove());
+    markersRef.current = [];
+
+    const createCustomIcon = (site) => {
+      const isSelected = activeSiteIndex === site.index;
       return L.divIcon({
         className: 'custom-gis-marker',
         html: `
@@ -109,72 +153,81 @@ export default function HeritageGisMap({
             background: ${site.color};
             border: 2px solid ${isSelected ? '#FFF' : '#121418'};
             border-radius: 50%;
-            box-shadow: 0 0 ${isSelected ? '16px' : '8px'} ${site.color};
+            box-shadow: 0 0 ${isSelected ? '14px' : '6px'} ${site.color};
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.2s ease;
           ">
-            ${isCritical ? `<div style="position:absolute; inset:-4px; border-radius:50%; border:1.5px solid ${site.color}; animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;"></div>` : ''}
-            <div style="width: 6px; height: 6px; background: #FFF; border-radius: 50%;"></div>
+            <span style="font-size: 9px; font-weight: bold; color: #121418;">🏛️</span>
           </div>
         `,
-        iconSize: [26, 26],
-        iconAnchor: [13, 13]
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+        popupAnchor: [0, -12]
       });
     };
 
-    // 5. Add Markers for All UNESCO World Heritage Monuments
     heritageSites.forEach((site) => {
+      const isSelected = activeSiteIndex === site.index;
       const marker = L.marker(site.coords, {
-        icon: createCustomIcon(site)
-      }).addTo(map);
+        icon: createCustomIcon(site),
+        zIndexOffset: isSelected ? 1000 : 0
+      });
 
       const popupContent = `
-        <div style="background:#121418; color:#E8E6E3; padding:12px; border-radius:10px; font-family:sans-serif; min-width:230px; border:1px solid #2B313D; box-shadow:0 10px 25px rgba(0,0,0,0.7);">
-          <div style="font-size:10px; color:#C5A059; font-family:monospace; text-transform:uppercase; font-weight:bold;">${site.id} · ${site.state}</div>
-          <div style="font-size:14px; font-weight:bold; margin-top:2px; color:#F3EFE6;">${site.name}</div>
-          
-          <div style="display:flex; justify-content:space-between; margin:8px 0; padding:6px 8px; background:#0E1013; border-radius:6px; font-size:11px; font-family:monospace; border:1px solid #1E2228;">
-            <span>Health: <strong style="color:${site.color}">${site.healthScore}/100</strong></span>
-            <span>Risk: <strong style="color:${site.color}">${site.riskScore}/100</strong></span>
+        <div style="font-family: ui-monospace, SFMono-Regular, monospace; background: #0E1013; color: #EDE8DE; padding: 12px; border-radius: 8px; min-width: 220px; border: 1px solid #2B313D;">
+          <div style="display: flex; justify-content: space-between; font-size: 10px; color: #C5A059; margin-bottom: 4px; font-weight: bold;">
+            <span>${site.id}</span>
+            <span>${site.state}</span>
           </div>
-
-          <div style="font-size:11px; color:#A09C94; line-height:1.4; margin-bottom:8px;">
-            ⚠️ <strong>Hazard Exposure:</strong> ${site.hazard}
+          <h4 style="font-size: 13px; font-weight: bold; margin: 0 0 6px 0; color: #FFF;">${site.name}</h4>
+          <div style="font-size: 11px; margin-bottom: 6px; color: #AAA;">
+            Risk: <strong style="color: ${site.color};">${site.riskScore}/100 (${site.status})</strong>
           </div>
-
-          <button id="btn-select-site-${site.index}" style="width:100%; background:linear-gradient(to right, #C5A059, #D4AF37); color:#090A0C; border:none; padding:7px; border-radius:6px; font-size:11px; font-weight:bold; cursor:pointer; font-family:monospace; text-transform:uppercase; box-shadow:0 2px 8px rgba(197,160,89,0.3);">
-            🚀 Load 3D Twin & Live Telemetry
-          </button>
+          <div style="font-size: 10px; color: #888; margin-bottom: 8px; border-top: 1px solid #1E2228; padding-top: 4px;">
+            🧱 ${site.material}<br/>
+            🌋 ${site.seismicZone}
+          </div>
+          <button id="btn-select-${site.index}" style="
+            width: 100%;
+            background: #C5A059;
+            color: #090A0C;
+            border: none;
+            border-radius: 4px;
+            padding: 5px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+          ">Inspect in 3D Studio →</button>
         </div>
       `;
 
       marker.bindPopup(popupContent, {
         className: 'custom-leaflet-popup',
-        closeButton: false
+        closeButton: true
       });
 
       marker.on('popupopen', () => {
-        const btn = document.getElementById(`btn-select-site-${site.index}`);
+        const btn = document.getElementById(`btn-select-${site.index}`);
         if (btn) {
           btn.onclick = () => {
-            onSelectSite(site.index);
+            if (onSelectSite) onSelectSite(site.index);
           };
         }
       });
 
-      markersRef.current.push({ marker, site });
+      marker.on('click', () => {
+        if (onSelectSite) onSelectSite(site.index);
+      });
+
+      marker.addTo(map);
+      markersRef.current.push(marker);
     });
+  }, [activeSiteIndex, heritageSites, onSelectSite]);
 
-    return () => {
-      map.remove();
-      mapInstanceRef.current = null;
-    };
-  }, []);
-
-  // Update Hazard Layers visibility
+  // Handle Hazard Layer Toggles
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map) return;
@@ -206,15 +259,8 @@ export default function HeritageGisMap({
     }
   }, [activeSiteIndex]);
 
-  // Filter markers
-  const filteredSites = heritageSites.filter(s => {
-    const matchesFilter = activeFilter === 'all' || (activeFilter === 'critical' ? s.status === 'High Urgency' : s.status === 'Watch');
-    const matchesSearch = searchQuery === '' || s.name.toLowerCase().includes(searchQuery.toLowerCase()) || s.state.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
-  });
-
   return (
-    <div className="relative w-full h-[520px] bg-[#090A0C] rounded-xl overflow-hidden border border-[#1E2228] shadow-2xl">
+    <div className="relative w-full h-[540px] bg-[#090A0C] rounded-xl overflow-hidden border border-[#1E2228] shadow-2xl">
       
       {/* Map Control Overlay */}
       <div className="absolute top-4 left-4 z-[400] flex flex-col gap-2 max-w-sm">
@@ -223,21 +269,21 @@ export default function HeritageGisMap({
         <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-3 rounded-xl shadow-xl">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-              National Heritage Radar
+              National Heritage Radar (ISRO/Bhuvan Grid)
             </span>
             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C5A059]/15 text-[#C5A059] border border-[#C5A059]/30 font-bold">
               {heritageSites.length} UNESCO Sites Active
             </span>
           </div>
           <p className="text-xs text-gray-300 font-sans mt-1">
-            Real-time geospatial monitoring with live BIS IS 1893 seismic faults and IMD hazard overlays.
+            WGS84 geospatial monitoring aligned with ISRO Bhuvan Heritage Buffer Standards & BIS IS 1893 seismic faults.
           </p>
 
           {/* Search Bar */}
           <div className="mt-2">
             <input
               type="text"
-              placeholder="Search by monument or state..."
+              placeholder="Search monument or circle..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#0E1013] border border-[#2B313D] rounded-lg px-2.5 py-1 text-xs text-white font-mono placeholder-gray-500 focus:outline-none focus:border-[#C5A059]"
@@ -245,86 +291,60 @@ export default function HeritageGisMap({
           </div>
         </div>
 
+        {/* Base Layer Switcher (Dark vs Satellite) */}
+        <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-2.5 rounded-xl shadow-xl flex items-center justify-between gap-2">
+          <span className="text-[10px] font-mono text-gray-400 uppercase font-semibold">Base Imagery:</span>
+          <div className="flex gap-1">
+            <button
+              onClick={() => setBaseMapType('dark')}
+              className={`px-2.5 py-1 rounded text-xs font-mono transition ${
+                baseMapType === 'dark'
+                  ? 'bg-[#C5A059] text-[#090A0C] font-bold'
+                  : 'bg-[#181B22] text-gray-400 hover:text-white border border-[#2B313D]'
+              }`}
+            >
+              🌑 Dark Tactical
+            </button>
+            <button
+              onClick={() => setBaseMapType('satellite')}
+              className={`px-2.5 py-1 rounded text-xs font-mono transition ${
+                baseMapType === 'satellite'
+                  ? 'bg-sky-600 text-white font-bold'
+                  : 'bg-[#181B22] text-gray-400 hover:text-white border border-[#2B313D]'
+              }`}
+            >
+              🛰️ ISRO / Satellite
+            </button>
+          </div>
+        </div>
+
         {/* Hazard Layer Toggles */}
         <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-2.5 rounded-xl shadow-xl flex items-center gap-3">
-          <span className="text-[10px] font-mono text-gray-400 uppercase font-semibold">GIS Overlays:</span>
-          
-          <label className="flex items-center gap-1.5 text-xs font-mono text-gray-200 cursor-pointer">
+          <span className="text-[10px] font-mono text-gray-400 uppercase font-semibold">Hazard Layers:</span>
+          <label className="flex items-center gap-1.5 text-xs font-mono text-rose-300 cursor-pointer">
             <input
               type="checkbox"
               checked={showSeismicLayer}
               onChange={(e) => setShowSeismicLayer(e.target.checked)}
-              className="accent-[#E05A47] rounded"
+              className="rounded text-rose-500 focus:ring-0"
             />
-            <span className="text-rose-400">🌋 Seismic IV/V</span>
+            <span>Seismic Faults</span>
           </label>
-
-          <label className="flex items-center gap-1.5 text-xs font-mono text-gray-200 cursor-pointer">
+          <label className="flex items-center gap-1.5 text-xs font-mono text-sky-300 cursor-pointer">
             <input
               type="checkbox"
               checked={showRainfallLayer}
               onChange={(e) => setShowRainfallLayer(e.target.checked)}
-              className="accent-[#3B82F6] rounded"
+              className="rounded text-sky-500 focus:ring-0"
             />
-            <span className="text-blue-400">🌧️ Monsoon Flood</span>
+            <span>Monsoon Belt</span>
           </label>
         </div>
 
       </div>
 
-      {/* Filter Tabs on Right */}
-      <div className="absolute top-4 right-4 z-[400] bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-1.5 rounded-xl shadow-xl flex gap-1 font-mono text-xs">
-        <button
-          onClick={() => setActiveFilter('all')}
-          className={`px-2.5 py-1 rounded-lg transition ${
-            activeFilter === 'all' ? 'bg-[#C5A059] text-[#090A0C] font-bold' : 'text-gray-400 hover:text-white'
-          }`}
-        >
-          All ({heritageSites.length})
-        </button>
-        <button
-          onClick={() => setActiveFilter('critical')}
-          className={`px-2.5 py-1 rounded-lg transition ${
-            activeFilter === 'critical' ? 'bg-rose-500 text-white font-bold' : 'text-gray-400 hover:text-white'
-          }`}
-        >
-          Critical ({heritageSites.filter(s => s.status === 'High Urgency').length})
-        </button>
-        <button
-          onClick={() => setActiveFilter('watch')}
-          className={`px-2.5 py-1 rounded-lg transition ${
-            activeFilter === 'watch' ? 'bg-amber-500 text-black font-bold' : 'text-gray-400 hover:text-white'
-          }`}
-        >
-          Watch ({heritageSites.filter(s => s.status === 'Watch').length})
-        </button>
-      </div>
-
-      {/* Main Leaflet Map Container */}
+      {/* Map Container */}
       <div ref={mapContainerRef} className="w-full h-full" />
-
-      {/* Quick Select Monument Strip at Bottom */}
-      <div className="absolute bottom-4 left-4 right-4 z-[400] bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-2.5 rounded-xl shadow-2xl flex items-center justify-between gap-3 overflow-x-auto">
-        <span className="text-[11px] font-mono text-gray-400 uppercase whitespace-nowrap font-bold">
-          Quick Jump:
-        </span>
-        <div className="flex gap-1.5 overflow-x-auto py-0.5">
-          {filteredSites.slice(0, 8).map((site) => (
-            <button
-              key={site.index}
-              onClick={() => onSelectSite(site.index)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-mono whitespace-nowrap transition flex items-center gap-1.5 border ${
-                activeSiteIndex === site.index
-                  ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold shadow-sm'
-                  : 'border-[#1E2228] bg-[#0E1013] text-gray-300 hover:border-gray-600'
-              }`}
-            >
-              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: site.color }} />
-              <span>{site.name.split(',')[0].split('(')[0]}</span>
-            </button>
-          ))}
-        </div>
-      </div>
 
     </div>
   );
