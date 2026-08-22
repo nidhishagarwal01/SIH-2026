@@ -1365,7 +1365,7 @@ export default function MonumentViewer3D({
   }
 
   return (
-    <div className="flex flex-col h-[560px] w-full bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">
+    <div className="flex flex-col h-[640px] w-full bg-[#08090C] rounded-2xl border border-[#1E2228] shadow-2xl">
       
       {/* Top Header Outside 3D Canvas (No Overlap on 3D Model) */}
       <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-10 shrink-0">
@@ -1451,7 +1451,7 @@ export default function MonumentViewer3D({
       </div>
 
       {/* Pure 3D Canvas Mount (100% Dedicated & Unobstructed, ZERO buttons inside) */}
-      <div className="relative flex-1 w-full min-h-[400px] bg-[#08090C] overflow-hidden">
+      <div className="relative flex-1 w-full min-h-[450px] bg-[#08090C] overflow-hidden">
         <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
       </div>
 

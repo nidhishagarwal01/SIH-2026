@@ -541,9 +541,6 @@ export default function App() {
             <div className="bg-[#121418] border border-[#1E2228] p-4 rounded-xl space-y-3">
               <div className="flex flex-wrap justify-between items-center gap-4">
                 <div>
-                  <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
-                    WebGL 3D Procedural Engine · Multi-Mode Inspection
-                  </span>
                   <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
                     {curSite.name} — Living 3D Digital Twin
                   </h2>
@@ -577,10 +574,21 @@ export default function App() {
                     </span>
                   </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-emerald-400 font-bold bg-emerald-950/40 border border-emerald-800/40 px-2.5 py-0.5 rounded text-[11px]">
-                    💰 Preventive ROI: 93.4% Savings
-                  </span>
+              </div>
+
+              {/* Preventive ROI Savings Card */}
+              <div className="mt-3 bg-emerald-950/20 border border-emerald-800/30 rounded-xl p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider font-bold">💰 Preventive Conservation ROI</span>
+                  <span className="text-lg font-bold text-emerald-400 font-mono">93.4%</span>
+                </div>
+                <div className="w-full bg-[#0E1013] rounded-full h-2 mb-2">
+                  <div className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2 rounded-full" style={{ width: '93.4%' }} />
+                </div>
+                <div className="flex items-center justify-between text-[10px] font-mono text-gray-400">
+                  <span>Reactive Cost: <strong className="text-rose-400">₹14.2 Cr</strong></span>
+                  <span>Preventive Cost: <strong className="text-emerald-400">₹0.94 Cr</strong></span>
+                  <span>Savings: <strong className="text-emerald-300">₹13.26 Cr</strong></span>
                 </div>
               </div>
             </div>
