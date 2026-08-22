@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heritage Shield — Predictive Conservation Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  :root{
+    --bg: #16171A;
+    --bg-elev: #1D1F23;
+    --bg-elev-2: #24262B;
+    --line: #33353B;
+    --stone: #C9A15C;
+    --stone-dim: #8A733F;
+    --patina: #63917E;
+    --patina-dim: #3E5C51;
+    --rust: #C1502E;
+    --rust-dim: #7A3320;
+    --amber: #D9A441;
+    --text: #EDE8DE;
+    --text-dim: #A7A296;
+    --text-faint: #6E6A60;
+    --radius: 10px;
+    --serif: 'Fraunces', serif;
+    --sans: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.028) 1px, transparent 0);
+    background-size: 26px 26px;
+    pointer-events:none;
+    z-index:0;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  section{position:relative; z-index:1;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(22,23,26,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--serif); font-weight:600; font-size:1.15rem; letter-spacing:0.01em;}
+  .brand .mark{
+    width:28px; height:28px; border-radius:6px;
+    background:linear-gradient(155deg, var(--stone), var(--patina));
+    display:flex; align-items:center; justify-content:center;
+    color:var(--bg); font-family:var(--mono); font-weight:600; font-size:0.7rem;
+  }
+  .navlinks{display:flex; gap:28px; font-size:0.86rem; color:var(--text-dim);}
+  .navlinks a{text-decoration:none; transition:color .15s;}
+  .navlinks a:hover{color:var(--stone);}
+  @media (max-width: 880px){ .navlinks{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:96px 0 64px; overflow:hidden;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--patina); border:1px solid var(--patina-dim); background:rgba(99,145,126,0.08);
+    padding:6px 12px; border-radius:100px; margin-bottom:28px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--patina); box-shadow:0 0 0 3px rgba(99,145,126,0.25);}
+  h1.hero-title{
+    font-family:var(--serif); font-weight:600; font-size:clamp(2.4rem, 5vw, 4rem);
+    line-height:1.04; letter-spacing:-0.01em; max-width:820px;
+  }
+  h1.hero-title em{font-style:italic; color:var(--stone); font-weight:500;}
+  .hero-sub{max-width:640px; color:var(--text-dim); font-size:1.05rem; margin-top:22px; line-height:1.65;}
+  .hero-actions{display:flex; gap:14px; margin-top:36px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--sans); font-weight:600; font-size:0.88rem;
+    padding:13px 22px; border-radius:8px; border:1px solid transparent; cursor:pointer;
+    transition:transform .15s, background .15s, border-color .15s; text-decoration:none; display:inline-block;
+  }
+  .btn-primary{background:var(--stone); color:#1a1607;}
+  .btn-primary:hover{transform:translateY(-1px); background:#d8ac67;}
+  .btn-ghost{background:transparent; color:var(--text); border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--stone); color:var(--stone);}
+
+  .stat-strip{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:var(--radius);
+    margin-top:64px; overflow:hidden;
+  }
+  .stat{background:var(--bg-elev); padding:22px 24px;}
+  .stat .num{font-family:var(--serif); font-size:2rem; font-weight:600; color:var(--stone);}
+  .stat .lbl{font-size:0.78rem; color:var(--text-faint); margin-top:4px; text-transform:uppercase; letter-spacing:0.06em;}
+  @media (max-width:720px){ .stat-strip{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-pad{padding:100px 0;}
+  .section-pad.alt{background:var(--bg-elev); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .kicker{font-family:var(--mono); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--stone); margin-bottom:14px;}
+  h2.section-title{font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3vw,2.3rem); max-width:640px; letter-spacing:-0.01em;}
+  .section-desc{color:var(--text-dim); max-width:600px; margin-top:14px; font-size:0.98rem;}
+  .section-head-row{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:48px;}
+
+  .card{background:var(--bg-elev); border:1px solid var(--line); border-radius:var(--radius); padding:28px;}
+  .card.deep{background:var(--bg-elev-2);}
+  .pill{font-family:var(--mono); font-size:0.68rem; letter-spacing:0.05em; padding:3px 9px; border-radius:100px; text-transform:uppercase; display:inline-block;}
+  .pill-low{background:rgba(99,145,126,0.15); color:var(--patina); border:1px solid var(--patina-dim);}
+  .pill-mid{background:rgba(217,164,65,0.14); color:var(--amber); border:1px solid #8a6a26;}
+  .pill-high{background:rgba(193,80,46,0.16); color:#e07a55; border:1px solid var(--rust-dim);}
+
+  /* ---------- DIGITAL TWIN ---------- */
+  .twin-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:36px; align-items:stretch;}
+  @media (max-width:900px){ .twin-grid{grid-template-columns:1fr;} }
+  .twin-stage{
+    background:radial-gradient(ellipse at 50% 20%, #26221a 0%, #1a1712 60%, #141310 100%);
+    border:1px solid var(--line); border-radius:var(--radius);
+    position:relative; min-height:460px; display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .twin-stage svg{width:82%; max-width:340px; height:auto; overflow:visible;}
+  .hotspot{
+    position:absolute; width:20px; height:20px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--patina); cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transform:translate(-50%,-50%); transition:transform .15s;
+    box-shadow:0 0 0 5px rgba(99,145,126,0.14);
+  }
+  .hotspot::after{content:""; width:6px; height:6px; border-radius:50%; background:var(--patina);}
+  .hotspot.risk-high{border-color:var(--rust); box-shadow:0 0 0 5px rgba(193,80,46,0.16);}
+  .hotspot.risk-high::after{background:var(--rust);}
+  .hotspot.risk-mid{border-color:var(--amber); box-shadow:0 0 0 5px rgba(217,164,65,0.16);}
+  .hotspot.risk-mid::after{background:var(--amber);}
+  .hotspot:hover, .hotspot.active{transform:translate(-50%,-50%) scale(1.25);}
+  .hotspot-pulse{position:absolute; inset:-8px; border-radius:50%; border:1px solid currentColor; opacity:0; animation:pulse 2.6s ease-out infinite;}
+  @keyframes pulse{0%{opacity:0.5; transform:scale(0.6);} 100%{opacity:0; transform:scale(1.9);}}
+
+  .twin-panel{display:flex; flex-direction:column; gap:16px;}
+  .component-detail{flex:1; display:flex; flex-direction:column; gap:14px;}
+  .component-detail .name{font-family:var(--serif); font-size:1.3rem; font-weight:600;}
+  .component-detail .meta{color:var(--text-faint); font-size:0.82rem; font-family:var(--mono);}
+  .factor-row{display:flex; align-items:center; gap:10px; font-size:0.84rem;}
+  .factor-row .flabel{width:150px; color:var(--text-dim); flex-shrink:0;}
+  .bar-track{flex:1; height:6px; background:var(--bg-elev-2); border-radius:100px; overflow:hidden;}
+  .bar-fill{height:100%; border-radius:100px;}
+  .factor-row .fval{font-family:var(--mono); font-size:0.78rem; color:var(--text-faint); width:34px; text-align:right;}
+  .site-select{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px;}
+  .chip{
+    font-size:0.8rem; padding:8px 14px; border-radius:100px; border:1px solid var(--line);
+    background:var(--bg-elev-2); color:var(--text-dim); cursor:pointer; transition:all .15s;
+  }
+  .chip.active{border-color:var(--stone); color:var(--stone); background:rgba(201,161,92,0.08);}
+
+  /* ---------- ASSESSMENT ---------- */
+  .assess-grid{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
+  @media (max-width:900px){ .assess-grid{grid-template-columns:1fr;} }
+  .dropzone{
+    border:1.5px dashed var(--line); border-radius:var(--radius); padding:36px;
+    text-align:center; cursor:pointer; transition:border-color .15s, background .15s;
+    background:var(--bg-elev);
+  }
+  .dropzone:hover, .dropzone.dragover{border-color:var(--stone); background:rgba(201,161,92,0.05);}
+  .dropzone .dz-icon{font-size:1.6rem; margin-bottom:10px;}
+  .dropzone .dz-text{color:var(--text-dim); font-size:0.9rem;}
+  .dropzone .dz-sub{color:var(--text-faint); font-size:0.78rem; margin-top:6px;}
+  .scan-frame{
+    margin-top:20px; border-radius:var(--radius); overflow:hidden; position:relative;
+    background:linear-gradient(135deg,#3a3327,#2b2620 40%, #201c17); min-height:260px;
+    border:1px solid var(--line); display:none;
+  }
+  .scan-frame.show{display:block;}
+  .scan-crack{position:absolute;}
+  .scanning-line{
+    position:absolute; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--patina), transparent);
+    top:0; animation:scan 1.8s linear infinite;
+  }
+  @keyframes scan{0%{top:0%;} 100%{top:100%;}}
+  .box-flag{
+    position:absolute; border:1.5px solid var(--rust); border-radius:3px;
+    opacity:0; animation:flagin .4s ease forwards;
+  }
+  .box-flag span{
+    position:absolute; top:-22px; left:-1.5px; background:var(--rust); color:#1a0d08;
+    font-family:var(--mono); font-size:0.65rem; padding:2px 6px; border-radius:3px; white-space:nowrap; font-weight:600;
+  }
+  @keyframes flagin{to{opacity:1;}}
+  .findings{margin-top:18px; display:flex; flex-direction:column; gap:10px;}
+  .finding{
+    display:flex; justify-content:space-between; align-items:center; padding:10px 14px;
+    background:var(--bg-elev-2); border-radius:8px; font-size:0.85rem; opacity:0; transform:translateY(6px);
+    animation:fin .4s ease forwards;
+  }
+  @keyframes fin{to{opacity:1; transform:none;}}
+  .finding .fname{display:flex; align-items:center; gap:8px;}
+  .finding .fdot{width:8px; height:8px; border-radius:50%;}
+  .finding .fconf{font-family:var(--mono); color:var(--text-faint); font-size:0.78rem;}
+  .validate-note{
+    margin-top:16px; font-size:0.8rem; color:var(--text-faint); border-left:2px solid var(--patina-dim);
+    padding:8px 0 8px 14px; font-style:italic;
+  }
+
+  /* ---------- TEMPORAL SLIDER ---------- */
+  .compare-wrap{position:relative; border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); max-width:640px; margin:0 auto; user-select:none;}
+  .compare-img{
+    height:360px; position:relative; background-size:cover; background-position:center;
+  }
+  .compare-before{background:linear-gradient(160deg,#4a3f2c,#2c2618 55%, #1c1712), repeating-linear-gradient(115deg, rgba(0,0,0,0.06) 0 2px, transparent 2px 8px);}
+  .compare-after{
+    position:absolute; inset:0; overflow:hidden;
+    background:linear-gradient(160deg,#4a3f2c,#2c2618 55%, #1c1712), repeating-linear-gradient(115deg, rgba(0,0,0,0.06) 0 2px, transparent 2px 8px);
+  }
+  .crack-svg{position:absolute; inset:0; width:100%; height:100%;}
+  .compare-handle{
+    position:absolute; top:0; bottom:0; width:2px; background:var(--stone);
+    left:50%; cursor:ew-resize;
+  }
+  .compare-handle::after{
+    content:"↔"; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:34px; height:34px; background:var(--stone); color:#1a1607; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:0.95rem; font-weight:700;
+  }
+  .compare-label{
+    position:absolute; top:14px; font-family:var(--mono); font-size:0.72rem; padding:4px 10px;
+    background:rgba(0,0,0,0.55); border-radius:4px; letter-spacing:0.04em;
+  }
+  .compare-label.l{left:14px;} .compare-label.r{right:14px;}
+  input[type=range].compare-range{
+    width:100%; max-width:640px; margin:18px auto 0; display:block; accent-color:var(--stone);
+  }
+  .change-callouts{display:flex; gap:14px; justify-content:center; margin-top:22px; flex-wrap:wrap;}
+  .callout{
+    display:flex; align-items:center; gap:8px; font-size:0.82rem; color:var(--text-dim);
+    background:var(--bg-elev-2); padding:8px 14px; border-radius:100px;
+  }
+  .callout .cdot{width:7px; height:7px; border-radius:50%; background:var(--rust);}
+
+  /* ---------- HEALTH INDEX ---------- */
+  .health-grid{display:grid; grid-template-columns:0.8fr 1.2fr; gap:44px; align-items:center;}
+  @media (max-width:900px){ .health-grid{grid-template-columns:1fr;} }
+  .gauge-wrap{display:flex; flex-direction:column; align-items:center; gap:18px;}
+  .gauge-num{font-family:var(--serif); font-size:3.2rem; font-weight:600;}
+  .gauge-caption{color:var(--text-faint); font-size:0.8rem; text-align:center; max-width:220px;}
+  .breakdown-row{margin-bottom:18px;}
+  .breakdown-row .brow-top{display:flex; justify-content:space-between; font-size:0.86rem; margin-bottom:8px;}
+  .breakdown-row .blabel{color:var(--text);}
+  .breakdown-row .bimpact{font-family:var(--mono); color:var(--text-faint); font-size:0.76rem;}
+  .why-box{
+    margin-top:24px; background:var(--bg-elev-2); border-radius:8px; padding:18px 20px;
+    font-size:0.88rem; color:var(--text-dim); line-height:1.6;
+  }
+  .why-box b{color:var(--text); font-weight:600;}
+
+  /* ---------- RISK MAP ---------- */
+  #riskMap{height:440px; border-radius:var(--radius); border:1px solid var(--line); filter:saturate(0.35) brightness(0.85);}
+  .layer-toggles{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;}
+  .toggle{
+    display:flex; align-items:center; gap:8px; font-size:0.82rem; padding:9px 14px;
+    border:1px solid var(--line); border-radius:100px; cursor:pointer; color:var(--text-dim); background:var(--bg-elev);
+    transition:all .15s;
+  }
+  .toggle input{accent-color:var(--patina);}
+  .toggle.on{border-color:var(--patina-dim); color:var(--text);}
+
+  /* ---------- PREDICTION ---------- */
+  .trajectory{display:flex; align-items:center; gap:0; margin:36px 0 8px;}
+  .traj-step{flex:1; text-align:center; position:relative; padding-bottom:14px;}
+  .traj-step .traj-dot{
+    width:16px; height:16px; border-radius:50%; background:var(--bg-elev-2); border:2px solid var(--line);
+    margin:0 auto 10px; position:relative; z-index:2;
+  }
+  .traj-step::before{
+    content:""; position:absolute; top:8px; left:-50%; width:100%; height:2px; background:var(--line); z-index:1;
+  }
+  .traj-step:first-child::before{display:none;}
+  .traj-step .traj-label{font-size:0.78rem; color:var(--text-faint); font-family:var(--mono); text-transform:uppercase; letter-spacing:0.04em;}
+  .traj-step.current .traj-dot{background:var(--rust); border-color:var(--rust); box-shadow:0 0 0 6px rgba(193,80,46,0.18);}
+  .traj-step.current .traj-label{color:var(--rust); font-weight:600;}
+  .traj-step.passed .traj-dot{background:var(--patina-dim); border-color:var(--patina);}
+  .traj-step.passed::before{background:var(--patina-dim);}
+
+  .predict-chart{margin-top:32px;}
+  .conf-note{font-size:0.78rem; color:var(--text-faint); margin-top:10px; font-style:italic;}
+
+  /* ---------- PRIORITY TABLE ---------- */
+  table.priority-table{width:100%; border-collapse:collapse; font-size:0.88rem;}
+  table.priority-table th{
+    text-align:left; padding:12px 16px; color:var(--text-faint); font-family:var(--mono); font-size:0.7rem;
+    text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--line); font-weight:500;
+  }
+  table.priority-table td{padding:16px; border-bottom:1px solid var(--line); vertical-align:middle;}
+  table.priority-table tr:last-child td{border-bottom:none;}
+  .rank-badge{
+    width:26px; height:26px; border-radius:6px; background:var(--bg-elev-2); display:flex; align-items:center;
+    justify-content:center; font-family:var(--mono); font-size:0.78rem; color:var(--text-dim);
+  }
+  tr.top-rank .rank-badge{background:var(--rust); color:#1a0d08; font-weight:700;}
+  .score-bar{width:80px; height:5px; background:var(--bg-elev-2); border-radius:100px; overflow:hidden; display:inline-block; vertical-align:middle; margin-right:8px;}
+  .score-bar > div{height:100%; background:var(--rust); border-radius:100px;}
+
+  /* ---------- RECOMMENDATION ---------- */
+  .rec-flow{display:flex; align-items:stretch; gap:0; flex-wrap:wrap;}
+  .rec-step{flex:1; min-width:180px; padding:22px; border-right:1px solid var(--line);}
+  .rec-step:last-child{border-right:none;}
+  .rec-step .rlabel{font-family:var(--mono); font-size:0.68rem; color:var(--stone); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;}
+  .rec-step p{font-size:0.86rem; color:var(--text-dim); line-height:1.55;}
+  @media (max-width:800px){ .rec-step{border-right:none; border-bottom:1px solid var(--line);} }
+
+  /* ---------- DASHBOARD ---------- */
+  .dash-grid{display:grid; grid-template-columns:2fr 1fr; gap:24px;}
+  @media (max-width:960px){ .dash-grid{grid-template-columns:1fr;} }
+  .dash-col{display:flex; flex-direction:column; gap:24px;}
+  .mini-trend{display:flex; align-items:flex-end; gap:3px; height:44px; margin-top:10px;}
+  .mini-trend div{flex:1; background:var(--patina-dim); border-radius:2px 2px 0 0;}
+  .dash-list-item{display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--line); font-size:0.86rem;}
+  .dash-list-item:last-child{border-bottom:none;}
+
+  footer{padding:56px 0; border-top:1px solid var(--line); text-align:center; color:var(--text-faint); font-size:0.82rem;}
+  footer .fmark{font-family:var(--serif); color:var(--text-dim); margin-bottom:8px; font-size:1rem;}
+
+  .badge-mvp{
+    display:inline-block; font-family:var(--mono); font-size:0.68rem; color:var(--text-faint);
+    border:1px solid var(--line); padding:2px 8px; border-radius:4px; margin-left:10px; vertical-align:middle;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="mark">HS</span> Heritage Shield</div>
+    <div class="navlinks">
+      <a href="#twin">Digital Twin</a>
+      <a href="#assess">Assessment</a>
+      <a href="#temporal">Change Detection</a>
+      <a href="#health">Health Index</a>
+      <a href="#risk">Risk Layer</a>
+      <a href="#priority">Priority Queue</a>
+      <a href="#dashboard">Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow"><span class="dot"></span> SIH '26 · Prototype build · Team Qualified</div>
+    <h1 class="hero-title">From fragmented heritage evidence to a <em>living, predictive</em> conservation decision system.</h1>
+    <p class="hero-sub">Heritage Shield turns scattered inspection photos, records, GIS data and hazard maps into a continuously updated digital twin — one that tracks deterioration over time and tells authorities which component needs attention first.</p>
+    <div class="hero-actions">
+      <a href="#twin" class="btn btn-primary">Explore the digital twin</a>
+      <a href="#dashboard" class="btn btn-ghost">Jump to authority dashboard</a>
+    </div>
+    <div class="stat-strip">
+      <div class="stat"><div class="num">4</div><div class="lbl">Sites monitored (demo)</div></div>
+      <div class="stat"><div class="num">61</div><div class="lbl">Avg. health index / 100</div></div>
+      <div class="stat"><div class="num">3</div><div class="lbl">High-urgency components</div></div>
+      <div class="stat"><div class="num">2026</div><div class="lbl">Latest inspection cycle</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DIGITAL TWIN ================= -->
+<section class="section-pad" id="twin">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div>
+        <div class="kicker">01 · Heritage Digital Twin</div>
+        <h2 class="section-title">A living model of the site, mapped down to the component.</h2>
+        <p class="section-desc">Each hotspot is a structural or architectural component with its own condition history, spatial location and inspection trail — not just a photo of a monument.</p>
+      </div>
+    </div>
+
+    <div class="site-select">
+      <div class="chip active" data-site="0">Qutub Minar Complex, Delhi</div>
+      <div class="chip" data-site="1">Hampi Monument Cluster, Karnataka</div>
+      <div class="chip" data-site="2">Golconda Fort, Hyderabad</div>
+    </div>
+
+    <div class="twin-grid">
+      <div class="twin-stage" id="twinStage">
+        <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="60" y="330" width="180" height="30" rx="2" fill="#3a3327" stroke="#59502f" stroke-width="1.5"/>
+          <rect x="95" y="230" width="110" height="100" fill="#443c2b" stroke="#5c522f" stroke-width="1.5"/>
+          <rect x="115" y="150" width="70" height="80" fill="#4b4230" stroke="#5c522f" stroke-width="1.5"/>
+          <rect x="130" y="90" width="40" height="60" fill="#524730" stroke="#5c522f" stroke-width="1.5"/>
+          <path d="M130 90 Q150 55 170 90 Z" fill="#5c502f" stroke="#6b5e35" stroke-width="1.5"/>
+          <circle cx="150" cy="45" r="6" fill="#6b5e35"/>
+          <line x1="150" y1="24" x2="150" y2="45" stroke="#6b5e35" stroke-width="2"/>
+        </svg>
+        <!-- hotspots positioned absolutely over stage -->
+        <div class="hotspot" data-c="0" style="top:14%; left:50%;"></div>
+        <div class="hotspot risk-mid" data-c="1" style="top:34%; left:38%;"></div>
+        <div class="hotspot risk-high" data-c="2" style="top:58%; left:63%;"></div>
+        <div class="hotspot" data-c="3" style="top:83%; left:30%;"></div>
+      </div>
+
+      <div class="twin-panel card">
+        <div class="component-detail" id="componentDetail">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= AI ASSESSMENT ================= -->
+<section class="section-pad alt" id="assess">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div>
+        <div class="kicker">02 · AI Visual Condition Assessment</div>
+        <h2 class="section-title">Upload a photo. AI flags what needs a closer look.</h2>
+        <p class="section-desc">Computer vision identifies cracks, surface loss, discoloration, vegetation intrusion and dampness — every flag is a suggestion for review, never an automatic verdict.</p>
+      </div>
+    </div>
+
+    <div class="assess-grid">
+      <div>
+        <div class="dropzone" id="dropzone">
+          <div class="dz-icon">⬆</div>
+          <div class="dz-text">Click to simulate an inspection-photo upload</div>
+          <div class="dz-sub">Demo mode — runs a mock detection pass, no file required</div>
+        </div>
+        <div class="scan-frame" id="scanFrame">
+          <div class="scanning-line" id="scanLine"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint); margin-bottom:6px;">Detection output</div>
+        <div class="findings" id="findings">
+          <div style="color:var(--text-faint); font-size:0.86rem;">No image analyzed yet. Upload a photo to see AI-flagged conditions here.</div>
+        </div>
+        <div class="validate-note">AI flags; a conservation professional validates. Confidence scores are shown so reviewers can prioritize what to check first.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEMPORAL CHANGE ================= -->
+<section class="section-pad" id="temporal">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div>
+        <div class="kicker">03 · Temporal Change Detection</div>
+        <h2 class="section-title">The same wall, two inspection cycles apart.</h2>
+        <p class="section-desc">Drag to compare 2024 against 2026. The system aligns repeated observations to the same component so change is measured, not guessed.</p>
+      </div>
+    </div>
+
+    <div class="compare-wrap" id="compareWrap">
+      <div class="compare-img compare-before">
+        <span class="compare-label l">2024</span>
+        <svg class="crack-svg" viewBox="0 0 640 360" preserveAspectRatio="none">
+          <path d="M 120 40 L 135 110 L 118 180 L 140 260" stroke="#8a6a4a" stroke-width="2" fill="none" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="compare-after" id="compareAfter">
+        <span class="compare-label r">2026</span>
+        <svg class="crack-svg" viewBox="0 0 640 360" preserveAspectRatio="none">
+          <path d="M 120 20 L 138 100 L 112 170 L 145 250 L 128 330" stroke="#c1502e" stroke-width="3" fill="none" opacity="0.9"/>
+          <path d="M 138 100 L 175 130" stroke="#c1502e" stroke-width="2" fill="none" opacity="0.75"/>
+          <path d="M 112 170 L 80 195" stroke="#c1502e" stroke-width="2" fill="none" opacity="0.75"/>
+        </svg>
+      </div>
+      <div class="compare-handle" id="compareHandle"></div>
+    </div>
+    <input type="range" class="compare-range" min="0" max="100" value="50" id="compareRange">
+
+    <div class="change-callouts">
+      <div class="callout"><span class="cdot"></span> Crack length +38% since 2024</div>
+      <div class="callout"><span class="cdot"></span> New branching fracture detected</div>
+      <div class="callout"><span class="cdot"></span> Classified: Deteriorating trend</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HEALTH INDEX ================= -->
+<section class="section-pad alt" id="health">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div>
+        <div class="kicker">04 · Heritage Health Index</div>
+        <h2 class="section-title">A transparent score, not a black box.</h2>
+        <p class="section-desc">Every score comes with the factors that produced it, weighted by contribution — so authorities know why a number changed, not just that it did.</p>
+      </div>
+    </div>
+
+    <div class="health-grid card">
+      <div class="gauge-wrap">
+        <svg width="200" height="200" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="82" fill="none" stroke="#2a2c31" stroke-width="14"/>
+          <circle cx="100" cy="100" r="82" fill="none" stroke="#c1502e" stroke-width="14"
+            stroke-dasharray="515.2" stroke-dashoffset="196" stroke-linecap="round" transform="rotate(-90 100 100)"/>
+        </svg>
+        <div class="gauge-num" style="margin-top:-140px;">62</div>
+        <div class="gauge-caption" style="margin-top:120px;">North façade, Qutub Minar — Watch status, re-inspect within 30 days</div>
+      </div>
+
+      <div>
+        <div class="breakdown-row">
+          <div class="brow-top"><span class="blabel">Structural condition</span><span class="bimpact">strongest driver</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:78%; background:var(--rust);"></div></div>
+        </div>
+        <div class="breakdown-row">
+          <div class="brow-top"><span class="blabel">Moisture exposure</span><span class="bimpact">rising</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:64%; background:var(--amber);"></div></div>
+        </div>
+        <div class="breakdown-row">
+          <div class="brow-top"><span class="blabel">Environmental stress</span><span class="bimpact">seasonal</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:47%; background:var(--amber);"></div></div>
+        </div>
+        <div class="breakdown-row">
+          <div class="brow-top"><span class="blabel">Material condition</span><span class="bimpact">stable</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:30%; background:var(--patina);"></div></div>
+        </div>
+        <div class="breakdown-row">
+          <div class="brow-top"><span class="blabel">Human pressure</span><span class="bimpact">low</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:18%; background:var(--patina);"></div></div>
+        </div>
+
+        <div class="why-box">
+          <b>Risk = 62</b> because crack progression and increasing moisture exposure contributed most strongly, partially offset by stable material condition and low visitor pressure at this component.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RISK LAYER ================= -->
+<section class="section-pad" id="risk">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div>
+        <div class="kicker">05 · Risk &amp; Disaster Layer</div>
+        <h2 class="section-title">Not just "is it damaged" — could a hazard accelerate it?</h2>
+        <p class="section-desc">Flood exposure, rainfall extremes, seismic vulnerability and other hazard layers sit alongside condition data, connecting conservation to disaster management.</p>
+      </div>
+    </div>
+
+    <div class="layer-toggles">
+      <label class="toggle on"><input type="checkbox" checked data-layer="flood"> Flood exposure</label>
+      <label class="toggle"><input type="checkbox" data-layer="seismic"> Seismic vulnerability</label>
+      <label class="toggle"><input type="checkbox" data-layer="rainfall"> Extreme rainfall</label>
+    </div>
+
+    <div id="riskMap"></div>
+  </div>
+</section>
+
+<!-- ================= PREDICTION ================= -->
+<section class="section-pad alt" id="predict">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div>
+        <div class="kicker">06 · Deterioration Prediction</div>
+        <h2 class="section-title">Where is this component headed?</h2>
+        <p class="section-desc">Historical condition combined with environmental and hazard variables produces a trajectory — shown with confidence, not false precision.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="font-size:0.85rem; color:var(--text-dim); margin-bottom:4px;">North façade — Qutub Minar Complex</div>
+      <div class="trajectory">
+        <div class="traj-step passed"><div class="traj-dot"></div><div class="traj-label">Stable</div></div>
+        <div class="traj-step passed"><div class="traj-dot"></div><div class="traj-label">Watch</div></div>
+        <div class="traj-step current"><div class="traj-dot"></div><div class="traj-label">Deteriorating</div></div>
+        <div class="traj-step"><div class="traj-dot"></div><div class="traj-label">Critical</div></div>
+      </div>
+
+      <div class="predict-chart">
+        <svg viewBox="0 0 640 160" width="100%" height="160" preserveAspectRatio="none">
+          <line x1="0" y1="40" x2="640" y2="40" stroke="#2a2c31" stroke-width="1"/>
+          <line x1="0" y1="80" x2="640" y2="80" stroke="#2a2c31" stroke-width="1"/>
+          <line x1="0" y1="120" x2="640" y2="120" stroke="#2a2c31" stroke-width="1"/>
+          <path d="M0,50 L160,58 L320,78 L480,98" stroke="#63917E" stroke-width="2.5" fill="none"/>
+          <path d="M480,98 L640,128" stroke="#C1502E" stroke-width="2.5" stroke-dasharray="5 5" fill="none"/>
+          <path d="M480,98 L640,110 L640,146 L480,120 Z" fill="rgba(193,80,46,0.12)"/>
+          <circle cx="480" cy="98" r="4" fill="#EDE8DE"/>
+          <text x="4" y="24" fill="#6E6A60" font-size="10" font-family="IBM Plex Mono">observed</text>
+          <text x="490" y="20" fill="#e07a55" font-size="10" font-family="IBM Plex Mono">predicted</text>
+        </svg>
+      </div>
+      <div class="conf-note">Prediction band widens with time — shown as uncertainty, not a guaranteed outcome. Model updates with every new inspection cycle.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRIORITY QUEUE ================= -->
+<section class="section-pad" id="priority">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div>
+        <div class="kicker">07 · Intervention Priority Engine</div>
+        <h2 class="section-title">Which component should receive attention first?</h2>
+        <p class="section-desc">Ranked by condition × deterioration rate × hazard exposure × heritage significance — across every monitored site, not one at a time.</p>
+      </div>
+    </div>
+
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table class="priority-table">
+        <thead>
+          <tr><th>Rank</th><th>Component</th><th>Site</th><th>Priority score</th><th>Status</th><th>Recommended action</th></tr>
+        </thead>
+        <tbody id="priorityBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RECOMMENDATION ================= -->
+<section class="section-pad alt">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div>
+        <div class="kicker">08 · Conservation Recommendation</div>
+        <h2 class="section-title">Evidence in, a recommendation out — the decision stays human.</h2>
+      </div>
+    </div>
+    <div class="card rec-flow" style="padding:0;">
+      <div class="rec-step">
+        <div class="rlabel">Problem detected</div>
+        <p>Branching crack on the north façade, expanding across two inspection cycles.</p>
+      </div>
+      <div class="rec-step">
+        <div class="rlabel">Probable factors</div>
+        <p>Rising moisture ingress compounded by above-average monsoon rainfall this season.</p>
+      </div>
+      <div class="rec-step">
+        <div class="rlabel">Recommended action</div>
+        <p>Structural inspection within 30 days; assess for moisture barrier repair before the next monsoon.</p>
+      </div>
+      <div class="rec-step">
+        <div class="rlabel">Final call</div>
+        <p>Routed to the assigned conservation architect for review and sign-off — Heritage Shield does not act on its own.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DASHBOARD ================= -->
+<section class="section-pad" id="dashboard">
+  <div class="wrap">
+    <div class="section-head-row">
+      <div>
+        <div class="kicker">09 · Authority Dashboard</div>
+        <h2 class="section-title">Everything a site manager needs, in one view.<span class="badge-mvp">demo data</span></h2>
+        <p class="section-desc">Heritage map, risk distribution, high-priority assets, deterioration trends and pending inspections — the operational home screen for conservation teams.</p>
+      </div>
+    </div>
+
+    <div class="dash-grid">
+      <div class="dash-col">
+        <div class="card">
+          <div style="font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint); margin-bottom:16px;">Deterioration trend — all sites, avg. health index</div>
+          <div class="mini-trend" id="trendChart"></div>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint); margin-bottom:6px;">Pending inspections</div>
+          <div class="dash-list-item"><span>Golconda Fort — East bastion</span><span class="pill pill-high">Due in 6 days</span></div>
+          <div class="dash-list-item"><span>Qutub Minar — North façade</span><span class="pill pill-mid">Due in 24 days</span></div>
+          <div class="dash-list-item"><span>Hampi — Stone chariot base</span><span class="pill pill-low">Due in 41 days</span></div>
+        </div>
+      </div>
+
+      <div class="dash-col">
+        <div class="card">
+          <div style="font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint); margin-bottom:6px;">Risk distribution</div>
+          <div class="dash-list-item"><span>High urgency</span><span style="color:#e07a55; font-family:var(--mono);">3 components</span></div>
+          <div class="dash-list-item"><span>Watch</span><span style="color:var(--amber); font-family:var(--mono);">7 components</span></div>
+          <div class="dash-list-item"><span>Stable</span><span style="color:var(--patina); font-family:var(--mono);">14 components</span></div>
+        </div>
+        <div class="card">
+          <div style="font-family:var(--mono); font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-faint); margin-bottom:6px;">Intervention history</div>
+          <div class="dash-list-item"><span>Repairs logged (12 mo)</span><span style="font-family:var(--mono);">9</span></div>
+          <div class="dash-list-item"><span>Avg. days flag → inspection</span><span style="font-family:var(--mono);">18</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fmark">Heritage Shield</div>
+  <div>Prototype built for Smart India Hackathon '26 — Team Qualified (031). Domain: Simulation &amp; Digital Twin.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* ============ DIGITAL TWIN ============ */
+const components = [
+  {
+    name: "Finial & apex", meta: "Component 04 · Last inspected 12 Jun 2026", score: 88, status: "pill-low", statusText: "Stable",
+    factors: [["Structural condition",22,"var(--patina)"],["Moisture exposure",12,"var(--patina)"],["Material condition",18,"var(--patina)"]]
+  },
+  {
+    name: "Upper storey balcony", meta: "Component 02 · Last inspected 03 May 2026", score: 71, status: "pill-mid", statusText: "Watch",
+    factors: [["Structural condition",48,"var(--amber)"],["Moisture exposure",39,"var(--amber)"],["Material condition",26,"var(--patina)"]]
+  },
+  {
+    name: "North façade", meta: "Component 01 · Last inspected 28 Apr 2026", score: 62, status: "pill-high", statusText: "Deteriorating",
+    factors: [["Structural condition",78,"var(--rust)"],["Moisture exposure",64,"var(--amber)"],["Material condition",30,"var(--patina)"]]
+  },
+  {
+    name: "Base plinth", meta: "Component 03 · Last inspected 19 Jun 2026", score: 80, status: "pill-low", statusText: "Stable",
+    factors: [["Structural condition",28,"var(--patina)"],["Moisture exposure",22,"var(--patina)"],["Material condition",15,"var(--patina)"]]
+  }
+];
+
+function renderComponent(i){
+  const c = components[i];
+  document.querySelectorAll('.hotspot').forEach(h => h.classList.remove('active'));
+  document.querySelector(`.hotspot[data-c="${i}"]`).classList.add('active');
+  document.getElementById('componentDetail').innerHTML = `
+    <div>
+      <span class="pill ${c.status}">${c.statusText}</span>
+      <div class="name" style="margin-top:10px;">${c.name}</div>
+      <div class="meta">${c.meta}</div>
+    </div>
+    <div style="font-family:var(--serif); font-size:2.2rem; font-weight:600; color:${c.score<65?'var(--rust)':c.score<80?'var(--amber)':'var(--patina)'};">${c.score}<span style="font-size:1rem; color:var(--text-faint); font-family:var(--sans);">/100</span></div>
+    ${c.factors.map(f => `
+      <div class="factor-row">
+        <div class="flabel">${f[0]}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${f[1]}%; background:${f[2]};"></div></div>
+        <div class="fval">${f[1]}</div>
+      </div>`).join('')}
+  `;
+}
+document.querySelectorAll('.hotspot').forEach(h => {
+  h.addEventListener('click', () => renderComponent(h.dataset.c));
+});
+renderComponent(2);
+
+document.querySelectorAll('.site-select .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.site-select .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+  });
+});
+
+/* ============ AI ASSESSMENT ============ */
+const dropzone = document.getElementById('dropzone');
+const scanFrame = document.getElementById('scanFrame');
+const findingsEl = document.getElementById('findings');
+
+const mockFindings = [
+  { label:"Crack", conf:92, color:"var(--rust)", box:{top:'28%',left:'22%',w:'34%',h:'40%'} },
+  { label:"Dampness / moisture", conf:78, color:"var(--amber)", box:{top:'55%',left:'10%',w:'26%',h:'22%'} },
+  { label:"Vegetation intrusion", conf:65, color:"var(--patina)", box:{top:'8%',left:'62%',w:'22%',h:'18%'} },
+];
+
+dropzone.addEventListener('click', () => {
+  scanFrame.classList.add('show');
+  scanFrame.querySelectorAll('.box-flag').forEach(b => b.remove());
+  findingsEl.innerHTML = '<div style="color:var(--text-faint); font-size:0.86rem;">Analyzing…</div>';
+
+  setTimeout(() => {
+    mockFindings.forEach((f, i) => {
+      const box = document.createElement('div');
+      box.className = 'box-flag';
+      box.style.top = f.box.top; box.style.left = f.box.left;
+      box.style.width = f.box.w; box.style.height = f.box.h;
+      box.style.borderColor = f.color;
+      box.style.animationDelay = (i*0.25)+'s';
+      box.innerHTML = `<span style="background:${f.color}">${f.label} ${f.conf}%</span>`;
+      scanFrame.appendChild(box);
+    });
+    findingsEl.innerHTML = mockFindings.map((f,i) => `
+      <div class="finding" style="animation-delay:${i*0.15}s">
+        <div class="fname"><span class="fdot" style="background:${f.color}"></span>${f.label}</div>
+        <div class="fconf">${f.conf}% confidence</div>
+      </div>`).join('');
+  }, 1600);
+});
+
+/* ============ TEMPORAL SLIDER ============ */
+const compareAfter = document.getElementById('compareAfter');
+const compareHandle = document.getElementById('compareHandle');
+const compareRange = document.getElementById('compareRange');
+function setCompare(pct){
+  compareAfter.style.width = pct + '%';
+  compareHandle.style.left = pct + '%';
+}
+compareRange.addEventListener('input', e => setCompare(e.target.value));
+setCompare(50);
+
+/* ============ RISK MAP ============ */
+try{
+  if (typeof L === 'undefined') throw new Error('Leaflet failed to load');
+  const map = L.map('riskMap', { zoomControl:true, attributionControl:false }).setView([17.5, 78.5], 4.4);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom:12 }).addTo(map);
+
+  const sites = [
+    { name:"Qutub Minar Complex, Delhi", coords:[28.5245, 77.1855], risk:'mid' },
+    { name:"Hampi Monument Cluster, Karnataka", coords:[15.335, 76.462], risk:'low' },
+    { name:"Golconda Fort, Hyderabad", coords:[17.383, 78.402], risk:'high' },
+    { name:"Konark Sun Temple, Odisha", coords:[19.887, 86.094], risk:'mid' },
+  ];
+  const riskColor = { low:'#63917E', mid:'#D9A441', high:'#C1502E' };
+  sites.forEach(s => {
+    L.circleMarker(s.coords, { radius:10, color:riskColor[s.risk], fillColor:riskColor[s.risk], fillOpacity:0.55, weight:2 })
+      .addTo(map).bindTooltip(s.name, {direction:'top'});
+  });
+}catch(err){
+  console.warn('Risk map unavailable:', err);
+  const el = document.getElementById('riskMap');
+  el.style.display = 'flex'; el.style.alignItems = 'center'; el.style.justifyContent = 'center';
+  el.style.color = 'var(--text-faint)'; el.style.fontSize = '0.85rem'; el.style.textAlign = 'center'; el.style.padding = '20px';
+  el.innerText = 'Map tiles need an internet connection to load (blocked in this sandbox preview). The map renders normally in a live browser.';
+}
+
+document.querySelectorAll('.toggle input').forEach(t => {
+  t.addEventListener('change', () => {
+    t.closest('.toggle').classList.toggle('on', t.checked);
+  });
+});
+
+/* ============ PRIORITY TABLE ============ */
+const priorityData = [
+  { comp:"North façade", site:"Qutub Minar Complex", score:88, status:"pill-high", statusText:"High", action:"Structural inspection within 30 days" },
+  { comp:"East bastion wall", site:"Golconda Fort", score:82, status:"pill-high", statusText:"High", action:"Moisture barrier assessment, 15 days" },
+  { comp:"Upper storey balcony", site:"Qutub Minar Complex", score:64, status:"pill-mid", statusText:"Watch", action:"Re-inspect next cycle" },
+  { comp:"Stone chariot base", site:"Hampi Cluster", score:41, status:"pill-mid", statusText:"Watch", action:"Monitor vegetation intrusion" },
+  { comp:"Vimana relief panel", site:"Konark Sun Temple", score:29, status:"pill-low", statusText:"Stable", action:"Routine documentation" },
+];
+document.getElementById('priorityBody').innerHTML = priorityData.map((p,i) => `
+  <tr class="${i===0?'top-rank':''}">
+    <td><div class="rank-badge">${i+1}</div></td>
+    <td style="font-weight:500;">${p.comp}</td>
+    <td style="color:var(--text-dim);">${p.site}</td>
+    <td><span class="score-bar"><div style="width:${p.score}%"></div></span>${p.score}</td>
+    <td><span class="pill ${p.status}">${p.statusText}</span></td>
+    <td style="color:var(--text-dim); font-size:0.84rem;">${p.action}</td>
+  </tr>
+`).join('');
+
+/* ============ DASHBOARD TREND ============ */
+const trendVals = [58,60,57,63,61,66,64,68,65,70,67,72];
+document.getElementById('trendChart').innerHTML = trendVals.map(v =>
+  `<div style="height:${v}%;"></div>`
+).join('');
+</script>
+</body>
+</html>
