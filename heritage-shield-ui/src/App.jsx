@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import MonumentPortalView from './components/MonumentPortalView';
 import MonumentViewer3D from './components/MonumentViewer3D';
 import InspectionPhotoViewer from './components/InspectionPhotoViewer';
 import HeritageGisMap from './components/HeritageGisMap';
@@ -13,20 +14,23 @@ import AssetSwitcherModal from './components/AssetSwitcherModal';
 import { UNESCO_SITES } from './data/unescoSites';
 
 export default function App() {
-  // Navigation Tabs: 'gis' (default landing) | 'twin' | 'vision' | 'risk' | 'queue'
-  const [activeTab, setActiveTab] = useState('gis');
-  const [activeSite, setActiveSite] = useState(0);
+  // Navigation Flow: 'portal' (Select Heritage Site) | 'studio' (Work on Selected Monument)
+  const [viewMode, setViewMode] = useState('portal');
 
+  // Studio Sub-Tabs: 'twin' | 'vision' | 'gis' | 'risk' | 'queue'
+  const [activeTab, setActiveTab] = useState('twin');
+  const [activeSite, setActiveSite] = useState(0);
   const [activeComponent, setActiveComponent] = useState(2);
   const [sliderPos, setSliderPos] = useState(50);
+
+  // Modals
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isFieldReportOpen, setIsFieldReportOpen] = useState(false);
   const [isLiveIngestOpen, setIsLiveIngestOpen] = useState(false);
   const [isAssetSwitcherOpen, setIsAssetSwitcherOpen] = useState(false);
   const [showPhotogrammetryDrawer, setShowPhotogrammetryDrawer] = useState(false);
 
-
-  // Live Weather / Environment state
+  // Live Weather telemetry
   const [liveWeather, setLiveWeather] = useState({
     temp: "33.2°C",
     humidity: "65%",
@@ -34,13 +38,11 @@ export default function App() {
     status: "LIVE_SYNC"
   });
 
-  // Master National UNESCO World Heritage Sites Database
   const sites = UNESCO_SITES;
 
-
-  // Architectural Components for each distinct heritage monument
+  // Architectural Components for each heritage monument
   const siteComponents = {
-    0: [ // Qutub Minar Complex (Delhi)
+    0: [ // Qutub Minar Complex
       {
         name: "Finial & Apex Cupola",
         code: "C-04",
@@ -86,7 +88,7 @@ export default function App() {
         action: "Routine annual drainage clearance & sub-base mortar repointing"
       }
     ],
-    1: [ // Hampi Monument Cluster (Karnataka)
+    1: [ // Hampi Monument Cluster
       {
         name: "Stepped Vimana Shikhara Tower",
         code: "HC-01",
@@ -132,7 +134,7 @@ export default function App() {
         action: "Routine sub-base drainage desilting"
       }
     ],
-    2: [ // Golconda Fort Complex (Hyderabad)
+    2: [ // Golconda Fort Complex
       {
         name: "Bala Hissar Durbar Hall & Dome",
         code: "GC-01",
@@ -178,7 +180,7 @@ export default function App() {
         action: "Perimeter soil stabilization and vegetation root extraction"
       }
     ],
-    3: [ // Konark Sun Temple (Odisha)
+    3: [ // Konark Sun Temple
       {
         name: "Amalaka & Kalasa Crown",
         code: "KT-01",
@@ -223,374 +225,6 @@ export default function App() {
         defaultRisk: { condition: 25, deterioration: 20, hazard: 40, environment: 65, significance: 95 },
         action: "Perimeter cyclone drain clearance"
       }
-    ],
-    4: [ // Ajanta Cave Shrines (Maharashtra)
-      {
-        name: "Rock-Cut Stupa Sanctuary",
-        code: "AJ-01",
-        elevation: "+10m",
-        status: "Stable",
-        score: 84,
-        color: "#4E878C",
-        inspected: "May 2026",
-        defaultRisk: { condition: 24, deterioration: 20, hazard: 30, environment: 40, significance: 95 },
-        action: "Micro-climate humidity logging in sanctum"
-      },
-      {
-        name: "Horseshoe Chaitya Sun-Window",
-        code: "AJ-02",
-        elevation: "+6.0m",
-        status: "Watch",
-        score: 70,
-        color: "#D4AF37",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 52, deterioration: 46, hazard: 35, environment: 60, significance: 95 },
-        action: "Basalt rock crack displacement sensor check"
-      },
-      {
-        name: "Pillared Entrance Verandah",
-        code: "AJ-03",
-        elevation: "+2.0m",
-        status: "Watch",
-        score: 66,
-        color: "#D4AF37",
-        inspected: "May 2026",
-        defaultRisk: { condition: 60, deterioration: 54, hazard: 35, environment: 65, significance: 95 },
-        action: "Seepage diversion groove cleaning"
-      },
-      {
-        name: "Basalt Rock Escarpment",
-        code: "AJ-04",
-        elevation: "Ground (0.0m)",
-        status: "Stable",
-        score: 82,
-        color: "#4E878C",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 28, deterioration: 22, hazard: 30, environment: 45, significance: 95 },
-        action: "Rockfall netting and drainage maintenance"
-      }
-    ],
-    5: [ // Taj Mahal Complex (Agra, Uttar Pradesh)
-      {
-        name: "Bulbous Onion Dome & Finial",
-        code: "TM-01",
-        elevation: "+73m",
-        status: "Stable",
-        score: 92,
-        color: "#4E878C",
-        inspected: "Jul 2026",
-        defaultRisk: { condition: 14, deterioration: 10, hazard: 35, environment: 30, significance: 100 },
-        action: "Fuller's earth (Multani Mitti) marble mudpack treatment"
-      },
-      {
-        name: "Main Mausoleum & Iwan Archways",
-        code: "TM-02",
-        elevation: "+25m",
-        status: "Watch",
-        score: 80,
-        color: "#D4AF37",
-        inspected: "May 2026",
-        defaultRisk: { condition: 35, deterioration: 28, hazard: 40, environment: 50, significance: 100 },
-        action: "Pietra dura inlay gemstone stabilization and marble joint repointing"
-      },
-      {
-        name: "4 Freestanding Corner Minarets",
-        code: "TM-03",
-        elevation: "+40m",
-        status: "Stable",
-        score: 86,
-        color: "#4E878C",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 20, deterioration: 16, hazard: 45, environment: 35, significance: 100 },
-        action: "Tiltmeter laser verticality check"
-      },
-      {
-        name: "Riverfront Terrace Plinth",
-        code: "TM-04",
-        elevation: "Ground (0.0m)",
-        status: "Stable",
-        score: 82,
-        color: "#4E878C",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 26, deterioration: 22, hazard: 50, environment: 45, significance: 100 },
-        action: "Yamuna river well-foundation moisture logging"
-      }
-    ],
-    6: [ // Ellora Caves / Kailasa Temple (Maharashtra)
-      {
-        name: "Dravidian 3-Tier Shikhara",
-        code: "EL-01",
-        elevation: "+32.0m",
-        status: "Watch",
-        score: 76,
-        color: "#D4AF37",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 45, deterioration: 40, hazard: 35, environment: 58, significance: 95 },
-        action: "Basalt rock fissure seismic monitoring"
-      },
-      {
-        name: "Maha Mandapa Hall Reliefs",
-        code: "EL-02",
-        elevation: "+12.0m",
-        status: "Watch",
-        score: 72,
-        color: "#D4AF37",
-        inspected: "May 2026",
-        defaultRisk: { condition: 52, deterioration: 46, hazard: 30, environment: 65, significance: 95 },
-        action: "Capillary moisture barrier consolidation"
-      },
-      {
-        name: "Nandi Pavilion Mandapa",
-        code: "EL-03",
-        elevation: "+6.0m",
-        status: "Stable",
-        score: 84,
-        color: "#4E878C",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 22, deterioration: 18, hazard: 25, environment: 35, significance: 95 },
-        action: "Routine laser alignment verify"
-      },
-      {
-        name: "Excavated Basalt Courtyard Trench",
-        code: "EL-04",
-        elevation: "Ground (0.0m)",
-        status: "Stable",
-        score: 81,
-        color: "#4E878C",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 28, deterioration: 22, hazard: 35, environment: 45, significance: 95 },
-        action: "Perimeter monsoon drainage clearing"
-      }
-    ],
-    7: [ // Khajuraho Group of Monuments (Madhya Pradesh)
-      {
-        name: "Curvilinear Nagara Shikhara",
-        code: "KH-01",
-        elevation: "+31.0m",
-        status: "Stable",
-        score: 82,
-        color: "#4E878C",
-        inspected: "May 2026",
-        defaultRisk: { condition: 28, deterioration: 22, hazard: 25, environment: 35, significance: 95 },
-        action: "Apex sandstone joint repointing"
-      },
-      {
-        name: "Sculptured Sanctum Wall",
-        code: "KH-02",
-        elevation: "+14.0m",
-        status: "Watch",
-        score: 76,
-        color: "#D4AF37",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 44, deterioration: 38, hazard: 25, environment: 48, significance: 95 },
-        action: "Micro-sandstone exfoliation ethyl silicate treatment"
-      },
-      {
-        name: "Entrance Ardhamandapa",
-        code: "KH-03",
-        elevation: "+4.0m",
-        status: "Stable",
-        score: 85,
-        color: "#4E878C",
-        inspected: "Mar 2026",
-        defaultRisk: { condition: 20, deterioration: 15, hazard: 20, environment: 30, significance: 95 },
-        action: "Pillar capital stability test"
-      },
-      {
-        name: "Moulded Jagati Stepped Plinth",
-        code: "KH-04",
-        elevation: "Ground",
-        status: "Stable",
-        score: 88,
-        color: "#4E878C",
-        inspected: "May 2026",
-        defaultRisk: { condition: 16, deterioration: 12, hazard: 20, environment: 25, significance: 95 },
-        action: "Routine gravel perimeter inspection"
-      }
-    ],
-    8: [ // Buddhist Monuments at Sanchi (Madhya Pradesh)
-      {
-        name: "Harmika & Tri-Chhatra Finial",
-        code: "SC-01",
-        elevation: "+16.5m",
-        status: "Stable",
-        score: 90,
-        color: "#4E878C",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 14, deterioration: 10, hazard: 20, environment: 25, significance: 95 },
-        action: "Gilded umbrella finial corrosion test"
-      },
-      {
-        name: "Anda Hemispherical Dome",
-        code: "SC-02",
-        elevation: "+7.0m",
-        status: "Stable",
-        score: 88,
-        color: "#4E878C",
-        inspected: "May 2026",
-        defaultRisk: { condition: 18, deterioration: 14, hazard: 20, environment: 30, significance: 95 },
-        action: "Masonry surface lime-wash coating"
-      },
-      {
-        name: "4 Carved Torana Gateways",
-        code: "SC-03",
-        elevation: "+3.5m",
-        status: "Watch",
-        score: 75,
-        color: "#D4AF37",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 42, deterioration: 36, hazard: 25, environment: 45, significance: 95 },
-        action: "Architrave horizontal beam deflection sensor verify"
-      },
-      {
-        name: "Medhi Circular Terrace Plinth",
-        code: "SC-04",
-        elevation: "Ground",
-        status: "Stable",
-        score: 92,
-        color: "#4E878C",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 12, deterioration: 8, hazard: 15, environment: 20, significance: 95 },
-        action: "Circumambulatory path cleaning"
-      }
-    ],
-    9: [ // Great Living Chola Temples (Tamil Nadu)
-      {
-        name: "80-Tonne Monolithic Kumbam",
-        code: "CH-01",
-        elevation: "+66.0m",
-        status: "Stable",
-        score: 86,
-        color: "#4E878C",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 22, deterioration: 16, hazard: 35, environment: 40, significance: 95 },
-        action: "Monolithic granite capstone laser verticality check"
-      },
-      {
-        name: "16-Tiered Granite Vimana",
-        code: "CH-02",
-        elevation: "+35.0m",
-        status: "Watch",
-        score: 77,
-        color: "#D4AF37",
-        inspected: "May 2026",
-        defaultRisk: { condition: 46, deterioration: 40, hazard: 35, environment: 52, significance: 95 },
-        action: "Granite masonry joint ultrasonic velocity test"
-      },
-      {
-        name: "Garbhagriha Sanctum Base",
-        code: "CH-03",
-        elevation: "+4.0m",
-        status: "Stable",
-        score: 84,
-        color: "#4E878C",
-        inspected: "Mar 2026",
-        defaultRisk: { condition: 24, deterioration: 18, hazard: 30, environment: 45, significance: 95 },
-        action: "Epigraphical inscription consolidation"
-      },
-      {
-        name: "Upapitha Granite Foundation",
-        code: "CH-04",
-        elevation: "Ground",
-        status: "Stable",
-        score: 88,
-        color: "#4E878C",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 18, deterioration: 14, hazard: 30, environment: 35, significance: 95 },
-        action: "Perimeter Cauvery silt drainage desilting"
-      }
-    ],
-    10: [ // Rani-ki-Vav Stepwell (Gujarat)
-      {
-        name: "Subterranean Groundwater Ingress",
-        code: "RV-01",
-        elevation: "-28m",
-        status: "Watch",
-        score: 72,
-        color: "#D4AF37",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 48, deterioration: 42, hazard: 35, environment: 65, significance: 95 },
-        action: "Groundwater nitrate salinity logging"
-      },
-      {
-        name: "Deep Circular Well Shaft",
-        code: "RV-02",
-        elevation: "-18m",
-        status: "Stable",
-        score: 84,
-        color: "#4E878C",
-        inspected: "May 2026",
-        defaultRisk: { condition: 24, deterioration: 18, hazard: 30, environment: 50, significance: 95 },
-        action: "Sub-surface stone block consolidation"
-      },
-      {
-        name: "7-Storeyed Pillared Gallery",
-        code: "RV-03",
-        elevation: "-8m",
-        status: "Watch",
-        score: 78,
-        color: "#D4AF37",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 38, deterioration: 32, hazard: 30, environment: 48, significance: 95 },
-        action: "Carved pillar bracket biocide cleaning"
-      },
-      {
-        name: "Pavilion Torana Terraces",
-        code: "RV-04",
-        elevation: "Ground",
-        status: "Stable",
-        score: 89,
-        color: "#4E878C",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 14, deterioration: 10, hazard: 25, environment: 30, significance: 95 },
-        action: "Entrance pavilion waterproofing"
-      }
-    ],
-    11: [ // Dholavira Harappan Citadel (Gujarat - Zone V Severe)
-      {
-        name: "Fortified Acropolis Castle",
-        code: "DH-01",
-        elevation: "+12m",
-        status: "Critical",
-        score: 64,
-        color: "#E05A47",
-        inspected: "Feb 2026",
-        defaultRisk: { condition: 76, deterioration: 70, hazard: 90, environment: 75, significance: 95 },
-        action: "Immediate mud-brick underpinning and Kutch active fault seismic damper check"
-      },
-      {
-        name: "Stepped Stone Water Reservoir",
-        code: "DH-02",
-        elevation: "-6m",
-        status: "Watch",
-        score: 73,
-        color: "#D4AF37",
-        inspected: "Jan 2026",
-        defaultRisk: { condition: 48, deterioration: 42, hazard: 85, environment: 70, significance: 95 },
-        action: "Reservoir stone embankment stabilization"
-      },
-      {
-        name: "North Gateway & Bastion",
-        code: "DH-03",
-        elevation: "+4m",
-        status: "Watch",
-        score: 70,
-        color: "#D4AF37",
-        inspected: "Feb 2026",
-        defaultRisk: { condition: 54, deterioration: 48, hazard: 85, environment: 65, significance: 95 },
-        action: "Signboard chamber stone pillar socket monitoring"
-      },
-      {
-        name: "Middle Town Mud-Brick Bailey",
-        code: "DH-04",
-        elevation: "Ground",
-        status: "Critical",
-        score: 66,
-        color: "#E05A47",
-        inspected: "Jan 2026",
-        defaultRisk: { condition: 72, deterioration: 66, hazard: 85, environment: 80, significance: 95 },
-        action: "Arid wind-erosion geotextile capping"
-      }
     ]
   };
 
@@ -601,7 +235,9 @@ export default function App() {
   const components = getComponentsForSite(activeSite);
 
   // Explainable Risk State
-  const [riskFactors, setRiskFactors] = useState(components[0]?.defaultRisk || { condition: 50, deterioration: 50, hazard: 50, environment: 50, significance: 90 });
+  const [riskFactors, setRiskFactors] = useState(
+    components[0]?.defaultRisk || { condition: 50, deterioration: 50, hazard: 50, environment: 50, significance: 90 }
+  );
 
   const handleSelectSite = async (idx) => {
     setActiveSite(idx);
@@ -630,9 +266,12 @@ export default function App() {
     }
   };
 
-
-
-
+  const handleLaunchMonumentStudio = (idx) => {
+    handleSelectSite(idx);
+    setActiveTab('twin');
+    setViewMode('studio');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Field Sentinel Incidents Feed State
   const [fieldReports, setFieldReports] = useState([
@@ -662,7 +301,6 @@ export default function App() {
     }
   ]);
 
-  // Priority Queue Table Data
   const priorityQueue = [
     { rank: 1, component: "North Façade Wall", site: "Qutub Minar Complex", score: 74, status: "High Urgency", action: "Structural scaffolding inspection & moisture-barrier sealing (30 days)" },
     { rank: 2, component: "East Bastion Wall", site: "Golconda Fort", score: 71, status: "High Urgency", action: "Moisture barrier repair before monsoon (15 days)" },
@@ -691,41 +329,63 @@ export default function App() {
     0.15 * riskFactors.significance
   );
 
-  const curSite = sites[activeSite];
-  const curComp = components[activeComponent];
+  const curSite = sites[activeSite] || sites[0];
+  const curComp = components[activeComponent] || components[0];
 
+  // ---------------------------------------------------------------------------
+  // 🌟 VIEW 1: MONUMENT SELECTION PORTAL (LANDING SCREEN)
+  // ---------------------------------------------------------------------------
+  if (viewMode === 'portal') {
+    return (
+      <MonumentPortalView
+        sites={sites}
+        onSelectMonument={handleLaunchMonumentStudio}
+        liveWeather={liveWeather}
+      />
+    );
+  }
+
+  // ---------------------------------------------------------------------------
+  // 🏛️ VIEW 2: DEDICATED MONUMENT STUDIO & COMMAND CENTER
+  // ---------------------------------------------------------------------------
   return (
     <div className="min-h-screen bg-[#090A0C] text-[#E8E6E3] font-sans antialiased selection:bg-[#C5A059] selection:text-[#090A0C] flex flex-col">
       
-      {/* 🏛️ 1. TOP ENTERPRISE HEADER / GOVERNMENT OF INDIA COMMAND BAR */}
+      {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
       <header className="sticky top-0 z-50 bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-2.5 shadow-2xl">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
-          {/* Brand & Authority */}
+          {/* Brand & Return to Portal Button */}
           <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow-lg shadow-amber-950/30">
-              <div className="w-full h-full bg-[#0E1013] rounded-lg flex items-center justify-center">
-                <span className="font-serif font-black text-[#C5A059] text-base tracking-tighter">HS</span>
+            <button
+              onClick={() => setViewMode('portal')}
+              className="px-3 py-1.5 rounded-lg bg-[#14171C] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-300 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow"
+              title="Return to National Heritage Directory"
+            >
+              <span>←</span>
+              <span>All Monuments</span>
+            </button>
+
+            <div className="w-[1px] h-6 bg-[#1E2228]" />
+
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow">
+                <div className="w-full h-full bg-[#0E1013] rounded-lg flex items-center justify-center">
+                  <span className="font-serif font-black text-[#C5A059] text-xs">HS</span>
+                </div>
               </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-base font-serif font-bold tracking-wide text-[#F3EFE6]">HERITAGE SHIELD</h1>
-                <span className="text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/25 font-bold tracking-wider">
-                  ASI · NMMA · SIH '26 (Team 031)
-                </span>
+              <div>
+                <h1 className="text-sm font-serif font-bold text-[#F3EFE6] leading-tight">HERITAGE SHIELD</h1>
+                <span className="text-[10px] text-gray-400 font-mono">Predictive Conservation Studio</span>
               </div>
-              <p className="text-[11px] text-gray-400 font-sans tracking-tight">
-                National Built Heritage Command Center · Predictive Digital Twin & AI Conservation
-              </p>
             </div>
           </div>
 
-          {/* Enterprise Heritage Asset Switcher Button */}
+          {/* Active Monument Switcher Pill */}
           <button
             onClick={() => setIsAssetSwitcherOpen(true)}
             className="flex items-center gap-3 bg-[#14171C] hover:bg-[#1C2027] border border-[#2B313D] hover:border-[#C5A059] px-4 py-1.5 rounded-xl transition shadow-md group"
-            title="Click to search & switch UNESCO monuments across India"
+            title="Switch Monument Asset"
           >
             <span
               className="w-2.5 h-2.5 rounded-full animate-pulse shadow"
@@ -743,8 +403,6 @@ export default function App() {
               </div>
             </div>
           </button>
-
-
 
           {/* Action CTAs */}
           <div className="flex items-center gap-2.5">
@@ -775,7 +433,7 @@ export default function App() {
         </div>
       </header>
 
-      {/* 📡 2. MISSION-CRITICAL LIVE TELEMETRY RIBBON (HUD) */}
+      {/* 📡 2. LIVE TELEMETRY RIBBON (HUD) */}
       <section className="bg-[#111317] border-b border-[#1E2228] px-6 py-2">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4 text-xs font-mono">
           
@@ -794,7 +452,7 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="text-gray-500 uppercase text-[10px]">Live Weather (Open-Meteo):</span>
+              <span className="text-gray-500 uppercase text-[10px]">Live Weather:</span>
               <span className="text-sky-400">{liveWeather.temp} · {liveWeather.humidity} RH</span>
             </div>
 
@@ -823,11 +481,34 @@ export default function App() {
         </div>
       </section>
 
-
-      {/* 🎛️ 3. WORKSPACE CONSOLE NAVIGATION BAR */}
+      {/* 🎛️ 3. STUDIO CONSOLE TABS */}
       <div className="bg-[#0D0E11] border-b border-[#1A1D23] px-6">
         <div className="max-w-[1600px] mx-auto flex items-center gap-1 overflow-x-auto py-1.5">
           
+          <button
+            onClick={() => setActiveTab('twin')}
+            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
+              activeTab === 'twin'
+                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
+            }`}
+          >
+            <span className="text-sm">🏛️</span>
+            <span>3D Living Twin Studio</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('vision')}
+            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
+              activeTab === 'vision'
+                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
+            }`}
+          >
+            <span className="text-sm">🔍</span>
+            <span>AI Defect Diagnostics Lab</span>
+          </button>
+
           <button
             onClick={() => setActiveTab('gis')}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
@@ -841,34 +522,10 @@ export default function App() {
           </button>
 
           <button
-            onClick={() => setActiveTab('twin')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
-              activeTab === 'twin'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
-            }`}
-          >
-            <span className="text-sm">🏛️</span>
-            <span>3D Living Twin Studio</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('vision')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
-              activeTab === 'vision'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
-            }`}
-          >
-            <span className="text-sm">🔍</span>
-            <span>AI Defect Diagnostics Lab</span>
-          </button>
-
-          <button
             onClick={() => setActiveTab('risk')}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
               activeTab === 'risk'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm'
+                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
                 : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
             }`}
           >
@@ -880,7 +537,7 @@ export default function App() {
             onClick={() => setActiveTab('queue')}
             className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
               activeTab === 'queue'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm'
+                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
                 : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
             }`}
           >
@@ -891,7 +548,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* 🚀 4. MAIN INTERACTIVE CONSOLE WORKSPACE */}
+      {/* 🚀 4. MAIN WORKSPACE CONSOLE CONTENT */}
       <main className="flex-1 max-w-[1600px] w-full mx-auto p-6 space-y-6">
         
         {/* ========================================================================= */}
@@ -921,7 +578,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Photogrammetry Drawer (if toggled) */}
+            {/* Photogrammetry Drawer */}
             {showPhotogrammetryDrawer && (
               <div className="animate-in fade-in duration-300">
                 <PhotogrammetryPipeline />
@@ -940,9 +597,7 @@ export default function App() {
                   onSelectComponent={handleSelectComponent}
                   components={components}
                 />
-
               </div>
-
 
               {/* Architectural Hierarchy & Telemetry Sidebar */}
               <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
@@ -953,7 +608,7 @@ export default function App() {
                     <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 font-bold">
                       Architectural Nodes
                     </span>
-                    <span className="text-[10px] font-mono text-[#C5A059]">4 Persistent IDs</span>
+                    <span className="text-[10px] font-mono text-[#C5A059]">{components.length} Persistent IDs</span>
                   </div>
 
                   <div className="space-y-2">
@@ -1044,14 +699,13 @@ export default function App() {
         {activeTab === 'vision' && (
           <div className="space-y-6">
             
-            {/* Top Lab Control Bar */}
             <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
               <div>
                 <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
                   YOLOv8 + OpenCV Segmentation Engine · Normalized Pixel Telemetry
                 </span>
                 <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
-                  AI Visual Condition Diagnostics — {curComp.name}
+                  AI Visual Condition Diagnostics — {curComp.name} ({curSite.name})
                 </h2>
               </div>
 
@@ -1064,7 +718,6 @@ export default function App() {
 
             {/* Bounding Box Defect Canvas */}
             <InspectionPhotoViewer siteData={curSite} activeComponent={curComp.name} />
-
 
             {/* Longitudinal Delta Comparison Strip */}
             <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4 shadow-xl">
@@ -1090,8 +743,6 @@ export default function App() {
               </div>
 
               <div className="bg-[#0E1013] p-5 rounded-xl border border-[#1E2228] space-y-4">
-                
-                {/* Timeline Scrub Controls */}
                 <div>
                   <div className="flex justify-between text-xs font-mono text-gray-400 mb-2">
                     <span className={sliderPos === 0 ? 'text-[#C5A059] font-bold' : ''}>◄ 2024 Baseline (18.2 cm · 1.1 mm)</span>
@@ -1113,7 +764,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Live Visual Crack Propagation Visualizer */}
                 <div className="bg-[#14171C] p-3 rounded-lg border border-[#222730] flex items-center justify-between gap-4">
                   <span className="text-[11px] font-mono text-gray-400">Forensic Crack Path:</span>
                   <div className="flex-1 bg-[#090A0C] h-4 rounded-full overflow-hidden border border-[#2B313D] relative flex items-center p-0.5">
@@ -1127,7 +777,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* 4 Dynamic Calculated Metric Cards */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
                   <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
                     <div className="text-[10px] text-gray-400 uppercase font-semibold">Crack Length</div>
@@ -1173,17 +822,15 @@ export default function App() {
               </div>
             </div>
 
-
           </div>
         )}
 
         {/* ========================================================================= */}
-        {/* CONSOLE 1 (DEFAULT LANDING): NATIONAL GEOSPATIAL GIS COMMAND RADAR        */}
+        {/* CONSOLE 3: NATIONAL GEOSPATIAL GIS COMMAND RADAR                         */}
         {/* ========================================================================= */}
         {activeTab === 'gis' && (
           <div className="space-y-6">
             
-            {/* Top GIS Control Bar */}
             <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
               <div>
                 <span className="text-[10px] font-mono text-[#4E878C] uppercase tracking-widest font-bold">
@@ -1196,7 +843,7 @@ export default function App() {
 
               <div className="flex items-center gap-3 text-xs font-mono">
                 <span className="text-gray-400 bg-[#0E1013] px-3 py-1.5 rounded-lg border border-[#1E2228]">
-                  Protected Sites Active: <strong className="text-[#C5A059]">12 UNESCO Flagship Nodes</strong>
+                  Focused Site: <strong className="text-[#C5A059]">{curSite.name}</strong>
                 </span>
                 <span className="text-gray-400 bg-[#0E1013] px-3 py-1.5 rounded-lg border border-[#1E2228]">
                   Grid Standard: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong>
@@ -1204,7 +851,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Interactive Leaflet + Bhuvan Satellite Map */}
+            {/* Interactive Leaflet Map */}
             <HeritageGisMap
               activeSiteIndex={activeSite}
               onSelectSite={(idx) => {
@@ -1213,96 +860,8 @@ export default function App() {
               }}
             />
 
-            {/* National Built Heritage Selection Matrix */}
-            <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4">
-              <div className="flex flex-wrap justify-between items-center gap-3">
-                <div>
-                  <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-                    Centrally Protected Monuments Directory
-                  </span>
-                  <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
-                    Select a Heritage Monument to Launch 3D Digital Twin & AI Diagnostics
-                  </h3>
-                </div>
-                <span className="text-xs font-mono text-gray-400 bg-[#0E1013] px-3 py-1 rounded border border-[#1E2228]">
-                  Clicking any monument opens its Live 3D Twin & Meteorological Feeds
-                </span>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {sites.map((site) => {
-                  const isSelected = activeSite === site.index;
-                  return (
-                    <div
-                      key={site.index}
-                      onClick={() => {
-                        handleSelectSite(site.index);
-                        setActiveTab('twin');
-                      }}
-                      className={`group cursor-pointer rounded-xl border p-4 transition-all duration-200 flex flex-col justify-between hover:scale-[1.02] ${
-                        isSelected
-                          ? 'border-[#C5A059] bg-[#C5A059]/10 shadow-lg shadow-amber-950/20 ring-1 ring-[#C5A059]'
-                          : 'border-[#1E2228] bg-[#0E1013] hover:border-[#3A4250] hover:bg-[#14171C]'
-                      }`}
-                    >
-                      <div>
-                        {/* Top: ASI ID & State */}
-                        <div className="flex justify-between items-center text-[10px] font-mono text-gray-400 mb-2">
-                          <span className="font-bold text-[#C5A059]">{site.id}</span>
-                          <span className="bg-[#181B22] px-2 py-0.5 rounded text-gray-300 border border-[#2B313D]">
-                            {site.state}
-                          </span>
-                        </div>
-
-                        {/* Thumbnail & Title */}
-                        <div className="flex gap-3 items-center mb-3">
-                          <div className="w-14 h-14 rounded-lg overflow-hidden border border-[#2B313D] shadow flex-shrink-0 bg-[#1A1D24] relative flex items-center justify-center">
-                            <img
-                              src={site.imageUrl}
-                              alt={site.name}
-                              referrerPolicy="no-referrer"
-                              className="w-full h-full object-cover"
-                              onError={(e) => {
-                                e.target.style.display = 'none';
-                              }}
-                            />
-                            <span className="text-xl select-none">🏛️</span>
-                          </div>
-                          <div>
-                            <h4 className="text-xs font-serif font-bold text-[#F3EFE6] leading-snug group-hover:text-[#C5A059] transition">
-                              {site.name}
-                            </h4>
-                            <p className="text-[10px] text-gray-400 font-mono mt-0.5">
-                              {site.builtEra.split('(')[0]}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Hazard & Material tags */}
-                        <div className="space-y-1 text-[10px] font-mono text-gray-400 bg-[#121418] p-2 rounded-lg border border-[#1E2228]">
-                          <div className="truncate">🧱 {site.material}</div>
-                          <div className="truncate">🌋 {site.seismicZone}</div>
-                        </div>
-                      </div>
-
-                      {/* Bottom Button Strip */}
-                      <div className="mt-3 pt-2.5 border-t border-[#1E2228] flex justify-between items-center text-[10px] font-mono">
-                        <span className="text-gray-400">
-                          Risk: <strong style={{ color: site.color }}>{site.riskScore}/100</strong>
-                        </span>
-                        <span className="px-2 py-1 rounded bg-[#C5A059] text-[#090A0C] font-bold group-hover:brightness-110 transition flex items-center gap-1">
-                          Inspect Twin →
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
           </div>
         )}
-
 
         {/* ========================================================================= */}
         {/* CONSOLE 4: RISK ENGINE & 2028 PREDICTIVE SIMULATOR                        */}
@@ -1310,14 +869,13 @@ export default function App() {
         {activeTab === 'risk' && (
           <div className="space-y-6">
             
-            {/* Top Risk Bar */}
             <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
               <div>
                 <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
                   Explainable Multi-Criteria Formula · ISO 31000 Risk Framework
                 </span>
                 <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
-                  Auditable Heritage Risk & Predictive Decay Lab
+                  Auditable Heritage Risk & Predictive Decay Lab — {curSite.name}
                 </h2>
               </div>
 
@@ -1329,7 +887,6 @@ export default function App() {
             {/* Explainable Formula Sliders Grid */}
             <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
-              {/* Sliders Column */}
               <div className="lg:col-span-7 space-y-3.5">
                 
                 <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
@@ -1454,7 +1011,6 @@ export default function App() {
         {activeTab === 'queue' && (
           <div className="space-y-6">
             
-            {/* Top Queue Bar */}
             <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
               <div>
                 <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
@@ -1488,7 +1044,7 @@ export default function App() {
                   Ranked Priority Intervention Queue (National Overview)
                 </h3>
                 <span className="text-xs font-mono text-gray-400">
-                  Sorted by Explanatory Vulnerability Score ($R \ge 70$ First)
+                  Sorted by Explanatory Vulnerability Score (Highest Risk First)
                 </span>
               </div>
 
@@ -1575,7 +1131,7 @@ export default function App() {
                       </h4>
 
                       <p className="text-xs text-gray-300 mt-1.5 leading-relaxed bg-[#121418] p-2.5 rounded border border-[#1E2228]">
-                        "{report.notes}"
+                        \"{report.notes}\"
                       </p>
                     </div>
 
@@ -1634,8 +1190,6 @@ export default function App() {
         activeSiteIndex={activeSite}
         onSelectSite={handleSelectSite}
       />
-
-
 
       {/* 🏛️ FOOTER */}
       <footer className="border-t border-[#1E2228] bg-[#0E1013] py-6 px-6 text-center text-xs text-gray-500 font-mono mt-auto space-y-1">
