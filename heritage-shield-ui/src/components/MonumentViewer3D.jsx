@@ -95,9 +95,18 @@ export default function MonumentViewer3D({
   const activeMeshesRef = useRef([]);
   const animFrameIdRef = useRef(null);
 
+  const activeComponentRef = useRef(activeComponent);
+  const onSelectComponentRef = useRef(onSelectComponent);
+
+  useEffect(() => {
+    activeComponentRef.current = activeComponent;
+    onSelectComponentRef.current = onSelectComponent;
+  }, [activeComponent, onSelectComponent]);
+
   const currentTitle = siteData?.name
     ? `${siteData.name} · Precision 3D Digital Twin`
     : `3D Digital Twin Model (Site #${siteIndex + 1})`;
+
 
   useEffect(() => {
     const container = mountRef.current;
@@ -655,7 +664,87 @@ export default function MonumentViewer3D({
       activeMeshes = [kalashaGroup, shikharaMesh, bodyMesh, subMesh];
     }
 
+    // Ensure all meshes in each component group have componentIndex tagged
+    activeMeshes.forEach((meshGroup, idx) => {
+      meshGroup.userData = meshGroup.userData || {};
+      meshGroup.userData.componentIndex = idx;
+      meshGroup.traverse(child => {
+        if (child.isMesh) {
+          child.userData = child.userData || {};
+          child.userData.componentIndex = idx;
+        }
+      });
+    });
+
     activeMeshesRef.current = activeMeshes;
+
+    // 8.5 Interactive Pointer Raycasting Setup (Click on 3D structure to select part)
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    let pointerDownPos = { x: 0, y: 0 };
+
+    const handlePointerDown = (e) => {
+      pointerDownPos = { x: e.clientX, y: e.clientY };
+    };
+
+    const handlePointerUp = (e) => {
+      // Differentiate between camera drag orbit and an intentional component click
+      const dragDist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
+      if (dragDist > 6) return;
+
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+      raycaster.setFromCamera(pointer, camera);
+      const intersects = raycaster.intersectObjects(monumentGroup.children, true);
+
+      if (intersects.length > 0) {
+        let currentObj = intersects[0].object;
+        let foundIdx = null;
+        while (currentObj && currentObj !== monumentGroup && currentObj !== scene) {
+          if (currentObj.userData && typeof currentObj.userData.componentIndex === 'number') {
+            foundIdx = currentObj.userData.componentIndex;
+            break;
+          }
+          currentObj = currentObj.parent;
+        }
+
+        if (foundIdx !== null && typeof onSelectComponentRef.current === 'function') {
+          onSelectComponentRef.current(foundIdx);
+        }
+      }
+    };
+
+    const handlePointerMove = (e) => {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+      raycaster.setFromCamera(pointer, camera);
+      const intersects = raycaster.intersectObjects(monumentGroup.children, true);
+
+      if (intersects.length > 0) {
+        let currentObj = intersects[0].object;
+        let foundIdx = null;
+        while (currentObj && currentObj !== monumentGroup && currentObj !== scene) {
+          if (currentObj.userData && typeof currentObj.userData.componentIndex === 'number') {
+            foundIdx = currentObj.userData.componentIndex;
+            break;
+          }
+          currentObj = currentObj.parent;
+        }
+        if (foundIdx !== null) {
+          renderer.domElement.style.cursor = 'pointer';
+          return;
+        }
+      }
+      renderer.domElement.style.cursor = 'grab';
+    };
+
+    renderer.domElement.addEventListener('pointerdown', handlePointerDown);
+    renderer.domElement.addEventListener('pointerup', handlePointerUp);
+    renderer.domElement.addEventListener('pointermove', handlePointerMove);
 
     // 9. Animation & Render Loop
     let clock = new THREE.Clock();
@@ -664,10 +753,10 @@ export default function MonumentViewer3D({
       const delta = clock.getDelta();
       controls.update();
 
-      // Gentle pulsating highlight on selected component
+      // Pulsating golden highlight on selected component
       const time = clock.getElapsedTime();
       activeMeshes.forEach((meshGroup, idx) => {
-        const isSelected = activeComponent === idx;
+        const isSelected = activeComponentRef.current === idx;
         meshGroup.traverse(child => {
           if (child.isMesh && child.material) {
             if (viewMode === 'lidar') {
@@ -710,11 +799,17 @@ export default function MonumentViewer3D({
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      if (renderer?.domElement) {
+        renderer.domElement.removeEventListener('pointerdown', handlePointerDown);
+        renderer.domElement.removeEventListener('pointerup', handlePointerUp);
+        renderer.domElement.removeEventListener('pointermove', handlePointerMove);
+      }
       if (animFrameIdRef.current) cancelAnimationFrame(animFrameIdRef.current);
       renderer.dispose();
       scene.clear();
     };
   }, [siteIndex, siteData, autoRotate, viewMode]);
+
 
   // Set Camera View Presets
   const setPresetView = (preset) => {
@@ -834,14 +929,38 @@ export default function MonumentViewer3D({
         </div>
       </div>
 
-      {/* Bottom Controls Bar */}
-      <div className="absolute bottom-4 left-4 right-4 z-10 flex flex-wrap justify-between items-center gap-3 bg-[#0E1013]/90 backdrop-blur-md border border-[#1E2228] px-4 py-2.5 rounded-xl shadow-xl font-mono text-xs">
+      {/* Interactive Component Quick Switcher Ribbon on 3D Canvas */}
+      {components && components.length > 0 && (
+        <div className="absolute top-28 left-4 z-10 flex flex-wrap gap-1.5 max-w-lg pointer-events-auto">
+          {components.map((comp, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                if (typeof onSelectComponent === 'function') onSelectComponent(idx);
+              }}
+              className={`px-2.5 py-1 rounded-lg border text-xs font-mono transition flex items-center gap-1.5 shadow-md cursor-pointer ${
+                activeComponent === idx
+                  ? 'bg-[#C5A059] text-[#07080A] font-bold border-[#DFB76C] ring-2 ring-[#C5A059]/50 scale-105'
+                  : 'bg-[#0E1013]/90 hover:bg-[#181B22] text-gray-300 border-[#2B313D] hover:border-[#C5A059]'
+              }`}
+              title={`Click to focus and inspect ${comp.name}`}
+            >
+              <span className="w-2 h-2 rounded-full" style={{ backgroundColor: comp.color }} />
+              <span>{comp.name}</span>
+              <span className="text-[10px] opacity-80 font-bold">[{comp.code}]</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Bottom Controls & Telemetry Bar */}
+      <div className="absolute bottom-4 left-4 right-4 z-10 flex flex-wrap justify-between items-center gap-3 bg-[#0E1013]/95 backdrop-blur-md border border-[#1E2228] px-4 py-2.5 rounded-xl shadow-xl font-mono text-xs">
         <div className="flex items-center gap-2">
           <span className="text-gray-400">360° Orbit:</span>
           <button
             onClick={() => setAutoRotate(!autoRotate)}
             title="Toggle continuous 360-degree rotation of the 3D twin"
-            className={`px-3 py-1 rounded-lg border transition ${
+            className={`px-3 py-1 rounded-lg border transition cursor-pointer ${
               autoRotate
                 ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
                 : 'border-[#1E2228] text-gray-400 hover:text-white'
@@ -851,15 +970,30 @@ export default function MonumentViewer3D({
           </button>
         </div>
 
-
-        {/* Selected Node Status */}
-        <div className="flex items-center gap-2">
-          <span className="text-gray-400">Active Component:</span>
-          <span className="text-[#C5A059] font-bold bg-[#14171C] px-3 py-1 rounded border border-[#2B313D]">
-            {components[activeComponent]?.name || `Node C-0${activeComponent + 1}`}
-          </span>
+        {/* Selected Component Status */}
+        <div className="flex items-center gap-2.5">
+          <span className="text-gray-400">Selected Node:</span>
+          <div className="flex items-center gap-2 bg-[#14171C] px-3 py-1 rounded-lg border border-[#2B313D]">
+            <span
+              className="w-2 h-2 rounded-full animate-ping"
+              style={{ backgroundColor: components[activeComponent]?.color || '#C5A059' }}
+            />
+            <span className="text-[#F3EFE6] font-bold">
+              {components[activeComponent]?.name || `Node C-0${activeComponent + 1}`}
+            </span>
+            <span
+              className="text-[10px] px-1.5 py-0.2 rounded font-bold uppercase"
+              style={{
+                backgroundColor: `${components[activeComponent]?.color || '#C5A059'}25`,
+                color: components[activeComponent]?.color || '#C5A059'
+              }}
+            >
+              {components[activeComponent]?.status || 'Active'} · Health {components[activeComponent]?.score || 75}/100
+            </span>
+          </div>
         </div>
       </div>
+
 
     </div>
   );
