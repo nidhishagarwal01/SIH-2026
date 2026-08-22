@@ -53,11 +53,9 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
 
 
           <div className="flex items-center gap-3 text-xs font-mono">
-            <div className="hidden sm:flex bg-[#14171C] border border-[#2B313D] px-3.5 py-1.5 rounded-lg items-center gap-2 text-gray-400">
-              <span>Standard: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong></span>
-            </div>
             <ThemeToggle />
           </div>
+
 
 
         </div>
@@ -181,16 +179,17 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
           <div className="flex flex-wrap justify-between items-center gap-3">
             <div>
               <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-                ISRO Bhuvan Geospatial Framework · WGS84 Spatial Radar
+                Geospatial Telemetry & GIS Radar
               </span>
               <h3 className="text-xl font-serif font-bold text-[#F3EFE6]">
-                National Built Heritage Geospatial Radar
+                National Built Heritage Radar
               </h3>
             </div>
             <div className="text-xs font-mono text-gray-400 bg-[#121418] px-3 py-1.5 rounded-lg border border-[#1E2228]">
-              Grid: <strong className="text-sky-400">ISRO Bhuvan Geospatial Standard</strong>
+              Grid: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong>
             </div>
           </div>
+
 
           {/* Leaflet Interactive Map Component (Synchronized with Top Filters) */}
           <HeritageGisMap
