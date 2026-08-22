@@ -448,6 +448,9 @@ export default function LandingPageView({
             {showcaseTab === 'twin' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 space-y-4">
+                  <h3 className="text-2xl font-serif font-bold text-white">
+                    3D Living Digital Twin
+                  </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     A realistic 3D model of the heritage site. You can rotate 360°, zoom in, and click directly on individual domes, balconies, pillars, or base walls to inspect their condition history.
                   </p>
@@ -518,6 +521,9 @@ export default function LandingPageView({
               return (
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                   <div className="lg:col-span-5 space-y-4">
+                    <h3 className="text-2xl font-serif font-bold text-white">
+                      AI Defect Vision Scanner
+                    </h3>
                     <p className="text-sm text-gray-300 leading-relaxed font-sans">
                       Smart computer vision scans inspection photos to detect cracks, peeling stone, and water dampness. It measures the exact length and width of cracks to catch damage early.
                     </p>
@@ -608,6 +614,9 @@ export default function LandingPageView({
             {showcaseTab === 'temporal' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 space-y-4">
+                  <h3 className="text-2xl font-serif font-bold text-white">
+                    2030 Structural Decay Predictor
+                  </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     Forecasting how damage will worsen over the next 4 to 6 years if left untreated. It proves that fixing minor cracks early for ₹3 Lakhs avoids ₹70+ Lakhs in emergency rebuilds later.
                   </p>
@@ -653,6 +662,9 @@ export default function LandingPageView({
             {showcaseTab === 'gis' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 space-y-4">
+                  <h3 className="text-2xl font-serif font-bold text-white">
+                    National GIS Radar & Hazard Map
+                  </h3>
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     View all 12 Centrally Protected Heritage Sites across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
                   </p>
@@ -688,9 +700,6 @@ export default function LandingPageView({
       <section id="climate-simulator" className="py-20 px-6 max-w-[1600px] mx-auto space-y-12">
         
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-            Interactive Hazard Stressor Modeling
-          </span>
           <h2 className="text-3xl font-serif font-bold text-[#F3EFE6]">
             Extreme Climate & Seismic Stress Simulator
           </h2>
