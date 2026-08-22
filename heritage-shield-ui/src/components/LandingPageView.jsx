@@ -280,17 +280,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
           {/* Foreground Hero Content (Left Side) */}
           <div className="relative z-20 p-8 sm:p-12 lg:p-16 max-w-2xl space-y-6">
             
-            {/* Brand Kicker Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-[#14171E] border border-[#2A3140] text-xs font-mono text-[#C5A059]"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span>National Built Heritage Decision Platform</span>
-            </motion.div>
-
             {/* Main Editorial Title */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
