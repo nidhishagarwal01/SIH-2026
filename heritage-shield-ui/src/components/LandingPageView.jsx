@@ -98,16 +98,12 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               </div>
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="font-serif font-black text-lg tracking-wide text-white group-hover:text-[#C5A059] transition-colors">
-                  HERITAGE SHIELD
-                </span>
-              </div>
-              <p className="text-[11px] text-gray-400 font-mono hidden md:block">
-                Predictive Conservation Decision Platform
-              </p>
+              <span className="font-serif font-black text-lg tracking-wide text-white group-hover:text-[#C5A059] transition-colors">
+                HERITAGE SHIELD
+              </span>
             </div>
           </div>
+
 
           {/* Center Links */}
           <div className="hidden lg:flex items-center gap-6 text-xs font-mono text-gray-300">

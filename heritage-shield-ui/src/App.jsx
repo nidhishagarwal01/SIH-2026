@@ -393,9 +393,9 @@ export default function App() {
               </div>
               <div>
                 <h1 className="text-sm font-serif font-bold text-[#F3EFE6] group-hover:text-[#C5A059] leading-tight transition-colors">HERITAGE SHIELD</h1>
-                <span className="text-[10px] text-gray-400 font-mono">Predictive Conservation Studio</span>
               </div>
             </div>
+
 
             <div className="w-[1px] h-6 bg-[#1E2228]" />
 

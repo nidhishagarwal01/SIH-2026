@@ -50,16 +50,12 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
               </div>
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-base font-serif font-bold tracking-wide text-[#F3EFE6] group-hover:text-[#C5A059] transition-colors">
-                  HERITAGE SHIELD
-                </h1>
-              </div>
-              <p className="text-[11px] text-gray-400 font-sans tracking-tight">
-                National Built Heritage Command Center · Predictive Digital Twin & AI Conservation
-              </p>
+              <h1 className="text-base font-serif font-bold tracking-wide text-[#F3EFE6] group-hover:text-[#C5A059] transition-colors">
+                HERITAGE SHIELD
+              </h1>
             </div>
           </div>
+
 
 
           <div className="flex items-center gap-3 text-xs font-mono">
