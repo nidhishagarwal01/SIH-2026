@@ -50,18 +50,21 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
       >
         <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
           
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#C5A059] via-[#8C6D38] to-[#38BDF8] p-[1px] shadow-lg shadow-amber-950/40">
+          {/* Clickable Home Brand */}
+          <div 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center gap-3 cursor-pointer group"
+            title="Heritage Shield — Home"
+          >
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#C5A059] via-[#8C6D38] to-[#38BDF8] p-[1px] shadow-lg shadow-amber-950/40 group-hover:scale-105 transition-transform">
               <div className="w-full h-full bg-[#0E1013] rounded-xl flex items-center justify-center">
-                <Shield className="w-5 h-5 text-[#C5A059]" />
+                <Shield className="w-5 h-5 text-[#C5A059] group-hover:text-white transition-colors" />
               </div>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-serif font-black text-lg tracking-wide text-white">HERITAGE SHIELD</span>
-                <span className="hidden sm:inline-block text-[9px] font-mono uppercase px-2 py-0.5 rounded-full bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/30 font-bold">
-                  SIH '26 · Team 031
+                <span className="font-serif font-black text-lg tracking-wide text-white group-hover:text-[#C5A059] transition-colors">
+                  HERITAGE SHIELD
                 </span>
               </div>
               <p className="text-[11px] text-gray-400 font-mono hidden md:block">
@@ -69,6 +72,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               </p>
             </div>
           </div>
+
 
           {/* Center Links */}
           <div className="hidden lg:flex items-center gap-6 text-xs font-mono text-gray-300">

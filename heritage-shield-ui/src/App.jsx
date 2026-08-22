@@ -379,15 +379,25 @@ export default function App() {
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
           {/* Brand & Return to Portal Button */}
-          <div className="flex items-center gap-2.5">
-            <button
+          <div className="flex items-center gap-3">
+            {/* Clickable Home Brand */}
+            <div 
               onClick={() => setViewMode('landing')}
-              className="px-2.5 py-1.5 rounded-lg bg-[#14171C] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-300 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center gap-1 shadow"
-              title="Return to Product Landing Page"
+              className="flex items-center gap-2.5 cursor-pointer group"
+              title="Return to Heritage Shield Home"
             >
-              <span>🏠</span>
-              <span>Home</span>
-            </button>
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow group-hover:scale-105 transition-transform">
+                <div className="w-full h-full bg-[#0E1013] rounded-lg flex items-center justify-center">
+                  <span className="font-serif font-black text-[#C5A059] group-hover:text-white text-xs transition-colors">HS</span>
+                </div>
+              </div>
+              <div>
+                <h1 className="text-sm font-serif font-bold text-[#F3EFE6] group-hover:text-[#C5A059] leading-tight transition-colors">HERITAGE SHIELD</h1>
+                <span className="text-[10px] text-gray-400 font-mono">Predictive Conservation Studio</span>
+              </div>
+            </div>
+
+            <div className="w-[1px] h-6 bg-[#1E2228]" />
 
             <button
               onClick={() => setViewMode('portal')}
@@ -397,22 +407,8 @@ export default function App() {
               <span>🗺️</span>
               <span>Map Dashboard</span>
             </button>
-
-            <div className="w-[1px] h-6 bg-[#1E2228]" />
-
-
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow">
-                <div className="w-full h-full bg-[#0E1013] rounded-lg flex items-center justify-center">
-                  <span className="font-serif font-black text-[#C5A059] text-xs">HS</span>
-                </div>
-              </div>
-              <div>
-                <h1 className="text-sm font-serif font-bold text-[#F3EFE6] leading-tight">HERITAGE SHIELD</h1>
-                <span className="text-[10px] text-gray-400 font-mono">Predictive Conservation Studio</span>
-              </div>
-            </div>
           </div>
+
 
           {/* Active Monument Switcher Pill */}
           <button

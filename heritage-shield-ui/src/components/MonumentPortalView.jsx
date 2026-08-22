@@ -38,36 +38,29 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
       <header className="sticky top-0 z-50 bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-3 shadow-2xl">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
-          <div className="flex items-center gap-3.5">
-            {onBackToLanding && (
-              <button
-                onClick={onBackToLanding}
-                className="px-2.5 py-1.5 rounded-lg bg-[#14171C] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-300 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center gap-1 shadow"
-                title="Return to Product Landing Page"
-              >
-                <span>🏠</span>
-                <span>Home</span>
-              </button>
-            )}
-
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow-lg shadow-amber-950/30">
-
+          {/* Clickable Home Brand */}
+          <div
+            onClick={onBackToLanding}
+            className="flex items-center gap-3.5 cursor-pointer group"
+            title="Return to Heritage Shield Home"
+          >
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-b from-[#C5A059] via-[#8C6D38] to-[#4E878C] p-[1px] shadow-lg shadow-amber-950/30 group-hover:scale-105 transition-transform">
               <div className="w-full h-full bg-[#0E1013] rounded-lg flex items-center justify-center">
-                <span className="font-serif font-black text-[#C5A059] text-base tracking-tighter">HS</span>
+                <span className="font-serif font-black text-[#C5A059] group-hover:text-white text-base tracking-tighter transition-colors">HS</span>
               </div>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-base font-serif font-bold tracking-wide text-[#F3EFE6]">HERITAGE SHIELD</h1>
-                <span className="text-[9px] font-mono uppercase px-2 py-0.5 rounded bg-[#C5A059]/10 text-[#C5A059] border border-[#C5A059]/25 font-bold tracking-wider">
-                  ASI · NMMA · SIH '26 (Team 031)
-                </span>
+                <h1 className="text-base font-serif font-bold tracking-wide text-[#F3EFE6] group-hover:text-[#C5A059] transition-colors">
+                  HERITAGE SHIELD
+                </h1>
               </div>
               <p className="text-[11px] text-gray-400 font-sans tracking-tight">
                 National Built Heritage Command Center · Predictive Digital Twin & AI Conservation
               </p>
             </div>
           </div>
+
 
           <div className="flex items-center gap-3 text-xs font-mono">
             <div className="bg-[#14171C] border border-[#2B313D] px-3.5 py-1.5 rounded-lg flex items-center gap-2 shadow-sm">
