@@ -698,9 +698,6 @@ export default function App() {
             
             <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
               <div>
-                <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
-                  YOLOv8 + OpenCV Segmentation Engine · Normalized Pixel Telemetry
-                </span>
                 <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
                   AI Visual Condition Diagnostics — {curComp.name} ({curSite.name})
                 </h2>

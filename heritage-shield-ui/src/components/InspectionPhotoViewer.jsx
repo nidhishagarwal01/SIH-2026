@@ -606,12 +606,7 @@ export default function InspectionPhotoViewer({
               </div>
             )}
 
-            {/* In-Canvas Metadata Overlay Banner */}
-            <div className="absolute bottom-3 left-3 bg-[#090A0C]/85 backdrop-blur border border-[#1E2228] px-3 py-1.5 rounded-lg text-[11px] font-mono text-gray-300 flex items-center gap-3 shadow-lg">
-              <span className="text-[#C5A059] font-bold">🔍 {curPreset.title}</span>
-              <span className="text-gray-500">|</span>
-              <span className="text-emerald-400">● 4.10 OpenCV Multi-Filter Segmenter</span>
-            </div>
+
 
           </div>
 
@@ -650,7 +645,7 @@ export default function InspectionPhotoViewer({
             {/* Quantitative Damage Extraction Table */}
             <div className="space-y-2">
               <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider font-bold">
-                Extracted Metric Dimensions (OpenCV Metric Calibration)
+                Extracted Metric Dimensions
               </span>
 
               <div className="grid grid-cols-2 gap-2 bg-[#090A0C] p-3 rounded-lg border border-[#1E2228] text-xs font-mono">

@@ -196,9 +196,6 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
         
         <div className="flex flex-wrap justify-between items-end gap-3">
           <div>
-            <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-              Centrally Protected Heritage Sites Grid
-            </span>
             <h3 className="text-xl font-serif font-bold text-[#F3EFE6]">
               National Heritage Sites Directory
             </h3>
