@@ -38,9 +38,9 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
   return (
     <div className="min-h-screen bg-[#090A0C] text-[#E8E6E3] font-sans flex flex-col selection:bg-[#C5A059] selection:text-[#090A0C]">
       
-      {/* 🏛️ 1. TOP ENTERPRISE GOVT / ASI COMMAND BAR */}
-      <header className="sticky top-0 z-50 bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-3 shadow-2xl">
-        <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
+      {/* 🏛️ 1. TOP ENTERPRISE GOVT / ASI COMMAND BAR (Sticky Top Header with Persistent Search) */}
+      <header className="sticky top-0 z-50 bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-2.5 shadow-2xl">
+        <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
           
           {/* Clickable Home Brand */}
           <HeritageShieldLogo
@@ -49,44 +49,36 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
             onClick={onBackToLanding}
           />
 
-
-
-
-          <div className="flex items-center gap-3 text-xs font-mono">
-            <ThemeToggle />
-          </div>
-
-
-
-        </div>
-      </header>
-
-      {/* 🔍 2. UNIVERSAL COMMAND SEARCH & QUICK FILTER BAR (TOP POSITIONED) */}
-      <section className="bg-gradient-to-b from-[#111317] to-[#0E1013] border-b border-[#1E2228] px-6 py-4 shadow-lg sticky top-[57px] z-40 backdrop-blur-md">
-        <div className="max-w-[1600px] mx-auto space-y-3">
-          
-          {/* Main Search Input */}
-          <div className="relative w-full">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+          {/* Persistent Universal Search Bar (Always Visible on Scroll) */}
+          <div className="relative flex-1 max-w-xl mx-2 sm:mx-6">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">🔍</span>
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search heritage sites, locations, materials..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#090A0C] border border-[#2B313D] focus:border-[#C5A059] rounded-xl pl-11 pr-24 py-3 text-sm text-gray-100 placeholder-gray-500 focus:outline-none transition shadow-inner font-sans"
+              className="w-full bg-[#14171E] border border-[#2B313D] focus:border-[#C5A059] rounded-xl pl-10 pr-20 py-2 text-xs sm:text-sm text-gray-100 placeholder-gray-500 focus:outline-none transition shadow-inner font-sans"
             />
-
-
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-mono text-gray-400 hover:text-white bg-[#1E2228] px-2 py-1 rounded"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-mono text-gray-400 hover:text-white bg-[#1E2228] px-2 py-0.5 rounded cursor-pointer"
               >
                 Clear ✕
               </button>
             )}
           </div>
 
+          <div className="flex items-center gap-3 text-xs font-mono shrink-0">
+            <ThemeToggle />
+          </div>
+
+        </div>
+      </header>
+
+      {/* 🔍 2. QUICK FILTER BAR */}
+      <section className="bg-gradient-to-b from-[#111317] to-[#0E1013] border-b border-[#1E2228] px-6 py-3 shadow-md">
+        <div className="max-w-[1600px] mx-auto">
           {/* Quick Filters Row */}
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
             
@@ -95,13 +87,13 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
               <span className="text-gray-500 uppercase text-[10px] mr-1">Filter:</span>
               <button
                 onClick={() => setStatusFilter('ALL')}
-                className={`px-3 py-1.5 rounded-lg border transition ${
+                className={`px-3 py-1.5 rounded-lg border transition cursor-pointer ${
                   statusFilter === 'ALL'
                     ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold shadow'
                     : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
                 }`}
               >
-                All Monuments
+                All Heritage Sites
               </button>
 
               <button
