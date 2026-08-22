@@ -65,7 +65,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
           <div className="flex items-center gap-3 text-xs font-mono">
             <div className="bg-[#14171C] border border-[#2B313D] px-3.5 py-1.5 rounded-lg flex items-center gap-2 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-gray-300">National Grid: <strong className="text-emerald-400">12 Flagship Nodes Active</strong></span>
+              <span className="text-gray-300">National Grid: <strong className="text-emerald-400">Live Active Sentinel</strong></span>
             </div>
             <div className="hidden sm:flex bg-[#14171C] border border-[#2B313D] px-3.5 py-1.5 rounded-lg items-center gap-2 text-gray-400">
               <span>Standard: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong></span>
@@ -84,11 +84,12 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
             <input
               type="text"
-              placeholder="Search 3,696 Centrally Protected Monuments by name, state, stone material, or ASI code (e.g. Taj Mahal, Konark, Makrana, ASI-DL-001)..."
+              placeholder="Search 3,696 Centrally Protected Monuments by name, state, or stone material (e.g. Taj Mahal, Konark, Makrana Marble, Red Sandstone)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-[#090A0C] border border-[#2B313D] focus:border-[#C5A059] rounded-xl pl-11 pr-24 py-3 text-sm text-gray-100 placeholder-gray-500 focus:outline-none transition shadow-inner font-sans"
             />
+
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
@@ -268,10 +269,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                     <div className="absolute inset-0 bg-gradient-to-t from-[#121418] via-transparent to-black/60" />
 
                     {/* Top Badges */}
-                    <div className="absolute top-3 left-3 right-3 flex justify-between items-center text-[10px] font-mono">
-                      <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md text-[#C5A059] border border-[#C5A059]/30 font-bold">
-                        {site.id}
-                      </span>
+                    <div className="absolute top-3 right-3 flex items-center text-[10px] font-mono">
                       <span
                         className="px-2 py-0.5 rounded backdrop-blur-md font-bold uppercase tracking-wider text-[9px] flex items-center gap-1 shadow"
                         style={{
@@ -284,6 +282,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                         <span>{site.status}</span>
                       </span>
                     </div>
+
 
                     {/* Bottom overlay text */}
                     <div className="absolute bottom-3 left-3 right-3">

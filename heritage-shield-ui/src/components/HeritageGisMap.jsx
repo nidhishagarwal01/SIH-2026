@@ -190,13 +190,11 @@ export default function HeritageGisMap({
           
           <div style="position: relative; width: 100%; height: 110px; border-radius: 8px; overflow: hidden; margin-bottom: 10px; border: 1px solid #2B313D; background: #14171C;">
             <img src="${site.imageUrl}" alt="${site.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'"/>
-            <span style="position: absolute; top: 6px; left: 6px; background: rgba(14,16,19,0.85); color: #C5A059; font-family: monospace; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(197,160,89,0.3);">
-              ${site.id}
-            </span>
-            <span style="position: absolute; top: 6px; right: 6px; background: rgba(14,16,19,0.85); color: #FFF; font-family: monospace; font-size: 10px; padding: 2px 6px; border-radius: 4px;">
+            <span style="position: absolute; top: 6px; right: 6px; background: rgba(14,16,19,0.85); color: #C5A059; font-family: monospace; font-size: 10px; font-weight: bold; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(197,160,89,0.3);">
               ${site.state}
             </span>
           </div>
+
 
           <h4 style="font-size: 14px; font-weight: bold; margin: 0 0 4px 0; color: #FFF; font-family: ui-serif, Georgia, serif;">${site.name}</h4>
           

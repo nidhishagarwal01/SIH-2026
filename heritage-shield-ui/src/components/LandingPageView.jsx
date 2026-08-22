@@ -87,7 +87,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2 bg-[#12151B] border border-[#222834] px-3 py-1.5 rounded-xl text-xs font-mono">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-gray-300">12 Flagship Nodes</span>
+              <span className="text-gray-300">Live Active Sentinel</span>
             </div>
 
             <motion.button
@@ -125,10 +125,9 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A059] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C5A059]"></span>
             </span>
-            <span className="text-[#C5A059] font-bold">Smart India Hackathon '26</span>
-            <span className="text-gray-500">|</span>
-            <span>Simulation and Digital Twin Category</span>
+            <span className="text-[#C5A059] font-bold">National Built Heritage Intelligence Platform</span>
           </motion.div>
+
 
           {/* Hero Main Headline */}
           <motion.div
@@ -414,10 +413,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                       onError={(e) => { e.target.style.display = 'none'; }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0E1117] via-transparent to-black/60" />
-                    <div className="absolute top-3 left-3 right-3 flex justify-between items-center text-[10px] font-mono">
-                      <span className="px-2 py-0.5 rounded bg-black/70 backdrop-blur-md text-[#C5A059] font-bold border border-[#C5A059]/30">
-                        {site.id}
-                      </span>
+                    <div className="absolute top-3 right-3 flex items-center text-[10px] font-mono">
                       <span
                         className="px-2 py-0.5 rounded backdrop-blur-md font-bold uppercase text-[9px]"
                         style={{ backgroundColor: `${site.color}25`, color: site.color, border: `1px solid ${site.color}50` }}
@@ -425,6 +421,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                         {site.status}
                       </span>
                     </div>
+
                     <div className="absolute bottom-3 left-3 right-3">
                       <span className="text-[10px] font-mono text-gray-300 block mb-0.5">📍 {site.location}, {site.state}</span>
                       <h4 className="text-lg font-serif font-bold text-white group-hover:text-[#C5A059] transition drop-shadow">
