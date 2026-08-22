@@ -266,12 +266,13 @@ export default function App() {
     }
   };
 
-  const handleLaunchMonumentStudio = (idx) => {
+  const handleLaunchMonumentStudio = (idx, targetTab = 'twin') => {
     handleSelectSite(idx);
-    setActiveTab('twin');
+    setActiveTab(targetTab);
     setViewMode('studio');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
 
   // Field Sentinel Incidents Feed State
   const [fieldReports, setFieldReports] = useState([
