@@ -15,7 +15,7 @@ export default function HeritageGisMap({
 
   const [activeFilter, setActiveFilter] = useState('all');
   const [baseMapType, setBaseMapType] = useState('dark'); // 'dark' | 'satellite'
-  const [showSeismicLayer, setShowSeismicLayer] = useState(true);
+  const [showSeismicLayer, setShowSeismicLayer] = useState(false); // Clean map by default
   const [showRainfallLayer, setShowRainfallLayer] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -47,7 +47,7 @@ export default function HeritageGisMap({
     darkTile.addTo(map);
     tileLayerRef.current = darkTile;
 
-    // Seismic Northern Active Fault Belt
+    // Seismic Northern Active Fault Belt (BIS IS 1893:2016)
     const seismicNorthernBelt = L.polygon([
       [31.5, 74.0], [32.0, 78.5], [29.5, 81.0], [27.5, 88.0], [26.0, 93.0],
       [24.5, 92.5], [26.0, 84.0], [27.5, 77.0], [28.5, 75.0]
@@ -55,10 +55,12 @@ export default function HeritageGisMap({
       color: '#e05a47',
       weight: 1.5,
       fillColor: '#e05a47',
-      fillOpacity: 0.12,
+      fillOpacity: 0.14,
       dashArray: '4, 6'
     });
+    seismicNorthernBelt.bindTooltip('🌋 BIS IS 1893: Himalayan Seismic Fault Zone IV', { sticky: true, className: 'font-mono text-xs' });
 
+    // Kutch Zone V Seismic Ring (Dholavira Active Rift Basin)
     const kutchSeismicZoneV = L.circle([23.5, 70.5], {
       radius: 140000,
       color: '#e05a47',
@@ -66,6 +68,7 @@ export default function HeritageGisMap({
       fillColor: '#e05a47',
       fillOpacity: 0.18
     });
+    kutchSeismicZoneV.bindTooltip('🌋 BIS IS 1893: Kutch Active Rift (Zone V - Very High Seismic Risk)', { sticky: true, className: 'font-mono text-xs' });
 
     const seismicGroup = L.layerGroup([seismicNorthernBelt, kutchSeismicZoneV]);
     hazardLayersRef.current.seismic = seismicGroup;
@@ -82,6 +85,7 @@ export default function HeritageGisMap({
       fillOpacity: 0.14,
       dashArray: '3, 5'
     });
+    monsoonWesternGhats.bindTooltip('🌧️ IMD Western Ghats High Precipitation Belt (>2500mm/yr)', { sticky: true, className: 'font-mono text-xs' });
 
     const bayOfBengalCycloneBelt = L.polygon([
       [21.5, 87.0], [19.5, 86.0], [16.0, 81.5], [13.0, 80.5],
@@ -93,6 +97,8 @@ export default function HeritageGisMap({
       fillOpacity: 0.14,
       dashArray: '3, 5'
     });
+    bayOfBengalCycloneBelt.bindTooltip('🌊 IMD Bay of Bengal Coastal Cyclone & Storm Surge Corridor', { sticky: true, className: 'font-mono text-xs' });
+
 
     const rainfallGroup = L.layerGroup([monsoonWesternGhats, bayOfBengalCycloneBelt]);
     hazardLayersRef.current.rainfall = rainfallGroup;

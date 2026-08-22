@@ -107,15 +107,18 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
           <div className="flex flex-wrap justify-between items-center gap-3">
             <div>
               <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-                National Multi-Hazard Geospatial Radar
+                ISRO Bhuvan Geospatial Framework · WGS84 Spatial Radar
               </span>
-              <h3 className="text-lg font-serif font-bold text-[#F3EFE6]">
-                Interactive Map of India — Click Any Monument Marker to Launch Studio
+              <h3 className="text-xl font-serif font-bold text-[#F3EFE6]">
+                National Built Heritage Geospatial Radar
               </h3>
             </div>
-            <div className="text-xs font-mono text-gray-400 bg-[#121418] px-3 py-1 rounded-lg border border-[#1E2228]">
-              Grid: <strong className="text-sky-400">ISRO Bhuvan WGS84 Standard</strong>
+            <div className="flex items-center gap-2 text-xs font-mono">
+              <span className="text-gray-400 bg-[#121418] px-3 py-1.5 rounded-lg border border-[#1E2228]">
+                Grid: <strong className="text-sky-400">ISRO Bhuvan Geospatial Standard</strong>
+              </span>
             </div>
+
           </div>
 
           {/* Leaflet Interactive Map Component */}
