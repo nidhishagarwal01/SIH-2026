@@ -5,7 +5,10 @@ import { UNESCO_SITES } from '../data/unescoSites';
 
 export default function HeritageGisMap({
   activeSiteIndex,
-  onSelectSite
+  onSelectSite,
+  filterSites,
+  selectedStatus = 'ALL',
+  searchQuery = ''
 }) {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
@@ -13,13 +16,12 @@ export default function HeritageGisMap({
   const markersRef = useRef([]);
   const hazardLayersRef = useRef({});
 
-  const [activeFilter, setActiveFilter] = useState('all');
   const [baseMapType, setBaseMapType] = useState('dark'); // 'dark' | 'satellite'
   const [showSeismicLayer, setShowSeismicLayer] = useState(false); // Clean map by default
   const [showRainfallLayer, setShowRainfallLayer] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
 
-  const heritageSites = UNESCO_SITES;
+  // Use filtered sites from parent if provided
+  const heritageSites = (filterSites && Array.isArray(filterSites)) ? filterSites : UNESCO_SITES;
 
   // Initialize Leaflet Map
   useEffect(() => {
@@ -99,7 +101,6 @@ export default function HeritageGisMap({
     });
     bayOfBengalCycloneBelt.bindTooltip('🌊 IMD Bay of Bengal Coastal Cyclone & Storm Surge Corridor', { sticky: true, className: 'font-mono text-xs' });
 
-
     const rainfallGroup = L.layerGroup([monsoonWesternGhats, bayOfBengalCycloneBelt]);
     hazardLayersRef.current.rainfall = rainfallGroup;
     if (showRainfallLayer) rainfallGroup.addTo(map);
@@ -137,7 +138,7 @@ export default function HeritageGisMap({
     }
   }, [baseMapType]);
 
-  // Update Markers
+  // Update Markers when filter changes (e.g. Critical, Watch, Search)
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map) return;
@@ -148,29 +149,31 @@ export default function HeritageGisMap({
 
     const createCustomIcon = (site) => {
       const isSelected = activeSiteIndex === site.index;
+      const isCritical = site.status === 'Critical';
+
       return L.divIcon({
         className: 'custom-gis-marker',
         html: `
           <div style="
             position: relative;
-            width: ${isSelected ? '28px' : '22px'};
-            height: ${isSelected ? '28px' : '22px'};
+            width: ${isSelected || isCritical ? '30px' : '22px'};
+            height: ${isSelected || isCritical ? '30px' : '22px'};
             background: ${site.color};
             border: 2px solid ${isSelected ? '#FFF' : '#121418'};
             border-radius: 50%;
-            box-shadow: 0 0 ${isSelected ? '16px' : '8px'} ${site.color};
+            box-shadow: 0 0 ${isCritical ? '20px' : isSelected ? '16px' : '8px'} ${site.color};
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.2s ease;
           ">
-            <span style="font-size: ${isSelected ? '12px' : '10px'}; font-weight: bold; color: #121418;">🏛️</span>
+            <span style="font-size: ${isSelected || isCritical ? '13px' : '10px'}; font-weight: bold; color: #121418;">🏛️</span>
           </div>
         `,
-        iconSize: [28, 28],
-        iconAnchor: [14, 14],
-        popupAnchor: [0, -14]
+        iconSize: [30, 30],
+        iconAnchor: [15, 15],
+        popupAnchor: [0, -15]
       });
     };
 
@@ -178,8 +181,9 @@ export default function HeritageGisMap({
       const isSelected = activeSiteIndex === site.index;
       const marker = L.marker(site.coords, {
         icon: createCustomIcon(site),
-        zIndexOffset: isSelected ? 1000 : 0
+        zIndexOffset: isSelected ? 1000 : site.status === 'Critical' ? 500 : 0
       });
+      marker._siteIndex = site.index;
 
       const popupContent = `
         <div style="font-family: ui-sans-serif, system-ui, sans-serif; background: #0E1013; color: #EDE8DE; padding: 14px; border-radius: 12px; min-width: 250px; max-width: 280px; border: 1px solid #2B313D; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);">
@@ -260,14 +264,13 @@ export default function HeritageGisMap({
       });
 
       marker.on('click', () => {
-        // Fly to site on map
         map.flyTo(site.coords, 8, { duration: 0.8 });
       });
 
       marker.addTo(map);
       markersRef.current.push(marker);
     });
-  }, [activeSiteIndex, heritageSites, onSelectSite]);
+  }, [activeSiteIndex, heritageSites, onSelectSite, selectedStatus]);
 
   // Handle Hazard Layer Toggles
   useEffect(() => {
@@ -291,13 +294,12 @@ export default function HeritageGisMap({
     }
   }, [showSeismicLayer, showRainfallLayer]);
 
-  const handleFlyToSite = (index) => {
+  const handleFlyToSite = (siteIndex) => {
     const map = mapInstanceRef.current;
-    const target = heritageSites[index];
+    const target = heritageSites.find(s => s.index === siteIndex) || UNESCO_SITES.find(s => s.index === siteIndex);
     if (map && target) {
       map.flyTo(target.coords, 8, { duration: 1.0 });
-      // Open popup for this marker
-      const marker = markersRef.current[index];
+      const marker = markersRef.current.find(m => m._siteIndex === siteIndex);
       if (marker) {
         marker.openPopup();
       }
@@ -307,10 +309,10 @@ export default function HeritageGisMap({
   return (
     <div className="space-y-3">
       
-      {/* 🚀 1. Quick-Select Monument Ribbon (Click any monument to fly the map camera directly to it) */}
+      {/* 🚀 1. Quick-Select Monument Ribbon (Filters dynamically along with parent) */}
       <div className="bg-[#121418] border border-[#1E2228] p-3 rounded-xl shadow-lg flex items-center gap-2 overflow-x-auto">
         <span className="text-[10px] font-mono text-[#C5A059] uppercase font-bold tracking-wider whitespace-nowrap pl-1">
-          📍 Map Quick Jump:
+          📍 Quick Jump ({heritageSites.length}):
         </span>
         <div className="flex items-center gap-1.5 flex-nowrap">
           {heritageSites.map((s) => (
@@ -336,14 +338,16 @@ export default function HeritageGisMap({
           <div className="bg-[#121418]/95 backdrop-blur border border-[#1E2228] p-3 rounded-xl shadow-xl">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-                National Heritage Radar (ISRO Grid)
+                National Heritage Radar
               </span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C5A059]/15 text-[#C5A059] border border-[#C5A059]/30 font-bold">
-                {heritageSites.length} UNESCO Sites
+                {heritageSites.length} {selectedStatus !== 'ALL' ? selectedStatus : 'Sites Active'}
               </span>
             </div>
             <p className="text-xs text-gray-300 font-sans mt-1">
-              Click any pin on the map of India to inspect its health, risk, and launch its 3D twin.
+              {selectedStatus === 'Critical'
+                ? 'Displaying high-urgency monuments requiring immediate conservation triage.'
+                : 'Click any pin on the map of India to inspect its health, risk, and launch its 3D twin.'}
             </p>
           </div>
 

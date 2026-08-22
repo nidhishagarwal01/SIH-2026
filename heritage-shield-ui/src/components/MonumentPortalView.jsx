@@ -196,12 +196,16 @@ export default function MonumentPortalView({ sites, onSelectMonument, liveWeathe
             </div>
           </div>
 
-          {/* Leaflet Interactive Map Component */}
+          {/* Leaflet Interactive Map Component (Synchronized with Top Filters) */}
           <HeritageGisMap
+            filterSites={filteredSites}
+            selectedStatus={statusFilter}
+            searchQuery={searchQuery}
             onSelectSite={(idx, targetTab = 'twin') => {
               if (onSelectMonument) onSelectMonument(idx, targetTab);
             }}
           />
+
 
         </div>
       </section>
