@@ -314,48 +314,300 @@ export default function App() {
         defaultRisk: { condition: 26, deterioration: 22, hazard: 50, environment: 45, significance: 100 },
         action: "Yamuna river well-foundation moisture logging"
       }
+    ],
+    6: [ // Ellora Caves / Kailasa Temple (Maharashtra)
+      {
+        name: "Dravidian 3-Tier Shikhara",
+        code: "EL-01",
+        elevation: "+32.0m",
+        status: "Watch",
+        score: 76,
+        color: "#D4AF37",
+        inspected: "Jun 2026",
+        defaultRisk: { condition: 45, deterioration: 40, hazard: 35, environment: 58, significance: 95 },
+        action: "Basalt rock fissure seismic monitoring"
+      },
+      {
+        name: "Maha Mandapa Hall Reliefs",
+        code: "EL-02",
+        elevation: "+12.0m",
+        status: "Watch",
+        score: 72,
+        color: "#D4AF37",
+        inspected: "May 2026",
+        defaultRisk: { condition: 52, deterioration: 46, hazard: 30, environment: 65, significance: 95 },
+        action: "Capillary moisture barrier consolidation"
+      },
+      {
+        name: "Nandi Pavilion Mandapa",
+        code: "EL-03",
+        elevation: "+6.0m",
+        status: "Stable",
+        score: 84,
+        color: "#4E878C",
+        inspected: "Apr 2026",
+        defaultRisk: { condition: 22, deterioration: 18, hazard: 25, environment: 35, significance: 95 },
+        action: "Routine laser alignment verify"
+      },
+      {
+        name: "Excavated Basalt Courtyard Trench",
+        code: "EL-04",
+        elevation: "Ground (0.0m)",
+        status: "Stable",
+        score: 81,
+        color: "#4E878C",
+        inspected: "Jun 2026",
+        defaultRisk: { condition: 28, deterioration: 22, hazard: 35, environment: 45, significance: 95 },
+        action: "Perimeter monsoon drainage clearing"
+      }
+    ],
+    7: [ // Khajuraho Group of Monuments (Madhya Pradesh)
+      {
+        name: "Curvilinear Nagara Shikhara",
+        code: "KH-01",
+        elevation: "+31.0m",
+        status: "Stable",
+        score: 82,
+        color: "#4E878C",
+        inspected: "May 2026",
+        defaultRisk: { condition: 28, deterioration: 22, hazard: 25, environment: 35, significance: 95 },
+        action: "Apex sandstone joint repointing"
+      },
+      {
+        name: "Sculptured Sanctum Wall",
+        code: "KH-02",
+        elevation: "+14.0m",
+        status: "Watch",
+        score: 76,
+        color: "#D4AF37",
+        inspected: "Apr 2026",
+        defaultRisk: { condition: 44, deterioration: 38, hazard: 25, environment: 48, significance: 95 },
+        action: "Micro-sandstone exfoliation ethyl silicate treatment"
+      },
+      {
+        name: "Entrance Ardhamandapa",
+        code: "KH-03",
+        elevation: "+4.0m",
+        status: "Stable",
+        score: 85,
+        color: "#4E878C",
+        inspected: "Mar 2026",
+        defaultRisk: { condition: 20, deterioration: 15, hazard: 20, environment: 30, significance: 95 },
+        action: "Pillar capital stability test"
+      },
+      {
+        name: "Moulded Jagati Stepped Plinth",
+        code: "KH-04",
+        elevation: "Ground",
+        status: "Stable",
+        score: 88,
+        color: "#4E878C",
+        inspected: "May 2026",
+        defaultRisk: { condition: 16, deterioration: 12, hazard: 20, environment: 25, significance: 95 },
+        action: "Routine gravel perimeter inspection"
+      }
+    ],
+    8: [ // Buddhist Monuments at Sanchi (Madhya Pradesh)
+      {
+        name: "Harmika & Tri-Chhatra Finial",
+        code: "SC-01",
+        elevation: "+16.5m",
+        status: "Stable",
+        score: 90,
+        color: "#4E878C",
+        inspected: "Jun 2026",
+        defaultRisk: { condition: 14, deterioration: 10, hazard: 20, environment: 25, significance: 95 },
+        action: "Gilded umbrella finial corrosion test"
+      },
+      {
+        name: "Anda Hemispherical Dome",
+        code: "SC-02",
+        elevation: "+7.0m",
+        status: "Stable",
+        score: 88,
+        color: "#4E878C",
+        inspected: "May 2026",
+        defaultRisk: { condition: 18, deterioration: 14, hazard: 20, environment: 30, significance: 95 },
+        action: "Masonry surface lime-wash coating"
+      },
+      {
+        name: "4 Carved Torana Gateways",
+        code: "SC-03",
+        elevation: "+3.5m",
+        status: "Watch",
+        score: 75,
+        color: "#D4AF37",
+        inspected: "Apr 2026",
+        defaultRisk: { condition: 42, deterioration: 36, hazard: 25, environment: 45, significance: 95 },
+        action: "Architrave horizontal beam deflection sensor verify"
+      },
+      {
+        name: "Medhi Circular Terrace Plinth",
+        code: "SC-04",
+        elevation: "Ground",
+        status: "Stable",
+        score: 92,
+        color: "#4E878C",
+        inspected: "Jun 2026",
+        defaultRisk: { condition: 12, deterioration: 8, hazard: 15, environment: 20, significance: 95 },
+        action: "Circumambulatory path cleaning"
+      }
+    ],
+    9: [ // Great Living Chola Temples (Tamil Nadu)
+      {
+        name: "80-Tonne Monolithic Kumbam",
+        code: "CH-01",
+        elevation: "+66.0m",
+        status: "Stable",
+        score: 86,
+        color: "#4E878C",
+        inspected: "Apr 2026",
+        defaultRisk: { condition: 22, deterioration: 16, hazard: 35, environment: 40, significance: 95 },
+        action: "Monolithic granite capstone laser verticality check"
+      },
+      {
+        name: "16-Tiered Granite Vimana",
+        code: "CH-02",
+        elevation: "+35.0m",
+        status: "Watch",
+        score: 77,
+        color: "#D4AF37",
+        inspected: "May 2026",
+        defaultRisk: { condition: 46, deterioration: 40, hazard: 35, environment: 52, significance: 95 },
+        action: "Granite masonry joint ultrasonic velocity test"
+      },
+      {
+        name: "Garbhagriha Sanctum Base",
+        code: "CH-03",
+        elevation: "+4.0m",
+        status: "Stable",
+        score: 84,
+        color: "#4E878C",
+        inspected: "Mar 2026",
+        defaultRisk: { condition: 24, deterioration: 18, hazard: 30, environment: 45, significance: 95 },
+        action: "Epigraphical inscription consolidation"
+      },
+      {
+        name: "Upapitha Granite Foundation",
+        code: "CH-04",
+        elevation: "Ground",
+        status: "Stable",
+        score: 88,
+        color: "#4E878C",
+        inspected: "Apr 2026",
+        defaultRisk: { condition: 18, deterioration: 14, hazard: 30, environment: 35, significance: 95 },
+        action: "Perimeter Cauvery silt drainage desilting"
+      }
+    ],
+    10: [ // Rani-ki-Vav Stepwell (Gujarat)
+      {
+        name: "Subterranean Groundwater Ingress",
+        code: "RV-01",
+        elevation: "-28m",
+        status: "Watch",
+        score: 72,
+        color: "#D4AF37",
+        inspected: "Jun 2026",
+        defaultRisk: { condition: 48, deterioration: 42, hazard: 35, environment: 65, significance: 95 },
+        action: "Groundwater nitrate salinity logging"
+      },
+      {
+        name: "Deep Circular Well Shaft",
+        code: "RV-02",
+        elevation: "-18m",
+        status: "Stable",
+        score: 84,
+        color: "#4E878C",
+        inspected: "May 2026",
+        defaultRisk: { condition: 24, deterioration: 18, hazard: 30, environment: 50, significance: 95 },
+        action: "Sub-surface stone block consolidation"
+      },
+      {
+        name: "7-Storeyed Pillared Gallery",
+        code: "RV-03",
+        elevation: "-8m",
+        status: "Watch",
+        score: 78,
+        color: "#D4AF37",
+        inspected: "Apr 2026",
+        defaultRisk: { condition: 38, deterioration: 32, hazard: 30, environment: 48, significance: 95 },
+        action: "Carved pillar bracket biocide cleaning"
+      },
+      {
+        name: "Pavilion Torana Terraces",
+        code: "RV-04",
+        elevation: "Ground",
+        status: "Stable",
+        score: 89,
+        color: "#4E878C",
+        inspected: "Jun 2026",
+        defaultRisk: { condition: 14, deterioration: 10, hazard: 25, environment: 30, significance: 95 },
+        action: "Entrance pavilion waterproofing"
+      }
+    ],
+    11: [ // Dholavira Harappan Citadel (Gujarat - Zone V Severe)
+      {
+        name: "Fortified Acropolis Castle",
+        code: "DH-01",
+        elevation: "+12m",
+        status: "Critical",
+        score: 64,
+        color: "#E05A47",
+        inspected: "Feb 2026",
+        defaultRisk: { condition: 76, deterioration: 70, hazard: 90, environment: 75, significance: 95 },
+        action: "Immediate mud-brick underpinning and Kutch active fault seismic damper check"
+      },
+      {
+        name: "Stepped Stone Water Reservoir",
+        code: "DH-02",
+        elevation: "-6m",
+        status: "Watch",
+        score: 73,
+        color: "#D4AF37",
+        inspected: "Jan 2026",
+        defaultRisk: { condition: 48, deterioration: 42, hazard: 85, environment: 70, significance: 95 },
+        action: "Reservoir stone embankment stabilization"
+      },
+      {
+        name: "North Gateway & Bastion",
+        code: "DH-03",
+        elevation: "+4m",
+        status: "Watch",
+        score: 70,
+        color: "#D4AF37",
+        inspected: "Feb 2026",
+        defaultRisk: { condition: 54, deterioration: 48, hazard: 85, environment: 65, significance: 95 },
+        action: "Signboard chamber stone pillar socket monitoring"
+      },
+      {
+        name: "Middle Town Mud-Brick Bailey",
+        code: "DH-04",
+        elevation: "Ground",
+        status: "Critical",
+        score: 66,
+        color: "#E05A47",
+        inspected: "Jan 2026",
+        defaultRisk: { condition: 72, deterioration: 66, hazard: 85, environment: 80, significance: 95 },
+        action: "Arid wind-erosion geotextile capping"
+      }
     ]
   };
 
   const getComponentsForSite = (idx) => {
-    if (siteComponents[idx]) return siteComponents[idx];
-    const target = sites[idx] || sites[0];
-    const typ = target.typology || 'mughal_dome';
-    if (typ === 'stupa') {
-      return [
-        { name: "Harmika & Tri-Chhatra Finial", code: "ST-01", elevation: "+18m", status: "Stable", score: 88, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 16, deterioration: 12, hazard: 30, environment: 35, significance: 95 }, action: "Gilded finial corrosion check" },
-        { name: "Anda Hemispherical Mound", code: "ST-02", elevation: "+8m", status: "Stable", score: 84, color: "#4E878C", inspected: "May 2026", defaultRisk: { condition: 22, deterioration: 18, hazard: 30, environment: 40, significance: 95 }, action: "Masonry surface lime-wash" },
-        { name: "Carved Torana Gateway", code: "ST-03", elevation: "+4m", status: "Watch", score: 72, color: "#D4AF37", inspected: "Apr 2026", defaultRisk: { condition: 48, deterioration: 42, hazard: 35, environment: 55, significance: 95 }, action: "Architrave structural beam deflection check" },
-        { name: "Medhi Circular Terrace Plinth", code: "ST-04", elevation: "Ground", status: "Stable", score: 85, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 20, deterioration: 15, hazard: 25, environment: 30, significance: 95 }, action: "Circumambulatory pathway drainage clearing" }
-      ];
-    }
-    if (typ === 'stepwell') {
-      return [
-        { name: "Subterranean Groundwater Ingress", code: "SW-01", elevation: "-28m", status: "Watch", score: 68, color: "#D4AF37", inspected: "Jun 2026", defaultRisk: { condition: 55, deterioration: 48, hazard: 40, environment: 75, significance: 95 }, action: "Groundwater nitrate salt testing" },
-        { name: "Deep Circular Well Shaft", code: "SW-02", elevation: "-18m", status: "Stable", score: 82, color: "#4E878C", inspected: "May 2026", defaultRisk: { condition: 26, deterioration: 20, hazard: 35, environment: 60, significance: 95 }, action: "Sub-surface stone block consolidation" },
-        { name: "Multi-Storeyed Pillared Gallery", code: "SW-03", elevation: "-8m", status: "Watch", score: 74, color: "#D4AF37", inspected: "Apr 2026", defaultRisk: { condition: 45, deterioration: 38, hazard: 35, environment: 55, significance: 95 }, action: "Carved pillar bracket biocide cleaning" },
-        { name: "Pavilion Torana Terraces", code: "SW-04", elevation: "Ground", status: "Stable", score: 86, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 18, deterioration: 14, hazard: 30, environment: 40, significance: 95 }, action: "Entrance pavilion waterproofing" }
-      ];
-    }
-    return [
-      { name: "Superstructure Crown & Finial", code: "ND-01", elevation: "+35m", status: "Stable", score: 88, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 18, deterioration: 14, hazard: 35, environment: 35, significance: 90 }, action: "Apex laser scan & lightning arrester inspection" },
-      { name: "Main Sanctuary Façade & Portals", code: "ND-02", elevation: "+15m", status: "Watch", score: 72, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 52, deterioration: 45, hazard: 45, environment: 55, significance: 90 }, action: "Masonry joint repointing & moisture barrier" },
-      { name: "Intermediate Columns & Archways", code: "ND-03", elevation: "+4m", status: "Watch", score: 75, color: "#D4AF37", inspected: "Apr 2026", defaultRisk: { condition: 45, deterioration: 38, hazard: 40, environment: 50, significance: 90 }, action: "Non-destructive ultrasonic pulse velocity test" },
-      { name: "Foundation Plinth & Escarpment", code: "ND-04", elevation: "Ground", status: "Stable", score: 84, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 22, deterioration: 18, hazard: 35, environment: 40, significance: 90 }, action: "Routine perimeter drainage desilting" }
-    ];
+    return siteComponents[idx] || siteComponents[0];
   };
 
   const components = getComponentsForSite(activeSite);
 
   // Explainable Risk State
-  const [riskFactors, setRiskFactors] = useState(components[2]?.defaultRisk || components[0].defaultRisk);
+  const [riskFactors, setRiskFactors] = useState(components[0]?.defaultRisk || { condition: 50, deterioration: 50, hazard: 50, environment: 50, significance: 90 });
 
   const handleSelectSite = async (idx) => {
     setActiveSite(idx);
-    setActiveComponent(2);
+    setActiveComponent(0);
     const newComps = getComponentsForSite(idx);
-    if (newComps[2]?.defaultRisk) {
-      setRiskFactors(newComps[2].defaultRisk);
+    if (newComps && newComps[0]?.defaultRisk) {
+      setRiskFactors(newComps[0].defaultRisk);
     }
     const targetSite = sites[idx] || sites[0];
     if (targetSite && targetSite.coords && Array.isArray(targetSite.coords)) {
@@ -376,6 +628,7 @@ export default function App() {
       }
     }
   };
+
 
 
 
@@ -546,17 +799,29 @@ export default function App() {
 
             <div className="flex items-center gap-1.5">
               <span className="text-gray-500 uppercase text-[10px]">Active Priority:</span>
-              <span className="text-rose-400 font-bold">C-01 Critical ({computedRisk}/100)</span>
+              <span
+                className="font-bold px-2 py-0.5 rounded text-[11px]"
+                style={{
+                  backgroundColor: `${curSite.color}20`,
+                  color: curSite.color,
+                  border: `1px solid ${curSite.color}40`
+                }}
+              >
+                {curComp?.code || 'C-01'} {curComp?.status || 'Active'} ({computedRisk}/100)
+              </span>
             </div>
           </div>
 
           <div className="flex items-center gap-3 text-[11px] text-gray-400">
             <span>Preventive ROI: <strong className="text-emerald-400 font-bold">93.4% Savings</strong></span>
             <span className="text-gray-600">|</span>
-            <span className="text-gray-400">WGS84: {curSite.coords}</span>
+            <span className="text-gray-400">
+              WGS84: {Array.isArray(curSite.coords) ? `${curSite.coords[0]}° N, ${curSite.coords[1]}° E` : curSite.coords}
+            </span>
           </div>
         </div>
       </section>
+
 
       {/* 🎛️ 3. WORKSPACE CONSOLE NAVIGATION BAR */}
       <div className="bg-[#0D0E11] border-b border-[#1A1D23] px-6">
