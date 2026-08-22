@@ -81,7 +81,9 @@ export default function MonumentViewer3D({
   activeComponent = 0,
   onSelectComponent,
   components = [],
-  isEmbedded = false
+  isEmbedded = false,
+  availableSites = [],
+  onSelectSite
 }) {
   const mountRef = useRef(null);
   const [viewMode, setViewMode] = useState('stone'); // 'stone' | 'lidar' | 'heatmap'
@@ -121,9 +123,10 @@ export default function MonumentViewer3D({
     const width = container.clientWidth;
     const height = container.clientHeight || (isEmbedded ? 380 : 520);
 
-    // 2. Camera
+    // 2. Camera with generous framing to ensure full monument is in view
     const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 3.5, 11);
+    const initDist = isEmbedded ? 14.5 : 12.0;
+    camera.position.set(0, 3.2, initDist);
     cameraRef.current = camera;
 
 
@@ -145,10 +148,12 @@ export default function MonumentViewer3D({
     controls.dampingFactor = 0.05;
     controls.maxPolarAngle = Math.PI / 2 + 0.02;
     controls.minDistance = 3.0;
-    controls.maxDistance = 25;
-    controls.target.set(0, 1.9, 0);
+    controls.maxDistance = 30;
+    controls.target.set(0, 2.0, 0);
     controls.autoRotate = autoRotate;
     controls.autoRotateSpeed = 0.8;
+    // Disable scroll wheel zoom when embedded so scrolling the page doesn't zoom 3D model
+    controls.enableZoom = !isEmbedded;
     controlsRef.current = controls;
 
     // 5. Cinematic Heritage Lighting Rig
@@ -819,16 +824,24 @@ export default function MonumentViewer3D({
     const controls = controlsRef.current;
     if (!camera || !controls) return;
 
+    const dist = isEmbedded ? 14.5 : 12.0;
     if (preset === 'top') {
-      camera.position.set(0, 14, 0.1);
-      controls.target.set(0, 1.8, 0);
+      camera.position.set(0, dist * 1.05, 0.1);
+      controls.target.set(0, 2.0, 0);
     } else if (preset === 'front') {
-      camera.position.set(0, 2.5, 11);
+      camera.position.set(0, 2.8, dist);
       controls.target.set(0, 2.0, 0);
     } else {
-      camera.position.set(7.5, 5.2, 9.5);
-      controls.target.set(0, 1.9, 0);
+      camera.position.set(dist * 0.55, dist * 0.35, dist * 0.75);
+      controls.target.set(0, 2.0, 0);
     }
+  };
+
+  const handleZoom = (direction) => {
+    const camera = cameraRef.current;
+    if (!camera) return;
+    const factor = direction === 'in' ? 0.85 : 1.15;
+    camera.position.multiplyScalar(factor);
   };
 
   if (isEmbedded) {
@@ -837,10 +850,27 @@ export default function MonumentViewer3D({
         
         {/* Top Header Outside 3D Canvas */}
         <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-10">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-serif font-bold text-[#F3EFE6]">
-              {siteData?.name || "Qutub Minar Complex"}
-            </span>
+          <div className="flex items-center gap-2.5">
+            {availableSites && availableSites.length > 0 && typeof onSelectSite === 'function' ? (
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono text-[#C5A059] uppercase font-bold">3D Twin:</span>
+                <select
+                  value={siteIndex}
+                  onChange={(e) => onSelectSite(Number(e.target.value))}
+                  className="bg-[#14171E] border border-[#2B313D] text-xs font-serif font-bold text-[#F3EFE6] px-2.5 py-1 rounded-lg focus:outline-none focus:border-[#C5A059] cursor-pointer"
+                >
+                  {availableSites.map((s, idx) => (
+                    <option key={s.id || idx} value={idx} className="bg-[#0E1013] text-gray-200">
+                      {s.name} ({s.state})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+              <span className="text-sm font-serif font-bold text-[#F3EFE6]">
+                {siteData?.name || "Qutub Minar Complex"}
+              </span>
+            )}
             <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50 font-bold">
               ● 3D Twin
             </span>
@@ -891,16 +921,37 @@ export default function MonumentViewer3D({
 
         {/* Bottom Control Ribbon Outside 3D Canvas */}
         <div className="bg-[#0E1013] border-t border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 font-mono text-xs z-10">
-          <button
-            onClick={() => setAutoRotate(!autoRotate)}
-            className={`px-3 py-1 rounded-lg border transition cursor-pointer flex items-center gap-1.5 ${
-              autoRotate
-                ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
-                : 'border-[#1E2228] text-gray-400 hover:text-white'
-            }`}
-          >
-            <span>{autoRotate ? '⏸ Pause 360° Orbit' : '▶ Play 360° Orbit'}</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setAutoRotate(!autoRotate)}
+              className={`px-3 py-1 rounded-lg border transition cursor-pointer flex items-center gap-1.5 ${
+                autoRotate
+                  ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
+                  : 'border-[#1E2228] text-gray-400 hover:text-white'
+              }`}
+            >
+              <span>{autoRotate ? '⏸ Pause 360° Orbit' : '▶ Play 360° Orbit'}</span>
+            </button>
+
+            {/* Manual Zoom In / Out Buttons */}
+            <div className="flex items-center bg-[#14171E] border border-[#2B313D] rounded-lg">
+              <button
+                onClick={() => handleZoom('in')}
+                title="Zoom In (Intentional)"
+                className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-l-lg transition font-bold"
+              >
+                +
+              </button>
+              <span className="text-[10px] text-gray-500 px-1">Zoom</span>
+              <button
+                onClick={() => handleZoom('out')}
+                title="Zoom Out (Intentional)"
+                className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-r-lg transition font-bold"
+              >
+                −
+              </button>
+            </div>
+          </div>
 
           <div className="flex items-center gap-1.5">
             <button

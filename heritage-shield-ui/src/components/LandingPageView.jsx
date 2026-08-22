@@ -49,6 +49,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
   // State for Interactive Sandbox Showcase
   const [showcaseTab, setShowcaseTab] = useState('twin'); // 'twin' | 'vision' | 'temporal' | 'gis'
   const [sliderPosition, setSliderPosition] = useState(50);
+  const [selectedTwinSiteIdx, setSelectedTwinSiteIdx] = useState(0);
   
   // State for Environmental Stress Simulator
   const [simMonsoon, setSimMonsoon] = useState(35);
@@ -428,15 +429,29 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     A realistic 3D model of the monument. You can rotate 360°, zoom in, and click directly on individual domes, balconies, pillars, or base walls to inspect their condition history.
                   </p>
-                  <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono">
-                    <span className="bg-[#14171E] text-emerald-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Full 360° 3D Rotation</span>
-                    <span className="bg-[#14171E] text-sky-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Click Any Wall or Pillar</span>
-                    <span className="bg-[#14171E] text-[#C5A059] px-3 py-1 rounded-lg border border-[#2B313D]">✔ Real Stone & Wireframe Modes</span>
+                  
+                  {/* Select 3D Twin Dropdown */}
+                  <div className="pt-1">
+                    <label className="text-xs font-mono text-[#C5A059] block mb-1.5 font-bold uppercase tracking-wider">
+                      🏛️ Choose 3D Monument Twin:
+                    </label>
+                    <select
+                      value={selectedTwinSiteIdx}
+                      onChange={(e) => setSelectedTwinSiteIdx(Number(e.target.value))}
+                      className="w-full bg-[#14171E] border border-[#2B313D] hover:border-[#C5A059] text-xs font-serif font-bold text-[#F3EFE6] px-3.5 py-2.5 rounded-xl focus:outline-none focus:border-[#C5A059] cursor-pointer shadow-md transition"
+                    >
+                      {sites.map((s, idx) => (
+                        <option key={s.id || idx} value={idx} className="bg-[#0E1013] text-gray-200">
+                          {s.name} ({s.state})
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <div className="pt-4">
+
+                  <div className="pt-2">
                     <button
-                      onClick={onEnterDashboard}
-                      className="px-6 py-2.5 rounded-xl bg-[#C5A059] text-black font-mono text-xs font-bold hover:bg-[#D8B46E] transition cursor-pointer"
+                      onClick={() => onSelectMonument ? onSelectMonument(selectedTwinSiteIdx) : onEnterDashboard()}
+                      className="px-6 py-2.5 rounded-xl bg-[#C5A059] text-black font-mono text-xs font-bold hover:bg-[#D8B46E] transition cursor-pointer shadow-lg"
                     >
                       Open 3D Studio →
                     </button>
@@ -445,10 +460,12 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
 
                 <div className="lg:col-span-7 h-[480px] min-h-[480px] relative rounded-xl overflow-hidden border border-[#2B313D] shadow-2xl bg-[#060709]">
                   <MonumentViewer3D
-                    siteIndex={0}
-                    siteData={sites[0]}
+                    siteIndex={selectedTwinSiteIdx}
+                    siteData={sites[selectedTwinSiteIdx] || sites[0]}
                     activeComponent={0}
                     isEmbedded={true}
+                    availableSites={sites}
+                    onSelectSite={setSelectedTwinSiteIdx}
                   />
                 </div>
               </div>
@@ -464,11 +481,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     Smart computer vision scans inspection photos to detect cracks, peeling stone, and water dampness. It measures the exact length and width of cracks to catch damage early.
                   </p>
-                  <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono">
-                    <span className="bg-[#14171E] text-rose-400 px-3 py-1 rounded-lg border border-[#2B313D]">🔴 Crack Width: 0.85 mm</span>
-                    <span className="bg-[#14171E] text-amber-400 px-3 py-1 rounded-lg border border-[#2B313D]">🟡 Damp Patches Detected</span>
-                    <span className="bg-[#14171E] text-cyan-400 px-3 py-1 rounded-lg border border-[#2B313D]">🔵 Speed: 3.45 cm / year</span>
-                  </div>
                   <div className="pt-4">
                     <button
                       onClick={onEnterDashboard}
@@ -504,16 +516,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     Forecasting how damage will worsen over the next 4 to 6 years if left untreated. It proves that fixing minor cracks early for ₹3 Lakhs avoids ₹70+ Lakhs in emergency rebuilds later.
                   </p>
-                  <div className="grid grid-cols-2 gap-3 text-xs font-mono pt-2">
-                    <div className="bg-[#14171E] p-3 rounded-lg border border-rose-900/50">
-                      <span className="text-rose-400 font-bold block">No Action by 2030:</span>
-                      <span className="text-gray-300 text-[11px]">Crack reaches 72.5 cm · ₹72.8L Repair Cost</span>
-                    </div>
-                    <div className="bg-[#14171E] p-3 rounded-lg border border-emerald-900/50">
-                      <span className="text-emerald-400 font-bold block">Fixed Today (2026):</span>
-                      <span className="text-gray-300 text-[11px]">Crack stays at 25.1 cm · 95.6% Budget Saved</span>
-                    </div>
-                  </div>
                   <div className="pt-4">
                     <button
                       onClick={onEnterDashboard}
@@ -563,11 +565,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   <p className="text-sm text-gray-300 leading-relaxed font-sans">
                     View all Centrally Protected Monuments across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
                   </p>
-                  <div className="flex flex-wrap gap-2 pt-2 text-xs font-mono">
-                    <span className="bg-[#14171E] text-sky-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Satellite Imagery Layer</span>
-                    <span className="bg-[#14171E] text-amber-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Earthquake Fault Zones</span>
-                    <span className="bg-[#14171E] text-emerald-400 px-3 py-1 rounded-lg border border-[#2B313D]">✔ Quick Jump to Major Sites</span>
-                  </div>
                   <div className="pt-4">
                     <button
                       onClick={onEnterDashboard}
@@ -683,9 +680,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
         
         <div className="flex flex-wrap justify-between items-end gap-4">
           <div>
-            <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
-              Flagship Heritage Portfolio
-            </span>
             <h2 className="text-3xl font-serif font-bold text-[#F3EFE6] mt-1">
               Monitored UNESCO Heritage Sites
             </h2>
@@ -695,7 +689,7 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
             onClick={onEnterDashboard}
             className="px-4 py-2 rounded-xl bg-[#14171E] hover:bg-[#1E232E] border border-[#2B313D] text-xs font-mono text-gray-200 transition flex items-center gap-1.5 cursor-pointer"
           >
-            <span>View All 3,696 Monuments</span>
+            <span>View All 12 Heritage Sites</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -713,9 +707,6 @@ export default function LandingPageView({ onEnterDashboard, onSelectMonument, si
                   alt={s.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-90"
                 />
-                <div className="absolute top-3 right-3 bg-black/80 backdrop-blur px-2.5 py-1 rounded text-[10px] font-mono font-bold text-[#C5A059] border border-[#C5A059]/40">
-                  {s.id || `ASI-${idx + 1}`}
-                </div>
               </div>
 
               <div className="p-5 space-y-3">
