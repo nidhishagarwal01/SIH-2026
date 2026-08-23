@@ -25,7 +25,9 @@ export default function MonumentPortalView({
   sites = [],
   onSelectMonument,
   onBackToLanding,
-  currentUser
+  currentUser,
+  isDarkTheme = false,
+  onToggleTheme
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
@@ -65,8 +67,16 @@ export default function MonumentPortalView({
   const watchCount = sites.filter(s => s.status === 'Watch').length;
   const stableCount = sites.filter(s => s.status === 'Stable').length;
 
+  const handleToggle = () => {
+    if (typeof onToggleTheme === 'function') {
+      onToggleTheme();
+    } else {
+      document.body.classList.toggle('dark-theme');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#F0E7DA] text-[#24160E] font-sans flex flex-col selection:bg-[#BA532B] selection:text-white museum-bg">
+    <div className={`min-h-screen ${isDarkTheme ? 'dark-theme bg-[#120A06] text-[#FAF5ED]' : 'bg-[#F0E7DA] text-[#24160E]'} font-sans flex flex-col selection:bg-[#BA532B] selection:text-white museum-bg transition-colors duration-500`}>
       
       {/* 🚀 TOP SPRING-SMOOTHED SCROLL PROGRESS BAR */}
       <motion.div
@@ -108,12 +118,12 @@ export default function MonumentPortalView({
 
           {/* ☀️ Sun Theme Toggle Button (Icon Only) */}
           <button
-            onClick={() => document.body.classList.toggle('dark-theme')}
+            onClick={handleToggle}
             title="Toggle Heritage Theme"
             className="p-2.5 rounded-xl bg-white border border-[#DACDB8] hover:border-[#BA532B] text-[#BA532B] shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-center shrink-0"
             aria-label="Theme Toggle"
           >
-            <Sun className="w-4 h-4 text-[#BA532B]" />
+            <Sun className={`w-4 h-4 transition-transform duration-500 ${isDarkTheme ? 'rotate-180 text-[#C29244]' : 'text-[#BA532B]'}`} />
           </button>
 
         </div>

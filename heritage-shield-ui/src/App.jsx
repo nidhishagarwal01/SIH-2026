@@ -13,12 +13,35 @@ import LiveIngestModal from './components/LiveIngestModal';
 import AssetSwitcherModal from './components/AssetSwitcherModal';
 import HeritageShieldLogo from './components/HeritageShieldLogo';
 import MuseumCursorTorch from './components/MuseumCursorTorch';
+import { Sun } from 'lucide-react';
 
 import { UNESCO_SITES } from './data/unescoSites';
 
-
-
 export default function App() {
+  // Global Theme State (Persisted in LocalStorage)
+  const [isDarkTheme, setIsDarkTheme] = useState(() => {
+    try {
+      return localStorage.getItem('heritage_shield_theme') === 'dark';
+    } catch (e) {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    if (isDarkTheme) {
+      document.body.classList.add('dark-theme');
+      document.documentElement.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark-theme');
+      document.documentElement.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem('heritage_shield_theme', isDarkTheme ? 'dark' : 'light');
+    } catch (e) {}
+  }, [isDarkTheme]);
+
+  const toggleTheme = () => setIsDarkTheme(prev => !prev);
+
   // Navigation Flow: 'landing' (Product Landing Page) | 'portal' (National Map & Monument Directory) | 'studio' (Work on Selected Monument)
   const [viewMode, setViewMode] = useState('landing');
 
@@ -352,7 +375,7 @@ export default function App() {
   const curComp = components[activeComponent] || components[0];
 
   // ---------------------------------------------------------------------------
-  // 🌟 VIEW 1: PRODUCT LANDING PAGE (HERO / 21st.dev UI/UX)
+  // 🏛️ VIEW 1: IMMERSIVE NATIONAL LANDING PAGE
   // ---------------------------------------------------------------------------
   if (viewMode === 'landing') {
     return (
@@ -372,6 +395,8 @@ export default function App() {
           onLoginSuccess={(user) => setCurrentUser(user)}
           onLogout={() => setCurrentUser(null)}
           sites={sites}
+          isDarkTheme={isDarkTheme}
+          onToggleTheme={toggleTheme}
         />
       </>
     );
@@ -392,6 +417,8 @@ export default function App() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
           liveWeather={liveWeather}
+          isDarkTheme={isDarkTheme}
+          onToggleTheme={toggleTheme}
         />
       </>
     );
@@ -401,7 +428,7 @@ export default function App() {
   // 🏛️ VIEW 3: DEDICATED MONUMENT STUDIO & COMMAND CENTER
   // ---------------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-[#F0E7DA] text-[#24160E] font-sans antialiased selection:bg-[#BA532B] selection:text-white flex flex-col museum-bg">
+    <div className={`min-h-screen ${isDarkTheme ? 'dark-theme bg-[#120A06] text-[#FAF5ED]' : 'bg-[#F0E7DA] text-[#24160E]'} font-sans antialiased selection:bg-[#BA532B] selection:text-white flex flex-col museum-bg transition-colors duration-500`}>
       <MuseumCursorTorch />
       
       {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
@@ -452,8 +479,18 @@ export default function App() {
             </div>
           </button>
 
-          {/* Action CTAs */}
+          {/* Action CTAs & Sun Theme Toggle */}
           <div className="flex items-center gap-2.5">
+            {/* ☀️ Sun Theme Toggle Button (Icon Only) */}
+            <button
+              onClick={toggleTheme}
+              title="Toggle Heritage Theme"
+              className="p-2.5 rounded-xl bg-white border border-[#DACDB8] hover:border-[#BA532B] text-[#BA532B] shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-center shrink-0"
+              aria-label="Theme Toggle"
+            >
+              <Sun className={`w-4 h-4 transition-transform duration-500 ${isDarkTheme ? 'rotate-180 text-[#C29244]' : 'text-[#BA532B]'}`} />
+            </button>
+
             <button
               onClick={() => setIsLiveIngestOpen(true)}
               className="px-3.5 py-2 rounded-xl bg-sky-50 border border-sky-200 hover:bg-sky-100 text-sky-800 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"

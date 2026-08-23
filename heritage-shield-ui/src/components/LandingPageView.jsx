@@ -51,24 +51,32 @@ export default function LandingPageView({
   sites = [],
   currentUser,
   onLoginSuccess,
-  onLogout
+  onLogout,
+  isDarkTheme: isDarkThemeProp,
+  onToggleTheme
 }) {
   // Navigation & Interactive States
   const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [localDarkTheme, setLocalDarkTheme] = useState(false);
+
+  const isDarkTheme = isDarkThemeProp !== undefined ? isDarkThemeProp : localDarkTheme;
 
   const toggleTheme = () => {
-    setIsDarkTheme(prev => {
-      const next = !prev;
-      if (next) {
-        document.body.classList.add('dark-theme');
-      } else {
-        document.body.classList.remove('dark-theme');
-      }
-      return next;
-    });
+    if (typeof onToggleTheme === 'function') {
+      onToggleTheme();
+    } else {
+      setLocalDarkTheme(prev => {
+        const next = !prev;
+        if (next) {
+          document.body.classList.add('dark-theme');
+        } else {
+          document.body.classList.remove('dark-theme');
+        }
+        return next;
+      });
+    }
   };
 
   // 🎛️ 4. Interactive Hero Twin Scan Mode
