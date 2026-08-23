@@ -1,46 +1,12 @@
 import React, { useState } from 'react';
 import { 
   motion, 
-  AnimatePresence, 
-  useScroll, 
-  useSpring, 
-  useTransform,
-  useMotionValue
+  AnimatePresence 
 } from 'framer-motion';
-import { 
-  Shield, 
-  Layers, 
-  Activity, 
-  MapPin, 
-  ChevronDown, 
-  ArrowRight, 
-  ExternalLink,
-  Sliders,
-  Calendar,
-  AlertTriangle,
-  FileText,
-  CheckCircle2,
-  Zap,
-  TrendingDown,
-  Sparkles,
-  RefreshCw,
-  Compass,
-  Cpu,
-  Eye,
-  Award,
-  Box,
-  Scan,
-  Workflow,
-  Lock,
-  LogOut,
-  UserCheck
-} from 'lucide-react';
-
 import HeritageShieldLogo from './HeritageShieldLogo';
 import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
-import CinematicIntroReveal from './CinematicIntroReveal';
 
 export default function LandingPageView({ 
   onEnterDashboard, 
@@ -51,112 +17,49 @@ export default function LandingPageView({
   onLoginSuccess,
   onLogout
 }) {
-  // Navigation & Interactive States
-  const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [showIntro, setShowIntro] = useState(true);
-
-  // 🎛️ 4. Interactive Hero Twin Scan Mode & 6. 🔦 Museum Cursor Follower
-  const [heroScanMode, setHeroScanMode] = useState('photo'); // 'photo' | 'lidar' | 'fea'
-  const [activePin, setActivePin] = useState(null);
-
-  // 6. 🔦 Fluid Precision Spring-Driven Amber Cursor System
-  const mouseX = useMotionValue(-1000);
-  const mouseY = useMotionValue(-1000);
-  const smoothMouseX = useSpring(mouseX, { damping: 28, stiffness: 220, mass: 0.4 });
-  const smoothMouseY = useSpring(mouseY, { damping: 28, stiffness: 220, mass: 0.4 });
-
-  const handleMouseMove = (e) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
-  };
-
-  // State for Sandbox Showcase
-  const [showcaseTab, setShowcaseTab] = useState('twin');
-  const [selectedTwinSiteIdx, setSelectedTwinSiteIdx] = useState(0);
-  const [selectedVisionSiteIdx, setSelectedVisionSiteIdx] = useState(0);
-  
-  // State for Environmental Stress Simulator
-  const [simMonsoon, setSimMonsoon] = useState(35);
-  const [simSeismic, setSimSeismic] = useState(1.25);
-  
-  // State for FAQ Accordion
+  const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
   const [activeFaq, setActiveFaq] = useState(null);
-
-  // ---------------------------------------------------------------------------
-  // 🌟 FLUID SMOOTH SCROLL HOOKS (Framer Motion)
-  // ---------------------------------------------------------------------------
-  const { scrollYProgress, scrollY } = useScroll();
-
-  // Top hardware-accelerated spring progress bar in Royal Amber & Gold
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  // Environmental stress formula
-  const baselineHealth = 84;
-  const monsoonImpact = Math.round((simMonsoon / 80) * 26);
-  const seismicImpact = Math.round(((simSeismic - 0.85) / 0.9) * 28);
-  const simulatedHealth = Math.max(12, baselineHealth - monsoonImpact - seismicImpact);
-
-  let simulatedUrgency = 'Low';
-  if (simulatedHealth < 45) {
-    simulatedUrgency = 'CRITICAL (Priority 1 Dispatch)';
-  } else if (simulatedHealth < 70) {
-    simulatedUrgency = 'WATCHLIST (Routine Mitigation)';
-  } else {
-    simulatedUrgency = 'STABLE (Standard Monitoring)';
-  }
 
   const workflowSteps = [
     {
       step: '01',
       title: 'Multimodal Spatial Ingestion',
-      kicker: 'Module 01 · Photogrammetry & LiDAR',
       desc: 'Transforms drone imagery and terrestrial LiDAR point clouds into millimeter-accurate OBJ/glTF twins through Gaussian Splatting and dense mesh reconstruction.'
     },
     {
       step: '02',
       title: 'Neural Defect Extraction',
-      kicker: 'Module 02 · Computer Vision AI',
       desc: 'Deploys localized segmentation models detecting 8 distinct structural degradation classes: shear fractures, granite spalling, efflorescence, and moisture dampness.'
     },
     {
       step: '03',
       title: 'Multi-Epoch Chrono Registration',
-      kicker: 'Module 03 · Temporal ICP Alignment',
       desc: 'Point-to-point iterative closest point (ICP) registration aligns multi-year laser scans, pinpointing volumetric erosion and millimeter surface loss.'
     },
     {
       step: '04',
       title: 'Physics-Informed Decay Forecasting',
-      kicker: 'Module 04 · Paris-Erdogan Mechanics',
       desc: 'Combines mechanical stress tensors with capillary moisture absorption and micro-climate telemetry to model 2026-2030 crack trajectory evolution.'
     },
     {
       step: '05',
       title: 'ISO 31000 Vulnerability Index',
-      kicker: 'Module 05 · Composite Risk Engine',
       desc: 'Calculates explainable risk scores (0-100) weighing material typology, seismic zone factor, peak monsoon intensity, and tourism footfall load.'
     },
     {
       step: '06',
       title: 'National GIS Hazard Triangulation',
-      kicker: 'Module 06 · ISRO Bhuvan & IMD Radar',
-      desc: 'Overlays real-time Doppler rainfall alerts, BIS IS 1893 seismic fault buffers, and riverine flood plains across all 12 UNESCO heritage assets.'
+      desc: 'Overlays real-time Doppler rainfall alerts, BIS IS 1893 seismic fault buffers, and riverine flood plains across all monitored heritage assets.'
     },
     {
       step: '07',
       title: 'Budget Optimization & Work-Orders',
-      kicker: 'Module 07 · Dynamic Scheduling',
       desc: 'Rank-orders conservation interventions by cost-benefit payoff, proving that proactive ₹3 Lakh repointing prevents ₹75 Lakh emergency reconstructions.'
     },
     {
       step: '08',
       title: 'Cryptographic ASI Dossier Dispatch',
-      kicker: 'Module 08 · AMASR Act Compliance',
       desc: 'Generates tamper-evident executive dossiers with 2FA authorization gates, chemical conservation specs, and certified PDF export.'
     }
   ];
@@ -180,876 +83,367 @@ export default function LandingPageView({
     },
     {
       q: 'How is national geospatial telemetry integrated?',
-      a: 'The platform links ISRO Bhuvan WGS84 GIS layers, IMD precipitation radar, and BIS IS 1893 seismic hazard fault lines to dynamically update heritage site vulnerability ratings across all 12 Centrally Protected Heritage Sites.'
+      a: 'The platform links ISRO Bhuvan WGS84 GIS layers, IMD precipitation radar, and BIS IS 1893 seismic hazard fault lines to dynamically update heritage site vulnerability ratings across all centrally protected monuments.'
     }
   ];
 
   const flagshipSites = sites.slice(0, 6);
-  const smoothEase = [0.16, 1, 0.3, 1];
 
   return (
-    <div 
-      onMouseMove={handleMouseMove}
-      className="min-h-screen bg-[#F0E7DA] text-[#24160E] font-sans selection:bg-[#BA532B] selection:text-white overflow-x-hidden relative museum-bg"
-    >
-      {/* 6. 🔦 Fluid Submerged Amber Cursor Follower */}
-      <motion.div 
-        className="fixed top-0 left-0 pointer-events-none w-[520px] h-[520px] rounded-full blur-[110px] opacity-25 z-0"
-        style={{
-          x: smoothMouseX,
-          y: smoothMouseY,
-          translateX: '-50%',
-          translateY: '-50%',
-          background: 'radial-gradient(circle, rgba(186, 83, 43, 0.48) 0%, rgba(194, 146, 68, 0.22) 45%, transparent 70%)'
-        }}
-      />
+    <div className="min-h-screen bg-[#000000] text-[#ffffff] font-sans selection:bg-[#8052ff] selection:text-white overflow-x-hidden relative">
       
-      {/* 🚀 TOP SPRING-SMOOTHED SCROLL PROGRESS BAR (Active only after intro) */}
-      {!showIntro && (
-        <motion.div
-          className="fixed top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#BA532B] via-[#C29244] to-[#24160E] z-[999] origin-left shadow-sm pointer-events-none"
-          style={{ scaleX }}
-        />
-      )}
+      {/* 1. Global Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-[#141414]">
+        <div className="max-w-[1500px] mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
+          <HeritageShieldLogo
+            size="md"
+            showText={true}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          />
 
-      {/* 🎬 Split-Reveal Aperture Intro Screen */}
-      <AnimatePresence>
-        {showIntro && <CinematicIntroReveal onComplete={() => setShowIntro(false)} />}
-      </AnimatePresence>
+          {/* Navigation Links */}
+          <div className="hidden md:flex items-center gap-8 text-[13px] uppercase tracking-wider font-semibold font-mono">
+            <a href="#digital-twin" className="void-link">Living Twin</a>
+            <a href="#architecture" className="void-link">Architecture</a>
+            <a href="#modules" className="void-link">8 Modules</a>
+            <a href="#gis-map" className="void-link">GIS Radar</a>
+            <a href="#faq" className="void-link">Documentation</a>
+          </div>
 
-      {/* 🌟 1. TOP MINIMALIST ARCHIVAL IVORY & DEEP INDIGO NAVIGATION BAR */}
-      <motion.nav 
-        initial={{ y: -25, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="sticky top-0 z-[9999] bg-[#FAF5ED]/90 backdrop-blur-2xl border-b border-[#DACDB8] px-6 py-4 shadow-sm"
-      >
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6">
-          
-          {/* Left: Brand Logo & Emblem */}
+          {/* Actions */}
           <div className="flex items-center gap-4">
-            <HeritageShieldLogo
-              size="md"
-              showText={true}
-              textClassName="text-lg tracking-wider font-serif font-bold text-[#24160E]"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            />
-          </div>
-
-          {/* Center: Minimalist Nav Links */}
-          <div className="hidden lg:flex items-center gap-8 text-xs font-mono tracking-widest uppercase">
-            <a 
-              href="#hero-section" 
-              className="text-[#BA532B] font-bold transition hover:opacity-80"
-            >
-              Overview
-            </a>
-            <a 
-              href="#pipeline-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              Architecture
-            </a>
-            <a 
-              href="#consoles-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              Living Twins
-            </a>
-            <a 
-              href="#simulator-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              2030 Predictor
-            </a>
-            <a 
-              href="#registry-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              Heritage Sites
-            </a>
-            <a 
-              href="#faq-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              Archive FAQ
-            </a>
-          </div>
-
-          {/* Right: Actions & Login */}
-          <div className="flex items-center gap-3">
             {currentUser ? (
-              <div className="flex items-center gap-2.5 bg-white border border-[#DACDB8] px-3.5 py-1.5 rounded-xl shadow-sm">
-                <span className="text-xs font-mono font-bold text-[#24160E] flex items-center gap-1.5">
-                  <UserCheck className="w-3.5 h-3.5 text-[#BA532B]" />
-                  <span>{currentUser.role === 'officer' ? '🏛️ ' : '👥 '}{currentUser.name}</span>
-                </span>
+              <div className="flex items-center gap-3">
+                <span className="text-xs font-mono text-[#8052ff]">{currentUser.name}</span>
                 <button
                   onClick={onLogout}
-                  title="Sign Out"
-                  className="text-[10px] font-mono text-gray-400 hover:text-rose-600 p-1 rounded transition cursor-pointer"
+                  className="ghost-pill-btn text-xs font-mono"
                 >
-                  <LogOut className="w-3.5 h-3.5" />
+                  Sign Out
                 </button>
               </div>
             ) : (
-              <motion.button
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+              <button
                 onClick={() => setIsAuthModalOpen(true)}
-                className="px-4 py-2 rounded-xl terracotta-btn font-mono text-xs font-bold tracking-wider uppercase cursor-pointer shadow-md"
+                className="ghost-pill-btn text-xs font-mono uppercase"
               >
-                <div className="flex items-center gap-1.5">
-                  <Lock className="w-3.5 h-3.5" />
-                  <span>Authority Login</span>
-                </div>
-              </motion.button>
+                Officer 2FA
+              </button>
             )}
-          </div>
 
-        </div>
-      </motion.nav>
-
-      {/* ========================================================================= */}
-      {/* 🚀 2. GRAND SUBMERGED HERO EXHIBITION (FULL-PAGE ANIMATED BACKDROP)        */}
-      {/* ========================================================================= */}
-      <section id="hero-section" className="relative min-h-[92vh] flex items-center justify-center px-6 sm:px-12 lg:px-20 py-20 max-w-[1600px] mx-auto overflow-hidden">
-        
-        {/* 🏛️ Full-Page Animated Heritage Monument Cinematic Backdrop */}
-        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
-          <motion.img
-            src="/monuments/hampi.jpg"
-            alt="Heritage Monument Backdrop"
-            animate={{ 
-              scale: [1.02, 1.09, 1.02],
-              y: [0, -15, 0]
-            }}
-            transition={{ 
-              duration: 22, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-            className="w-full h-full object-cover object-center filter brightness-[0.78] contrast-[1.22] sepia-[0.32] saturate-[1.4]"
-          />
-
-          {/* Sunlit Sandstone & Terracotta Ambient Lighting Gradients */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#F0E7DA] via-[#F0E7DA]/80 to-[#F0E7DA]/45" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F0E7DA]/90 via-transparent to-[#F0E7DA]/90" />
-          <div className="absolute inset-0 bg-[#BA532B]/8 mix-blend-color-burn" />
-
-          {/* Floating Subtle Ambient Sandstone Motes */}
-          <div className="absolute inset-0">
-            {[...Array(14)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute rounded-full bg-[#BA532B]"
-                style={{
-                  width: (i % 3) + 2,
-                  height: (i % 3) + 2,
-                  top: `${(i * 19 + 7) % 100}%`,
-                  left: `${(i * 29 + 11) % 100}%`,
-                  opacity: 0.2 + (i % 3) * 0.15,
-                  boxShadow: '0 0 8px rgba(186, 83, 43, 0.5)'
-                }}
-                animate={{
-                  y: [0, -40, 0],
-                  x: [0, i % 2 === 0 ? 20 : -20, 0],
-                  opacity: [0.15, 0.45, 0.15],
-                }}
-                transition={{
-                  duration: 8 + (i % 4) * 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Centered Grand Editorial Column */}
-        <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center space-y-8 py-10">
-          
-          {/* Editorial Serif Heading */}
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: smoothEase }}
-            className="text-5xl sm:text-7xl lg:text-8xl font-serif font-bold text-[#24160E] leading-[1.05] tracking-tight max-w-4xl"
-          >
-            HERITAGE <span className="text-[#BA532B]">SHIELD</span>
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p 
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.15, ease: smoothEase }}
-            className="text-base sm:text-xl text-[#4D3425] font-sans leading-relaxed max-w-3xl font-medium"
-          >
-            Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 3,690+ protected monuments with auditable foresight.
-          </motion.p>
-
-          {/* Action Buttons */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.25, ease: smoothEase }}
-            className="flex flex-wrap items-center justify-center gap-4 pt-2"
-          >
             <button
               onClick={onEnterDashboard}
-              className="px-9 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold uppercase tracking-wider transition flex items-center gap-2.5 cursor-pointer shadow-xl hover:scale-105"
+              className="iris-pill-btn"
             >
-              <span>Launch National Studio</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Launch Studio</span>
+              <span className="text-xs">→</span>
             </button>
-          </motion.div>
-
-          {/* Clean Integrated Telemetry Metrics Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.35, ease: smoothEase }}
-            className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 w-full max-w-4xl border-t border-[#DACDB8]/80 mt-4"
-          >
-            <div className="space-y-1">
-              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#24160E] block">12</span>
-              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">Living Twins</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#BA532B] block">4.8M+</span>
-              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">Point Clouds</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#C29244] block">0.02mm</span>
-              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">FEM Precision</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#24160E] block">ISO 31000</span>
-              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">Risk Standard</span>
-            </div>
-          </motion.div>
-
+          </div>
         </div>
-      </section>
+      </nav>
 
-      {/* ========================================================================= */}
-      {/* ⚙️ 3. SUBMERGED 8-MODULE DECISION PIPELINE                                */}
-      {/* ========================================================================= */}
-      <motion.section 
-        id="pipeline-section" 
-        initial={{ opacity: 0, y: 70 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-12 border-t border-[#DACDB8]"
-      >
-        
-        {/* Section Header */}
-        <div className="max-w-3xl space-y-3 text-left">
-          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#24160E] tracking-tight">
-            The decision layer, <span className="gold-cream-text">module by module</span>
-          </h2>
+      {/* 2. Hero Section: Asymmetric Two-Column Split */}
+      <header className="pt-32 pb-24 px-6 sm:px-10 max-w-[1500px] mx-auto min-h-screen flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column (6 cols): Monolithic Headline & Description */}
+          <div className="lg:col-span-6 space-y-8">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111] text-[11px] font-mono uppercase tracking-wider text-[#8052ff]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#8052ff] animate-void-pulse" />
+              <span>Smart India Hackathon 2026 · Built Heritage Digital Twin</span>
+            </div>
 
-          <p className="text-sm sm:text-base text-[#4D3425] font-sans leading-relaxed">
-            Eight synchronized AI & engineering subsystems executing autonomous diagnostics, structural physics calculations, and authoritative decision dispatch.
-          </p>
-        </div>
+            <h1 className="display-title font-normal tracking-[-0.045em] text-white">
+              Predictive conservation for built heritage.
+            </h1>
 
-        {/* 8-Module Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {workflowSteps.map((mod, idx) => {
-            const isSelected = activeWorkflowIndex === idx;
-            return (
-              <motion.div
-                key={mod.step}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: (idx % 4) * 0.08, ease: smoothEase }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                onClick={() => setActiveWorkflowIndex(idx)}
-                className={`p-6 rounded-3xl border transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-4 group ${
-                  isSelected
-                    ? 'bg-white border-[#BA532B] shadow-xl shadow-[#BA532B]/10 ring-1 ring-[#BA532B]'
-                    : 'bg-white/80 border-[#DACDB8] shadow-sm hover:border-[#BA532B]/50 hover:shadow-lg'
-                }`}
+            <p className="body-copy text-[#bdbdbd] max-w-xl">
+              A living digital intelligence system that creates 3D digital twins of national monuments, assesses multi-scale structural risk, and prescribes explainable conservation interventions before irreversible material loss occurs.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <button
+                onClick={onEnterDashboard}
+                className="iris-pill-btn px-6 py-4 text-sm"
               >
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center text-xs font-mono">
-                    <span className={`font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider text-[10px] ${
-                      isSelected ? 'bg-[#BA532B] text-white' : 'bg-[#FAF5ED] text-[#BA532B] border border-[#DACDB8]'
-                    }`}>
-                      Step {mod.step}
-                    </span>
-                    <span className="text-[#7A5B49] font-semibold">{mod.kicker.split('·')[1]}</span>
-                  </div>
+                <span>Generate ASI Dossier</span>
+                <span className="text-sm">→</span>
+              </button>
 
-                  <h3 className="text-lg font-serif font-bold text-[#24160E] group-hover:text-[#BA532B] transition leading-snug">
-                    {mod.title}
-                  </h3>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('digital-twin');
+                  el?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="ghost-pill-btn text-sm"
+              >
+                <span>Explore 3D Twin</span>
+              </button>
+            </div>
 
-                  <p className="text-xs text-[#4D3425] font-sans leading-relaxed">
-                    {mod.desc}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-      </motion.section>
-
-      {/* ========================================================================= */}
-      {/* 💻 4. SUBMERGED 4-CONSOLE INTELLIGENCE SANDBOX                             */}
-      {/* ========================================================================= */}
-      <motion.section 
-        id="consoles-section" 
-        initial={{ opacity: 0, y: 70 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-8 border-t border-[#DACDB8]"
-      >
-        
-        {/* Section Header with Console Tabs */}
-        <div className="flex flex-wrap justify-between items-end gap-6">
-          <div className="space-y-2 text-left">
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#24160E]">
-              Experience the 4 Core Intelligence Consoles
-            </h2>
+            {/* Micro Telemetry Metrics */}
+            <div className="pt-8 border-t border-[#1a1a1a] grid grid-cols-3 gap-6 font-mono">
+              <div>
+                <div className="text-2xl sm:text-3xl font-normal text-white">3,690+</div>
+                <div className="text-[11px] text-[#9a9a9a] uppercase mt-1">Centrally Protected</div>
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-normal text-[#8052ff]">8 Class</div>
+                <div className="text-[11px] text-[#9a9a9a] uppercase mt-1">Neural Vision AI</div>
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-normal text-[#ffb829]">2030</div>
+                <div className="text-[11px] text-[#9a9a9a] uppercase mt-1">Decay Horizon</div>
+              </div>
+            </div>
           </div>
 
-          {/* Clean Submerged Tabs */}
-          <div className="bg-white p-1.5 rounded-2xl border border-[#DACDB8] flex items-center gap-1.5 font-mono text-xs overflow-x-auto shadow-sm">
-            <button
-              onClick={() => setShowcaseTab('twin')}
-              className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
-                showcaseTab === 'twin'
-                  ? 'terracotta-btn shadow-md'
-                  : 'text-[#4D3425] hover:text-[#24160E] hover:bg-[#FAF5ED]'
-              }`}
-            >
-              <span>🏛️</span>
-              <span>3D Living Twin</span>
-            </button>
-            <button
-              onClick={() => setShowcaseTab('vision')}
-              className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
-                showcaseTab === 'vision'
-                  ? 'bg-sky-700 text-white shadow-md'
-                  : 'text-[#4D3425] hover:text-[#24160E] hover:bg-[#FAF5ED]'
-              }`}
-            >
-              <span>🔍</span>
-              <span>AI Defect Vision</span>
-            </button>
-            <button
-              onClick={() => setShowcaseTab('temporal')}
-              className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
-                showcaseTab === 'temporal'
-                  ? 'bg-[#C29244] text-white shadow-md'
-                  : 'text-[#4D3425] hover:text-[#24160E] hover:bg-[#FAF5ED]'
-              }`}
-            >
-              <span>📈</span>
-              <span>2030 Decay Predictor</span>
-            </button>
-            <button
-              onClick={() => setShowcaseTab('gis')}
-              className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
-                showcaseTab === 'gis'
-                  ? 'bg-emerald-700 text-white shadow-md'
-                  : 'text-[#4D3425] hover:text-[#24160E] hover:bg-[#FAF5ED]'
-              }`}
-            >
-              <span>🗺️</span>
-              <span>GIS Radar</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Viewport Display Area */}
-        <div className="bg-white border border-[#DACDB8] rounded-3xl overflow-hidden shadow-xl p-6 sm:p-8 relative">
-          
-          {showcaseTab === 'twin' && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-5 space-y-4 text-left">
-                <h3 className="text-2xl font-serif font-bold text-[#24160E]">
-                  3D Living Digital Twin
-                </h3>
-                <p className="text-sm text-[#4D3425] leading-relaxed font-sans">
-                  A realistic 3D model of the heritage site. You can rotate 360°, zoom in, and click directly on individual domes, balconies, pillars, or base walls to inspect their condition history.
-                </p>
-                
-                {/* Select 3D Twin Custom Dropdown */}
-                <div className="pt-2 space-y-1.5">
-                  <label className="text-xs font-mono text-[#BA532B] block font-bold uppercase tracking-wider flex items-center gap-1.5">
-                    <span>🏛️</span>
-                    <span>Select Heritage Site:</span>
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={selectedTwinSiteIdx}
-                      onChange={(e) => setSelectedTwinSiteIdx(Number(e.target.value))}
-                      className="w-full appearance-none bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] text-sm font-serif font-bold py-3 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#BA532B] cursor-pointer shadow-sm"
-                    >
-                      {sites.map((s, idx) => (
-                        <option key={s.id || idx} value={idx} className="bg-white text-[#24160E] py-2">
-                          {s.name} ({s.state})
-                        </option>
-                      ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-[#BA532B]">
-                      <ChevronDown className="w-4 h-4" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <button
-                    onClick={() => onSelectMonument ? onSelectMonument(selectedTwinSiteIdx) : onEnterDashboard()}
-                    className="px-6 py-3 rounded-xl terracotta-btn font-mono text-xs font-bold transition cursor-pointer shadow-md"
-                  >
-                    Open 3D Studio →
-                  </button>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 h-[500px] min-h-[500px] relative rounded-2xl overflow-hidden border border-[#DACDB8] shadow-lg bg-[#FAF5ED]">
-                <MonumentViewer3D
-                  siteIndex={selectedTwinSiteIdx}
-                  siteData={sites[selectedTwinSiteIdx] || sites[0]}
-                  activeComponent={0}
-                  isEmbedded={true}
-                />
-              </div>
-            </div>
-          )}
-
-          {showcaseTab === 'vision' && (() => {
-            const curVisionSite = sites[selectedVisionSiteIdx] || sites[0];
-            const defectMap = [
-              { id: "DEF-DL01", type: "Vertical Tensile Fissure", conf: "96.4%", metrics: "Width: 3.2mm · Depth: 18mm · Sandstone joint" },
-              { id: "DEF-KA01", type: "Granite Exfoliation & Spalling", conf: "92.1%", metrics: "Area: 140cm² · Monolithic granite wheel" },
-              { id: "DEF-TS01", type: "Capillary Moisture Seepage", conf: "95.8%", metrics: "RH: 84% · Salt efflorescence on bastion" },
-              { id: "DEF-OD01", type: "Saline Marine Chlorite Erosion", conf: "97.2%", metrics: "Pitting: 6.4mm · Coastal salt crust" }
-            ];
-            const curDefect = defectMap[selectedVisionSiteIdx % defectMap.length] || defectMap[0];
-
-            return (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-5 space-y-4 text-left">
-                  <h3 className="text-2xl font-serif font-bold text-[#24160E]">
-                    AI Defect Vision Scanner
-                  </h3>
-                  <p className="text-sm text-[#4D3425] leading-relaxed font-sans">
-                    Smart computer vision scans inspection photos to detect cracks, peeling stone, and water dampness. It measures the exact length and width of cracks to catch damage early.
-                  </p>
-                  
-                  <div className="pt-2 space-y-1.5">
-                    <label className="text-xs font-mono text-sky-700 block font-bold uppercase tracking-wider flex items-center gap-1.5">
-                      <span>🏛️</span>
-                      <span>Select Heritage Site:</span>
-                    </label>
-                    <div className="relative">
-                      <select
-                        value={selectedVisionSiteIdx}
-                        onChange={(e) => setSelectedVisionSiteIdx(Number(e.target.value))}
-                        className="w-full appearance-none bg-[#FAF5ED] border border-[#DACDB8] hover:border-sky-600 text-[#24160E] text-sm font-serif font-bold py-3 pl-4 pr-10 rounded-xl focus:outline-none cursor-pointer shadow-sm"
-                      >
-                        {sites.map((s, idx) => (
-                          <option key={s.id || idx} value={idx} className="bg-white text-[#24160E] py-2">
-                            {s.name} ({s.state})
-                          </option>
-                        ))}
-                      </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-sky-700">
-                        <ChevronDown className="w-4 h-4" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <button
-                      onClick={() => onSelectMonument ? onSelectMonument(selectedVisionSiteIdx, 'vision') : onEnterDashboard()}
-                      className="px-6 py-3 rounded-xl bg-sky-700 text-white font-mono text-xs font-bold hover:bg-sky-600 transition cursor-pointer shadow-md"
-                    >
-                      Open AI Diagnostics Lab →
-                    </button>
-                  </div>
-                </div>
-
-                <div className="lg:col-span-7 h-[500px] min-h-[500px] relative rounded-2xl overflow-hidden border border-[#DACDB8] shadow-lg bg-[#FAF5ED] flex flex-col justify-between">
-                  <div className="bg-[#FAF5ED] border-b border-[#DACDB8] px-4 py-2.5 flex items-center justify-between z-10 shrink-0">
-                    <h3 className="text-sm font-serif font-bold text-[#24160E]">
-                      {curVisionSite.name} · AI Vision Scanner
-                    </h3>
-                  </div>
-
-                  <div className="relative flex-1 w-full overflow-hidden bg-black flex items-center justify-center">
-                    <img
-                      src={curVisionSite.imageUrl || '/monuments/qutub_minar.jpg'}
-                      alt={curVisionSite.name}
-                      className="w-full h-full object-cover filter brightness-95"
-                    />
-                    <div className="absolute top-[28%] left-[28%] w-[44%] h-[44%] border-2 border-rose-500 bg-rose-500/20 rounded-lg pointer-events-none animate-pulse">
-                      <span className="absolute -top-6 left-0 bg-rose-500 text-white text-[10px] sm:text-[11px] font-mono px-2 py-0.5 rounded font-bold whitespace-nowrap shadow-lg">
-                        {curDefect.id} · {curDefect.type} · {curDefect.conf} AI Confidence
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="bg-[#FAF5ED] border-t border-[#DACDB8] px-4 py-2.5 font-mono text-[11px] text-[#4D3425]">
-                    <span>Telemetry: <strong className="text-[#24160E]">{curDefect.metrics}</strong></span>
-                  </div>
-                </div>
-              </div>
-            );
-          })()}
-
-          {showcaseTab === 'temporal' && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-5 space-y-4 text-left">
-                <h3 className="text-2xl font-serif font-bold text-[#24160E]">
-                  2030 Structural Decay Predictor
-                </h3>
-                <p className="text-sm text-[#4D3425] leading-relaxed font-sans">
-                  Forecasting how damage will worsen over the next 4 to 6 years if left untreated. It proves that fixing minor cracks early for ₹3 Lakhs avoids ₹70+ Lakhs in emergency rebuilds later.
-                </p>
-                <div className="pt-2">
-                  <button
-                    onClick={onEnterDashboard}
-                    className="px-6 py-3 rounded-xl bg-[#C29244] text-white font-mono text-xs font-bold hover:bg-[#B89246] transition cursor-pointer shadow-md"
-                  >
-                    Run 2030 Predictive Lab →
-                  </button>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 bg-[#FAF5ED] p-6 rounded-2xl border border-[#DACDB8] space-y-3 font-mono text-xs h-[480px] flex flex-col justify-center shadow-inner">
-                <div className="flex justify-between items-center text-[#7A5B49] border-b border-[#DACDB8] pb-3 text-sm font-bold">
-                  <span>Forecast Year</span>
-                  <span>Predicted Health Score</span>
-                </div>
-                <div className="flex justify-between items-center text-[#24160E] py-2.5 border-b border-[#DACDB8]/60">
-                  <span>2020 Baseline Survey</span>
-                  <span className="text-emerald-600 font-bold">91 / 100 (Safe)</span>
-                </div>
-                <div className="flex justify-between items-center text-[#24160E] py-2.5 border-b border-[#DACDB8]/60">
-                  <span>2024 Interim Survey</span>
-                  <span className="text-emerald-700 font-bold">82 / 100 (Stable)</span>
-                </div>
-                <div className="flex justify-between items-center text-[#24160E] py-2.5 border-b border-[#DACDB8]/60">
-                  <span>2026 Today (Current Scan)</span>
-                  <span className="text-amber-600 font-bold">62 / 100 (Needs Attention)</span>
-                </div>
-                <div className="flex justify-between items-center text-rose-600 font-bold py-2.5 border-b border-[#DACDB8]/60">
-                  <span>2028 Projected (Untreated)</span>
-                  <span>32 / 100 (Critical)</span>
-                </div>
-                <div className="flex justify-between items-center text-rose-700 font-bold py-2.5">
-                  <span>2030 Projected (Failure Risk)</span>
-                  <span>14 / 100 (Immediate Action Required)</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {showcaseTab === 'gis' && (
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-5 space-y-4 text-left">
-                <h3 className="text-2xl font-serif font-bold text-[#24160E]">
-                  National GIS Radar & Hazard Map
-                </h3>
-                <p className="text-sm text-[#4D3425] leading-relaxed font-sans">
-                  View all 12 Centrally Protected Heritage Sites across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
-                </p>
-                <div className="pt-2">
-                  <button
-                    onClick={onEnterDashboard}
-                    className="px-6 py-3 rounded-xl bg-emerald-700 text-white font-mono text-xs font-bold hover:bg-emerald-600 transition cursor-pointer shadow-md"
-                  >
-                    Open National GIS Map →
-                  </button>
-                </div>
-              </div>
-
-              <div className="lg:col-span-7 h-[480px] min-h-[480px] relative rounded-2xl overflow-hidden border border-[#DACDB8] shadow-lg bg-[#FAF5ED]">
-                <HeritageGisMap
-                  activeSiteIndex={0}
-                  onSelectSite={(idx) => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
-                  filterSites={sites}
-                  hideQuickJump={true}
-                />
-              </div>
-            </div>
-          )}
-
-        </div>
-
-      </motion.section>
-
-      {/* ========================================================================= */}
-      {/* 🧪 5. SUBMERGED ENVIRONMENTAL STRESS SIMULATOR                            */}
-      {/* ========================================================================= */}
-      <motion.section 
-        id="simulator-section" 
-        initial={{ opacity: 0, y: 70 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-12 border-t border-[#DACDB8]"
-      >
-        
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#24160E]">
-            Extreme Climate & Seismic Stress Simulator
-          </h2>
-          <p className="text-sm text-[#4D3425] font-sans">
-            Adjust environmental parameters to see how climatic anomalies affect heritage site degradation in real-time.
-          </p>
-        </div>
-
-        <div className="bg-white border border-[#DACDB8] p-8 sm:p-10 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-xl">
-          
-          <div className="lg:col-span-7 space-y-6">
-            <div className="space-y-2 text-left">
-              <div className="flex justify-between text-xs font-mono text-[#24160E]">
-                <span>🌧️ Monsoon Cloudburst Anomaly:</span>
-                <strong className="text-sky-700 font-bold">+{simMonsoon}% Excess Precipitation</strong>
-              </div>
-              <input
-                type="range"
-                min="0"
-                max="80"
-                value={simMonsoon}
-                onChange={(e) => setSimMonsoon(Number(e.target.value))}
-                className="w-full accent-[#BA532B] h-2 bg-[#DACDB8] rounded-lg cursor-pointer"
-              />
-            </div>
-
-            <div className="space-y-2 text-left">
-              <div className="flex justify-between text-xs font-mono text-[#24160E]">
-                <span>🌋 Seismic Ground Motion Velocity:</span>
-                <strong className="text-rose-600 font-bold">{simSeismic.toFixed(2)}x (Peak Zone Factor)</strong>
-              </div>
-              <input
-                type="range"
-                min="0.85"
-                max="1.75"
-                step="0.05"
-                value={simSeismic}
-                onChange={(e) => setSimSeismic(Number(e.target.value))}
-                className="w-full accent-[#BA532B] h-2 bg-[#DACDB8] rounded-lg cursor-pointer"
+          {/* Right Column (6 cols): Borderless 3D Digital Twin Mount */}
+          <div className="lg:col-span-6 relative w-full aspect-square sm:aspect-[4/3] lg:aspect-square flex items-center justify-center">
+            <div className="w-full h-full relative">
+              <MonumentViewer3D
+                siteIndex={0}
+                siteData={sites[0] || null}
+                isEmbedded={true}
               />
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-[#FAF5ED] border border-[#DACDB8] p-8 rounded-2xl text-center space-y-3 shadow-inner">
-            <span className="text-[10px] font-mono uppercase text-[#BA532B] tracking-widest font-bold">Simulated Health Score</span>
-            <div className="text-5xl font-serif font-bold">
-              <span style={{ color: simulatedHealth < 45 ? '#DC2626' : simulatedHealth < 70 ? '#D97706' : '#16A34A' }}>
-                {simulatedHealth}
-              </span>
-              <span className="text-xs text-[#7A5B49] font-mono font-normal"> / 100</span>
-            </div>
-            <div
-              className="text-xs font-mono px-3.5 py-1.5 rounded-full font-bold uppercase inline-block border"
-              style={{
-                backgroundColor: simulatedHealth < 45 ? '#FEE2E2' : simulatedHealth < 70 ? '#FEF3C7' : '#DCFCE7',
-                color: simulatedHealth < 45 ? '#991B1B' : simulatedHealth < 70 ? '#92400E' : '#166534',
-                borderColor: simulatedHealth < 45 ? '#FCA5A5' : simulatedHealth < 70 ? '#FCD34D' : '#86EFAC'
-              }}
-            >
-              STATUS: {simulatedUrgency}
-            </div>
-            <button
-              onClick={() => {
-                if (onSelectMonument) {
-                  onSelectMonument(0, 'risk');
-                } else {
-                  onEnterDashboard();
-                }
-              }}
-              className="w-full mt-4 py-3.5 rounded-xl terracotta-btn font-mono text-xs font-bold tracking-wider uppercase cursor-pointer shadow-md"
-            >
-              Run 2030 Longitudinal Simulation →
-            </button>
-          </div>
-
         </div>
+      </header>
 
-      </motion.section>
-
-      {/* ========================================================================= */}
-      {/* 🏛️ 6. SUBMERGED CENTRALLY PROTECTED MONUMENTS REGISTRY                    */}
-      {/* ========================================================================= */}
-      <motion.section 
-        id="registry-section" 
-        initial={{ opacity: 0, y: 70 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-12 border-t border-[#DACDB8]"
-      >
-        
-        <div className="flex flex-wrap justify-between items-end gap-4">
-          <div className="text-left">
-            <span className="text-xs font-mono text-[#BA532B] uppercase tracking-widest font-bold block">
-              National Heritage Registry
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#24160E] mt-1">
-              Protected UNESCO Heritage Sites
+      {/* 3. Module 01 Showcase: Living 3D Digital Twin */}
+      <section id="digital-twin" className="py-24 px-6 sm:px-10 max-w-[1500px] mx-auto space-y-12">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div className="text-[12px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider mb-2">
+              Module 01 · Persistent Spatial Identity
+            </div>
+            <h2 className="section-title text-white">
+              Procedural Living Digital Twin
             </h2>
+            <p className="body-copy-sm max-w-2xl mt-2 text-[#bdbdbd]">
+              Dynamic 3D representation associating temporal condition observations with exact architectural components across years.
+            </p>
           </div>
 
           <button
-            onClick={onEnterDashboard}
-            className="px-6 py-3 rounded-xl frosted-btn text-xs font-mono tracking-wider uppercase transition flex items-center gap-2 cursor-pointer font-bold shadow-sm"
+            onClick={() => onSelectMonument(0, 'twin')}
+            className="iris-pill-btn text-xs"
           >
-            <span>View All 12 Heritage Sites</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <span>Open Studio Workspace</span>
+            <span>→</span>
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-          {flagshipSites.map((s, idx) => (
-            <motion.div
-              key={s.id || idx}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: (idx % 3) * 0.08, ease: smoothEase }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              onClick={() => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
-              className="bg-white border border-[#DACDB8] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-[#BA532B]/50 transition-all duration-500 group cursor-pointer flex flex-col justify-between"
+        {/* Full-width 3D Canvas */}
+        <div className="w-full h-[620px] bg-black rounded-3xl overflow-hidden relative">
+          <MonumentViewer3D
+            siteIndex={0}
+            siteData={sites[0] || null}
+          />
+        </div>
+      </section>
+
+      {/* 4. Strategic 8-Stage Closed-Loop Pipeline */}
+      <section id="modules" className="py-24 px-6 sm:px-10 max-w-[1500px] mx-auto space-y-12 border-t border-[#141414]">
+        <div>
+          <div className="text-[12px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider mb-2">
+            System Architecture
+          </div>
+          <h2 className="section-title text-white">
+            The 8-Stage Heritage Intelligence Pipeline
+          </h2>
+          <p className="body-copy max-w-2xl mt-3 text-[#bdbdbd]">
+            From raw drone photogrammetry to explainable ISO 31000 risk scoring and certified government work orders.
+          </p>
+        </div>
+
+        {/* 8 Grid Modules */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {workflowSteps.map((ws, idx) => (
+            <div
+              key={ws.step}
+              className="p-6 rounded-3xl bg-[#0a0a0a] border border-[#141414] hover:border-[#8052ff]/50 transition-all duration-300 space-y-4 flex flex-col justify-between"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-[#FAF5ED]">
-                <img
-                  src={s.imageUrl || '/monuments/qutub_minar.jpg'}
-                  alt={s.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-100"
-                />
-                <div className="absolute top-3 right-3">
-                  <span 
-                    className="px-2.5 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider backdrop-blur-md border shadow"
-                    style={{
-                      backgroundColor: `${s.color}20`,
-                      color: s.color,
-                      borderColor: `${s.color}50`
-                    }}
-                  >
-                    ● {s.status}
-                  </span>
-                </div>
+              <div className="space-y-3">
+                <span className="text-[11px] font-mono text-[#8052ff] font-semibold tracking-wider block">
+                  Stage {ws.step}
+                </span>
+                <h3 className="text-xl font-normal tracking-[-0.03em] text-white">
+                  {ws.title}
+                </h3>
+                <p className="text-[14px] font-light text-[#9a9a9a] leading-relaxed">
+                  {ws.desc}
+                </p>
               </div>
 
-              <div className="p-6 space-y-3 text-left">
-                <div>
-                  <span className="text-[10px] font-mono text-[#BA532B] uppercase font-semibold">{s.state} · {s.period}</span>
-                  <h3 className="text-lg font-serif font-bold text-[#24160E] group-hover:text-[#BA532B] transition mt-0.5">
-                    {s.name}
-                  </h3>
-                </div>
-
-                <div className="flex justify-between items-center text-xs font-mono pt-3 border-t border-[#DACDB8]">
-                  <span className="text-[#7A5B49]">Hazard: <strong className="text-[#24160E]">{s.seismicZone}</strong></span>
-                  <span className="text-[#BA532B] font-bold flex items-center gap-1">
-                    <span>Explore Twin</span>
-                    <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </div>
+              <div className="pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[11px] font-mono text-[#8052ff]">
+                <span>Active Core</span>
+                <span>Module 0{idx + 1}</span>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
+      </section>
 
-      </motion.section>
+      {/* 5. National GIS & Multi-Hazard Spatial Radar */}
+      <section id="gis-map" className="py-24 px-6 sm:px-10 max-w-[1500px] mx-auto space-y-12 border-t border-[#141414]">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <div className="text-[12px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider mb-2">
+              Module 00 · Geospatial Hazard Triangulation
+            </div>
+            <h2 className="section-title text-white">
+              National Heritage GIS & Hazard Radar
+            </h2>
+            <p className="body-copy-sm max-w-2xl mt-2 text-[#bdbdbd]">
+              Live integration with BIS IS 1893 seismic fault lines, IMD precipitation corridors, and 12 flagship UNESCO sites.
+            </p>
+          </div>
 
-      {/* ========================================================================= */}
-      {/* ❓ 7. SUBMERGED TECHNICAL FAQ ACCORDION                                    */}
-      {/* ========================================================================= */}
-      <motion.section 
-        id="faq-section" 
-        initial={{ opacity: 0, y: 70 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, margin: "-100px" }}
-        transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 max-w-4xl mx-auto space-y-8 border-t border-[#DACDB8]"
-      >
-        
-        <div className="text-center space-y-2">
-          <span className="text-xs font-mono text-[#BA532B] uppercase tracking-widest font-bold">
-            Frequently Answered Questions
-          </span>
-          <h2 className="text-3xl font-serif font-bold text-[#24160E]">
-            Heritage Shield Technical Architecture
-          </h2>
+          <button
+            onClick={() => onSelectMonument(0, 'gis')}
+            className="iris-pill-btn text-xs"
+          >
+            <span>Explore Full Map Radar</span>
+            <span>→</span>
+          </button>
         </div>
 
-        <div className="space-y-3.5 text-left">
+        <div className="w-full h-[580px] bg-black rounded-3xl overflow-hidden">
+          <HeritageGisMap
+            activeSiteIndex={0}
+            onSelectSite={(idx, tab) => onSelectMonument(idx, tab)}
+          />
+        </div>
+      </section>
+
+      {/* 6. Flagship National Monuments Directory */}
+      <section id="architecture" className="py-24 px-6 sm:px-10 max-w-[1500px] mx-auto space-y-12 border-t border-[#141414]">
+        <div>
+          <div className="text-[12px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider mb-2">
+            Monitored Portfolio
+          </div>
+          <h2 className="section-title text-white">
+            Monuments of National Importance
+          </h2>
+          <p className="body-copy max-w-2xl mt-3 text-[#bdbdbd]">
+            Select any protected monument to launch its living 3D twin, defect segmentation lab, and 2030 predictive trajectory.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {flagshipSites.map((site) => (
+            <div
+              key={site.id}
+              onClick={() => onSelectMonument(site.index, 'twin')}
+              className="p-6 rounded-3xl bg-[#0a0a0a] border border-[#141414] hover:border-[#8052ff] transition-all duration-300 cursor-pointer space-y-4 group"
+            >
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-[#111111]">
+                <img
+                  src={site.imageUrl}
+                  alt={site.name}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                  }}
+                />
+                <span className="absolute top-3 right-3 bg-black/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-mono text-[#8052ff]">
+                  {site.state}
+                </span>
+              </div>
+
+              <div>
+                <div className="text-[11px] font-mono text-[#9a9a9a] uppercase">{site.id}</div>
+                <h3 className="text-xl font-normal tracking-[-0.02em] text-white mt-1 group-hover:text-[#8052ff] transition-colors">
+                  {site.name}
+                </h3>
+                <p className="text-[13px] text-[#bdbdbd] font-light mt-1">
+                  Typology: {site.material}
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-[#1a1a1a] flex justify-between items-center text-[11px] font-mono">
+                <span className="text-[#9a9a9a]">Risk Index: <strong className="text-white">{site.riskScore}/100</strong></span>
+                <span className={`px-2.5 py-0.5 rounded-full uppercase font-semibold ${
+                  site.status === 'Critical' ? 'text-[#ffb829] bg-[#ffb829]/10' : 'text-[#8052ff] bg-[#8052ff]/10'
+                }`}>
+                  {site.status}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 7. Frequently Asked Questions */}
+      <section id="faq" className="py-24 px-6 sm:px-10 max-w-[1500px] mx-auto space-y-12 border-t border-[#141414]">
+        <div>
+          <div className="text-[12px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider mb-2">
+            Defense & Technical Rigor
+          </div>
+          <h2 className="section-title text-white">
+            Frequently Addressed Questions
+          </h2>
+          <p className="body-copy max-w-2xl mt-3 text-[#bdbdbd]">
+            Architectural, legal, and mathematical justifications for the Heritage Shield platform.
+          </p>
+        </div>
+
+        <div className="space-y-4 max-w-3xl">
           {faqs.map((faq, idx) => {
             const isOpen = activeFaq === idx;
             return (
               <div
                 key={idx}
-                className="bg-white border border-[#DACDB8] shadow-sm rounded-2xl overflow-hidden transition hover:border-[#BA532B]/40"
+                className="p-6 rounded-2xl bg-[#0a0a0a] border border-[#141414] transition"
               >
                 <button
                   onClick={() => setActiveFaq(isOpen ? null : idx)}
-                  className="w-full p-5 text-left flex justify-between items-center gap-4 font-serif font-bold text-base text-[#24160E] hover:text-[#BA532B] cursor-pointer transition"
+                  className="w-full flex justify-between items-center text-left text-lg font-normal tracking-[-0.02em] text-white cursor-pointer"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-5 h-5 text-[#BA532B] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                  <span className="text-[#8052ff] text-xl ml-4 font-mono">{isOpen ? '−' : '+'}</span>
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 text-xs text-[#4D3425] font-sans leading-relaxed border-t border-[#DACDB8] pt-3.5">
+                  <p className="body-copy-sm mt-4 text-[#bdbdbd]">
                     {faq.a}
-                  </div>
+                  </p>
                 )}
               </div>
             );
           })}
         </div>
+      </section>
 
-      </motion.section>
-
-      {/* ========================================================================= */}
-      {/* 🛡️ 8. INSTITUTIONAL FOOTER                                                */}
-      {/* ========================================================================= */}
-      <footer className="border-t border-[#DACDB8] bg-[#FAF5ED] py-12 px-6">
-        <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-6 text-xs font-mono text-[#7A5B49]">
-          
-          <div className="flex items-center gap-3">
+      {/* 8. National Sovereignty Footer */}
+      <footer className="border-t border-[#141414] bg-black py-16 px-6 sm:px-10">
+        <div className="max-w-[1500px] mx-auto flex flex-wrap justify-between items-center gap-8 text-xs font-mono text-[#9a9a9a]">
+          <div className="flex items-center gap-4">
             <HeritageShieldLogo size="sm" showText={true} />
-            <span className="text-gray-400">|</span>
-            <span>Smart India Hackathon 2026 · Team Qualified (Team ID: 031)</span>
+            <span>Smart India Hackathon 2026 · Team ID: 031</span>
           </div>
 
-          <div className="flex items-center gap-6">
-            <span>Standard: ISRO Bhuvan WGS84</span>
+          <div className="flex items-center gap-6 flex-wrap">
             <span>Framework: ISO 31000:2018</span>
+            <span>Standard: ISRO Bhuvan WGS84</span>
             <span>Authority: Archaeological Survey of India (ASI)</span>
           </div>
-
         </div>
       </footer>
 
-      {/* 🔐 Official & Public Login Modal */}
+      {/* Authentication Modal */}
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
-        currentUser={currentUser}
         onLoginSuccess={(user) => {
-          if (typeof onLoginSuccess === 'function') {
-            onLoginSuccess(user);
-          }
-          onEnterDashboard();
+          onLoginSuccess(user);
+          setIsAuthModalOpen(false);
         }}
       />
-
     </div>
   );
 }

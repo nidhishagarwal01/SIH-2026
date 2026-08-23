@@ -1,172 +1,239 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --color-void: #000000;
+    --color-bone-white: #ffffff;
+    --color-ash-gray: #9a9a9a;
+    --color-silver-mist: #bdbdbd;
+    --color-electric-iris: #8052ff;
+    --color-saffron-spark: #ffb829;
+    --color-deep-verdant: #15846e;
+  }
+
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #F0E7DA;
-    color: #24160E;
+    font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
   }
 
-  .font-serif {
-    font-family: 'Cinzel', Georgia, serif;
+  /* Monolithic Display & Section Typography */
+  .display-title {
+    font-size: clamp(52px, 7vw, 108px);
+    font-weight: 400;
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    color: #ffffff;
   }
 
-  .font-editorial {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+  .section-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    color: #ffffff;
   }
 
-  .font-mono {
-    font-family: 'JetBrains Mono', monospace;
+  .subhead-title {
+    font-size: clamp(20px, 2.5vw, 28px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+    color: #ffffff;
+  }
+
+  /* Ultra-light Body Text */
+  .body-copy {
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 1.7;
+    color: #bdbdbd;
+    letter-spacing: -0.01em;
+  }
+
+  .body-copy-sm {
+    font-size: 15px;
+    font-weight: 200;
+    line-height: 1.6;
+    color: #bdbdbd;
+  }
+
+  /* Nav & Micro Labels */
+  .micro-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #9a9a9a;
+  }
+
+  .micro-label-iris {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #8052ff;
   }
 }
 
-/* 🏛️ Option B: Sunlit Terracotta Sandstone & Sovereign Umber Architecture */
-:root {
-  --bg-canvas: #F0E7DA;
-  --bg-canvas-subtle: #E6DACB;
-  --bg-card: #FAF5ED;
-  --border-stone: #DACDB8;
-  --text-primary: #24160E;
-  --text-secondary: #4D3425;
-  --text-muted: #7A5B49;
-  --accent-rust: #BA532B;
-  --accent-bronze: #C29244;
+/* 🌌 Dark Void Pure Minimalist Canvas */
+.dark-void-bg {
+  background-color: #000000;
 }
 
-.museum-bg {
-  background-color: #F0E7DA;
-  background-image: 
-    radial-gradient(circle at 50% 12%, rgba(186, 83, 43, 0.06) 0%, rgba(194, 146, 68, 0.05) 35%, transparent 70%),
-    radial-gradient(circle at 88% 60%, rgba(36, 22, 14, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 12% 80%, rgba(194, 146, 68, 0.05) 0%, transparent 50%);
+/* Primary Violet Pill Button */
+.iris-pill-btn {
+  background-color: #8052ff;
+  color: #ffffff;
+  border-radius: 9999px;
+  padding: 12px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.035em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  outline: none;
 }
 
-.sandstone-bg {
-  background-color: #F0E7DA;
-}
-
-.museum-spotlight {
-  background: radial-gradient(ellipse at 50% 35%, rgba(186, 83, 43, 0.10) 0%, rgba(194, 146, 68, 0.07) 45%, transparent 75%);
-}
-
-.frosted-glass {
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  background: rgba(250, 245, 237, 0.94);
-  border: 1px solid #DACDB8;
-}
-
-.sandstone-card {
-  background: #FAF5ED;
-  border: 1px solid #DACDB8;
-  box-shadow: 0 10px 30px -5px rgba(36, 22, 14, 0.05), 0 2px 6px -1px rgba(36, 22, 14, 0.02);
-}
-
-.frosted-glass-card {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background: rgba(250, 245, 237, 0.96);
-  border: 1px solid #DACDB8;
-  box-shadow: 0 12px 35px -8px rgba(36, 22, 14, 0.06), 0 1px 3px rgba(36, 22, 14, 0.02);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.frosted-glass-card:hover {
-  border-color: rgba(186, 83, 43, 0.55);
-  box-shadow: 0 20px 45px -10px rgba(186, 83, 43, 0.14), 0 4px 12px rgba(36, 22, 14, 0.04);
-}
-
-.frosted-btn {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: #FAF5ED;
-  border: 1px solid #DACDB8;
-  color: #24160E;
-  box-shadow: 0 2px 5px rgba(36, 22, 14, 0.04);
-  transition: all 0.25s ease;
-}
-
-.frosted-btn:hover {
-  background: #E6DACB;
-  border-color: #BA532B;
-  color: #BA532B;
-  box-shadow: 0 4px 12px rgba(186, 83, 43, 0.12);
-}
-
-.terracotta-btn {
-  background: linear-gradient(135deg, #BA532B 0%, #C86036 50%, #C29244 100%);
-  border: 1px solid rgba(186, 83, 43, 0.35);
-  color: #FFFFFF;
-  box-shadow: 0 8px 22px -4px rgba(186, 83, 43, 0.36);
-  transition: all 0.25s ease;
-}
-
-.terracotta-btn:hover {
-  background: linear-gradient(135deg, #A84520 0%, #B8532B 50%, #B07E36 100%);
-  box-shadow: 0 12px 28px -4px rgba(186, 83, 43, 0.45);
+.iris-pill-btn:hover {
+  background-color: #936aff;
   transform: translateY(-1px);
+  box-shadow: 0 0 28px rgba(128, 82, 255, 0.45);
 }
 
-.gold-cream-text {
-  background: linear-gradient(135deg, #24160E 0%, #BA532B 50%, #C29244 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.iris-pill-btn:active {
+  transform: translateY(0);
 }
 
-.gold-text-shimmer {
-  background: linear-gradient(135deg, #24160E 0%, #BA532B 40%, #C29244 75%, #A84520 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Secondary Ghost Action */
+.ghost-pill-btn {
+  background: transparent;
+  color: #9a9a9a;
+  border-radius: 9999px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.ghost-pill-btn:hover {
+  color: #ffffff;
+}
+
+/* Minimalist Void Ghost Links */
+.void-link {
+  color: #9a9a9a;
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.void-link:hover {
+  color: #ffffff;
+}
+
+/* Minimal Slider on Pure Void */
+input[type="range"].void-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #1a1a1a;
+  height: 3px;
+  border-radius: 2px;
+  outline: none;
+}
+
+input[type="range"].void-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #8052ff;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+input[type="range"].void-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+  background: #ffb829;
 }
 
 /* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #E6DACB;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C8BBA5;
-  border-radius: 4px;
+  background: #222222;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #B4A48C;
+  background: #8052ff;
 }
 
-/* Leaflet Custom Light Theme Overrides */
+/* Leaflet Dark Void Customization */
+.leaflet-container {
+  background-color: #000000 !important;
+  font-family: inherit !important;
+}
+
+.leaflet-tile-pane {
+  filter: brightness(0.85) contrast(1.25) grayscale(0.25);
+}
+
 .leaflet-popup-content-wrapper {
-  background: #FAF5ED !important;
-  color: #24160E !important;
-  border: 1px solid #DACDB8 !important;
-  border-radius: 12px !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #262626 !important;
+  border-radius: 14px !important;
   padding: 0 !important;
-  box-shadow: 0 20px 45px -10px rgba(36, 22, 14, 0.14) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85) !important;
 }
 
 .leaflet-popup-content {
   margin: 0 !important;
-  padding: 12px !important;
+  padding: 14px 16px !important;
 }
 
 .leaflet-popup-tip {
-  background: #FAF5ED !important;
-  border: 1px solid #DACDB8 !important;
+  background: #000000 !important;
+  border: 1px solid #262626 !important;
 }
 
-.leaflet-container {
-  background-color: #F0E7DA !important;
-  font-family: inherit !important;
-}
-
-/* Print Overrides */
-@media print {
-  body {
-    background-color: #FFFFFF !important;
-    color: #000000 !important;
+/* Pulse animation for damage hotspots */
+@keyframes voidPulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.9;
   }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+}
+
+.animate-void-pulse {
+  animation: voidPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

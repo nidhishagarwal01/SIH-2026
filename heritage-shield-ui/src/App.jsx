@@ -12,16 +12,12 @@ import LongitudinalAnalytics from './components/LongitudinalAnalytics';
 import LiveIngestModal from './components/LiveIngestModal';
 import AssetSwitcherModal from './components/AssetSwitcherModal';
 import HeritageShieldLogo from './components/HeritageShieldLogo';
-import MuseumCursorTorch from './components/MuseumCursorTorch';
 
 import { UNESCO_SITES } from './data/unescoSites';
 
-
-
 export default function App() {
-  // Navigation Flow: 'landing' (Product Landing Page) | 'portal' (National Map & Monument Directory) | 'studio' (Work on Selected Monument)
+  // Navigation Flow: 'landing' | 'portal' | 'studio'
   const [viewMode, setViewMode] = useState('landing');
-
 
   // Studio Sub-Tabs: 'twin' | 'vision' | 'gis' | 'risk' | 'queue'
   const [activeTab, setActiveTab] = useState('twin');
@@ -55,7 +51,7 @@ export default function App() {
         elevation: "+72.5m",
         status: "Stable",
         score: 88,
-        color: "#4E878C",
+        color: "#15846e",
         inspected: "Jun 2026",
         defaultRisk: { condition: 18, deterioration: 14, hazard: 45, environment: 35, significance: 90 },
         action: "Routine annual photographic documentation & lightning arrester inspection"
@@ -66,7 +62,7 @@ export default function App() {
         elevation: "+48.0m",
         status: "Watch",
         score: 71,
-        color: "#D4AF37",
+        color: "#8052ff",
         inspected: "May 2026",
         defaultRisk: { condition: 52, deterioration: 45, hazard: 58, environment: 50, significance: 90 },
         action: "Re-inspect in next scheduled quarterly cycle (60 days)"
@@ -77,7 +73,7 @@ export default function App() {
         elevation: "+12.0m",
         status: "Critical",
         score: 62,
-        color: "#E05A47",
+        color: "#ffb829",
         inspected: "Apr 2026",
         defaultRisk: { condition: 78, deterioration: 72, hazard: 61, environment: 65, significance: 90 },
         action: "Structural scaffolding inspection & moisture-barrier sealing within 30 days"
@@ -88,7 +84,7 @@ export default function App() {
         elevation: "Ground (0.0m)",
         status: "Stable",
         score: 80,
-        color: "#4E878C",
+        color: "#15846e",
         inspected: "Jun 2026",
         defaultRisk: { condition: 28, deterioration: 20, hazard: 55, environment: 40, significance: 90 },
         action: "Routine annual drainage clearance & sub-base mortar repointing"
@@ -101,7 +97,7 @@ export default function App() {
         elevation: "+8.5m",
         status: "Stable",
         score: 90,
-        color: "#4E878C",
+        color: "#15846e",
         inspected: "May 2026",
         defaultRisk: { condition: 15, deterioration: 12, hazard: 25, environment: 30, significance: 95 },
         action: "Surface micro-dusting and non-invasive laser alignment check"
@@ -112,7 +108,7 @@ export default function App() {
         elevation: "+3.2m",
         status: "Watch",
         score: 78,
-        color: "#D4AF37",
+        color: "#8052ff",
         inspected: "Apr 2026",
         defaultRisk: { condition: 38, deterioration: 32, hazard: 30, environment: 45, significance: 95 },
         action: "Vegetation clearance along column abacus capital joints"
@@ -123,7 +119,7 @@ export default function App() {
         elevation: "+1.2m",
         status: "Watch",
         score: 74,
-        color: "#D4AF37",
+        color: "#8052ff",
         inspected: "May 2026",
         defaultRisk: { condition: 45, deterioration: 40, hazard: 25, environment: 40, significance: 95 },
         action: "Protective micro-barrier fence installation to prevent visitor abrasion"
@@ -134,102 +130,10 @@ export default function App() {
         elevation: "Ground (0.0m)",
         status: "Stable",
         score: 86,
-        color: "#4E878C",
+        color: "#15846e",
         inspected: "Jun 2026",
         defaultRisk: { condition: 22, deterioration: 18, hazard: 25, environment: 35, significance: 95 },
         action: "Routine sub-base drainage desilting"
-      }
-    ],
-    2: [ // Golconda Fort Complex
-      {
-        name: "Bala Hissar Durbar Hall & Dome",
-        code: "GC-01",
-        elevation: "+120m",
-        status: "Critical",
-        score: 58,
-        color: "#E05A47",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 82, deterioration: 76, hazard: 40, environment: 70, significance: 85 },
-        action: "Immediate structural shoring & lime-surkhi vault consolidation"
-      },
-      {
-        name: "Balahissar Fortified Arched Gate",
-        code: "GC-03",
-        elevation: "+45m",
-        status: "Watch",
-        score: 72,
-        color: "#D4AF37",
-        inspected: "May 2026",
-        defaultRisk: { condition: 48, deterioration: 42, hazard: 35, environment: 55, significance: 85 },
-        action: "Timber door preservation and arch keystone mortar repointing"
-      },
-      {
-        name: "East Bastion Outer Rampart Wall",
-        code: "GC-02",
-        elevation: "+24m",
-        status: "Critical",
-        score: 64,
-        color: "#E05A47",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 74, deterioration: 70, hazard: 45, environment: 75, significance: 85 },
-        action: "Heavy monsoon drainage bypass & masonry buttress reinforcement"
-      },
-      {
-        name: "Substructure Escarpment & Foundation",
-        code: "GC-04",
-        elevation: "Ground (0.0m)",
-        status: "Stable",
-        score: 79,
-        color: "#4E878C",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 30, deterioration: 24, hazard: 35, environment: 50, significance: 85 },
-        action: "Perimeter soil stabilization and vegetation root extraction"
-      }
-    ],
-    3: [ // Konark Sun Temple
-      {
-        name: "Amalaka & Kalasa Crown",
-        code: "KT-01",
-        elevation: "+30m",
-        status: "Critical",
-        score: 55,
-        color: "#E05A47",
-        inspected: "Mar 2026",
-        defaultRisk: { condition: 85, deterioration: 78, hazard: 65, environment: 80, significance: 95 },
-        action: "Sandstone consolidation & saline salt extraction poultice"
-      },
-      {
-        name: "Jagamohana Assembly Hall",
-        code: "KT-02",
-        elevation: "+15m",
-        status: "Watch",
-        score: 68,
-        color: "#D4AF37",
-        inspected: "Apr 2026",
-        defaultRisk: { condition: 55, deterioration: 50, hazard: 60, environment: 75, significance: 95 },
-        action: "Interior structural sand packing stability monitoring"
-      },
-      {
-        name: "Iconic 12-Spoke Sun Wheels",
-        code: "KT-03",
-        elevation: "+2.0m",
-        status: "Watch",
-        score: 72,
-        color: "#D4AF37",
-        inspected: "May 2026",
-        defaultRisk: { condition: 45, deterioration: 40, hazard: 40, environment: 70, significance: 95 },
-        action: "Carved relief detail biocide cleaning"
-      },
-      {
-        name: "Carved Sun Chariot Plinth",
-        code: "KT-04",
-        elevation: "Ground (0.0m)",
-        status: "Stable",
-        score: 80,
-        color: "#4E878C",
-        inspected: "Jun 2026",
-        defaultRisk: { condition: 25, deterioration: 20, hazard: 40, environment: 65, significance: 95 },
-        action: "Perimeter cyclone drain clearance"
       }
     ]
   };
@@ -239,49 +143,23 @@ export default function App() {
   };
 
   const components = getComponentsForSite(activeSite);
-
-  // Current User Session State (Official ASI or Citizen Sentinel)
   const [currentUser, setCurrentUser] = useState(null);
 
-  // Explainable Risk State
   const [riskFactors, setRiskFactors] = useState(
     components[0]?.defaultRisk || { condition: 50, deterioration: 50, hazard: 50, environment: 50, significance: 90 }
   );
 
-  const handleSelectSite = async (idx) => {
+  const handleSelectSite = (idx) => {
     setActiveSite(idx);
     setActiveComponent(0);
     const newComps = getComponentsForSite(idx);
     if (newComps && newComps[0]?.defaultRisk) {
       setRiskFactors(newComps[0].defaultRisk);
     }
-    const targetSite = sites[idx] || sites[0];
-    if (targetSite && targetSite.coords && Array.isArray(targetSite.coords)) {
-      try {
-        const [lat, lon] = targetSite.coords;
-        const res = await fetch(`http://localhost:8000/api/weather/live?lat=${lat}&lon=${lon}`);
-        if (res.ok) {
-          const wData = await res.json();
-          setLiveWeather({
-            temp: `${wData.temperature_c}°C`,
-            humidity: `${wData.relative_humidity_pct}%`,
-            precip: `${wData.precipitation_mm}mm`,
-            status: "LIVE_SYNC"
-          });
-        }
-      } catch (e) {
-        console.log("Using cached meteorological telemetry for", targetSite.name);
-      }
-    }
   };
 
-  // Always scroll to top whenever viewMode, activeTab, or activeSite changes
   useEffect(() => {
     window.scrollTo(0, 0);
-    const timer = setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 50);
-    return () => clearTimeout(timer);
   }, [viewMode, activeTab, activeSite]);
 
   const handleLaunchMonumentStudio = (idx, targetTab = 'twin') => {
@@ -291,8 +169,6 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
-
-  // Field Sentinel Incidents Feed State
   const [fieldReports, setFieldReports] = useState([
     {
       id: "REP-9102",
@@ -351,128 +227,98 @@ export default function App() {
   const curSite = sites[activeSite] || sites[0];
   const curComp = components[activeComponent] || components[0];
 
-  // ---------------------------------------------------------------------------
-  // 🌟 VIEW 1: PRODUCT LANDING PAGE (HERO / 21st.dev UI/UX)
-  // ---------------------------------------------------------------------------
+  // VIEW 1: PRODUCT LANDING PAGE
   if (viewMode === 'landing') {
     return (
-      <>
-        <MuseumCursorTorch />
-        <LandingPageView
-          onEnterDashboard={() => {
-            setViewMode('portal');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          onSelectMonument={handleLaunchMonumentStudio}
-          onOpenStudio={() => {
-            setViewMode('portal');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          currentUser={currentUser}
-          onLoginSuccess={(user) => setCurrentUser(user)}
-          onLogout={() => setCurrentUser(null)}
-          sites={sites}
-        />
-      </>
+      <LandingPageView
+        onEnterDashboard={() => {
+          setViewMode('portal');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onSelectMonument={handleLaunchMonumentStudio}
+        onOpenStudio={() => {
+          setViewMode('portal');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        currentUser={currentUser}
+        onLoginSuccess={(user) => setCurrentUser(user)}
+        onLogout={() => setCurrentUser(null)}
+        sites={sites}
+      />
     );
   }
 
-  // ---------------------------------------------------------------------------
-  // 🗺️ VIEW 2: MONUMENT SELECTION PORTAL & GIS RADAR (MAP PAGE)
-  // ---------------------------------------------------------------------------
+  // VIEW 2: MONUMENT SELECTION PORTAL & GIS RADAR
   if (viewMode === 'portal') {
     return (
-      <>
-        <MuseumCursorTorch />
-        <MonumentPortalView
-          sites={sites}
-          onSelectMonument={handleLaunchMonumentStudio}
-          onBackToLanding={() => {
-            setViewMode('landing');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          liveWeather={liveWeather}
-        />
-      </>
+      <MonumentPortalView
+        sites={sites}
+        onSelectMonument={handleLaunchMonumentStudio}
+        onBackToLanding={() => {
+          setViewMode('landing');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        liveWeather={liveWeather}
+      />
     );
   }
 
-  // ---------------------------------------------------------------------------
-  // 🏛️ VIEW 3: DEDICATED MONUMENT STUDIO & COMMAND CENTER
-  // ---------------------------------------------------------------------------
+  // VIEW 3: DEDICATED MONUMENT STUDIO & COMMAND CENTER
   return (
-    <div className="min-h-screen bg-[#F0E7DA] text-[#24160E] font-sans antialiased selection:bg-[#BA532B] selection:text-white flex flex-col museum-bg">
-      <MuseumCursorTorch />
+    <div className="min-h-screen bg-[#000000] text-[#ffffff] font-sans flex flex-col selection:bg-[#8052ff] selection:text-white">
       
-      {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
-      <header className="sticky top-0 z-[9999] bg-[#FAF5ED]/90 backdrop-blur-2xl border-b border-[#DACDB8] px-6 py-3.5 shadow-sm">
+      {/* 1. Top Enterprise Header */}
+      <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-[#141414] px-6 sm:px-10 py-4">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
-          {/* Brand & Return to Portal Button */}
-          <div className="flex items-center gap-3">
-            {/* Clickable Home Brand */}
+          {/* Brand & Return to Portal */}
+          <div className="flex items-center gap-4">
             <HeritageShieldLogo
-              size="sm"
+              size="md"
               showText={true}
-              textClassName="text-sm tracking-wider font-serif font-bold text-[#24160E]"
               onClick={() => setViewMode('landing')}
             />
 
-            <div className="w-[1px] h-6 bg-[#DACDB8]" />
-
             <button
               onClick={() => setViewMode('portal')}
-              className="px-3.5 py-1.5 rounded-xl frosted-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
-              title="Return to National Map & Directory"
+              className="ghost-pill-btn text-xs font-mono"
             >
-              <span>🗺️</span>
-              <span>Map Dashboard</span>
+              ← Map Directory
             </button>
           </div>
 
-          {/* Active Heritage Site Switcher Pill */}
+          {/* Active Monument Switcher Pill */}
           <button
             onClick={() => setIsAssetSwitcherOpen(true)}
-            className="flex items-center gap-3 bg-white hover:bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B]/60 px-4 py-2 rounded-2xl transition shadow-sm group cursor-pointer"
-            title="Switch Heritage Site"
+            className="flex items-center gap-3 bg-[#111111] hover:bg-[#181818] border border-[#222222] hover:border-[#8052ff] px-4 py-2 rounded-full transition cursor-pointer"
           >
-            <span
-              className="w-2.5 h-2.5 rounded-full animate-pulse shadow"
-              style={{ backgroundColor: curSite.color }}
-            />
-            <div className="text-left">
-              <div className="text-[9px] font-mono uppercase text-[#7A5B49] font-semibold flex items-center gap-1.5">
-                <span>Active Heritage Site:</span>
-              </div>
-              <div className="text-xs font-serif font-bold text-[#24160E] group-hover:text-[#BA532B] flex items-center gap-1.5">
-                <span>{curSite.name}</span>
-                <span className="text-[10px] text-[#7A5B49] font-mono">({curSite.state})</span>
-                <span className="text-[10px] text-[#BA532B] font-mono font-bold">▼ Switch</span>
-              </div>
+            <span className="w-2 h-2 rounded-full bg-[#8052ff] animate-pulse" />
+            <div className="text-left text-xs font-mono">
+              <span className="text-[#9a9a9a] uppercase text-[10px] mr-1">Active Site:</span>
+              <span className="text-white font-semibold">{curSite.name}</span>
+              <span className="text-[#8052ff] ml-2 text-[10px]">▼ Switch</span>
             </div>
           </button>
 
-          {/* Action CTAs */}
-          <div className="flex items-center gap-2.5">
+          {/* Header Action Pills */}
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setIsLiveIngestOpen(true)}
-              className="px-3.5 py-2 rounded-xl bg-sky-50 border border-sky-200 hover:bg-sky-100 text-sky-800 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              className="ghost-pill-btn text-xs font-mono border border-[#333333]"
             >
-              <span className="w-2 h-2 rounded-full bg-sky-600 animate-ping"></span>
               <span>🌐 Live Ingest</span>
             </button>
 
             <button
               onClick={() => setIsFieldReportOpen(true)}
-              className="px-3.5 py-2 rounded-xl bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 text-emerald-800 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              className="ghost-pill-btn text-xs font-mono border border-[#333333]"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
               <span>Field Sentinel</span>
             </button>
 
             <button
               onClick={() => setIsReportOpen(true)}
-              className="px-4 py-2 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md cursor-pointer"
+              className="iris-pill-btn text-xs"
             >
               <span>📄 ASI Dossier</span>
             </button>
@@ -481,120 +327,83 @@ export default function App() {
         </div>
       </header>
 
-      {/* 🎛️ 2. STUDIO CONSOLE TABS */}
-      <div className="bg-white border-b border-[#DACDB8] px-6">
+      {/* 2. Studio Console Tabs */}
+      <div className="bg-black border-b border-[#141414] px-6 sm:px-10">
         <div className="max-w-[1600px] mx-auto flex items-center gap-2 overflow-x-auto py-2.5">
           
           <button
-            onClick={() => {
-              setActiveTab('twin');
-              window.scrollTo(0, 0);
-            }}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+            onClick={() => { setActiveTab('twin'); window.scrollTo(0, 0); }}
+            className={`px-4 py-2 rounded-full text-xs font-mono uppercase transition cursor-pointer ${
               activeTab === 'twin'
-                ? 'bg-[#FAF5ED] text-[#BA532B] border border-[#BA532B] shadow-sm'
-                : 'text-[#7A5B49] hover:text-[#24160E] hover:bg-[#FAF5ED] border border-transparent'
+                ? 'bg-[#8052ff] text-white font-semibold shadow-[0_0_16px_rgba(128,82,255,0.45)]'
+                : 'text-[#9a9a9a] hover:text-white'
             }`}
           >
-            <span className="text-sm">🏛️</span>
-            <span>3D Living Twin Studio</span>
+            🏛️ 3D Living Twin Studio
           </button>
 
           <button
-            onClick={() => {
-              setActiveTab('vision');
-              window.scrollTo(0, 0);
-            }}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+            onClick={() => { setActiveTab('vision'); window.scrollTo(0, 0); }}
+            className={`px-4 py-2 rounded-full text-xs font-mono uppercase transition cursor-pointer ${
               activeTab === 'vision'
-                ? 'bg-[#FAF5ED] text-[#BA532B] border border-[#BA532B] shadow-sm'
-                : 'text-[#7A5B49] hover:text-[#24160E] hover:bg-[#FAF5ED] border border-transparent'
+                ? 'bg-[#8052ff] text-white font-semibold shadow-[0_0_16px_rgba(128,82,255,0.45)]'
+                : 'text-[#9a9a9a] hover:text-white'
             }`}
           >
-            <span className="text-sm">🔍</span>
-            <span>AI Defect Diagnostics Lab</span>
+            🔍 AI Defect Diagnostics Lab
           </button>
 
           <button
-            onClick={() => {
-              setActiveTab('risk');
-              window.scrollTo(0, 0);
-            }}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+            onClick={() => { setActiveTab('risk'); window.scrollTo(0, 0); }}
+            className={`px-4 py-2 rounded-full text-xs font-mono uppercase transition cursor-pointer ${
               activeTab === 'risk'
-                ? 'bg-[#FAF5ED] text-[#BA532B] border border-[#BA532B] shadow-sm'
-                : 'text-[#7A5B49] hover:text-[#24160E] hover:bg-[#FAF5ED] border border-transparent'
+                ? 'bg-[#8052ff] text-white font-semibold shadow-[0_0_16px_rgba(128,82,255,0.45)]'
+                : 'text-[#9a9a9a] hover:text-white'
             }`}
           >
-            <span className="text-sm">📊</span>
-            <span>Risk & 2030 Predictive Lab</span>
+            📊 Risk & 2030 Predictive Lab
           </button>
 
           <button
-            onClick={() => {
-              setActiveTab('queue');
-              window.scrollTo(0, 0);
-            }}
-            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+            onClick={() => { setActiveTab('queue'); window.scrollTo(0, 0); }}
+            className={`px-4 py-2 rounded-full text-xs font-mono uppercase transition cursor-pointer ${
               activeTab === 'queue'
-                ? 'bg-[#FAF5ED] text-[#BA532B] border border-[#BA532B] shadow-sm'
-                : 'text-[#7A5B49] hover:text-[#24160E] hover:bg-[#FAF5ED] border border-transparent'
+                ? 'bg-[#8052ff] text-white font-semibold shadow-[0_0_16px_rgba(128,82,255,0.45)]'
+                : 'text-[#9a9a9a] hover:text-white'
             }`}
           >
-            <span className="text-sm">📋</span>
-            <span>Authority Queue & Sentinel Feed</span>
+            📋 Authority Queue & Sentinel Feed
           </button>
 
         </div>
       </div>
 
-      {/* 🚀 4. MAIN WORKSPACE CONSOLE CONTENT */}
-      <main className="flex-1 max-w-[1600px] w-full mx-auto p-6 space-y-6">
+      {/* 3. Main Workspace Console Content */}
+      <main className="flex-1 max-w-[1600px] w-full mx-auto p-6 sm:p-10 space-y-10">
         
         {/* ========================================================================= */}
         {/* CONSOLE 1: 3D LIVING DIGITAL TWIN STUDIO                                 */}
         {/* ========================================================================= */}
         {activeTab === 'twin' && (
-          <div className="space-y-6">
+          <div className="space-y-8">
             
-            {/* Top Studio Control Bar */}
-            <div className="bg-white border border-[#E6E1D8] p-5 rounded-2xl space-y-3 shadow-sm">
-              <div className="flex flex-wrap justify-between items-center gap-4">
-                <div>
-                  <h2 className="text-xl font-serif font-bold text-[#181B1F] tracking-wide">
-                    {curSite.name} — Living 3D Digital Twin
-                  </h2>
+            {/* Top Control Bar */}
+            <div className="flex flex-wrap justify-between items-center gap-4">
+              <div>
+                <div className="text-[11px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider">
+                  Module 01 · 3D Spatial Identity
                 </div>
-
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setShowPhotogrammetryDrawer(!showPhotogrammetryDrawer)}
-                    className="px-3.5 py-2 rounded-xl bg-[#FAF8F5] border border-[#E6E1D8] text-sky-700 text-xs font-mono font-semibold hover:bg-sky-50 transition flex items-center gap-1.5 cursor-pointer shadow-sm"
-                  >
-                    <span>🏗️ {showPhotogrammetryDrawer ? 'Hide' : 'Show'} Scan-to-Twin Pipeline</span>
-                  </button>
-                </div>
+                <h2 className="text-3xl font-normal tracking-[-0.04em] text-white mt-1">
+                  {curSite.name} — Living 3D Twin
+                </h2>
               </div>
 
-              {/* Clean Organized Telemetry Strip */}
-              <div className="pt-3 border-t border-[#E6E1D8] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#4B5563]">
-                <div className="flex items-center gap-5 flex-wrap">
-                  <span className="flex items-center gap-1.5">
-                    <span className="text-[#7A5B49] uppercase text-[10px] font-bold">🌋 Hazard:</span>
-                    <strong className="text-amber-800 font-semibold">{curSite.seismicZone}</strong>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="text-[#7A5B49] uppercase text-[10px] font-bold">🌦️ Weather:</span>
-                    <strong className="text-sky-800 font-semibold">{liveWeather.temp} · {liveWeather.humidity} RH</strong>
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <span className="text-[#7A5B49] uppercase text-[10px] font-bold">📍 WGS84:</span>
-                    <span className="text-[#181B1F] font-medium">
-                      {Array.isArray(curSite.coords) ? `${curSite.coords[0]}° N, ${curSite.coords[1]}° E` : curSite.coords}
-                    </span>
-                  </span>
-                </div>
-              </div>
+              <button
+                onClick={() => setShowPhotogrammetryDrawer(!showPhotogrammetryDrawer)}
+                className="ghost-pill-btn text-xs font-mono border border-[#333333]"
+              >
+                <span>🏗️ {showPhotogrammetryDrawer ? 'Hide' : 'Show'} Scan-to-Twin Pipeline</span>
+              </button>
             </div>
 
             {/* Photogrammetry Drawer */}
@@ -604,11 +413,11 @@ export default function App() {
               </div>
             )}
 
-            {/* Main 3D Viewport Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* 3D Viewport Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               
               {/* 3D Canvas */}
-              <div className="lg:col-span-8">
+              <div className="lg:col-span-8 h-[620px] bg-black rounded-3xl overflow-hidden relative">
                 <MonumentViewer3D
                   siteIndex={activeSite}
                   siteData={curSite}
@@ -618,18 +427,14 @@ export default function App() {
                 />
               </div>
 
-              {/* Architectural Hierarchy & Telemetry Sidebar */}
-              <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
-                
-                {/* Node Selector List */}
-                <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-5 space-y-3 shadow-xl">
-                  <div className="flex justify-between items-center border-b border-[#1E2433] pb-2.5">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#C29244] font-bold">
+              {/* Architectural Nodes Hierarchy */}
+              <div className="lg:col-span-4 space-y-6">
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center text-xs font-mono">
+                    <span className="uppercase text-[#8052ff] font-semibold tracking-wider">
                       Architectural Nodes
                     </span>
-                    <span className="text-[10px] font-mono text-gray-400">
-                      {components.length} Monitored Segments
-                    </span>
+                    <span className="text-[#9a9a9a]">{components.length} Monitored Segments</span>
                   </div>
 
                   <div className="space-y-2">
@@ -637,36 +442,31 @@ export default function App() {
                       <button
                         key={idx}
                         onClick={() => handleSelectComponent(idx)}
-                        className={`w-full p-3 rounded-xl border text-left flex justify-between items-center transition cursor-pointer ${
+                        className={`w-full p-4 rounded-2xl border text-left flex justify-between items-center transition cursor-pointer ${
                           activeComponent === idx
-                            ? 'border-[#C29244] bg-[#C29244]/15 text-[#F3EFE6] shadow-md'
-                            : 'border-[#1E2433] bg-[#11141D] text-gray-400 hover:border-[#384152] hover:bg-[#151924]'
+                            ? 'border-[#8052ff] bg-[#111111] shadow-[0_0_16px_rgba(128,82,255,0.25)]'
+                            : 'border-[#1a1a1a] bg-black text-[#9a9a9a] hover:border-[#333333]'
                         }`}
                       >
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-bold text-[#C29244] bg-black/60 px-2 py-0.5 rounded border border-[#C29244]/40">
+                            <span className="font-mono text-xs font-semibold text-[#8052ff] bg-[#1a1a1a] px-2 py-0.5 rounded-full">
                               {c.code}
                             </span>
-                            <span className="font-medium text-xs text-gray-200">{c.name}</span>
+                            <span className="font-normal text-sm text-white">{c.name}</span>
                           </div>
-                          <div className="text-[10px] font-mono text-gray-400 mt-1">
+                          <div className="text-[11px] font-mono text-[#9a9a9a] mt-1">
                             Elevation: {c.elevation} · Inspected: {c.inspected}
                           </div>
                         </div>
 
                         <div className="text-right">
-                          <span className="text-xs font-mono font-bold" style={{ color: c.color }}>
+                          <span className="text-sm font-mono font-bold text-white">
                             {c.score}/100
                           </span>
-                          <div
-                            className="text-[9px] font-mono px-2 py-0.5 rounded-full font-bold uppercase mt-1 inline-block border"
-                            style={{ 
-                              backgroundColor: `${c.color}20`, 
-                              color: c.color,
-                              borderColor: `${c.color}50`
-                            }}
-                          >
+                          <div className={`text-[10px] font-mono uppercase font-semibold mt-0.5 ${
+                            c.status === 'Critical' ? 'text-[#ffb829]' : 'text-[#8052ff]'
+                          }`}>
                             {c.status}
                           </div>
                         </div>
@@ -675,45 +475,20 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Selected Node Details Card */}
-                <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-5 space-y-4 shadow-xl">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <span className="text-[10px] font-mono uppercase text-[#C29244] font-bold tracking-wider">Node Telemetry Profile</span>
-                      <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
-                        {curComp.name} ({curComp.code})
-                      </h3>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-serif font-bold" style={{ color: curComp.color }}>
-                        {curComp.score}
-                      </div>
-                      <span className="text-[9px] font-mono text-gray-400">Health Index</span>
-                    </div>
+                {/* Selected Node Profile */}
+                <div className="space-y-3 pt-4 border-t border-[#1a1a1a]">
+                  <div className="text-[11px] font-mono uppercase text-[#8052ff] tracking-wider">
+                    Node Telemetry & Mandated Action
                   </div>
-
-                  <div className="bg-[#11141D] p-3 rounded-xl border border-[#1E2433] space-y-1">
-                    <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider block">
-                      Mandated Conservation Action
-                    </span>
-                    <p className="text-xs text-gray-200 font-sans leading-relaxed">
-                      {curComp.action}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                    <div className="bg-[#0E1013] p-2.5 rounded border border-[#1E2228]">
-                      <span className="text-[9px] text-gray-500 uppercase block">Vulnerability Risk</span>
-                      <span className="text-rose-400 font-bold text-sm">{computedRisk}/100</span>
-                    </div>
-                    <div className="bg-[#0E1013] p-2.5 rounded border border-[#1E2228]">
-                      <span className="text-[9px] text-gray-500 uppercase block">Spatial Coordinates</span>
-                      <span className="text-gray-300 font-bold text-xs">{curComp.elevation}</span>
-                    </div>
-                  </div>
+                  <h3 className="text-xl font-normal text-white">
+                    {curComp.name} ({curComp.code})
+                  </h3>
+                  <p className="text-xs font-light text-[#bdbdbd] leading-relaxed">
+                    {curComp.action}
+                  </p>
                 </div>
-
               </div>
+
             </div>
           </div>
         )}
@@ -722,434 +497,253 @@ export default function App() {
         {/* CONSOLE 2: AI DEFECT DIAGNOSTICS LAB                                     */}
         {/* ========================================================================= */}
         {activeTab === 'vision' && (
-          <div className="space-y-6">
-            
-            <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
-              <div>
-                <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
-                  AI Visual Condition Diagnostics — {curComp.name} ({curSite.name})
-                </h2>
-              </div>
-            </div>
-
-            {/* Bounding Box Defect Canvas */}
+          <div className="space-y-8">
             <InspectionPhotoViewer siteData={curSite} activeComponent={curComp.name} />
 
-            {/* Longitudinal Delta Comparison Strip */}
-            <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4 shadow-xl">
-              <div className="flex flex-wrap justify-between items-center gap-3">
+            {/* Longitudinal Delta Scrubbing */}
+            <div className="pt-8 border-t border-[#1a1a1a] space-y-4">
+              <div className="flex flex-wrap justify-between items-center gap-4">
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-[#C29244] font-bold tracking-wider">
-                    Longitudinal Delta Analysis · Computer Vision Forensic Scrubbing
-                  </span>
-                  <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+                  <span className="text-[11px] font-mono uppercase text-[#8052ff] tracking-wider font-semibold">
                     Temporal Crack Progression (2024 Baseline vs. 2026 Inspection)
+                  </span>
+                  <h3 className="text-2xl font-normal text-white mt-1">
+                    Computer Vision Forensic Scrubbing
                   </h3>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono text-[#C29244] font-bold bg-[#14171C] px-3 py-1 rounded border border-[#2B313D]">
-                    Epoch: {sliderPos === 0 ? 'Jan 2024 (Baseline)' : sliderPos === 100 ? 'Apr 2026 (Live Survey)' : `Cycle ${(2024 + (sliderPos / 100) * 2).toFixed(1)}`}
-                  </span>
-                  <span className={`text-xs font-mono font-bold px-3 py-1 rounded border ${
-                    sliderPos >= 70 ? 'bg-rose-950/60 text-rose-300 border-rose-800/40' : 'bg-amber-950/60 text-amber-300 border-amber-800/40'
-                  }`}>
-                    Measured Growth: +{((sliderPos / 100) * 38.2).toFixed(1)}%
+
+                <div className="flex items-center gap-3 font-mono text-xs">
+                  <span className="text-[#ffb829]">
+                    Measured Delta: +{((sliderPos / 100) * 38.2).toFixed(1)}% Expansion
                   </span>
                 </div>
               </div>
 
-              <div className="bg-[#0E1013] p-5 rounded-xl border border-[#1E2228] space-y-4">
+              <div className="space-y-3">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={sliderPos}
+                  onChange={(e) => setSliderPos(Number(e.target.value))}
+                  className="w-full void-slider"
+                />
+                <div className="flex justify-between text-[11px] font-mono text-[#9a9a9a]">
+                  <span>2024 Baseline (18.2 cm · 1.1 mm)</span>
+                  <span>Scrub Position ({sliderPos}%)</span>
+                  <span>2026 Live Survey (25.1 cm · 2.2 mm)</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 font-mono">
                 <div>
-                  <div className="flex justify-between text-xs font-mono text-gray-400 mb-2">
-                    <span className={sliderPos === 0 ? 'text-[#C29244] font-bold' : ''}>◄ 2024 Baseline (18.2 cm · 1.1 mm)</span>
-                    <span className="text-[#C29244] font-semibold">● Slide to scrub temporal evolution ({sliderPos}%) ●</span>
-                    <span className={sliderPos === 100 ? 'text-rose-400 font-bold' : ''}>2026 Inspection (25.1 cm · 2.2 mm) ►</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={sliderPos}
-                    onChange={(e) => setSliderPos(Number(e.target.value))}
-                    className="w-full accent-[#C29244] h-2.5 bg-[#1E2228] rounded-lg cursor-ew-resize transition-all"
-                  />
-                  <div className="flex justify-between text-[10px] font-mono text-gray-500 mt-1">
-                    <span>2024 Baseline Laser Mesh</span>
-                    <span>2025 Interim Monsoonal Cycle</span>
-                    <span>2026 High-Resolution Photogrammetry</span>
+                  <span className="text-[10px] text-[#9a9a9a] uppercase">Crack Length</span>
+                  <div className="text-2xl text-[#ffb829] font-normal mt-0.5">
+                    {(18.2 + (sliderPos / 100) * 6.9).toFixed(1)} cm
                   </div>
                 </div>
-
-                <div className="bg-[#14171C] p-3 rounded-lg border border-[#222730] flex items-center justify-between gap-4">
-                  <span className="text-[11px] font-mono text-gray-400">Forensic Crack Path:</span>
-                  <div className="flex-1 bg-[#090A0C] h-4 rounded-full overflow-hidden border border-[#2B313D] relative flex items-center p-0.5">
-                    <div
-                      className="h-full rounded-full transition-all duration-100 bg-gradient-to-r from-amber-500 via-rose-500 to-rose-600 shadow"
-                      style={{ width: `${Math.max(12, sliderPos)}%` }}
-                    />
-                    <span className="absolute inset-0 flex items-center justify-center text-[10px] font-mono font-bold text-white drop-shadow">
-                      {(18.2 + (sliderPos / 100) * 6.9).toFixed(1)} cm length · {(1.1 + (sliderPos / 100) * 1.1).toFixed(2)} mm aperture
-                    </span>
+                <div>
+                  <span className="text-[10px] text-[#9a9a9a] uppercase">Aperture Width</span>
+                  <div className="text-2xl text-[#8052ff] font-normal mt-0.5">
+                    {(1.1 + (sliderPos / 100) * 1.1).toFixed(2)} mm
                   </div>
                 </div>
-
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
-                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
-                    <div className="text-[10px] text-gray-400 uppercase font-semibold">Crack Length</div>
-                    <div className="text-lg font-bold text-rose-400 mt-0.5">
-                      {(18.2 + (sliderPos / 100) * 6.9).toFixed(1)} cm
-                    </div>
-                    <div className="text-[10px] text-gray-400">
-                      Delta: +{((sliderPos / 100) * 6.9).toFixed(1)} cm
-                    </div>
-                  </div>
-
-                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
-                    <div className="text-[10px] text-gray-400 uppercase font-semibold">Aperture Width</div>
-                    <div className="text-lg font-bold text-amber-400 mt-0.5">
-                      {(1.1 + (sliderPos / 100) * 1.1).toFixed(2)} mm
-                    </div>
-                    <div className="text-[10px] text-gray-400">
-                      Initial: 1.10 mm
-                    </div>
-                  </div>
-
-                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
-                    <div className="text-[10px] text-gray-400 uppercase font-semibold">Velocity Rate</div>
-                    <div className="text-lg font-bold text-sky-400 mt-0.5">
-                      {(2.1 + (sliderPos / 100) * 1.35).toFixed(2)} cm/yr
-                    </div>
-                    <div className="text-[10px] text-gray-400">
-                      {sliderPos >= 50 ? 'Accelerating' : 'Baseline pace'}
-                    </div>
-                  </div>
-
-                  <div className="bg-[#121418] p-3 rounded-lg border border-[#1E2228]">
-                    <div className="text-[10px] text-gray-400 uppercase font-semibold">Capillary Saturation</div>
-                    <div className="text-lg font-bold text-emerald-400 mt-0.5">
-                      {(8.4 + (sliderPos / 100) * 6.4).toFixed(1)}%
-                    </div>
-                    <div className="text-[10px] text-gray-400">
-                      Pore moisture
-                    </div>
+                <div>
+                  <span className="text-[10px] text-[#9a9a9a] uppercase">Deterioration Pace</span>
+                  <div className="text-2xl text-white font-normal mt-0.5">
+                    {(2.1 + (sliderPos / 100) * 1.35).toFixed(2)} cm/yr
                   </div>
                 </div>
-
+                <div>
+                  <span className="text-[10px] text-[#9a9a9a] uppercase">Damp Saturation</span>
+                  <div className="text-2xl text-[#15846e] font-normal mt-0.5">
+                    {(8.4 + (sliderPos / 100) * 6.4).toFixed(1)}%
+                  </div>
+                </div>
               </div>
             </div>
-
           </div>
         )}
 
         {/* ========================================================================= */}
-        {/* CONSOLE 3: NATIONAL GEOSPATIAL GIS COMMAND RADAR                         */}
-        {/* ========================================================================= */}
-        {activeTab === 'gis' && (
-          <div className="space-y-6">
-            
-            <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
-              <div>
-                <span className="text-[10px] font-mono text-[#4E878C] uppercase tracking-widest font-bold">
-                  National Geospatial Policy (DST) · Seismic & Monsoon Multi-Hazard Overlay
-                </span>
-                <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
-                  National Heritage GIS & Multi-Hazard Spatial Radar
-                </h2>
-              </div>
-
-              <div className="flex items-center gap-3 text-xs font-mono">
-                <span className="text-gray-400 bg-[#0E1013] px-3 py-1.5 rounded-lg border border-[#1E2228]">
-                  Focused Site: <strong className="text-[#C29244]">{curSite.name}</strong>
-                </span>
-                <span className="text-gray-400 bg-[#0E1013] px-3 py-1.5 rounded-lg border border-[#1E2228]">
-                  Grid Standard: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong>
-                </span>
-              </div>
-            </div>
-
-            {/* Interactive Leaflet Map with Bhuvan Satellite Mode */}
-            <HeritageGisMap
-              activeSiteIndex={activeSite}
-              onSelectSite={(idx, targetTab = 'twin') => {
-                handleSelectSite(idx);
-                setActiveTab(targetTab);
-              }}
-            />
-
-
-          </div>
-        )}
-
-        {/* ========================================================================= */}
-        {/* CONSOLE 4: RISK ENGINE & 2028 PREDICTIVE SIMULATOR                        */}
+        {/* CONSOLE 3: RISK ENGINE & 2030 PREDICTIVE LAB                             */}
         {/* ========================================================================= */}
         {activeTab === 'risk' && (
-          <div className="space-y-6">
+          <div className="space-y-12">
             
-            <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
+            {/* Risk Formula Sliders */}
+            <div className="space-y-6">
               <div>
-                <span className="text-[10px] font-mono text-[#C29244] uppercase tracking-widest font-bold">
-                  Explainable Multi-Criteria Formula · ISO 31000 Risk Framework
-                </span>
-                <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
-                  Auditable Heritage Risk & Predictive Decay Lab — {curSite.name}
+                <div className="text-[11px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider mb-2">
+                  Module 05 · Explainable Risk Engine
+                </div>
+                <h2 className="text-3xl font-normal tracking-[-0.04em] text-white">
+                  ISO 31000 Explainable Multi-Criteria Risk Formula
                 </h2>
+                <p className="text-xs font-mono text-[#9a9a9a] mt-1">
+                  R = 0.30·C + 0.25·D + 0.15·H + 0.15·E + 0.15·S
+                </p>
               </div>
 
-              <div className="text-xs font-mono bg-[#0E1013] px-3.5 py-1.5 rounded-lg border border-[#1E2228] text-gray-300">
-                Formula: <strong className="text-[#C29244]">R = 0.30C + 0.25D + 0.15H + 0.15E + 0.15S</strong>
-              </div>
-            </div>
-
-            {/* Explainable Formula Sliders Grid */}
-            <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              
-              <div className="lg:col-span-7 space-y-3.5">
-                
-                <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
-                  <div className="flex justify-between text-xs text-gray-300 mb-1">
-                    <span><strong>C</strong> — Condition Severity (Weight: 30%)</span>
-                    <span className="font-mono text-[#C29244] font-bold">{riskFactors.condition}/100</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={riskFactors.condition}
-                    onChange={(e) => setRiskFactors({ ...riskFactors, condition: Number(e.target.value) })}
-                    className="w-full accent-[#C29244] h-1.5 bg-[#1E2228] rounded cursor-pointer"
-                  />
-                </div>
-
-                <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
-                  <div className="flex justify-between text-xs text-gray-300 mb-1">
-                    <span><strong>D</strong> — Deterioration Velocity (Weight: 25%)</span>
-                    <span className="font-mono text-[#C29244] font-bold">{riskFactors.deterioration}/100</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={riskFactors.deterioration}
-                    onChange={(e) => setRiskFactors({ ...riskFactors, deterioration: Number(e.target.value) })}
-                    className="w-full accent-[#C29244] h-1.5 bg-[#1E2228] rounded cursor-pointer"
-                  />
-                </div>
-
-                <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
-                  <div className="flex justify-between text-xs text-gray-300 mb-1">
-                    <span><strong>H</strong> — Natural Hazard & Seismic Exposure (Weight: 15%)</span>
-                    <span className="font-mono text-[#C29244] font-bold">{riskFactors.hazard}/100</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={riskFactors.hazard}
-                    onChange={(e) => setRiskFactors({ ...riskFactors, hazard: Number(e.target.value) })}
-                    className="w-full accent-[#C29244] h-1.5 bg-[#1E2228] rounded cursor-pointer"
-                  />
-                </div>
-
-                <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
-                  <div className="flex justify-between text-xs text-gray-300 mb-1">
-                    <span><strong>E</strong> — Environmental Stress & Weather (Weight: 15%)</span>
-                    <span className="font-mono text-[#C29244] font-bold">{riskFactors.environment}/100</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={riskFactors.environment}
-                    onChange={(e) => setRiskFactors({ ...riskFactors, environment: Number(e.target.value) })}
-                    className="w-full accent-[#C29244] h-1.5 bg-[#1E2228] rounded cursor-pointer"
-                  />
-                </div>
-
-                <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
-                  <div className="flex justify-between text-xs text-gray-300 mb-1">
-                    <span><strong>S</strong> — Archaeological & National Significance (Weight: 15%)</span>
-                    <span className="font-mono text-[#C29244] font-bold">{riskFactors.significance}/100</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={riskFactors.significance}
-                    onChange={(e) => setRiskFactors({ ...riskFactors, significance: Number(e.target.value) })}
-                    className="w-full accent-[#C29244] h-1.5 bg-[#1E2228] rounded cursor-pointer"
-                  />
-                </div>
-              </div>
-
-              {/* Calculated Score Card */}
-              <div className="lg:col-span-5 bg-[#0A0C12] border border-[#232A38] rounded-2xl p-6 text-center flex flex-col justify-center items-center shadow-xl heritage-card-glow">
-                <span className="text-[10px] font-mono uppercase text-[#C29244] tracking-wider font-bold">
-                  Computed Vulnerability Risk (ISO 31000)
-                </span>
-                <div className="text-6xl font-serif font-bold text-rose-500 my-3">
-                  {computedRisk} <span className="text-xs font-sans text-gray-400 font-normal">/ 100</span>
-                </div>
-                <span className={`text-xs px-4 py-1.5 rounded-full font-mono font-bold uppercase tracking-wider ${
-                  computedRisk >= 70
-                    ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40'
-                    : computedRisk >= 45
-                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
-                    : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                }`}>
-                  {computedRisk >= 70 ? '● CRITICAL · EMERGENCY INTERVENTION' : computedRisk >= 45 ? '▲ WATCH · RE-INSPECT' : '✔ STABLE'}
-                </span>
-
-                <button
-                  onClick={() => setIsReportOpen(true)}
-                  className="w-full mt-5 py-3 rounded-xl bg-gradient-to-r from-[#C29244] to-[#D4AF37] text-[#0A0C10] font-mono font-bold text-xs hover:brightness-110 transition flex items-center justify-center gap-2 shadow-lg cursor-pointer border border-[#E5C07B]/40"
-                >
-                  <span>📄 Generate Official ASI Dossier</span>
-                </button>
-              </div>
-            </div>
-
-            {/* 💰 Preventive Conservation ROI Analysis */}
-            <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-6 space-y-5 shadow-2xl heritage-card-glow">
-              <div className="flex flex-wrap justify-between items-center gap-3">
-                <div>
-                  <span className="text-[10px] font-mono text-[#C29244] uppercase tracking-widest font-bold">
-                    Cost-Benefit Intelligence · Preventive vs Reactive
-                  </span>
-                  <h3 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
-                    Preventive Conservation ROI Analysis — {curSite.name}
-                  </h3>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                {/* Reactive Cost */}
-                <div className="bg-[#0A0C12] border border-rose-800/30 rounded-2xl p-5 text-center shadow">
-                  <span className="text-[10px] font-mono uppercase text-rose-400/80 tracking-wider font-bold">Reactive Restoration Cost</span>
-                  <div className="text-3xl font-bold text-rose-400 font-mono mt-2">₹14.2 Cr</div>
-                  <p className="text-[10px] text-gray-400 mt-2 font-mono leading-relaxed">Emergency rebuilding, heavy scaffolding, structural stone loss</p>
-                </div>
-
-                {/* Preventive Cost */}
-                <div className="bg-[#0A0C12] border border-emerald-800/30 rounded-2xl p-5 text-center shadow">
-                  <span className="text-[10px] font-mono uppercase text-emerald-400/80 tracking-wider font-bold">Preventive Monitoring Cost</span>
-                  <div className="text-3xl font-bold text-emerald-400 font-mono mt-2">₹0.94 Cr</div>
-                  <p className="text-[10px] text-gray-400 mt-2 font-mono leading-relaxed">IoT sensors, routine drone photogrammetry, AI diagnostics</p>
-                </div>
-
-                {/* Net Savings */}
-                <div className="bg-[#0A0C12] border border-[#C29244]/40 rounded-2xl p-5 text-center shadow-lg heritage-card-glow">
-                  <span className="text-[10px] font-mono uppercase text-[#E5C07B] tracking-wider font-bold">Net National Savings</span>
-                  <div className="text-3xl font-bold text-emerald-300 font-mono mt-2">₹13.26 Cr</div>
-                  <div className="mt-2">
-                    <div className="w-full bg-[#141822] rounded-full h-2.5 overflow-hidden">
-                      <div className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2.5 rounded-full transition-all duration-700 shadow" style={{ width: '93.4%' }} />
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-7 space-y-4">
+                  {[
+                    { key: 'condition', label: 'C — Structural Condition Severity', weight: '30%' },
+                    { key: 'deterioration', label: 'D — Deterioration Velocity', weight: '25%' },
+                    { key: 'hazard', label: 'H — Natural Hazard & Seismic Exposure', weight: '15%' },
+                    { key: 'environment', label: 'E — Environmental Stress & Weather', weight: '15%' },
+                    { key: 'significance', label: 'S — National Archaeological Significance', weight: '15%' }
+                  ].map((factor) => (
+                    <div key={factor.key} className="space-y-1.5">
+                      <div className="flex justify-between text-xs font-mono">
+                        <span className="text-[#bdbdbd]">{factor.label} ({factor.weight})</span>
+                        <span className="text-white font-bold">{riskFactors[factor.key]}/100</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={riskFactors[factor.key]}
+                        onChange={(e) => setRiskFactors({ ...riskFactors, [factor.key]: Number(e.target.value) })}
+                        className="w-full void-slider"
+                      />
                     </div>
-                    <span className="text-xs font-mono text-emerald-400 font-bold mt-1.5 inline-block">93.4% Cost Efficiency</span>
+                  ))}
+                </div>
+
+                {/* Score Display */}
+                <div className="lg:col-span-5 text-center space-y-4 p-8 bg-[#0a0a0a] rounded-3xl border border-[#1a1a1a]">
+                  <span className="text-[11px] font-mono uppercase text-[#8052ff] tracking-wider block">
+                    Computed Vulnerability Index
+                  </span>
+                  <div className="text-7xl font-normal tracking-[-0.04em] text-[#ffb829] font-mono">
+                    {computedRisk} <span className="text-sm font-mono text-[#9a9a9a]">/ 100</span>
                   </div>
+                  <div className={`text-xs font-mono uppercase font-semibold ${
+                    computedRisk >= 70 ? 'text-[#ffb829]' : 'text-[#8052ff]'
+                  }`}>
+                    {computedRisk >= 70 ? '● High Urgency · Action Required' : '● Routine Monitoring'}
+                  </div>
+
+                  <button
+                    onClick={() => setIsReportOpen(true)}
+                    className="iris-pill-btn w-full text-xs"
+                  >
+                    <span>Generate Official ASI Work Order</span>
+                  </button>
                 </div>
               </div>
             </div>
 
-            {/* Extreme Climate & Disaster Scenario Simulator */}
+            {/* Cost-Benefit Preventive Conservation ROI */}
+            <div className="space-y-6 pt-8 border-t border-[#1a1a1a]">
+              <div>
+                <span className="text-[11px] font-mono text-[#8052ff] uppercase tracking-wider font-semibold">
+                  Module 06 · Decision Economics
+                </span>
+                <h3 className="text-2xl font-normal text-white mt-1">
+                  Preventive vs. Reactive Cost-Benefit Analysis
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 font-mono">
+                <div className="p-6 rounded-3xl bg-[#0a0a0a] border border-[#1a1a1a] space-y-2">
+                  <span className="text-[11px] text-[#9a9a9a] uppercase">Reactive Reconstruction</span>
+                  <div className="text-3xl text-[#ffb829] font-normal">₹14.20 Cr</div>
+                  <p className="text-xs text-[#bdbdbd] font-sans font-light">Catastrophic structural failure & emergency rebuilding</p>
+                </div>
+
+                <div className="p-6 rounded-3xl bg-[#0a0a0a] border border-[#1a1a1a] space-y-2">
+                  <span className="text-[11px] text-[#9a9a9a] uppercase">Preventive Monitoring</span>
+                  <div className="text-3xl text-[#15846e] font-normal">₹0.94 Cr</div>
+                  <p className="text-xs text-[#bdbdbd] font-sans font-light">Drone photogrammetry, lime repointing & IoT sensors</p>
+                </div>
+
+                <div className="p-6 rounded-3xl bg-[#0a0a0a] border border-[#8052ff]/40 space-y-2">
+                  <span className="text-[11px] text-[#8052ff] uppercase">Net National Savings</span>
+                  <div className="text-3xl text-white font-normal">₹13.26 Cr</div>
+                  <span className="text-xs text-[#8052ff] font-bold block">93.4% Cost Efficiency</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Scenario Simulator */}
             <ScenarioSimulator
               activeSite={curSite}
               activeComponent={curComp}
               baselineRisk={computedRisk}
             />
 
-            {/* Longitudinal Analytics & 2030 Forecast */}
+            {/* Longitudinal Analytics */}
             <LongitudinalAnalytics
               activeComponent={curComp.name}
               materialTypology={curSite.material || 'sandstone'}
               seismicZone={curSite.seismicZone || 'Zone IV'}
             />
 
-
           </div>
         )}
 
         {/* ========================================================================= */}
-        {/* CONSOLE 5: AUTHORITY PRIORITY QUEUE & FIELD SENTINEL DISPATCH             */}
+        {/* CONSOLE 4: AUTHORITY PRIORITY QUEUE & SENTINEL FEED                       */}
         {/* ========================================================================= */}
         {activeTab === 'queue' && (
-          <div className="space-y-6">
+          <div className="space-y-12">
             
-            <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
-              <div>
-                <span className="text-[10px] font-mono text-[#C29244] uppercase tracking-widest font-bold">
-                  Decision Support & National Intervention Triage
-                </span>
-                <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
-                  Authority Priority Queue & Participatory Sentinel Feed
-                </h2>
-              </div>
+            {/* Priority Queue Table */}
+            <div className="space-y-4">
+              <div className="flex flex-wrap justify-between items-center gap-4">
+                <div>
+                  <span className="text-[11px] font-mono text-[#8052ff] uppercase tracking-wider font-semibold">
+                    Module 07 · National Triage Queue
+                  </span>
+                  <h3 className="text-2xl font-normal text-white mt-1">
+                    Ranked Priority Intervention Queue
+                  </h3>
+                </div>
 
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setIsFieldReportOpen(true)}
-                  className="px-3.5 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-mono font-bold hover:bg-emerald-500/30 transition flex items-center gap-2"
-                >
-                  <span>➕ Submit New Field Observation</span>
-                </button>
                 <button
                   onClick={() => setIsReportOpen(true)}
-                  className="px-3.5 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-[#C29244] text-xs font-mono font-semibold hover:text-white transition"
+                  className="iris-pill-btn text-xs"
                 >
-                  📄 Export Batch Dossiers
+                  <span>Export Batch Dossiers</span>
                 </button>
-              </div>
-            </div>
-
-            {/* Ranked Priority Intervention Queue Table */}
-            <div className="bg-[#121418] border border-[#1E2228] rounded-xl overflow-hidden shadow-xl">
-              <div className="px-6 py-4 border-b border-[#1E2228] flex justify-between items-center">
-                <h3 className="text-sm font-serif font-bold text-[#F3EFE6]">
-                  Ranked Priority Intervention Queue (National Overview)
-                </h3>
-                <span className="text-xs font-mono text-gray-400">
-                  Sorted by Explanatory Vulnerability Score (Highest Risk First)
-                </span>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead className="uppercase font-mono text-gray-400 border-b border-[#1E2228] bg-[#0E1013]">
+                <table className="w-full text-left text-xs font-mono">
+                  <thead className="text-[#9a9a9a] uppercase border-b border-[#1a1a1a]">
                     <tr>
                       <th className="py-3 px-4">Rank</th>
                       <th className="py-3 px-4">Component</th>
-                      <th className="py-3 px-4">Heritage Site</th>
+                      <th className="py-3 px-4">Monument</th>
                       <th className="py-3 px-4">Risk Score</th>
-                      <th className="py-3 px-4">Urgency Status</th>
-                      <th className="py-3 px-4">Mandated Action</th>
+                      <th className="py-3 px-4">Urgency</th>
                       <th className="py-3 px-4">Action</th>
+                      <th className="py-3 px-4">Dossier</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#1E2228]">
+                  <tbody className="divide-y divide-[#141414]">
                     {priorityQueue.map((item, idx) => (
-                      <tr key={idx} className={idx === 0 ? "bg-rose-950/15" : "hover:bg-[#181B22]/50"}>
-                        <td className="py-3.5 px-4 font-mono font-bold text-[#C29244]">#{item.rank}</td>
-                        <td className="py-3.5 px-4 font-medium text-gray-200">{item.component}</td>
-                        <td className="py-3.5 px-4 text-gray-400 font-mono">{item.site}</td>
-                        <td className="py-3.5 px-4 font-mono font-bold text-gray-200">{item.score}/100</td>
-                        <td className="py-3.5 px-4">
-                          <span className={`text-[11px] px-2.5 py-0.5 rounded font-mono font-semibold ${
-                            item.status === 'High Urgency'
-                              ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                              : item.status === 'Watch'
-                              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                      <tr key={idx} className="hover:bg-[#0a0a0a] transition">
+                        <td className="py-4 px-4 text-[#8052ff] font-bold">#{item.rank}</td>
+                        <td className="py-4 px-4 font-normal text-white">{item.component}</td>
+                        <td className="py-4 px-4 text-[#bdbdbd]">{item.site}</td>
+                        <td className="py-4 px-4 font-bold text-white">{item.score}/100</td>
+                        <td className="py-4 px-4">
+                          <span className={`px-2.5 py-0.5 rounded-full uppercase font-semibold ${
+                            item.status === 'High Urgency' ? 'text-[#ffb829] bg-[#ffb829]/10' : 'text-[#8052ff] bg-[#8052ff]/10'
                           }`}>
                             {item.status}
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-gray-300">{item.action}</td>
-                        <td className="py-3.5 px-4">
+                        <td className="py-4 px-4 text-[#bdbdbd] font-sans text-xs">{item.action}</td>
+                        <td className="py-4 px-4">
                           <button
                             onClick={() => setIsReportOpen(true)}
-                            className="text-[11px] font-mono px-2 py-1 rounded bg-[#0E1013] border border-[#1E2228] text-[#C29244] hover:bg-[#C29244]/20 transition"
+                            className="text-[#8052ff] hover:text-white transition"
                           >
-                            Dossier
+                            Dossier →
                           </button>
                         </td>
                       </tr>
@@ -1159,58 +753,50 @@ export default function App() {
               </div>
             </div>
 
-            {/* Live Field Sentinel Incident Feed */}
-            <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4">
-              <div className="flex justify-between items-center border-b border-[#1E2228] pb-3">
+            {/* Field Sentinel Telemetry Feed */}
+            <div className="space-y-4 pt-8 border-t border-[#1a1a1a]">
+              <div className="flex justify-between items-center">
                 <div>
-                  <h3 className="text-sm font-serif font-bold text-[#F3EFE6]">
-                    Heritage Sentinel · Ground Telemetry Feed
+                  <span className="text-[11px] font-mono text-[#8052ff] uppercase tracking-wider font-semibold">
+                    Ground Incident Feed
+                  </span>
+                  <h3 className="text-2xl font-normal text-white mt-1">
+                    Heritage Sentinel Observation Stream
                   </h3>
-                  <p className="text-xs text-gray-400 font-mono mt-0.5">
-                    Live mobile observation feed from ASI circle inspectors and citizen visitors
-                  </p>
                 </div>
+
+                <button
+                  onClick={() => setIsFieldReportOpen(true)}
+                  className="ghost-pill-btn text-xs font-mono border border-[#333333]"
+                >
+                  <span>➕ Submit Observation</span>
+                </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
                 {fieldReports.map((report, idx) => (
-                  <div key={idx} className="bg-[#0E1013] border border-[#1E2228] rounded-xl p-4 flex flex-col justify-between space-y-3">
+                  <div key={idx} className="p-6 rounded-3xl bg-[#0a0a0a] border border-[#141414] space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className={`px-2.5 py-0.5 rounded-full uppercase font-semibold ${
+                        report.role === 'officer' ? 'text-[#8052ff] bg-[#8052ff]/10' : 'text-[#15846e] bg-[#15846e]/10'
+                      }`}>
+                        {report.role === 'officer' ? '👷 ASI Officer' : '🧑‍🤝‍🧑 Citizen Sentinel'}
+                      </span>
+                      <span className="text-[#9a9a9a]">{report.timestamp}</span>
+                    </div>
+
                     <div>
-                      <div className="flex justify-between items-start">
-                        <div className="flex items-center gap-2">
-                          <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
-                            report.role === 'officer'
-                              ? 'bg-[#C29244]/20 text-[#C29244] border border-[#C29244]/30'
-                              : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                          }`}>
-                            {report.role === 'officer' ? '👷 ASI Officer' : '🧑‍🤝‍🧑 Citizen Sentinel'}
-                          </span>
-                          <span className="text-xs font-mono text-gray-500">{report.id}</span>
-                        </div>
-                        <span className="text-[10px] font-mono text-gray-500">{report.timestamp}</span>
-                      </div>
-
-                      <h4 className="text-sm font-serif font-bold text-gray-100 mt-2">
-                        {report.monumentName} · <span className="text-[#C29244] font-mono font-normal text-xs">{report.component}</span>
+                      <h4 className="text-base font-normal text-white">
+                        {report.monumentName} · <span className="text-[#8052ff]">{report.component}</span>
                       </h4>
-
-                      <p className="text-xs text-gray-300 mt-1.5 leading-relaxed bg-[#121418] p-2.5 rounded border border-[#1E2228]">
-                        \"{report.notes}\"
+                      <p className="text-xs font-light text-[#bdbdbd] font-sans mt-2 leading-relaxed">
+                        "{report.notes}"
                       </p>
                     </div>
 
-                    <div className="pt-2 border-t border-[#1E2228] flex flex-wrap justify-between items-center gap-2 text-xs font-mono">
-                      <div className="flex items-center gap-2 text-gray-400 text-[11px]">
-                        <span>📍 {report.gps}</span>
-                        <span>•</span>
-                        <span className={report.severity === 'High' ? 'text-rose-400 font-bold' : 'text-amber-400'}>
-                          Severity: {report.severity}
-                        </span>
-                      </div>
-
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-black/50 text-emerald-400 border border-emerald-900">
-                        {report.status}
-                      </span>
+                    <div className="pt-3 border-t border-[#1a1a1a] flex justify-between items-center text-[11px]">
+                      <span className="text-[#9a9a9a]">📍 {report.gps}</span>
+                      <span className="text-[#15846e]">{report.status}</span>
                     </div>
                   </div>
                 ))}
@@ -1222,7 +808,7 @@ export default function App() {
 
       </main>
 
-      {/* 🏛️ ASI WORK ORDER MODAL */}
+      {/* MODALS */}
       <AsiReportModal
         isOpen={isReportOpen}
         onClose={() => setIsReportOpen(false)}
@@ -1232,7 +818,6 @@ export default function App() {
         computedRisk={computedRisk}
       />
 
-      {/* 📱 FIELD REPORT MODAL */}
       <FieldReportModal
         isOpen={isFieldReportOpen}
         onClose={() => setIsFieldReportOpen(false)}
@@ -1240,14 +825,12 @@ export default function App() {
         monuments={sites}
       />
 
-      {/* 🌐 AUTONOMOUS LIVE INGESTION & EXAMINATION MODAL */}
       <LiveIngestModal
         isOpen={isLiveIngestOpen}
         onClose={() => setIsLiveIngestOpen(false)}
         currentSite={curSite}
       />
 
-      {/* 🏛️ NATIONAL ASSET MATRIX SWITCHER MODAL */}
       <AssetSwitcherModal
         isOpen={isAssetSwitcherOpen}
         onClose={() => setIsAssetSwitcherOpen(false)}
@@ -1255,22 +838,16 @@ export default function App() {
         onSelectSite={handleSelectSite}
       />
 
-      {/* 🏛️ NATIONAL HERITAGE SOVEREIGNTY FOOTER */}
-      <footer className="border-t border-[#1E2228] bg-[#07080A] py-8 px-6 mt-auto">
-        <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-6 text-xs font-mono text-gray-400">
-          
+      {/* Footer */}
+      <footer className="border-t border-[#141414] bg-black py-8 px-6 sm:px-10 mt-auto">
+        <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-6 text-xs font-mono text-[#9a9a9a]">
           <div className="flex items-center gap-3">
-            <HeritageShieldLogo size="sm" showText={true} />
-            <span className="text-gray-600">|</span>
-            <span>Smart India Hackathon 2026 · Team Qualified (Team ID: 031)</span>
+            <HeritageShieldLogo size="xs" showText={true} />
+            <span>Smart India Hackathon 2026 · Team ID: 031</span>
           </div>
-
-          <div className="flex items-center gap-6 flex-wrap">
-            <span>Standard: ISRO Bhuvan WGS84</span>
-            <span>Framework: ISO 31000:2018</span>
-            <span>Authority: Archaeological Survey of India (ASI)</span>
+          <div>
+            <span>Standard: ISRO Bhuvan WGS84 · Framework: ISO 31000:2018</span>
           </div>
-
         </div>
       </footer>
 

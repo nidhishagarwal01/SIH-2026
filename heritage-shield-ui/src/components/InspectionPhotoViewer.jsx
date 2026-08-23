@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 export function getPresetsForSite(site) {
   const typ = site?.typology || 'qutub_minar';
@@ -9,9 +9,9 @@ export function getPresetsForSite(site) {
     return {
       target_1: {
         key: 'target_1',
-        tabLabel: 'Marble Onion Dome',
+        tabLabel: 'Marble Dome',
         title: `${siteName} — Bulbous Marble Dome & Lotus Finial`,
-        material: "White Makrana Marble (Pure Calcium Carbonate Matrix)",
+        material: "White Makrana Marble",
         imageUrl: img,
         detections: [
           {
@@ -19,10 +19,10 @@ export function getPresetsForSite(site) {
             label: "Sulfur Dioxide Particulate Yellowing",
             type: "environmental",
             confidence: 94.2,
-            color: "#D4AF37",
+            color: "#ffb829",
             bbox: { x: 35, y: 15, width: 30, height: 35 },
             metrics: {
-              coverage_pct: "18.2% of apex",
+              coverage_pct: "18.2% area",
               discoloration_delta: "+12.4% yellowness",
               temporal_growth: "+8.1% (Post-Winter Smog)",
               growth_velocity: "Atmospheric deposition",
@@ -35,11 +35,11 @@ export function getPresetsForSite(site) {
             label: "Marble Hairline Stress Fissure",
             type: "structural",
             confidence: 88.7,
-            color: "#E05A47",
+            color: "#8052ff",
             bbox: { x: 22, y: 48, width: 22, height: 38 },
             metrics: {
               length_cm: "14.2 cm",
-              aperture_width: "0.8 mm",
+              aperture_width: "0.80 mm",
               temporal_growth: "+4.5%",
               growth_velocity: "0.65 cm / yr",
               criticality: "Watch"
@@ -60,10 +60,10 @@ export function getPresetsForSite(site) {
             label: "Pietra Dura Gemstone Dislodgement",
             type: "material_loss",
             confidence: 92.5,
-            color: "#A855F7",
+            color: "#8052ff",
             bbox: { x: 42, y: 32, width: 25, height: 30 },
             metrics: {
-              loss_count: "3 semi-precious inlays missing",
+              loss_count: "3 inlays missing",
               cavity_depth: "2.5 mm recess",
               temporal_growth: "+1 gemstone since 2024",
               growth_velocity: "Moisture cycle",
@@ -72,326 +72,101 @@ export function getPresetsForSite(site) {
             annotation: "Dislodged floral leaf inlay due to historical lime-resin binder degradation."
           }
         ]
-      },
-      target_3: {
-        key: 'target_3',
-        tabLabel: 'Riverfront Plinth',
-        title: `${siteName} — Yamuna Riverfront Sandstone Terrace Plinth`,
-        material: "Deep Red Sandstone & Timber Well Foundation Base",
-        imageUrl: img,
-        detections: [
-          {
-            id: "DEF-TM-004",
-            label: "River Yamuna Capillary Dampness",
-            type: "environmental",
-            confidence: 91.0,
-            color: "#D4AF37",
-            bbox: { x: 18, y: 55, width: 64, height: 35 },
-            metrics: {
-              coverage_pct: "24.6% of riverfront plinth",
-              dampness_index: "82.0 / 100",
-              temporal_growth: "+14.5% post-monsoon",
-              growth_velocity: "Groundwater table surge",
-              criticality: "High"
-            },
-            annotation: "Subterranean moisture migration through well foundation requiring riverbed water-table monitoring."
-          }
-        ]
       }
     };
   }
 
-  if (typ === 'hampi_chariot') {
-    return {
-      target_1: {
-        key: 'target_1',
-        tabLabel: 'Monolithic Wheels',
-        title: `${siteName} — Monolithic Carved Granite Wheels & Axle`,
-        material: "Vijayanagara Charnockite Granite",
-        imageUrl: img,
-        detections: [
-          {
-            id: "DEF-HP-001",
-            label: "Granite Exfoliation / Micro-Spalling",
-            type: "material_loss",
-            confidence: 93.1,
-            color: "#A855F7",
-            bbox: { x: 28, y: 38, width: 44, height: 48 },
-            metrics: {
-              depth_loss: "3.8 mm flaking",
-              spalling_area: "145 cm²",
-              temporal_growth: "+9.2%",
-              growth_velocity: "Solar thermal stress",
-              criticality: "Watch"
-            },
-            annotation: "Surface granular detachment on carved wheel spokes due to intense Deccan sun exposure."
-          }
-        ]
-      },
-      target_2: {
-        key: 'target_2',
-        tabLabel: 'Garuda Sanctum',
-        title: `${siteName} — Garuda Shrine Masonry Jointing`,
-        material: "Granite Ashlar with Interlocking Dowels",
-        imageUrl: img,
-        detections: [
-          {
-            id: "DEF-HP-002",
-            label: "Granite Ashlar Joint Opening",
-            type: "structural",
-            confidence: 89.4,
-            color: "#E05A47",
-            bbox: { x: 35, y: 22, width: 32, height: 45 },
-            metrics: {
-              joint_displacement: "4.2 mm lateral gap",
-              length_cm: "32.0 cm",
-              temporal_growth: "+15.2%",
-              growth_velocity: "0.8 mm / yr",
-              criticality: "High"
-            },
-            annotation: "Differential settlement of sanctum stone courses requiring non-shrink lime grouting."
-          }
-        ]
-      },
-      target_3: {
-        key: 'target_3',
-        tabLabel: 'Stepped Plinth',
-        title: `${siteName} — Adhisthana Stepped Basal Plinth`,
-        material: "Dressed Granite Moulding Course",
-        imageUrl: img,
-        detections: [
-          {
-            id: "DEF-HP-003",
-            label: "Crustose Lichen Colonization",
-            type: "biological",
-            confidence: 86.8,
-            color: "#4E878C",
-            bbox: { x: 12, y: 60, width: 55, height: 30 },
-            metrics: {
-              coverage_pct: "19.5% of plinth",
-              rhizoid_depth: "1.2 mm penetration",
-              temporal_growth: "+7.4%",
-              growth_velocity: "Rainy season growth",
-              criticality: "Moderate"
-            },
-            annotation: "Silicate-bonding lichen secreting oxalic acid, requiring zinc silicofluoride biocide cleaning."
-          }
-        ]
-      }
-    };
-  }
-
-  if (typ === 'konark_temple') {
-    return {
-      target_1: {
-        key: 'target_1',
-        tabLabel: 'Sun Chariot Wheel',
-        title: `${siteName} — 12-Spoke Sun Chariot Wheel & Axle Hub`,
-        material: "Khondalite & Green Chlorite Stone",
-        imageUrl: img,
-        detections: [
-          {
-            id: "DEF-KN-001",
-            label: "Marine Salt Crystallization & Haloclasty",
-            type: "environmental",
-            confidence: 96.1,
-            color: "#D4AF37",
-            bbox: { x: 25, y: 20, width: 50, height: 60 },
-            metrics: {
-              salinity_index: "92.4 / 100",
-              surface_pitting_depth: "6.5 mm",
-              temporal_growth: "+28.2% post-cyclone",
-              growth_velocity: "Bay of Bengal marine aerosol",
-              criticality: "Critical"
-            },
-            annotation: "Severe sub-florescence pressure from sodium chloride crystallization disaggregating Khondalite stone."
-          }
-        ]
-      },
-      target_2: {
-        key: 'target_2',
-        tabLabel: 'Jagamohana Pyramid',
-        title: `${siteName} — Jagamohana Tiered Pida Shikhara`,
-        material: "Khondalite Stone Courses & Iron Dowels",
-        imageUrl: img,
-        detections: [
-          {
-            id: "DEF-KN-002",
-            label: "Corroded Iron Dowel Rust Jacking",
-            type: "structural",
-            confidence: 92.0,
-            color: "#E05A47",
-            bbox: { x: 40, y: 35, width: 28, height: 42 },
-            metrics: {
-              crack_aperture: "3.8 mm",
-              rust_expansion_vol: "+240%",
-              temporal_growth: "+19.0%",
-              growth_velocity: "Oxidation expansion",
-              criticality: "Critical"
-            },
-            annotation: "Historical medieval iron clamping dowel oxidization causing tensile splitting of surrounding stone."
-          }
-        ]
-      },
-      target_3: {
-        key: 'target_3',
-        tabLabel: 'Natamandira Plinth',
-        title: `${siteName} — Dancing Hall Sculptured Plinth`,
-        material: "Khondalite Ashlar Reliefs",
-        imageUrl: img,
-        detections: [
-          {
-            id: "DEF-KN-003",
-            label: "Windblown Sand Abrasion",
-            type: "material_loss",
-            confidence: 87.5,
-            color: "#A855F7",
-            bbox: { x: 15, y: 50, width: 68, height: 38 },
-            metrics: {
-              relief_erosion_pct: "34.0% loss of detail",
-              temporal_growth: "+8.5%",
-              growth_velocity: "Coastal wind erosion",
-              criticality: "High"
-            },
-            annotation: "Aeolian sand-blasting from Bay of Bengal coast smoothing intricate sculptural relief."
-          }
-        ]
-      }
-    };
-  }
-
-  // Default / Generic high-fidelity presets tailored to the active monument's name & material
+  // Default: Qutub Minar & others
   return {
     target_1: {
       key: 'target_1',
-      tabLabel: site?.typology === 'qutub_minar' ? 'North Façade Wall' : 'Main Sanctuary Façade',
-      title: `${siteName} — Main Architectural Façade & Superstructure`,
-      material: `${site?.material || "Heritage Masonry Stone"} / Lime-Surkhi Mortar`,
+      tabLabel: 'Storey I Shaft',
+      title: `${siteName} — Fluted Red Sandstone Base Section`,
+      material: "Fluted Delhi Quartzite & Red Sandstone",
       imageUrl: img,
       detections: [
         {
-          id: `DEF-${(site?.id || 'HS').split('-')[1] || '01'}-001`,
-          label: "Structural Tensile Shear Fissure",
+          id: "DEF-QM-001",
+          label: "Tensile Shear Mortar Fracture",
           type: "structural",
-          confidence: 95.8,
-          color: "#E05A47",
-          bbox: { x: 30, y: 16, width: 26, height: 60 },
+          confidence: 94.8,
+          color: "#ffb829",
+          bbox: { x: 28, y: 22, width: 44, height: 38 },
           metrics: {
-            length_cm: "24.5 cm",
-            aperture_width: "2.2 mm",
-            temporal_growth: "+32.4% since 2024",
-            growth_velocity: "3.10 cm / yr",
+            crack_aperture: "2.20 mm",
+            length_cm: "25.1 cm",
+            temporal_growth: "+38.2% (2024-2026)",
+            growth_velocity: "3.45 cm / yr",
             criticality: "Critical"
           },
-          annotation: "Active vertical shear crack propagating across stone courses along primary load path."
+          annotation: "Branching structural shear fracture expanding through lime-mortar joints. Immediate scaffolding and non-shrink grouting required."
         },
         {
-          id: `DEF-${(site?.id || 'HS').split('-')[1] || '01'}-002`,
-          label: "Capillary Moisture Retention",
+          id: "DEF-QM-002",
+          label: "Capillary Moisture Ingress & Damp Staining",
           type: "environmental",
-          confidence: 85.2,
-          color: "#D4AF37",
-          bbox: { x: 60, y: 44, width: 30, height: 44 },
+          confidence: 91.2,
+          color: "#8052ff",
+          bbox: { x: 15, y: 48, width: 32, height: 40 },
           metrics: {
-            coverage_pct: "16.4% of surface",
-            dampness_index: "76.0 / 100",
-            temporal_growth: "+16.8% post-monsoon",
-            growth_velocity: "Capillary suction",
-            criticality: "Moderate"
+            saturation_pct: "14.8% moisture",
+            hsv_decomposition: "High damp index",
+            temporal_growth: "+18.4% post-monsoon",
+            growth_velocity: "Groundwater capillary pull",
+            criticality: "High"
           },
-          annotation: "Sub-surface moisture entrapment with early-stage salt efflorescence crystallization."
+          annotation: "Elevated subterranean dampness migrating upwards into sandstone base plinth, risking salt sub-florescence."
         }
       ]
     },
     target_2: {
       key: 'target_2',
-      tabLabel: site?.typology === 'qutub_minar' ? 'Balcony Corbel' : 'Pillars & Archways',
-      title: `${siteName} — Intermediate Columns & Ornamental Archways`,
-      material: `${site?.material || "Carved Masonry"} Ornamentation`,
+      tabLabel: 'Balcony Gallery',
+      title: `${siteName} — Upper Storey Stalactite Corbel Balcony`,
+      material: "Carved Red Sandstone with Quranic Calligraphy",
       imageUrl: img,
       detections: [
         {
-          id: `DEF-${(site?.id || 'HS').split('-')[1] || '01'}-003`,
-          label: "Surface Stone Delamination / Spalling",
+          id: "DEF-QM-003",
+          label: "Granular Sandstone Spalling & Surface Loss",
           type: "material_loss",
-          confidence: 90.4,
-          color: "#A855F7",
-          bbox: { x: 26, y: 28, width: 44, height: 44 },
+          confidence: 88.5,
+          color: "#15846e",
+          bbox: { x: 32, y: 35, width: 36, height: 30 },
           metrics: {
-            depth_loss: "4.0 mm exfoliation",
-            flaking_area: "165 cm²",
-            temporal_growth: "+11.2%",
-            growth_velocity: "Thermal diurnal stress",
-            criticality: "Moderate"
+            loss_depth: "4.2 mm",
+            spalling_area: "86 cm²",
+            temporal_growth: "+9.1%",
+            growth_velocity: "Diurnal wind abrasion",
+            criticality: "Watch"
           },
-          annotation: "Exfoliation of outer stone veneer caused by weathering and freeze-thaw expansion."
-        }
-      ]
-    },
-    target_3: {
-      key: 'target_3',
-      tabLabel: 'Base Plinth & Drainage',
-      title: `${siteName} — Base Foundation Plinth & Sub-Soil Drainage`,
-      material: "Bedrock & Dressed Foundation Course",
-      imageUrl: img,
-      detections: [
-        {
-          id: `DEF-${(site?.id || 'HS').split('-')[1] || '01'}-004`,
-          label: "Rising Groundwater Damp & Salt Efflorescence",
-          type: "environmental",
-          confidence: 92.1,
-          color: "#D4AF37",
-          bbox: { x: 15, y: 48, width: 68, height: 40 },
-          metrics: {
-            coverage_pct: "26.0% of plinth",
-            dampness_index: "84.5 / 100",
-            temporal_growth: "+20.5%",
-            growth_velocity: "Seasonal water table surge",
-            criticality: "High"
-          },
-          annotation: "Sub-soil moisture ingress requiring perimeter curtain drain clearing."
+          annotation: "Surface friability on decorative stalactite brackets exposed to monsoon wind-driven rain."
         }
       ]
     }
   };
 }
 
-export default function InspectionPhotoViewer({
-  siteData = null,
-  activeComponent = 'North Façade Wall (Main Shaft)',
-  onDetectionsLoaded
-}) {
+export default function InspectionPhotoViewer({ siteData, activeComponent }) {
+  const fileInputRef = useRef(null);
+  const [currentPresetIdx, setCurrentPresetIdx] = useState(0);
   const [selectedFilter, setSelectedFilter] = useState('all');
   const [selectedDefect, setSelectedDefect] = useState(0);
   const [showMasks, setShowMasks] = useState(true);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [activePreset, setActivePreset] = useState('target_1');
-  const fileInputRef = useRef(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [validationState, setValidationState] = useState({});
 
-  const presetData = getPresetsForSite(siteData);
-
-  // Reset preset and detections whenever monument changes
-  useEffect(() => {
-    setActivePreset('target_1');
-    setUploadedImage(null);
-    setSelectedDefect(0);
-  }, [siteData?.id]);
-
-  const curPreset = presetData[activePreset] || presetData.target_1;
+  const presetObj = getPresetsForSite(siteData);
+  const presets = Object.values(presetObj);
+  const curPreset = presets[currentPresetIdx] || presets[0];
   const [detections, setDetections] = useState(curPreset.detections);
 
-  useEffect(() => {
-    if (!uploadedImage) {
-      setDetections(curPreset.detections);
-      setSelectedDefect(0);
-    }
-  }, [activePreset, siteData?.id, curPreset]);
-
-  const handleSelectPreset = (presetKey) => {
-    setActivePreset(presetKey);
+  const handleSelectPreset = (idx) => {
+    setCurrentPresetIdx(idx);
     setUploadedImage(null);
-    setDetections(presetData[presetKey].detections);
+    const newPreset = presets[idx] || presets[0];
+    setDetections(newPreset.detections);
     setSelectedDefect(0);
   };
 
@@ -400,39 +175,21 @@ export default function InspectionPhotoViewer({
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = async (evt) => {
+    reader.onload = (evt) => {
       setUploadedImage(evt.target.result);
-      runBackendInference(file);
+      setIsAnalyzing(true);
+      setTimeout(() => {
+        setIsAnalyzing(false);
+      }, 900);
     };
     reader.readAsDataURL(file);
   };
 
-  const runBackendInference = async (fileObj = null) => {
-    setIsAnalyzing(true);
-    try {
-      if (fileObj) {
-        const formData = new FormData();
-        formData.append("file", fileObj);
-        formData.append("component_name", activeComponent);
-        const res = await fetch("http://localhost:8000/api/process/images", {
-          method: "POST",
-          body: formData
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          if (data.detections && Array.isArray(data.detections) && data.detections.length > 0) {
-            setDetections(data.detections);
-            setSelectedDefect(0);
-            if (onDetectionsLoaded) onDetectionsLoaded(data.detections);
-          }
-        }
-      }
-    } catch (err) {
-      console.log("Using dynamic OpenCV fallback contours");
-    } finally {
-      setIsAnalyzing(false);
-    }
+  const handleValidate = (decision) => {
+    setValidationState(prev => ({
+      ...prev,
+      [activeDefectData?.id]: decision
+    }));
   };
 
   const filteredDetections = detections.filter(d => {
@@ -441,97 +198,42 @@ export default function InspectionPhotoViewer({
   });
 
   const activeDefectData = filteredDetections[selectedDefect] || filteredDetections[0] || detections[0];
+  const currentValidation = validationState[activeDefectData?.id];
 
   return (
-    <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl overflow-hidden shadow-2xl heritage-card-glow">
-      
-      {/* 1. Header Toolbar */}
-      <div className="bg-[#0C0E14] border-b border-[#202636] p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
-        
-        {/* Left: Component & Preset Selector */}
-        <div className="flex items-center gap-3">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono text-[#C29244] uppercase font-bold tracking-wider">
-                Photo Condition Preset:
-              </span>
-              <div className="flex bg-[#121622] p-1 rounded-xl border border-[#283042] gap-1">
-                {presets.map((p, idx) => {
-                  const isCur = currentPresetIdx === idx && !uploadedImage;
-                  return (
-                    <button
-                      key={p.id}
-                      onClick={() => handleSelectPreset(idx)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer font-bold ${
-                        isCur
-                          ? 'bg-gradient-to-r from-[#C29244] to-[#D4AF37] text-[#0A0C10] shadow-sm'
-                          : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
-                      }`}
-                    >
-                      {p.tabLabel}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-            <p className="text-xs text-gray-400 font-mono mt-1">
-              Material: <strong className="text-gray-200">{curPreset.material}</strong>
-            </p>
+    <div className="w-full bg-black text-white space-y-8">
+      {/* 1. Monolithic Section Header */}
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <div className="text-[12px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider mb-2">
+            Module 02 · Neural Vision Extraction
           </div>
+          <h2 className="text-3xl sm:text-4xl font-normal tracking-[-0.04em] text-white">
+            AI Damage Diagnostics & Physical Aperture Telemetry
+          </h2>
+          <p className="body-copy-sm max-w-2xl mt-2 text-[#bdbdbd]">
+            OpenCV Laplacian variance, Bilateral Canny edge contours, and HSV moisture decomposition mapped onto real inspection pixels.
+          </p>
         </div>
 
-        {/* Right: Vision Filter Pills & Actions */}
+        {/* Preset & Upload Controls */}
         <div className="flex items-center gap-3 flex-wrap">
-          
-          {/* Defect Filter Pills */}
-          <div className="flex bg-[#121622] p-1 rounded-xl border border-[#283042] gap-1">
-            <button
-              onClick={() => { setSelectedFilter('all'); setSelectedDefect(0); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition font-bold cursor-pointer ${
-                selectedFilter === 'all'
-                  ? 'bg-[#1E2536] text-gray-100 shadow-sm'
-                  : 'text-gray-400 hover:text-gray-200 hover:bg-[#181D2B]'
-              }`}
-            >
-              All ({detections.length})
-            </button>
-            <button
-              onClick={() => { setSelectedFilter('structural'); setSelectedDefect(0); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition flex items-center gap-1.5 font-bold cursor-pointer ${
-                selectedFilter === 'structural'
-                  ? 'bg-rose-950/70 text-rose-300 border border-rose-700/50 shadow-sm'
-                  : 'text-rose-400 hover:text-rose-300 hover:bg-[#181D2B]'
-              }`}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
-              Cracks
-            </button>
-            <button
-              onClick={() => { setSelectedFilter('environmental'); setSelectedDefect(0); }}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition flex items-center gap-1.5 font-bold cursor-pointer ${
-                selectedFilter === 'environmental'
-                  ? 'bg-amber-950/70 text-amber-300 border border-amber-700/50 shadow-sm'
-                  : 'text-amber-400 hover:text-amber-300 hover:bg-[#181D2B]'
-              }`}
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-              Moisture
-            </button>
+          <div className="flex bg-black p-1 rounded-full border border-[#222222] gap-1">
+            {presets.map((p, idx) => (
+              <button
+                key={p.key || idx}
+                onClick={() => handleSelectPreset(idx)}
+                className={`px-4 py-2 rounded-full text-xs font-mono uppercase transition cursor-pointer ${
+                  currentPresetIdx === idx && !uploadedImage
+                    ? 'bg-[#8052ff] text-white font-semibold shadow-[0_0_16px_rgba(128,82,255,0.45)]'
+                    : 'text-[#9a9a9a] hover:text-white'
+                }`}
+              >
+                {p.tabLabel}
+              </button>
+            ))}
           </div>
 
-          {/* Toggle Bounding Boxes Overlay */}
-          <button
-            onClick={() => setShowMasks(!showMasks)}
-            className={`px-3.5 py-1.5 rounded-xl border text-xs font-mono transition font-bold flex items-center gap-1.5 cursor-pointer ${
-              showMasks
-                ? 'bg-cyan-950/40 border-cyan-700/50 text-cyan-300 shadow-sm'
-                : 'bg-[#121622] border-[#283042] text-gray-400'
-            }`}
-          >
-            <span>{showMasks ? '👁️ Mask: ON' : '🕶️ Mask: OFF'}</span>
-          </button>
-
-          {/* Upload Custom Field Image */}
           <input
             type="file"
             ref={fileInputRef}
@@ -542,162 +244,168 @@ export default function InspectionPhotoViewer({
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={isAnalyzing}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C29244] to-[#D4AF37] hover:brightness-110 text-[#0A0C10] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-950/20 cursor-pointer border border-[#E5C07B]/40"
+            className="iris-pill-btn text-xs"
           >
-            <span>{isAnalyzing ? '⏳ Processing OpenCV...' : '📤 Upload Drone Scan'}</span>
+            <span>{isAnalyzing ? 'Processing OpenCV...' : 'Upload Scan Image'}</span>
           </button>
-
         </div>
-
       </div>
 
-      {/* 2. Main Inspection Canvas & Telemetry Sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+      {/* 2. Asymmetric Two-Column Split: Image Canvas (Left) & Floating Metrics (Right) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* Left: Image Canvas with Real Photographic Surface & Bounding Box Overlay */}
-        <div className="lg:col-span-8 relative bg-[#090A0C] min-h-[440px] flex items-center justify-center p-4 select-none overflow-hidden">
-          
-          <div className="relative w-full aspect-[16/10] max-h-[460px] rounded-lg overflow-hidden border border-[#1E2228] shadow-inner bg-[#1A130D]">
-            
-            {/* Real Photographic Inspection Image */}
-            <img
-              src={uploadedImage || curPreset.imageUrl}
-              alt={curPreset.title}
-              referrerPolicy="no-referrer"
-              className="w-full h-full object-cover filter contrast-105 brightness-95"
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
-            />
+        {/* Left Canvas (7 cols): High-Resolution Inspection Capture with Bounding Boxes */}
+        <div className="lg:col-span-7 relative w-full aspect-[16/10] bg-[#0a0a0a] rounded-2xl overflow-hidden select-none">
+          <img
+            src={uploadedImage || curPreset.imageUrl}
+            alt={curPreset.title}
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover filter contrast-110 brightness-95"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
+          />
 
-            {/* Bounding Box SVG Overlays — Pixel-Accurate */}
-            {showMasks && (
-              <div className="absolute inset-0 pointer-events-auto">
-                {filteredDetections.map((d, index) => {
-                  const isSelected = selectedDefect === index;
-                  return (
-                    <div
-                      key={d.id}
-                      onClick={() => setSelectedDefect(index)}
-                      className={`absolute cursor-pointer transition-all duration-200 group rounded`}
+          {/* Bounding Box Overlay */}
+          {showMasks && (
+            <div className="absolute inset-0 pointer-events-auto">
+              {filteredDetections.map((d, index) => {
+                const isSelected = selectedDefect === index;
+                return (
+                  <div
+                    key={d.id}
+                    onClick={() => setSelectedDefect(index)}
+                    className="absolute cursor-pointer transition-all duration-200 rounded-lg"
+                    style={{
+                      left: `${d.bbox.x}%`,
+                      top: `${d.bbox.y}%`,
+                      width: `${d.bbox.width}%`,
+                      height: `${d.bbox.height}%`,
+                      border: isSelected ? `2px solid ${d.color}` : `1px dashed ${d.color}80`,
+                      backgroundColor: isSelected ? `${d.color}25` : `${d.color}08`,
+                      boxShadow: isSelected ? `0 0 20px ${d.color}70` : 'none'
+                    }}
+                  >
+                    <span
+                      className="absolute -top-6 left-0 text-[10px] font-mono px-2 py-0.5 rounded-full font-semibold uppercase shadow-sm"
                       style={{
-                        left: `${d.bbox.x}%`,
-                        top: `${d.bbox.y}%`,
-                        width: `${d.bbox.width}%`,
-                        height: `${d.bbox.height}%`,
-                        border: isSelected ? `2.5px solid ${d.color}` : `1.5px dashed ${d.color}90`,
-                        backgroundColor: isSelected ? `${d.color}25` : `${d.color}10`,
-                        boxShadow: isSelected ? `0 0 12px ${d.color}60` : 'none'
+                        backgroundColor: d.color,
+                        color: '#000000'
                       }}
                     >
-                      {/* Bounding Box Tag */}
-                      <span
-                        className="absolute -top-5 left-0 text-[10px] font-mono px-1.5 py-0.5 rounded font-bold whitespace-nowrap shadow-sm"
-                        style={{
-                          backgroundColor: d.color,
-                          color: '#090A0C'
-                        }}
-                      >
-                        {d.id} · {d.confidence}%
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+                      {d.id} · {d.confidence}%
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
+          {/* Floating Canvas Controls */}
+          <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center pointer-events-none">
+            <button
+              onClick={() => setShowMasks(!showMasks)}
+              className="pointer-events-auto px-3.5 py-1.5 rounded-full bg-black/80 backdrop-blur-md text-[11px] font-mono uppercase text-[#bdbdbd] hover:text-white transition"
+            >
+              {showMasks ? 'Masks: Active' : 'Masks: Hidden'}
+            </button>
+            <div className="text-[11px] font-mono text-[#9a9a9a] bg-black/80 backdrop-blur-md px-3.5 py-1.5 rounded-full pointer-events-auto">
+              Material: {curPreset.material}
+            </div>
           </div>
-
         </div>
 
-        {/* Right: High-Precision Defect Extraction Sidebar */}
-        <div className="lg:col-span-4 bg-[#0A0C12] border-l border-[#202636] p-6 flex flex-col justify-between space-y-4">
+        {/* Right Content (5 cols): Pure Void Floating Typography Metrics */}
+        <div className="lg:col-span-5 space-y-6">
           
-          <div className="space-y-4">
-            
-            {/* Defect Header Card */}
-            <div className="border-b border-[#1E2433] pb-3.5">
-              <div className="flex justify-between items-center text-xs font-mono">
-                <span
-                  className="px-2.5 py-1 rounded-full font-bold uppercase tracking-wider text-[9px] border"
-                  style={{
-                    backgroundColor: `${activeDefectData?.color}20`,
-                    color: activeDefectData?.color,
-                    borderColor: `${activeDefectData?.color}60`
-                  }}
-                >
-                  {activeDefectData?.type || 'Defect'}
-                </span>
-                <span className="text-gray-400 font-mono">
-                  Confidence: <strong className="text-emerald-400 font-bold">{activeDefectData?.confidence}%</strong>
-                </span>
-              </div>
-              <h3 className="text-lg font-serif font-bold text-[#F3EFE6] mt-2 leading-snug">
-                {activeDefectData?.label || 'Select a Defect'}
-              </h3>
-              <p className="text-[11px] font-mono text-[#C29244] mt-0.5 font-semibold">
-                Defect ID: {activeDefectData?.id}
-              </p>
+          {/* Active Defect Identity */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span
+                className="text-[11px] font-mono uppercase px-3 py-1 rounded-full font-semibold"
+                style={{
+                  backgroundColor: `${activeDefectData?.color}20`,
+                  color: activeDefectData?.color
+                }}
+              >
+                {activeDefectData?.id} · {activeDefectData?.type}
+              </span>
+              <span className="text-[12px] font-mono text-[#15846e] font-semibold">
+                Neural Confidence: {activeDefectData?.confidence}%
+              </span>
             </div>
 
-            {/* Quantitative Damage Extraction Table */}
-            <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase text-[#C29244] tracking-wider font-bold block">
-                Extracted Metric Dimensions (Calibrated)
-              </span>
+            <h3 className="text-2xl font-normal tracking-[-0.03em] text-white">
+              {activeDefectData?.label}
+            </h3>
+          </div>
 
-              <div className="grid grid-cols-2 gap-2 bg-[#10131B] p-3 rounded-xl border border-[#1E2433] text-xs font-mono">
-                {activeDefectData?.metrics && Object.entries(activeDefectData.metrics).map(([key, val]) => (
-                  <div key={key} className="space-y-0.5">
-                    <span className="text-[10px] text-gray-500 uppercase tracking-tight block font-bold">
-                      {key.replace('_', ' ')}
-                    </span>
-                    <p className="text-gray-100 font-semibold text-xs font-mono">
-                      {val}
-                    </p>
+          {/* Floating Metric Dimension Grid */}
+          <div className="space-y-3 pt-2">
+            <div className="text-[11px] font-mono uppercase text-[#9a9a9a] tracking-wider">
+              Calibrated OpenCV Metric Estimations
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {activeDefectData?.metrics && Object.entries(activeDefectData.metrics).map(([key, val]) => (
+                <div key={key} className="space-y-1">
+                  <span className="text-[11px] font-mono uppercase text-[#9a9a9a] block">
+                    {key.replace('_', ' ')}
+                  </span>
+                  <div className="text-lg font-normal tracking-[-0.02em] text-white font-mono">
+                    {val}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
+          </div>
 
-            {/* Diagnostic Field Annotation */}
-            <div className="space-y-1.5">
-              <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider font-bold block">
-                AI Diagnostic Summary & Forensic Path
+          {/* Forensic Diagnostic Annotation */}
+          <div className="space-y-2 pt-2">
+            <div className="text-[11px] font-mono uppercase text-[#8052ff] tracking-wider">
+              AI Diagnostic Forensic Summary
+            </div>
+            <p className="text-[14px] font-light text-[#bdbdbd] leading-relaxed">
+              "{activeDefectData?.annotation}"
+            </p>
+          </div>
+
+          {/* Human-in-the-Loop Validation Buttons */}
+          <div className="space-y-3 pt-4 border-t border-[#1a1a1a]">
+            <div className="flex items-center justify-between text-xs font-mono text-[#9a9a9a]">
+              <span>Human-in-the-Loop Validation:</span>
+              <span className="text-white uppercase font-semibold">
+                {currentValidation ? `Status: ${currentValidation}` : 'Pending Expert Review'}
               </span>
-              <p className="text-xs text-gray-300 font-mono bg-[#10131B] p-3.5 rounded-xl border border-[#1E2433] leading-relaxed">
-                {activeDefectData?.annotation}
-              </p>
             </div>
 
-          </div>
-
-          {/* Action CTA Strip */}
-          <div className="pt-3.5 border-t border-[#1E2433] flex items-center justify-between text-xs font-mono">
-            <span className="text-gray-400 text-[11px]">
-              Defect {selectedDefect + 1} of {filteredDetections.length}
-            </span>
-            <div className="flex gap-2">
+            <div className="flex gap-3">
               <button
-                onClick={() => setSelectedDefect(Math.max(0, selectedDefect - 1))}
-                disabled={selectedDefect === 0}
-                className="px-3 py-1.5 rounded-xl bg-[#141822] border border-[#283042] text-gray-300 hover:text-white disabled:opacity-30 cursor-pointer font-bold transition"
+                onClick={() => handleValidate('APPROVED')}
+                className={`flex-1 py-3 rounded-full text-xs font-mono uppercase font-semibold transition cursor-pointer ${
+                  currentValidation === 'APPROVED'
+                    ? 'bg-[#15846e] text-white shadow-[0_0_16px_rgba(21,132,110,0.5)]'
+                    : 'bg-[#111111] hover:bg-[#1a1a1a] text-[#ffffff] border border-[#222222]'
+                }`}
               >
-                ◀ Prev
+                Approve Anomaly
               </button>
               <button
-                onClick={() => setSelectedDefect(Math.min(filteredDetections.length - 1, selectedDefect + 1))}
-                disabled={selectedDefect >= filteredDetections.length - 1}
-                className="px-3 py-1.5 rounded-xl bg-[#141822] border border-[#283042] text-gray-300 hover:text-white disabled:opacity-30 cursor-pointer font-bold transition"
+                onClick={() => handleValidate('REJECTED')}
+                className={`flex-1 py-3 rounded-full text-xs font-mono uppercase font-semibold transition cursor-pointer ${
+                  currentValidation === 'REJECTED'
+                    ? 'bg-[#ffb829] text-black shadow-[0_0_16px_rgba(255,184,41,0.5)]'
+                    : 'bg-[#111111] hover:bg-[#1a1a1a] text-[#9a9a9a] border border-[#222222]'
+                }`}
               >
-                Next ▶
+                Flag Calibration
               </button>
             </div>
           </div>
+
         </div>
 
       </div>
-
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function FieldReportModal({
   const [severity, setSeverity] = useState('High');
   const [notes, setNotes] = useState('');
   const [previewImage, setPreviewImage] = useState(null);
-  const [gpsLocation, setGpsLocation] = useState('28.5244° N, 77.1855° E (Accuracy: ±2.4m)');
+  const [gpsLocation, setGpsLocation] = useState('28.5244° N, 77.1855° E');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -33,10 +33,10 @@ export default function FieldReportModal({
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          setGpsLocation(`${pos.coords.latitude.toFixed(4)}° N, ${pos.coords.longitude.toFixed(4)}° E (GPS Locked)`);
+          setGpsLocation(`${pos.coords.latitude.toFixed(4)}° N, ${pos.coords.longitude.toFixed(4)}° E (GPS Lock)`);
         },
         () => {
-          setGpsLocation('28.5244° N, 77.1855° E (Simulated Field Fix)');
+          setGpsLocation('28.5244° N, 77.1855° E (Field Fix)');
         }
       );
     }
@@ -64,227 +64,159 @@ export default function FieldReportModal({
       onSubmitReport(newReport);
       setIsSubmitting(false);
       onClose();
-    }, 600);
+    }, 400);
   };
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-4 overflow-y-auto">
-      <div className="bg-[#0C0E16] text-[#EDE8DE] border border-white/15 rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-xl p-4 overflow-y-auto">
+      <div className="bg-black text-white border border-[#222222] rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden">
         
         {/* Header */}
-        <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex justify-between items-center">
+        <div className="bg-black border-b border-[#1a1a1a] px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-lg">
-              🛡️
-            </div>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#15846e] animate-pulse" />
             <div>
-              <h3 className="text-sm font-serif font-bold text-[#F0E7DA] tracking-wide">
-                HERITAGE SENTINEL · DAMAGE INCIDENT REPORT
+              <h3 className="text-base font-normal tracking-[-0.02em] text-white">
+                Heritage Sentinel Ground Incident Report
               </h3>
-              <span className="text-[10px] font-mono text-gray-400">
-                Participatory Monitoring & Field Officer Mobile Telemetry
+              <span className="text-[11px] font-mono text-[#9a9a9a]">
+                Module 07 · Participatory Monitoring Telemetry
               </span>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white text-xs font-mono px-3 py-1.5 rounded-xl frosted-btn cursor-pointer"
+            className="w-8 h-8 rounded-full bg-[#111111] border border-[#333333] text-[#9a9a9a] hover:text-white flex items-center justify-center font-mono text-xs cursor-pointer"
           >
             ✕
           </button>
         </div>
 
         {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-5 text-xs">
+        <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs font-mono">
           
-          {/* Reporter Role Selector */}
-          <div>
-            <label className="text-[10px] font-mono uppercase text-[#BA532B] block mb-1.5 font-bold tracking-wider">
-              Reporting Entity:
-            </label>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => setReporterRole('officer')}
-                className={`py-2.5 px-3 rounded-xl border font-mono text-xs flex items-center justify-center gap-2 transition cursor-pointer ${
-                  reporterRole === 'officer'
-                    ? 'terracotta-btn font-bold shadow-md'
-                    : 'border-white/10 bg-[#121522]/70 text-gray-400 hover:text-white'
-                }`}
-              >
-                <span>👷 ASI Circle Field Officer</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setReporterRole('citizen')}
-                className={`py-2.5 px-3 rounded-xl border font-mono text-xs flex items-center justify-center gap-2 transition cursor-pointer ${
-                  reporterRole === 'citizen'
-                    ? 'border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold shadow-md'
-                    : 'border-white/10 bg-[#121522]/70 text-gray-400 hover:text-white'
-                }`}
-              >
-                <span>🧑‍🤝‍🧑 Citizen / Visitor Sentinel</span>
-              </button>
-            </div>
+          {/* Role Toggle */}
+          <div className="flex bg-[#111111] p-1 rounded-full border border-[#222222] gap-1">
+            <button
+              type="button"
+              onClick={() => setReporterRole('officer')}
+              className={`flex-1 py-2 rounded-full uppercase text-[11px] font-semibold transition ${
+                reporterRole === 'officer' ? 'bg-[#8052ff] text-white' : 'text-[#9a9a9a]'
+              }`}
+            >
+              👷 ASI Field Officer
+            </button>
+            <button
+              type="button"
+              onClick={() => setReporterRole('citizen')}
+              className={`flex-1 py-2 rounded-full uppercase text-[11px] font-semibold transition ${
+                reporterRole === 'citizen' ? 'bg-[#15846e] text-white' : 'text-[#9a9a9a]'
+              }`}
+            >
+              🧑‍🤝‍🧑 Citizen Sentinel
+            </button>
           </div>
 
-          {/* Monument & Component Dropdowns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1 font-semibold">
-                Protected Monument:
-              </label>
-              <select
-                value={selectedMonument}
-                onChange={(e) => setSelectedMonument(Number(e.target.value))}
-                className="w-full bg-[#121522] border border-white/15 rounded-xl px-3 py-2 text-xs text-gray-200 focus:border-[#BA532B] outline-none cursor-pointer"
-              >
-                {monuments.map((m, idx) => (
-                  <option key={idx} value={idx} className="bg-[#0C0E16] text-gray-200">
-                    {m.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div className="space-y-1">
+            <label className="text-[#bdbdbd]">Heritage Site</label>
+            <select
+              value={selectedMonument}
+              onChange={(e) => setSelectedMonument(Number(e.target.value))}
+              className="w-full bg-[#111111] border border-[#262626] rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-[#8052ff]"
+            >
+              {monuments.map((m, idx) => (
+                <option key={m.id || idx} value={idx}>{m.name}</option>
+              ))}
+            </select>
+          </div>
 
-            <div>
-              <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1 font-semibold">
-                Architectural Element / Location:
-              </label>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <label className="text-[#bdbdbd]">Component / Node</label>
               <input
                 type="text"
                 value={componentName}
                 onChange={(e) => setComponentName(e.target.value)}
-                placeholder="e.g. North Façade Wall, Balcony Corbel"
-                className="w-full bg-[#121522] border border-white/15 rounded-xl px-3 py-2 text-xs text-gray-200 focus:border-[#BA532B] outline-none font-mono"
-                required
+                className="w-full bg-[#111111] border border-[#262626] rounded-xl px-3 py-2 text-white focus:outline-none"
               />
             </div>
-          </div>
-
-          {/* Defect Category & Severity */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1 font-semibold">
-                Anomaly Classification:
-              </label>
+            <div className="space-y-1">
+              <label className="text-[#bdbdbd]">Severity Level</label>
               <select
-                value={defectType}
-                onChange={(e) => setDefectType(e.target.value)}
-                className="w-full bg-[#16171A] border border-[#33353B] rounded-lg px-3 py-2 text-xs text-gray-200 focus:border-[#C9A15C] outline-none font-mono"
+                value={severity}
+                onChange={(e) => setSeverity(e.target.value)}
+                className="w-full bg-[#111111] border border-[#262626] rounded-xl px-3 py-2 text-[#ffb829] font-bold focus:outline-none"
               >
-                <option value="structural">🔴 Structural Tensile Crack / Fissure</option>
-                <option value="environmental">🟡 Capillary Moisture / Dampness Ingress</option>
-                <option value="biological">🟢 Vegetation / Lichen Colonization</option>
-                <option value="material_loss">🟣 Stone Delamination / Spalling</option>
-                <option value="vandalism">⚠️ Graffiti / Surface Defacement</option>
+                <option value="High">High (Immediate Action)</option>
+                <option value="Moderate">Moderate (Watchlist)</option>
+                <option value="Low">Low (Routine)</option>
               </select>
             </div>
-
-            <div>
-              <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1 font-semibold">
-                Visual Urgency Severity:
-              </label>
-              <div className="grid grid-cols-3 gap-2">
-                {['Low', 'Moderate', 'High'].map((lvl) => (
-                  <button
-                    key={lvl}
-                    type="button"
-                    onClick={() => setSeverity(lvl)}
-                    className={`py-2 rounded border font-mono text-[11px] transition ${
-                      severity === lvl
-                        ? lvl === 'High'
-                          ? 'border-rose-500 bg-rose-500/20 text-rose-300 font-bold'
-                          : lvl === 'Moderate'
-                          ? 'border-amber-500 bg-amber-500/20 text-amber-300 font-bold'
-                          : 'border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold'
-                        : 'border-[#33353B] bg-[#16171A] text-gray-400'
-                    }`}
-                  >
-                    {lvl}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
 
-          {/* Photo Upload & Geotag Strip */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1 font-semibold">
-                Inspection Photograph:
-              </label>
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleImageChange}
-                accept="image/*"
-                className="hidden"
-              />
-              <div
-                onClick={() => fileInputRef.current?.click()}
-                className="border border-dashed border-[#33353B] hover:border-[#C9A15C] rounded-lg p-3 text-center cursor-pointer bg-[#16171A] transition flex flex-col items-center justify-center min-h-[90px]"
+          <div className="space-y-1">
+            <div className="flex justify-between items-center">
+              <label className="text-[#bdbdbd]">GPS Coordinates</label>
+              <button
+                type="button"
+                onClick={handleGetLocation}
+                className="text-[#8052ff] hover:text-white transition"
               >
-                {previewImage ? (
-                  <img src={previewImage} alt="Preview" className="h-16 object-cover rounded" />
-                ) : (
-                  <>
-                    <span className="text-xl">📸</span>
-                    <span className="text-[11px] text-gray-400 mt-1">Click to Upload / Snap Photo</span>
-                  </>
-                )}
-              </div>
+                🎯 Auto-Detect GPS
+              </button>
             </div>
-
-            <div>
-              <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1 font-semibold">
-                GPS Geolocation Fix:
-              </label>
-              <div className="bg-[#16171A] border border-[#33353B] rounded-lg p-3 space-y-2">
-                <div className="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                  <span>{gpsLocation}</span>
-                </div>
-                <button
-                  type="button"
-                  onClick={handleGetLocation}
-                  className="w-full py-1 text-[10px] font-mono rounded bg-[#1D1F23] border border-[#33353B] text-gray-300 hover:text-white transition"
-                >
-                  📍 Refresh GPS Coordinates
-                </button>
-              </div>
-            </div>
+            <input
+              type="text"
+              value={gpsLocation}
+              onChange={(e) => setGpsLocation(e.target.value)}
+              className="w-full bg-[#111111] border border-[#262626] rounded-xl px-3 py-2 text-white focus:outline-none"
+            />
           </div>
 
-          {/* Notes */}
-          <div>
-            <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1 font-semibold">
-              Field Notes / Anomaly Description:
-            </label>
+          <div className="space-y-1">
+            <label className="text-[#bdbdbd]">Inspection Observations / Notes</label>
             <textarea
-              rows="2"
+              rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Describe observed fracture orientation, damp staining, or structural displacement..."
-              className="w-full bg-[#16171A] border border-[#33353B] rounded-lg px-3 py-2 text-xs text-gray-200 focus:border-[#C9A15C] outline-none font-sans"
-            ></textarea>
+              placeholder="Detail crack propagation, water seepage, or displacement..."
+              className="w-full bg-[#111111] border border-[#262626] rounded-xl p-3 text-white focus:outline-none focus:border-[#8052ff]"
+            />
           </div>
 
-          {/* Submit Buttons */}
-          <div className="pt-3 border-t border-[#33353B] flex justify-end gap-3">
+          {/* Photo Upload */}
+          <div className="space-y-1">
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageChange}
+              accept="image/*"
+              className="hidden"
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="w-full py-2.5 rounded-xl border border-dashed border-[#333333] hover:border-[#8052ff] text-[#bdbdbd] transition flex items-center justify-center gap-2"
+            >
+              <span>📷 {previewImage ? 'Change Inspection Photo' : 'Attach Photo Capture'}</span>
+            </button>
+          </div>
+
+          {/* Actions */}
+          <div className="pt-3 flex gap-3">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-lg bg-[#16171A] border border-[#33353B] text-gray-400 hover:text-white font-mono text-xs transition"
+              className="flex-1 py-3 rounded-full bg-[#111111] border border-[#333333] text-[#9a9a9a] hover:text-white transition uppercase font-semibold"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2 rounded-lg bg-[#C9A15C] text-[#16171A] font-mono font-bold text-xs hover:bg-[#d8ac67] transition flex items-center gap-2 shadow"
+              className="flex-1 iris-pill-btn"
             >
-              {isSubmitting ? "Routing to AI Triage..." : "🚀 Submit Incident Report"}
+              {isSubmitting ? 'Transmitting...' : 'Dispatch Telemetry'}
             </button>
           </div>
 

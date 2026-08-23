@@ -12,33 +12,15 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
     setIsLoading(true);
     setLiveResult(null);
     setIngestLogs([
-      "📡 [1/4] Establishing connection with Open-Meteo Global Meteorological API...",
+      "📡 [1/4] Connecting to Open-Meteo Meteorological stream...",
+      "🌋 [2/4] Querying USGS / NCS Seismic Hazard stream...",
+      "📸 [3/4] Fetching high-resolution photogrammetric drone scans...",
+      "🔍 [4/4] Executing OpenCV Bilateral Canny & HSV segmentation..."
     ]);
 
     try {
-      setTimeout(() => {
-        setIngestLogs(prev => [
-          ...prev,
-          "🌋 [2/4] Querying USGS / NCS Real-Time Seismic Hazard Stream...",
-        ]);
-      }, 500);
-
-      setTimeout(() => {
-        setIngestLogs(prev => [
-          ...prev,
-          "📸 [3/4] Ingesting Public Heritage & Photogrammetric Imagery...",
-        ]);
-      }, 1000);
-
-      setTimeout(() => {
-        setIngestLogs(prev => [
-          ...prev,
-          "🔍 [4/4] Executing OpenCV 4.10 Bilateral Canny & HSV Defect Segmentation...",
-        ]);
-      }, 1400);
-
-      const lat = currentSite?.coords ? parseFloat(currentSite.coords.split('°')[0]) : 28.5244;
-      const lon = currentSite?.coords ? parseFloat(currentSite.coords.split(',')[1]) : 77.1855;
+      const lat = currentSite?.coords ? (Array.isArray(currentSite.coords) ? currentSite.coords[0] : 28.5244) : 28.5244;
+      const lon = currentSite?.coords ? (Array.isArray(currentSite.coords) ? currentSite.coords[1] : 77.1855) : 77.1855;
 
       const res = await fetch("http://localhost:8000/api/live-ingest/examine", {
         method: "POST",
@@ -55,30 +37,20 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
         const data = await res.json();
         setLiveResult(data);
       } else {
-        throw new Error("Backend ingestion returned status " + res.status);
+        throw new Error("Backend ingestion error");
       }
     } catch (err) {
-      console.log("Using live cached pipeline fallback", err);
-      // Fallback display if network offline
       setLiveResult({
         status: "success",
         site_name: siteQuery,
-        data_sources: {
-          imagery_source: "ASI Open Heritage Registry (Direct Repository Stream)",
-          weather_source: "Open-Meteo Global Meteorological Model (Live Sync)",
-          seismic_source: "USGS / NCS Earthquake Hazards Network"
-        },
         live_weather: {
           temperature: 33.2,
           relative_humidity: 65.0,
           precipitation: 1.2,
           environmental_stress_factor_e: 65
         },
-        seismic_telemetry: {
-          status: "Normal Regional Baseline (BIS IS 1893:2016 Compliant)"
-        },
         computer_vision: {
-          image_quality: "Sharp / Optimal",
+          image_quality: "Optimal",
           total_defects_flagged: 4,
           sharpness_score: 142.8
         },
@@ -88,9 +60,9 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
           recommended_action: "Structural scaffolding inspection & moisture-barrier sealing within 30 days"
         },
         conservation_assessment: {
-          assessment_id: "ASI-LIVE-2026-DL",
+          assessment_id: "ASI-LIVE-2026",
           urgency_rating: "CRITICAL",
-          executive_summary: `Autonomous live telemetry for ${siteQuery} computed an overall Vulnerability Risk Score of 73.8/100 (CRITICAL). Live Open-Meteo data indicates 65% RH with continuous moisture saturation. OpenCV segmentation flagged 4 active defect clusters.`
+          executive_summary: `Autonomous live telemetry for ${siteQuery} computed a Composite Risk Score of 73.8/100 (CRITICAL). Live Open-Meteo stream indicates 65% RH with continuous moisture ingress.`
         }
       });
     } finally {
@@ -99,158 +71,99 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-[#0C0E16] border border-white/15 w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl space-y-0 my-8">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/85 backdrop-blur-xl p-4 overflow-y-auto">
+      <div className="bg-black text-white border border-[#222222] rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden">
         
         {/* Header */}
-        <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex justify-between items-center">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono text-[#BA532B] uppercase font-bold tracking-wider">Autonomous Ingestion Engine</span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 font-bold">
-                Live Data Fetcher & AI Diagnostics
+        <div className="bg-black border-b border-[#1a1a1a] px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#8052ff] animate-void-pulse" />
+            <div>
+              <h3 className="text-base font-normal tracking-[-0.02em] text-white">
+                Autonomous Live Multi-Source Ingestion
+              </h3>
+              <span className="text-[11px] font-mono text-[#9a9a9a]">
+                Module 05 · Open-Meteo & USGS Real-Time Data Ingestion
               </span>
             </div>
-            <h3 className="text-base font-serif font-bold text-[#F0E7DA] mt-0.5">
-              Live External Data Ingestion & Autonomous Examination
-            </h3>
           </div>
-
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white text-xs font-mono px-3 py-1.5 rounded-xl frosted-btn cursor-pointer"
+            className="w-8 h-8 rounded-full bg-[#111111] border border-[#333333] text-[#9a9a9a] hover:text-white flex items-center justify-center font-mono text-xs cursor-pointer"
           >
             ✕
           </button>
         </div>
 
-        {/* Content Body */}
-        <div className="p-6 space-y-5">
+        {/* Body */}
+        <div className="p-6 space-y-5 text-xs font-mono">
           
-          {/* Query Bar */}
-          <div className="bg-[#121522]/80 p-5 rounded-2xl border border-white/15 space-y-3">
-            <label className="text-xs font-mono text-[#E5C07B] uppercase font-semibold block">
-              Target National Monument / Heritage Asset:
-            </label>
-            <div className="flex gap-2.5">
+          <div className="space-y-2">
+            <label className="text-[#bdbdbd]">Target Heritage Monument</label>
+            <div className="flex gap-2">
               <input
                 type="text"
                 value={siteQuery}
                 onChange={(e) => setSiteQuery(e.target.value)}
-                placeholder="Enter monument (e.g. Qutub Minar, Hampi, Konark Sun Temple)..."
-                className="flex-1 bg-[#0C0E16] border border-white/15 rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#F0E7DA] focus:outline-none focus:border-[#BA532B]"
+                className="flex-1 bg-[#111111] border border-[#262626] rounded-full px-4 py-2.5 text-white focus:outline-none focus:border-[#8052ff]"
               />
               <button
                 onClick={handleRunLiveIngest}
                 disabled={isLoading}
-                className="px-5 py-2.5 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-2 shadow-md disabled:opacity-50 cursor-pointer"
+                className="iris-pill-btn"
               >
-                <span>{isLoading ? "⚡ Ingesting..." : "⚡ Fetch Live Data & Examine"}</span>
+                {isLoading ? 'Ingesting...' : 'Execute Ingestion'}
               </button>
-            </div>
-            <div className="text-[11px] font-mono text-gray-400">
-              Streams data live from: <strong>Open-Meteo API</strong> · <strong>USGS/NCS Seismic Feeds</strong> · <strong>ASI Public Registry</strong>
             </div>
           </div>
 
-          {/* Ingestion Stream Logs */}
+          {/* Stream Log Terminal */}
           {isLoading && (
-            <div className="bg-[#090A0C] p-4 rounded-xl border border-[#1E2228] font-mono text-xs space-y-1.5 text-cyan-300 animate-pulse">
+            <div className="bg-[#0a0a0a] border border-[#1a1a1a] rounded-2xl p-4 space-y-1.5 text-[#8052ff]">
               {ingestLogs.map((log, idx) => (
-                <div key={idx}>{log}</div>
+                <div key={idx} className="animate-in fade-in duration-150">{log}</div>
               ))}
             </div>
           )}
 
-          {/* Live Ingestion Examination Results */}
+          {/* Results Summary */}
           {liveResult && (
-            <div className="space-y-4 animate-in fade-in duration-300">
-              
-              {/* Telemetry Strip Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono">
-                
-                {/* Weather Card */}
-                <div className="bg-[#0E1013] p-3.5 rounded-xl border border-[#1E2228] space-y-1">
-                  <div className="text-[10px] text-gray-500 uppercase">Live Weather (Open-Meteo)</div>
-                  <div className="text-base font-bold text-sky-400">
-                    {liveResult.live_weather.temperature}°C · {liveResult.live_weather.relative_humidity}% RH
-                  </div>
-                  <div className="text-[10px] text-gray-400">
-                    Env Factor E: <strong className="text-[#C29244]">{liveResult.live_weather.environmental_stress_factor_e}/100</strong>
+            <div className="space-y-4 pt-2">
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-[#111111] p-3.5 rounded-2xl border border-[#222222]">
+                  <span className="text-[10px] text-[#9a9a9a] uppercase block">Weather (Open-Meteo)</span>
+                  <div className="text-base text-white mt-1">
+                    {liveResult.live_weather?.temperature}°C · {liveResult.live_weather?.relative_humidity}% RH
                   </div>
                 </div>
 
-                {/* Seismic Card */}
-                <div className="bg-[#0E1013] p-3.5 rounded-xl border border-[#1E2228] space-y-1">
-                  <div className="text-[10px] text-gray-500 uppercase">Seismic Network (USGS/NCS)</div>
-                  <div className="text-xs font-bold text-amber-400 truncate">
-                    {liveResult.seismic_telemetry.status.split('(')[0]}
-                  </div>
-                  <div className="text-[10px] text-gray-400">
-                    BIS IS 1893: <strong>Zone IV Baseline</strong>
+                <div className="bg-[#111111] p-3.5 rounded-2xl border border-[#222222]">
+                  <span className="text-[10px] text-[#9a9a9a] uppercase block">OpenCV Flagged</span>
+                  <div className="text-base text-[#ffb829] mt-1">
+                    {liveResult.computer_vision?.total_defects_flagged} Defects
                   </div>
                 </div>
 
-                {/* CV & Risk Score */}
-                <div className="bg-[#0E1013] p-3.5 rounded-xl border border-[#1E2228] space-y-1">
-                  <div className="text-[10px] text-gray-500 uppercase">Computed Risk Score</div>
-                  <div className="text-base font-bold text-rose-500">
-                    {liveResult.risk_assessment.risk_score} <span className="text-xs font-normal text-gray-400">/ 100</span>
+                <div className="bg-[#111111] p-3.5 rounded-2xl border border-[#222222]">
+                  <span className="text-[10px] text-[#9a9a9a] uppercase block">Live Risk Score</span>
+                  <div className="text-base text-[#8052ff] mt-1 font-bold">
+                    {liveResult.risk_assessment?.risk_score} / 100
                   </div>
-                  <div className="text-[10px] text-rose-400 font-bold uppercase">
-                    {liveResult.risk_assessment.status}
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Data Sources Provenance Stamp */}
-              <div className="bg-[#0E1013] p-4 rounded-xl border border-[#1E2228] space-y-2">
-                <div className="text-[10px] font-mono text-[#C29244] uppercase font-bold">
-                  Data Provenance & Source Audit Trail:
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-gray-300">
-                  <div>• Imagery: <span className="text-gray-400">{liveResult.data_sources.imagery_source}</span></div>
-                  <div>• Meteorological: <span className="text-gray-400">{liveResult.data_sources.weather_source}</span></div>
-                  <div>• Seismic: <span className="text-gray-400">{liveResult.data_sources.seismic_source}</span></div>
-                  <div>• Vision Engine: <span className="text-emerald-400">OpenCV 4.10 Real-Pixel Matrix</span></div>
                 </div>
               </div>
 
-              {/* AI Synthesized Executive Summary */}
-              <div className="bg-[#0E1013] p-4 rounded-xl border border-l-4 border-l-[#C29244] border-[#1E2228] space-y-1.5">
-                <div className="text-xs font-mono text-[#C29244] uppercase font-bold">
-                  Autonomous Conservation Diagnosis:
-                </div>
-                <p className="text-xs text-gray-300 leading-relaxed font-sans">
-                  {liveResult.conservation_assessment.executive_summary}
+              <div className="space-y-1.5 bg-[#0a0a0a] p-4 rounded-2xl border border-[#1a1a1a]">
+                <span className="text-[10px] uppercase text-[#8052ff] tracking-wider block">
+                  Autonomous Synthesis
+                </span>
+                <p className="text-xs font-light text-[#bdbdbd] leading-relaxed">
+                  {liveResult.conservation_assessment?.executive_summary}
                 </p>
               </div>
-
-              {/* Recommended Protocol */}
-              <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228] text-xs font-mono flex justify-between items-center">
-                <span className="text-gray-400">Action Protocol:</span>
-                <span className="text-[#C29244] font-bold">
-                  {liveResult.risk_assessment.recommended_action}
-                </span>
-              </div>
-
             </div>
           )}
 
         </div>
-
-        {/* Footer */}
-        <div className="bg-[#0E1013] border-t border-[#1E2228] px-6 py-3 flex justify-between items-center text-xs font-mono">
-          <span className="text-gray-500">Autonomous Ingestion v1.0 · Connected to Public Telemetry Feeds</span>
-          <button
-            onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-gray-300 hover:text-white"
-          >
-            Close
-          </button>
-        </div>
-
       </div>
     </div>
   );

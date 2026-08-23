@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { createTriangleConstellation } from './TriangleConstellation';
 
 // Procedural PBR Stone & Marble Texture Generator
 function createProceduralTexture(type = 'sandstone') {
@@ -114,11 +115,11 @@ export default function MonumentViewer3D({
     const container = mountRef.current;
     if (!container) return;
 
-    // 1. Scene setup
+    // 1. Scene setup — Pure Void transparent background
     const scene = new THREE.Scene();
     sceneRef.current = scene;
-    scene.background = new THREE.Color(0x08090C);
-    scene.fog = new THREE.FogExp2(0x08090C, 0.025);
+    scene.background = null;
+    scene.fog = new THREE.FogExp2(0x000000, 0.015);
 
     const width = container.clientWidth;
     const height = container.clientHeight || (isEmbedded ? 380 : 520);
@@ -129,11 +130,11 @@ export default function MonumentViewer3D({
     camera.position.set(0, 2.5, initDist);
     cameraRef.current = camera;
 
-
-    // 3. Renderer with high-fidelity soft shadows
+    // 3. Renderer with transparent clear color
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -182,33 +183,53 @@ export default function MonumentViewer3D({
     warmFillLight.position.set(0, 2.5, 5);
     scene.add(warmFillLight);
 
-    // 6. Ground Telemetry Compass & Grid
+    // 6. Ground Telemetry Compass & Minimal Void Grid
     const groundGroup = new THREE.Group();
     scene.add(groundGroup);
 
-    // Shadow receiver disc
-    const shadowGeo = new THREE.CircleGeometry(6.5, 48);
-    const shadowMat = new THREE.ShadowMaterial({ opacity: 0.45 });
-    const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
-    shadowMesh.rotation.x = -Math.PI / 2;
-    shadowMesh.position.y = -0.01;
-    shadowMesh.receiveShadow = true;
-    groundGroup.add(shadowMesh);
-
-    // Circular scanning ring
-    const ringGeo = new THREE.RingGeometry(5.2, 5.25, 64);
-    const ringMat = new THREE.MeshBasicMaterial({ color: 0xC5A059, opacity: 0.25, transparent: true, side: THREE.DoubleSide });
-    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-    ringMesh.rotation.x = -Math.PI / 2;
-    ringMesh.position.y = 0.005;
-    groundGroup.add(ringMesh);
-
-    // Grid Floor
-    const grid = new THREE.GridHelper(12, 24, 0xC5A059, 0x1E2228);
+    // Subtle Void Grid Floor
+    const grid = new THREE.GridHelper(14, 28, 0x8052ff, 0x141414);
     grid.position.y = 0;
-    grid.material.opacity = 0.35;
+    grid.material.opacity = 0.22;
     grid.material.transparent = true;
     groundGroup.add(grid);
+
+    // 6.5 Ambient Chromatic Particle Constellation Cloud (~1800 triangles)
+    const constellation = createTriangleConstellation(1800, 3.8, 14.5);
+    scene.add(constellation.mesh);
+
+    // 6.6 Pulsing Wireframe Damage Hotspots on Critical Nodes
+    const hotspotGroup = new THREE.Group();
+    scene.add(hotspotGroup);
+
+    const hotspotPositions = [
+      { pos: new THREE.Vector3(0.8, 1.8, 1.2), color: 0xffb829, label: 'C-01 Tensile Crack' },
+      { pos: new THREE.Vector3(-0.9, 3.2, 0.6), color: 0x8052ff, label: 'C-02 Moisture Zone' },
+      { pos: new THREE.Vector3(0.0, 0.4, 1.6), color: 0xffb829, label: 'C-03 Plinth Salt Loss' }
+    ];
+
+    const hotspotMeshes = [];
+    hotspotPositions.forEach(hp => {
+      // Wireframe pulsing sphere
+      const sphereGeo = new THREE.SphereGeometry(0.22, 16, 12);
+      const wireMat = new THREE.MeshBasicMaterial({
+        color: hp.color,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.85
+      });
+      const sphere = new THREE.Mesh(sphereGeo, wireMat);
+      sphere.position.copy(hp.pos);
+
+      // Inner glowing core
+      const coreGeo = new THREE.SphereGeometry(0.09, 12, 8);
+      const coreMat = new THREE.MeshBasicMaterial({ color: hp.color });
+      const core = new THREE.Mesh(coreGeo, coreMat);
+      sphere.add(core);
+
+      hotspotGroup.add(sphere);
+      hotspotMeshes.push(sphere);
+    });
 
     // 7. Procedural PBR Material Palette
     const sandstoneTexture = createProceduralTexture('sandstone');
@@ -1156,28 +1177,39 @@ export default function MonumentViewer3D({
     const animate = () => {
       animFrameIdRef.current = requestAnimationFrame(animate);
       const delta = clock.getDelta();
+      const time = clock.getElapsedTime();
       controls.update();
 
-      // Pulsating golden highlight on selected component
-      const time = clock.getElapsedTime();
+      // Update ambient chromatic constellation particles
+      if (constellation && typeof constellation.update === 'function') {
+        constellation.update(delta, time);
+      }
+
+      // Pulsing hotspot damage spheres
+      const pulseScale = 1.0 + Math.sin(time * 3.5) * 0.16;
+      hotspotMeshes.forEach(mesh => {
+        mesh.scale.set(pulseScale, pulseScale, pulseScale);
+      });
+
+      // Pulsating highlight on selected component
       activeMeshes.forEach((meshGroup, idx) => {
         const isSelected = activeComponentRef.current === idx;
         meshGroup.traverse(child => {
           if (child.isMesh && child.material) {
             if (viewMode === 'lidar') {
               child.material.wireframe = true;
-              child.material.color.setHex(isSelected ? 0x00FFCC : 0x38BDF8);
+              child.material.color.setHex(isSelected ? 0x8052ff : 0x38bdf8);
             } else if (viewMode === 'heatmap') {
               child.material.wireframe = false;
               // False color thermographic stress
-              const stressColor = idx === 2 ? 0xFF3333 : idx === 1 ? 0xFFA500 : 0x2288EE;
+              const stressColor = idx === 2 ? 0xffb829 : idx === 1 ? 0x8052ff : 0x15846e;
               child.material.color.setHex(stressColor);
             } else {
               child.material.wireframe = false;
               if (isSelected) {
                 const pulse = (Math.sin(time * 4) + 1) * 0.5;
-                child.material.emissive = new THREE.Color(0xC5A059);
-                child.material.emissiveIntensity = 0.35 + pulse * 0.45;
+                child.material.emissive = new THREE.Color(0x8052ff);
+                child.material.emissiveIntensity = 0.45 + pulse * 0.45;
               } else {
                 child.material.emissive = new THREE.Color(0x000000);
                 child.material.emissiveIntensity = 0;
@@ -1217,22 +1249,21 @@ export default function MonumentViewer3D({
 
 
   // Set Camera View Presets
-  const setPresetView = (preset) => {
-    setCameraView(preset);
+  const setPresetView = (mode) => {
+    setCameraView(mode);
     const camera = cameraRef.current;
     const controls = controlsRef.current;
     if (!camera || !controls) return;
 
-    const dist = isEmbedded ? 14.5 : 12.0;
-    if (preset === 'top') {
-      camera.position.set(0, dist * 1.05, 0.1);
+    if (mode === 'iso') {
+      camera.position.set(6, 4.5, 9);
       controls.target.set(0, 2.0, 0);
-    } else if (preset === 'front') {
-      camera.position.set(0, 2.8, dist);
-      controls.target.set(0, 2.0, 0);
-    } else {
-      camera.position.set(dist * 0.55, dist * 0.35, dist * 0.75);
-      controls.target.set(0, 2.0, 0);
+    } else if (mode === 'front') {
+      camera.position.set(0, 2.2, 10.5);
+      controls.target.set(0, 2.2, 0);
+    } else if (mode === 'top') {
+      camera.position.set(0, 12.5, 0.01);
+      controls.target.set(0, 0, 0);
     }
   };
 
@@ -1245,253 +1276,190 @@ export default function MonumentViewer3D({
 
   if (isEmbedded) {
     return (
-      <div className="flex flex-col h-full w-full bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">
+      <div className="relative w-full h-[400px] bg-black overflow-hidden flex flex-col justify-between">
+        <div ref={mountRef} className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing" />
         
-        {/* Top Header Outside 3D Canvas (Single Row, No Overlap) */}
-        <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex items-center justify-between gap-3 z-10 shrink-0">
-          <div className="flex items-center gap-2">
-            <h3 className="text-sm sm:text-base font-serif font-bold text-[#F3EFE6] tracking-wide truncate">
-              {siteData?.name || "Qutub Minar Complex"} · 3D Twin
-            </h3>
+        {/* Floating Minimal Header */}
+        <div className="relative z-10 p-3 flex justify-between items-center pointer-events-none">
+          <div className="flex items-center gap-2 pointer-events-auto">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#8052ff] animate-pulse" />
+            <span className="text-[11px] font-mono text-[#9a9a9a] uppercase tracking-wider">{currentTitle}</span>
           </div>
-
-          {/* Mode Switcher Buttons */}
-          <div className="flex items-center gap-1.5 font-mono text-xs shrink-0">
-            <button
-              onClick={() => setViewMode('stone')}
-              className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'stone'
-                  ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
-                  : 'text-gray-400 hover:text-white bg-[#14171E] border border-[#2B313D]'
-              }`}
-            >
-              <span>🧱</span>
-              <span>Realistic 3D Stone</span>
-            </button>
-            <button
-              onClick={() => setViewMode('lidar')}
-              className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'lidar'
-                  ? 'bg-cyan-600 text-white font-bold shadow'
-                  : 'text-gray-400 hover:text-white bg-[#14171E] border border-[#2B313D]'
-              }`}
-            >
-              <span>🌐</span>
-              <span>LiDAR Wireframe</span>
-            </button>
-            <button
-              onClick={() => setViewMode('heatmap')}
-              className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'heatmap'
-                  ? 'bg-rose-600 text-white font-bold shadow'
-                  : 'text-gray-400 hover:text-white bg-[#14171E] border border-[#2B313D]'
-              }`}
-            >
-              <span>🔥</span>
-              <span>Heatmap</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Pure 3D Canvas Mount (100% Unobstructed) */}
-        <div className="relative flex-1 w-full min-h-[360px] bg-[#08090C] overflow-hidden">
-          <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
-        </div>
-
-        {/* Bottom Control Ribbon Outside 3D Canvas */}
-        <div className="bg-[#0E1013] border-t border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 font-mono text-xs z-10">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setAutoRotate(!autoRotate)}
-              className={`px-3 py-1 rounded-lg border transition cursor-pointer flex items-center gap-1.5 ${
-                autoRotate
-                  ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
-                  : 'border-[#1E2228] text-gray-400 hover:text-white'
-              }`}
-            >
-              <span>{autoRotate ? '⏸ Pause 360° Orbit' : '▶ Play 360° Orbit'}</span>
-            </button>
-
-            {/* Manual Zoom In / Out Buttons */}
-            <div className="flex items-center bg-[#14171E] border border-[#2B313D] rounded-lg">
-              <button
-                onClick={() => handleZoom('in')}
-                title="Zoom In (Intentional)"
-                className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-l-lg transition font-bold"
-              >
-                +
-              </button>
-              <span className="text-[10px] text-gray-500 px-1">Zoom</span>
-              <button
-                onClick={() => handleZoom('out')}
-                title="Zoom Out (Intentional)"
-                className="px-2.5 py-1 text-gray-300 hover:text-white hover:bg-[#1E232E] rounded-r-lg transition font-bold"
-              >
-                −
-              </button>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-1.5">
+          <div className="flex gap-1.5 pointer-events-auto">
             <button
               onClick={() => setPresetView('iso')}
-              className={`px-2.5 py-1 rounded-lg transition text-xs ${
-                cameraView === 'iso' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
+              className={`px-2.5 py-1 rounded-full text-[11px] font-mono transition ${
+                cameraView === 'iso' ? 'bg-[#8052ff] text-white font-semibold' : 'text-[#9a9a9a] hover:text-white'
               }`}
             >
-              📐 3D Angle
+              3D
             </button>
             <button
               onClick={() => setPresetView('front')}
-              className={`px-2.5 py-1 rounded-lg transition text-xs ${
-                cameraView === 'front' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
+              className={`px-2.5 py-1 rounded-full text-[11px] font-mono transition ${
+                cameraView === 'front' ? 'bg-[#8052ff] text-white font-semibold' : 'text-[#9a9a9a] hover:text-white'
               }`}
             >
-              🏛️ Front
+              Front
             </button>
             <button
               onClick={() => setPresetView('top')}
-              className={`px-2.5 py-1 rounded-lg transition text-xs ${
-                cameraView === 'top' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
+              className={`px-2.5 py-1 rounded-full text-[11px] font-mono transition ${
+                cameraView === 'top' ? 'bg-[#8052ff] text-white font-semibold' : 'text-[#9a9a9a] hover:text-white'
               }`}
             >
-              🗺️ Top
+              Top
             </button>
           </div>
         </div>
 
+        {/* Floating Minimal Mode Switcher */}
+        <div className="relative z-10 p-3 flex justify-between items-center pointer-events-none">
+          <div className="flex gap-1 pointer-events-auto">
+            {['stone', 'lidar', 'heatmap'].map(m => (
+              <button
+                key={m}
+                onClick={() => setViewMode(m)}
+                className={`px-2.5 py-1 rounded-full text-[11px] font-mono uppercase transition ${
+                  viewMode === m ? 'bg-[#8052ff] text-white font-semibold' : 'text-[#9a9a9a] hover:text-white'
+                }`}
+              >
+                {m}
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={() => setAutoRotate(!autoRotate)}
+            className="pointer-events-auto text-[11px] font-mono text-[#9a9a9a] hover:text-white transition px-2 py-1"
+          >
+            {autoRotate ? 'Orbit: ON' : 'Orbit: OFF'}
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-[640px] w-full bg-[#07080B] rounded-2xl border border-[#232A38] shadow-2xl overflow-hidden heritage-card-glow">
-      
-      {/* Top Header Outside 3D Canvas (No Overlap on 3D Model) */}
-      <div className="bg-[#0C0E14] border-b border-[#202636] px-5 py-3 flex flex-wrap items-center justify-between gap-3 z-10 shrink-0">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <h3 className="text-sm font-serif font-bold text-[#F3EFE6] tracking-wide">
-            {siteData?.name || "Protected Heritage Site"} · Living 3D Twin
-          </h3>
+    <div className="flex flex-col h-[620px] w-full bg-black overflow-hidden relative">
+      {/* 3D Canvas Mount (100% Dedicated to Void) */}
+      <div className="absolute inset-0 w-full h-full">
+        <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+      </div>
+
+      {/* Minimal Floating HUD Overlay */}
+      <div className="relative z-10 p-5 flex flex-wrap items-center justify-between gap-4 pointer-events-none">
+        <div className="flex items-center gap-3 pointer-events-auto">
+          <span className="w-2 h-2 rounded-full bg-[#8052ff] animate-void-pulse" />
+          <div>
+            <div className="text-[11px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider">Module 01 · Living Digital Twin</div>
+            <h3 className="text-xl font-normal tracking-[-0.03em] text-white">
+              {siteData?.name || "Protected Heritage Site"}
+            </h3>
+          </div>
         </div>
 
-        {/* View Mode & Camera Angles Controls Outside Canvas */}
-        <div className="flex items-center gap-3 flex-wrap font-mono text-xs">
-          {/* Material Mode Switcher */}
-          <div className="flex items-center gap-1 bg-[#121622] p-1 rounded-xl border border-[#283042] shadow-inner">
+        {/* View Mode & Camera Controls */}
+        <div className="flex items-center gap-2 pointer-events-auto font-mono text-xs flex-wrap">
+          {/* Material Mode */}
+          <div className="flex items-center gap-1 bg-black/60 backdrop-blur-md p-1 rounded-full">
             <button
               onClick={() => setViewMode('stone')}
-              title="Realistic 3D Stone Texture"
-              className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer font-bold ${
+              className={`px-3.5 py-1.5 rounded-full uppercase text-[11px] font-semibold transition cursor-pointer ${
                 viewMode === 'stone'
-                  ? 'bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-[#0A0C10] shadow'
-                  : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+                  ? 'bg-[#8052ff] text-white shadow-[0_0_16px_rgba(128,82,255,0.5)]'
+                  : 'text-[#9a9a9a] hover:text-white'
               }`}
             >
-              <span>🧱</span>
-              <span>Stone</span>
+              Stone PBR
             </button>
             <button
               onClick={() => setViewMode('lidar')}
-              title="LiDAR Wireframe Mesh"
-              className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer font-bold ${
+              className={`px-3.5 py-1.5 rounded-full uppercase text-[11px] font-semibold transition cursor-pointer ${
                 viewMode === 'lidar'
-                  ? 'bg-cyan-600 text-white shadow'
-                  : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+                  ? 'bg-[#8052ff] text-white shadow-[0_0_16px_rgba(128,82,255,0.5)]'
+                  : 'text-[#9a9a9a] hover:text-white'
               }`}
             >
-              <span>🌐</span>
-              <span>LiDAR</span>
+              LiDAR Mesh
             </button>
             <button
               onClick={() => setViewMode('heatmap')}
-              title="Stress Heatmap"
-              className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer font-bold ${
+              className={`px-3.5 py-1.5 rounded-full uppercase text-[11px] font-semibold transition cursor-pointer ${
                 viewMode === 'heatmap'
-                  ? 'bg-rose-600 text-white shadow'
-                  : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+                  ? 'bg-[#ffb829] text-black font-bold shadow-[0_0_16px_rgba(255,184,41,0.5)]'
+                  : 'text-[#9a9a9a] hover:text-white'
               }`}
             >
-              <span>🔥</span>
-              <span>Heatmap</span>
+              Stress Heatmap
             </button>
           </div>
 
           {/* Camera Angles */}
-          <div className="flex items-center gap-1 bg-[#121622] p-1 rounded-xl border border-[#283042] shadow-inner">
+          <div className="flex items-center gap-1 bg-black/60 backdrop-blur-md p-1 rounded-full">
             <button
               onClick={() => setPresetView('iso')}
-              title="3D Isometric Perspective"
-              className={`px-2.5 py-1.5 rounded-lg transition cursor-pointer font-bold ${
-                cameraView === 'iso' ? 'bg-[#1C2230] text-[#E5C07B] border border-[#C5A059]/40 shadow-sm' : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+              className={`px-3 py-1.5 rounded-full text-[11px] transition cursor-pointer ${
+                cameraView === 'iso' ? 'text-white font-semibold' : 'text-[#9a9a9a] hover:text-white'
               }`}
             >
-              📐 3D Angle
+              3D Orbit
             </button>
             <button
               onClick={() => setPresetView('front')}
-              title="Front Elevation"
-              className={`px-2.5 py-1.5 rounded-lg transition cursor-pointer font-bold ${
-                cameraView === 'front' ? 'bg-[#1C2230] text-[#E5C07B] border border-[#C5A059]/40 shadow-sm' : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+              className={`px-3 py-1.5 rounded-full text-[11px] transition cursor-pointer ${
+                cameraView === 'front' ? 'text-white font-semibold' : 'text-[#9a9a9a] hover:text-white'
               }`}
             >
-              🏛️ Front
+              Elevation
             </button>
             <button
               onClick={() => setPresetView('top')}
-              title="Top-Down Plan"
-              className={`px-2.5 py-1.5 rounded-lg transition cursor-pointer font-bold ${
-                cameraView === 'top' ? 'bg-[#1C2230] text-[#E5C07B] border border-[#C5A059]/40 shadow-sm' : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+              className={`px-3 py-1.5 rounded-full text-[11px] transition cursor-pointer ${
+                cameraView === 'top' ? 'text-white font-semibold' : 'text-[#9a9a9a] hover:text-white'
               }`}
             >
-              🗺️ Top
+              Plan
             </button>
           </div>
         </div>
       </div>
 
-      {/* Pure 3D Canvas Mount (100% Dedicated & Unobstructed, ZERO buttons inside) */}
-      <div className="relative flex-1 w-full min-h-[450px] bg-[#07080B] overflow-hidden">
-        <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
-      </div>
-
-      {/* Bottom Controls Outside 3D Canvas (No Overlap on 3D Model) */}
-      <div className="bg-[#0C0E14] border-t border-[#202636] px-5 py-3 flex flex-wrap items-center justify-between gap-3 font-mono text-xs z-10 shrink-0">
-        <div className="flex items-center gap-3">
+      {/* Floating Bottom Telemetry Indicators */}
+      <div className="mt-auto relative z-10 p-5 flex flex-wrap items-center justify-between gap-4 font-mono text-xs pointer-events-none">
+        <div className="flex items-center gap-3 pointer-events-auto">
           <button
             onClick={() => setAutoRotate(!autoRotate)}
-            title="Toggle continuous 360-degree rotation of the 3D twin"
-            className={`px-3.5 py-1.5 rounded-xl border transition cursor-pointer flex items-center gap-2 font-bold ${
-              autoRotate
-                ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#E5C07B] shadow-sm'
-                : 'border-[#232A38] bg-[#121622] text-gray-400 hover:text-white'
-            }`}
+            className="px-4 py-2 rounded-full bg-black/70 backdrop-blur-md text-[#bdbdbd] hover:text-white text-[12px] font-mono transition cursor-pointer flex items-center gap-2"
           >
-            <span>{autoRotate ? '⏸ Pause 360° Orbit' : '▶ Play 360° Orbit'}</span>
+            <span className={`w-1.5 h-1.5 rounded-full ${autoRotate ? 'bg-[#15846e]' : 'bg-[#9a9a9a]'}`} />
+            <span>{autoRotate ? 'Orbital Drift Active' : 'Orbit Paused'}</span>
           </button>
 
-          {/* Manual Zoom In / Out Buttons */}
-          <div className="flex items-center bg-[#121622] border border-[#283042] rounded-xl shadow-inner overflow-hidden">
+          <div className="flex items-center gap-1 bg-black/70 backdrop-blur-md rounded-full px-2 py-1">
             <button
               onClick={() => handleZoom('in')}
-              title="Zoom In (Click)"
-              className="px-3 py-1.5 text-gray-300 hover:text-white hover:bg-[#1C2230] transition font-bold cursor-pointer"
+              className="w-7 h-7 flex items-center justify-center text-[#bdbdbd] hover:text-white transition font-bold cursor-pointer rounded-full"
             >
               +
             </button>
-            <span className="text-[10px] text-gray-400 px-2 font-mono select-none">Zoom</span>
+            <span className="text-[10px] text-[#9a9a9a] px-1 select-none">SCALE</span>
             <button
               onClick={() => handleZoom('out')}
-              title="Zoom Out (Click)"
-              className="px-3 py-1.5 text-gray-300 hover:text-white hover:bg-[#1C2230] transition font-bold cursor-pointer"
+              className="w-7 h-7 flex items-center justify-center text-[#bdbdbd] hover:text-white transition font-bold cursor-pointer rounded-full"
             >
               −
             </button>
           </div>
         </div>
-      </div>
 
+        <div className="flex items-center gap-4 text-[11px] text-[#9a9a9a] bg-black/70 backdrop-blur-md px-4 py-2 rounded-full pointer-events-auto">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#ffb829]" />
+            <span>Pulsing Hotspots: Active Structural Anomalies</span>
+          </span>
+          <span className="text-white">1,800 Chromatic Particles</span>
+        </div>
+      </div>
     </div>
   );
 }
