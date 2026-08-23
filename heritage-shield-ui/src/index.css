@@ -3,24 +3,8 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #06070B;
-    color: #F3F4F6;
-  }
-
-  .font-inter {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-
-  .font-instrument {
-    font-family: 'Instrument Serif', Georgia, serif;
-  }
-
-  .font-manrope {
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-
-  .font-cabin {
-    font-family: 'Cabin', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FDFBF7;
+    color: #0E1B2E;
   }
 
   .font-serif {
@@ -36,103 +20,120 @@
   }
 }
 
-/* 🌌 DREAMCORE ETHEREAL ARCHITECTURE SYSTEM */
-.dreamcore-bg {
-  background-color: #06070B;
+/* 🏛️ Option 3: Royal Archival Ivory & Deep Sovereign Indigo Architecture */
+.museum-bg {
+  background-color: #FDFBF7;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15) 0%, rgba(56, 189, 248, 0.08) 35%, transparent 70%),
-    radial-gradient(circle at 85% 50%, rgba(244, 114, 182, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 15% 75%, rgba(56, 189, 248, 0.07) 0%, transparent 45%);
+    radial-gradient(circle at 50% 12%, rgba(224, 109, 68, 0.04) 0%, rgba(197, 160, 89, 0.03) 35%, transparent 70%),
+    radial-gradient(circle at 88% 60%, rgba(14, 27, 46, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 12% 80%, rgba(197, 160, 89, 0.03) 0%, transparent 50%);
 }
 
-.dreamcore-glow {
-  background: radial-gradient(ellipse at 50% 30%, rgba(192, 132, 252, 0.2) 0%, rgba(56, 189, 248, 0.12) 40%, transparent 75%);
+.sandstone-bg {
+  background-color: #FDFBF7;
 }
 
-.dreamcore-card {
-  background: rgba(255, 255, 255, 0.03);
+.museum-spotlight {
+  background: radial-gradient(ellipse at 50% 35%, rgba(224, 109, 68, 0.08) 0%, rgba(197, 160, 89, 0.05) 45%, transparent 75%);
+}
+
+.frosted-glass {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #EDE6DA;
 }
 
-.dreamcore-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(192, 132, 252, 0.35);
-  box-shadow: 0 25px 60px -10px rgba(168, 85, 247, 0.2), 0 0 25px rgba(192, 132, 252, 0.1) inset;
+.sandstone-card {
+  background: #FFFFFF;
+  border: 1px solid #EDE6DA;
+  box-shadow: 0 10px 30px -5px rgba(14, 27, 46, 0.04), 0 2px 6px -1px rgba(14, 27, 46, 0.02);
 }
 
-.dreamcore-btn {
-  background: linear-gradient(135deg, #9333EA 0%, #A855F7 50%, #38BDF8 100%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
-  box-shadow: 0 10px 30px -5px rgba(168, 85, 247, 0.4), 0 0 15px rgba(56, 189, 248, 0.3) inset;
+.frosted-glass-card {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid #EDE6DA;
+  box-shadow: 0 12px 35px -8px rgba(14, 27, 46, 0.05), 0 1px 3px rgba(14, 27, 46, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.frosted-glass-card:hover {
+  border-color: rgba(224, 109, 68, 0.5);
+  box-shadow: 0 20px 45px -10px rgba(224, 109, 68, 0.12), 0 4px 12px rgba(14, 27, 46, 0.04);
+}
+
+.frosted-btn {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: #FFFFFF;
+  border: 1px solid #E5DEC9;
+  color: #0E1B2E;
+  box-shadow: 0 2px 5px rgba(14, 27, 46, 0.04);
   transition: all 0.25s ease;
 }
 
-.dreamcore-btn:hover {
-  background: linear-gradient(135deg, #7E22CE 0%, #9333EA 50%, #0EA5E9 100%);
-  box-shadow: 0 15px 40px -5px rgba(168, 85, 247, 0.6), 0 0 25px rgba(56, 189, 248, 0.5) inset;
-  transform: translateY(-1px) scale(1.02);
+.frosted-btn:hover {
+  background: #FAF7F2;
+  border-color: #E06D44;
+  color: #E06D44;
+  box-shadow: 0 4px 12px rgba(224, 109, 68, 0.12);
 }
 
-.dreamcore-btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #F3F4F6;
+.terracotta-btn {
+  background: linear-gradient(135deg, #E06D44 0%, #C5A059 100%);
+  border: 1px solid rgba(224, 109, 68, 0.3);
+  color: #FFFFFF;
+  box-shadow: 0 8px 22px -4px rgba(224, 109, 68, 0.35);
   transition: all 0.25s ease;
 }
 
-.dreamcore-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(192, 132, 252, 0.5);
-  color: #FFFFFF;
-  box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.2);
+.terracotta-btn:hover {
+  background: linear-gradient(135deg, #D45B32 0%, #B89246 100%);
+  box-shadow: 0 12px 28px -4px rgba(224, 109, 68, 0.45);
+  transform: translateY(-1px);
 }
 
-.dreamcore-gradient-text {
-  background: linear-gradient(135deg, #FFFFFF 0%, #C084FC 45%, #F472B6 75%, #38BDF8 100%);
+.gold-cream-text {
+  background: linear-gradient(135deg, #0E1B2E 0%, #E06D44 50%, #C5A059 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.dreamcore-silver-text {
-  background: linear-gradient(180deg, #FFFFFF 0%, #CBD5E1 100%);
+.gold-text-shimmer {
+  background: linear-gradient(135deg, #0E1B2E 0%, #E06D44 40%, #C5A059 75%, #D45B32 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Custom Sleek Dark Scrollbar */
+/* Custom Sleek Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #06070B;
+  background: #F7F4EE;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272A;
+  background: #D9D2C3;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3F3F46;
+  background: #C2B9A6;
 }
 
-/* Leaflet Custom Dark Theme Overrides */
+/* Leaflet Custom Light Theme Overrides */
 .leaflet-popup-content-wrapper {
-  background: #12131A !important;
-  color: #F3F4F6 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: #FFFFFF !important;
+  color: #0E1B2E !important;
+  border: 1px solid #EDE6DA !important;
   border-radius: 12px !important;
   padding: 0 !important;
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8) !important;
+  box-shadow: 0 20px 45px -10px rgba(14, 27, 46, 0.12) !important;
 }
 
 .leaflet-popup-content {
@@ -141,11 +142,19 @@
 }
 
 .leaflet-popup-tip {
-  background: #12131A !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: #FFFFFF !important;
+  border: 1px solid #EDE6DA !important;
 }
 
 .leaflet-container {
-  background-color: #06070B !important;
+  background-color: #FAF7F2 !important;
   font-family: inherit !important;
+}
+
+/* Print Overrides */
+@media print {
+  body {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+  }
 }
