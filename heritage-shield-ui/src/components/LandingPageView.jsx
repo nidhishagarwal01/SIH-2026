@@ -841,7 +841,26 @@ export default function LandingPageView({
       </motion.section>
 
       {/* ========================================================================= */}
-      {/* 🏛️ 6. SUBMERGED CENTRALLY PROTECTED MONUMENTS REGISTRY                    */}
+      {/* 🏺 ANCIENT BRAHMI & SANSKRIT EPIGRAPHIC WATERMARK MOTIF (SECTION DIVIDER) */}
+      {/* ========================================================================= */}
+      <div className="relative w-full overflow-hidden py-4 pointer-events-none select-none opacity-[0.06] border-y border-[#DACDB8]/40">
+        <motion.div 
+          animate={{ x: [0, -1000] }}
+          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+          className="flex whitespace-nowrap gap-12 text-3xl sm:text-5xl font-serif text-[#24160E] tracking-[0.3em] uppercase font-bold"
+        >
+          <span>॥ धर्मो रक्षति रक्षितः ॥</span>
+          <span>𑀥𑀁𑀫𑁄 𑀭𑀓𑁆𑀔𑀢𑀺 𑀭𑀓𑁆𑀔𑀺𑀢𑁄</span>
+          <span>॥ सत्यमेव जयते नानृतम् ॥</span>
+          <span>॥ वासुधैव कुटुम्बकम् ॥</span>
+          <span>॥ धर्मो रक्षति रक्षितः ॥</span>
+          <span>𑀥𑀁𑀫𑁄 𑀭𑀓𑁆𑀔𑀢𑀺 𑀭𑀓𑁆𑀔𑀺𑀢𑁄</span>
+          <span>॥ सत्यमेव जयते नानृतम् ॥</span>
+        </motion.div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 🏛️ 6. SUBMERGED CENTRALLY PROTECTED MONUMENTS REGISTRY (STONE PLINTHS)     */}
       {/* ========================================================================= */}
       <motion.section 
         id="registry-section" 
@@ -853,25 +872,29 @@ export default function LandingPageView({
       >
         
         <div className="flex flex-wrap justify-between items-end gap-4">
-          <div className="text-left">
-            <span className="text-xs font-mono text-[#BA532B] uppercase tracking-widest font-bold block">
-              National Heritage Registry
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#24160E] mt-1">
-              Protected UNESCO Heritage Sites
+          <div className="text-left space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FAF5ED] border border-[#DACDB8] text-[#BA532B] text-xs font-mono font-bold uppercase tracking-wider">
+              <span>🏛️ National Heritage Registry</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#24160E] tracking-tight">
+              Centrally Protected <span className="gold-cream-text">Living Twins</span>
             </h2>
+            <p className="text-sm sm:text-base text-[#4D3425] font-sans max-w-2xl">
+              Explore 12 flagship UNESCO World Heritage monuments monitored through high-resolution 3D digital twins and multi-spectral structural telemetry.
+            </p>
           </div>
 
           <button
             onClick={onEnterDashboard}
-            className="px-6 py-3 rounded-xl frosted-btn text-xs font-mono tracking-wider uppercase transition flex items-center gap-2 cursor-pointer font-bold shadow-sm"
+            className="px-6 py-3.5 rounded-xl terracotta-btn text-xs font-mono tracking-wider uppercase transition flex items-center gap-2 cursor-pointer font-bold shadow-md hover:scale-105"
           >
-            <span>View All 12 Heritage Sites</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <span>Launch National Studio</span>
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+        {/* 🎛️ 5. Editorial 3D Architectural Stone Plinth Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {flagshipSites.map((s, idx) => (
             <motion.div
               key={s.id || idx}
@@ -879,44 +902,76 @@ export default function LandingPageView({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-40px" }}
               transition={{ duration: 0.5, delay: (idx % 3) * 0.08, ease: smoothEase }}
-              whileHover={{ y: -8, scale: 1.02 }}
+              whileHover={{ y: -10, scale: 1.02 }}
               onClick={() => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
-              className="bg-white border border-[#DACDB8] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-[#BA532B]/50 transition-all duration-500 group cursor-pointer flex flex-col justify-between"
+              className="bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] rounded-3xl p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group cursor-pointer flex flex-col justify-between space-y-4"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-[#FAF5ED]">
+              {/* Image Frame with Floating Period Tag & Status Pill */}
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-[#140B07] border border-[#DACDB8]">
                 <img
                   src={s.imageUrl || '/monuments/qutub_minar.jpg'}
                   alt={s.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-100"
+                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 filter brightness-[0.9] contrast-[1.12]"
                 />
+                
+                {/* Floating Period Tag on Top Left */}
+                <div className="absolute top-3 left-3">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[#24160E]/80 text-[#FAF5ED] backdrop-blur-md border border-[#DACDB8]/40 shadow-sm">
+                    {s.period || 'UNESCO World Heritage'}
+                  </span>
+                </div>
+
+                {/* Status Indicator on Top Right */}
                 <div className="absolute top-3 right-3">
                   <span 
                     className="px-2.5 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider backdrop-blur-md border shadow"
                     style={{
-                      backgroundColor: `${s.color}20`,
+                      backgroundColor: `${s.color}25`,
                       color: s.color,
-                      borderColor: `${s.color}50`
+                      borderColor: `${s.color}60`
                     }}
                   >
                     ● {s.status}
                   </span>
                 </div>
+
+                {/* Subtle Gradient Shadow at bottom of image */}
+                <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#24160E]/70 to-transparent pointer-events-none" />
+                
+                <div className="absolute bottom-2.5 left-3 text-[11px] font-mono text-amber-200 font-semibold">
+                  📍 {s.location}, {s.state}
+                </div>
               </div>
 
-              <div className="p-6 space-y-3 text-left">
+              {/* Plinth Content Body */}
+              <div className="space-y-3.5 text-left px-1">
                 <div>
-                  <span className="text-[10px] font-mono text-[#BA532B] uppercase font-semibold">{s.state} · {s.period}</span>
-                  <h3 className="text-lg font-serif font-bold text-[#24160E] group-hover:text-[#BA532B] transition mt-0.5">
+                  <h3 className="text-xl font-serif font-bold text-[#24160E] group-hover:text-[#BA532B] transition leading-snug">
                     {s.name}
                   </h3>
+                  <p className="text-xs text-[#4D3425] font-sans mt-1 line-clamp-2 leading-relaxed">
+                    {s.builtEra} · Constructed with {s.material}
+                  </p>
                 </div>
 
-                <div className="flex justify-between items-center text-xs font-mono pt-3 border-t border-[#DACDB8]">
-                  <span className="text-[#7A5B49]">Hazard: <strong className="text-[#24160E]">{s.seismicZone}</strong></span>
-                  <span className="text-[#BA532B] font-bold flex items-center gap-1">
-                    <span>Explore Twin</span>
-                    <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                  </span>
+                {/* Structural Telemetry Meta Bar */}
+                <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#DACDB8] text-[11px] font-mono">
+                  <div className="bg-white px-2.5 py-1.5 rounded-lg border border-[#DACDB8]/60">
+                    <span className="text-[#7A5B49] block text-[9px] uppercase">Seismic Zone</span>
+                    <strong className="text-[#24160E]">{s.seismicZone}</strong>
+                  </div>
+                  <div className="bg-white px-2.5 py-1.5 rounded-lg border border-[#DACDB8]/60">
+                    <span className="text-[#7A5B49] block text-[9px] uppercase">Twin Telemetry</span>
+                    <strong className="text-emerald-700">Live Active</strong>
+                  </div>
+                </div>
+
+                {/* Explore Action Strip */}
+                <div className="pt-2 flex justify-between items-center text-xs font-mono text-[#BA532B] font-bold">
+                  <span>Explore Living Twin</span>
+                  <div className="w-8 h-8 rounded-full bg-white border border-[#DACDB8] group-hover:bg-[#BA532B] group-hover:text-white transition-all flex items-center justify-center shadow-xs">
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
                 </div>
               </div>
             </motion.div>
