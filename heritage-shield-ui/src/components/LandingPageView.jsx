@@ -5,6 +5,7 @@ import ThemeToggle from './ThemeToggle';
 import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
+import CinematicIntroReveal from './CinematicIntroReveal';
 
 import {
   Shield,
@@ -73,6 +74,16 @@ export default function LandingPageView({
   
   // State for FAQ Accordion
   const [activeFaq, setActiveFaq] = useState(null);
+
+  // State for Cinematic Split-Reveal Intro on Initial Page Load
+  const [showIntro, setShowIntro] = useState(() => {
+    return !sessionStorage.getItem('hs_intro_seen');
+  });
+
+  const handleIntroComplete = () => {
+    sessionStorage.setItem('hs_intro_seen', 'true');
+    setShowIntro(false);
+  };
 
   // Computed simulation values
   const simulatedHealth = Math.max(18, Math.round(100 - (simMonsoon * 0.45 + (simSeismic - 0.8) * 40)));
@@ -169,6 +180,11 @@ export default function LandingPageView({
   return (
     <div className="min-h-screen bg-[#07080B] text-[#EDE8DE] font-sans selection:bg-[#E06D44] selection:text-[#07080B] overflow-x-hidden relative museum-bg">
       
+      {/* 🎬 Split-Reveal of Monument Images & Rising Heritage Shield Intro */}
+      <AnimatePresence>
+        {showIntro && <CinematicIntroReveal onComplete={handleIntroComplete} />}
+      </AnimatePresence>
+
       {/* Background Ambient Spotlight & Warm Dust Grain */}
       <div className="fixed inset-0 pointer-events-none z-0 museum-spotlight opacity-70" />
       <div 
