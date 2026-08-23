@@ -162,10 +162,7 @@ export default function AssetSwitcherModal({
         </div>
 
         {/* Footer */}
-        <div className="bg-[#0E1013] border-t border-[#1E2228] px-6 py-3 flex justify-between items-center text-xs font-mono">
-          <span className="text-gray-500">
-            Clicking a heritage site updates 3D Digital Twin, Live Open-Meteo Feeds & OpenCV Diagnostics.
-          </span>
+        <div className="bg-[#0E1013] border-t border-[#1E2228] px-6 py-3 flex justify-end items-center text-xs font-mono">
           <button
             onClick={onClose}
             className="px-4 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-gray-300 hover:text-white"

@@ -275,11 +275,20 @@ export default function App() {
     }
   };
 
+  // Always scroll to top whenever viewMode, activeTab, or activeSite changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [viewMode, activeTab, activeSite]);
+
   const handleLaunchMonumentStudio = (idx, targetTab = 'twin') => {
     handleSelectSite(idx);
     setActiveTab(targetTab);
     setViewMode('studio');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   };
 
 
@@ -473,14 +482,17 @@ export default function App() {
 
       {/* 🎛️ 2. STUDIO CONSOLE TABS */}
       <div className="bg-[#0D0E11] border-b border-[#1A1D23] px-6">
-        <div className="max-w-[1600px] mx-auto flex items-center gap-1 overflow-x-auto py-1.5">
+        <div className="max-w-[1600px] mx-auto flex items-center gap-2 overflow-x-auto py-2.5">
           
           <button
-            onClick={() => setActiveTab('twin')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
+            onClick={() => {
+              setActiveTab('twin');
+              window.scrollTo(0, 0);
+            }}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'twin'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
+                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#C5A059] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418] border border-transparent'
             }`}
           >
             <span className="text-sm">🏛️</span>
@@ -488,11 +500,14 @@ export default function App() {
           </button>
 
           <button
-            onClick={() => setActiveTab('vision')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
+            onClick={() => {
+              setActiveTab('vision');
+              window.scrollTo(0, 0);
+            }}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'vision'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
+                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#C5A059] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418] border border-transparent'
             }`}
           >
             <span className="text-sm">🔍</span>
@@ -500,24 +515,29 @@ export default function App() {
           </button>
 
           <button
-            onClick={() => setActiveTab('risk')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
+            onClick={() => {
+              setActiveTab('risk');
+              window.scrollTo(0, 0);
+            }}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'risk'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
+                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#C5A059] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418] border border-transparent'
             }`}
           >
             <span className="text-sm">📊</span>
             <span>Risk & 2030 Predictive Lab</span>
-
           </button>
 
           <button
-            onClick={() => setActiveTab('queue')}
-            className={`px-4 py-2 rounded-lg text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap ${
+            onClick={() => {
+              setActiveTab('queue');
+              window.scrollTo(0, 0);
+            }}
+            className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'queue'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#2B313D] shadow-sm ring-1 ring-[#C5A059]'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418]'
+                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#C5A059] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418] border border-transparent'
             }`}
           >
             <span className="text-sm">📋</span>

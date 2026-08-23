@@ -269,23 +269,23 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                   </div>
 
                   {/* Body Content */}
-                  <div className="p-4 space-y-3">
-                    <p className="text-[11px] text-gray-400 font-mono line-clamp-1">
+                  <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
+                    <p className="text-[11px] text-gray-300 font-mono leading-relaxed">
                       🏛️ Built: {site.builtEra}
                     </p>
 
                     <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
-                      <div className="bg-[#0E1013] p-2 rounded-lg border border-[#1E2228]">
-                        <span className="text-gray-500 uppercase block text-[9px]">Material Typology</span>
-                        <span className="text-gray-200 font-semibold truncate block mt-0.5">
-                          {site.material.split('&')[0]}
+                      <div className="bg-[#0E1013] p-2 rounded-lg border border-[#1E2228] flex flex-col justify-between">
+                        <span className="text-gray-500 uppercase block text-[9px] font-bold">Material Typology</span>
+                        <span className="text-gray-200 font-semibold block mt-1 leading-snug break-words">
+                          {site.material}
                         </span>
                       </div>
 
-                      <div className="bg-[#0E1013] p-2 rounded-lg border border-[#1E2228]">
-                        <span className="text-gray-500 uppercase block text-[9px]">Seismic Exposure</span>
-                        <span className="text-amber-300 font-semibold truncate block mt-0.5">
-                          {site.seismicZone.split('(')[0]}
+                      <div className="bg-[#0E1013] p-2 rounded-lg border border-[#1E2228] flex flex-col justify-between">
+                        <span className="text-gray-500 uppercase block text-[9px] font-bold">Seismic Exposure</span>
+                        <span className="text-amber-300 font-semibold block mt-1 leading-snug break-words">
+                          {site.seismicZone}
                         </span>
                       </div>
                     </div>

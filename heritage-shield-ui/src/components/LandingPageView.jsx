@@ -762,7 +762,13 @@ export default function LandingPageView({
               STATUS: {simulatedUrgency}
             </div>
             <button
-              onClick={onEnterDashboard}
+              onClick={() => {
+                if (onSelectMonument) {
+                  onSelectMonument(0, 'risk');
+                } else {
+                  onEnterDashboard();
+                }
+              }}
               className="w-full mt-4 py-2.5 rounded-xl bg-[#C5A059] text-black font-mono text-xs font-bold hover:bg-[#D8B46E] transition cursor-pointer"
             >
               Run 2030 Longitudinal Simulation →
