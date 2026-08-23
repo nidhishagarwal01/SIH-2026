@@ -15,7 +15,7 @@
     font-family: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #000000;
     color: #ffffff;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Monolithic Display & Section Typography */
@@ -237,3 +237,61 @@ input[type="range"].void-slider::-webkit-slider-thumb:hover {
 .animate-void-pulse {
   animation: voidPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+/* Premium Cascading Entrance Animations */
+@keyframes premiumEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(12px);
+  }
+  60% {
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+.animate-premium-1 {
+  animation: premiumEntrance 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+}
+
+.animate-premium-2 {
+  animation: premiumEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.25s backwards;
+}
+
+.animate-premium-3 {
+  animation: premiumEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.45s backwards;
+}
+
+.animate-premium-4 {
+  animation: premiumEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.65s backwards;
+}
+
+.animate-premium-5 {
+  animation: premiumEntrance 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.85s backwards;
+}
+
+@keyframes canvasEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(14px);
+  }
+  60% {
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+.animate-canvas-entrance {
+  animation: canvasEntrance 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.75s backwards;
+}
+

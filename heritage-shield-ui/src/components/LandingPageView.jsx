@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  motion, 
-  AnimatePresence 
-} from 'framer-motion';
 import HeritageShieldLogo from './HeritageShieldLogo';
 import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
+import ScrollytellingLanding from './landing/ScrollytellingLanding';
 
 export default function LandingPageView({ 
   onEnterDashboard, 
@@ -18,7 +15,6 @@ export default function LandingPageView({
   onLogout
 }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
   const [activeFaq, setActiveFaq] = useState(null);
 
   const workflowSteps = [
@@ -90,127 +86,38 @@ export default function LandingPageView({
   const flagshipSites = sites.slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-[#000000] text-[#ffffff] font-sans selection:bg-[#8052ff] selection:text-white overflow-x-hidden relative">
+    <div className="min-h-screen bg-[#000000] text-[#ffffff] font-sans selection:bg-[#8052ff] selection:text-white overflow-x-clip relative">
       
-      {/* 1. Global Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-[#141414]">
-        <div className="max-w-[1500px] mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
-          <HeritageShieldLogo
-            size="md"
-            showText={true}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          />
+      {/* 🚀 1. PINNED 500vh SCROLL-DRIVEN SCROLLYTELLING HERO (DALA AESTHETIC) */}
+      <ScrollytellingLanding
+        onLaunchTwin={() => onSelectMonument(0, 'twin')}
+        onOpenDossier={() => onSelectMonument(0, 'risk')}
+        onExplorePlatform={onEnterDashboard}
+        currentUser={currentUser}
+        onOpenAuth={() => setIsAuthModalOpen(true)}
+        onLogout={onLogout}
+      />
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center gap-8 text-[13px] uppercase tracking-wider font-semibold font-mono">
-            <a href="#digital-twin" className="void-link">Living Twin</a>
-            <a href="#architecture" className="void-link">Architecture</a>
-            <a href="#modules" className="void-link">8 Modules</a>
-            <a href="#gis-map" className="void-link">GIS Radar</a>
-            <a href="#faq" className="void-link">Documentation</a>
+      {/* 2. Global Section Navigation Bar for Down-Page Anchors */}
+      <div className="sticky top-0 z-40 bg-black/80 backdrop-blur-xl border-y border-[#141414]">
+        <div className="max-w-[1500px] mx-auto px-6 sm:px-10 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-8 text-[12px] uppercase tracking-wider font-semibold font-mono overflow-x-auto">
+            <a href="#digital-twin" className="void-link">Interactive 3D Twin</a>
+            <a href="#modules" className="void-link">8 System Modules</a>
+            <a href="#gis-map" className="void-link">National GIS Radar</a>
+            <a href="#architecture" className="void-link">Monitored Assets</a>
+            <a href="#faq" className="void-link">Technical Rigor</a>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-4">
-            {currentUser ? (
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-mono text-[#8052ff]">{currentUser.name}</span>
-                <button
-                  onClick={onLogout}
-                  className="ghost-pill-btn text-xs font-mono"
-                >
-                  Sign Out
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => setIsAuthModalOpen(true)}
-                className="ghost-pill-btn text-xs font-mono uppercase"
-              >
-                Officer 2FA
-              </button>
-            )}
-
-            <button
-              onClick={onEnterDashboard}
-              className="iris-pill-btn"
-            >
-              <span>Launch Studio</span>
-              <span className="text-xs">→</span>
-            </button>
-          </div>
+          <button
+            onClick={onEnterDashboard}
+            className="iris-pill-btn text-xs py-2"
+          >
+            <span>Open Studio</span>
+            <span>→</span>
+          </button>
         </div>
-      </nav>
-
-      {/* 2. Hero Section: Asymmetric Two-Column Split */}
-      <header className="pt-32 pb-24 px-6 sm:px-10 max-w-[1500px] mx-auto min-h-screen flex flex-col justify-center">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
-          {/* Left Column (6 cols): Monolithic Headline & Description */}
-          <div className="lg:col-span-6 space-y-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111] text-[11px] font-mono uppercase tracking-wider text-[#8052ff]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8052ff] animate-void-pulse" />
-              <span>Smart India Hackathon 2026 · Built Heritage Digital Twin</span>
-            </div>
-
-            <h1 className="display-title font-normal tracking-[-0.045em] text-white">
-              Predictive conservation for built heritage.
-            </h1>
-
-            <p className="body-copy text-[#bdbdbd] max-w-xl">
-              A living digital intelligence system that creates 3D digital twins of national monuments, assesses multi-scale structural risk, and prescribes explainable conservation interventions before irreversible material loss occurs.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <button
-                onClick={onEnterDashboard}
-                className="iris-pill-btn px-6 py-4 text-sm"
-              >
-                <span>Generate ASI Dossier</span>
-                <span className="text-sm">→</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  const el = document.getElementById('digital-twin');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="ghost-pill-btn text-sm"
-              >
-                <span>Explore 3D Twin</span>
-              </button>
-            </div>
-
-            {/* Micro Telemetry Metrics */}
-            <div className="pt-8 border-t border-[#1a1a1a] grid grid-cols-3 gap-6 font-mono">
-              <div>
-                <div className="text-2xl sm:text-3xl font-normal text-white">3,690+</div>
-                <div className="text-[11px] text-[#9a9a9a] uppercase mt-1">Centrally Protected</div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-normal text-[#8052ff]">8 Class</div>
-                <div className="text-[11px] text-[#9a9a9a] uppercase mt-1">Neural Vision AI</div>
-              </div>
-              <div>
-                <div className="text-2xl sm:text-3xl font-normal text-[#ffb829]">2030</div>
-                <div className="text-[11px] text-[#9a9a9a] uppercase mt-1">Decay Horizon</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column (6 cols): Borderless 3D Digital Twin Mount */}
-          <div className="lg:col-span-6 relative w-full aspect-square sm:aspect-[4/3] lg:aspect-square flex items-center justify-center">
-            <div className="w-full h-full relative">
-              <MonumentViewer3D
-                siteIndex={0}
-                siteData={sites[0] || null}
-                isEmbedded={true}
-              />
-            </div>
-          </div>
-
-        </div>
-      </header>
+      </div>
 
       {/* 3. Module 01 Showcase: Living 3D Digital Twin */}
       <section id="digital-twin" className="py-24 px-6 sm:px-10 max-w-[1500px] mx-auto space-y-12">
@@ -237,7 +144,7 @@ export default function LandingPageView({
         </div>
 
         {/* Full-width 3D Canvas */}
-        <div className="w-full h-[620px] bg-black rounded-3xl overflow-hidden relative">
+        <div className="w-full h-[620px] bg-black rounded-3xl overflow-hidden relative border border-[#141414]">
           <MonumentViewer3D
             siteIndex={0}
             siteData={sites[0] || null}
@@ -311,7 +218,7 @@ export default function LandingPageView({
           </button>
         </div>
 
-        <div className="w-full h-[580px] bg-black rounded-3xl overflow-hidden">
+        <div className="w-full h-[580px] bg-black rounded-3xl overflow-hidden border border-[#141414]">
           <HeritageGisMap
             activeSiteIndex={0}
             onSelectSite={(idx, tab) => onSelectMonument(idx, tab)}
@@ -419,7 +326,40 @@ export default function LandingPageView({
         </div>
       </section>
 
-      {/* 8. National Sovereignty Footer */}
+      {/* 8. Bottom Call to Action Section */}
+      <section className="py-28 px-6 sm:px-10 max-w-[1500px] mx-auto text-center border-t border-[#141414] relative overflow-hidden">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#111111] text-[12px] font-mono uppercase tracking-wider text-[#8052ff] mb-6">
+          <span className="w-2 h-2 rounded-full bg-[#8052ff] animate-pulse" />
+          <span>MISSION READY · DEPLOY CONSERVATION TWINS</span>
+        </div>
+
+        <h2 className="display-title text-white max-w-4xl mx-auto mb-6">
+          Launch the 3D Heritage Studio.
+        </h2>
+
+        <p className="body-copy max-w-2xl mx-auto text-[#bdbdbd] mb-10">
+          Access all 12 Centrally Protected Monuments, run bilateral edge OpenCV crack measurements, simulate micro-climate trajectories up to 2030, and issue signed ASI Form HS-2026 work orders.
+        </p>
+
+        <div className="flex flex-wrap items-center justify-center gap-5">
+          <button
+            onClick={onOpenStudio || onEnterDashboard}
+            className="iris-pill-btn px-8 py-5 text-base font-semibold shadow-[0_0_25px_rgba(128,82,255,0.4)] hover:shadow-[0_0_35px_rgba(128,82,255,0.7)] cursor-pointer"
+          >
+            <span>Open Heritage Studio</span>
+            <span className="text-lg">→</span>
+          </button>
+
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="ghost-pill-btn px-6 py-5 text-base border border-[#333333] cursor-pointer"
+          >
+            <span>Back to Top ↑</span>
+          </button>
+        </div>
+      </section>
+
+      {/* 9. National Sovereignty Footer */}
       <footer className="border-t border-[#141414] bg-black py-16 px-6 sm:px-10">
         <div className="max-w-[1500px] mx-auto flex flex-wrap justify-between items-center gap-8 text-xs font-mono text-[#9a9a9a]">
           <div className="flex items-center gap-4">
