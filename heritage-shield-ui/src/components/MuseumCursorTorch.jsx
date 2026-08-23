@@ -59,7 +59,7 @@ export default function MuseumCursorTorch() {
 
       {/* 🔦 3. Interactive Cursor Torch & Ambient Spotlight (Follows Mouse Fluidly) */}
       {isVisible && (
-        <div className="fixed inset-0 pointer-events-none z-[40] overflow-hidden">
+        <div className="fixed inset-0 pointer-events-none z-[100005] overflow-hidden">
           
           {/* Broad Ambient Terracotta Glow */}
           <motion.div
