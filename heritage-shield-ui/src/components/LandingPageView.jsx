@@ -174,11 +174,13 @@ export default function LandingPageView({
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#0E1B2E] font-sans selection:bg-[#E06D44] selection:text-white overflow-x-hidden relative museum-bg">
       
-      {/* 🚀 TOP SPRING-SMOOTHED SCROLL PROGRESS BAR */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#E06D44] via-[#C5A059] to-[#0E1B2E] z-[100001] origin-left shadow-sm pointer-events-none"
-        style={{ scaleX }}
-      />
+      {/* 🚀 TOP SPRING-SMOOTHED SCROLL PROGRESS BAR (Active only after intro) */}
+      {!showIntro && (
+        <motion.div
+          className="fixed top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#E06D44] via-[#C5A059] to-[#0E1B2E] z-[999] origin-left shadow-sm pointer-events-none"
+          style={{ scaleX }}
+        />
+      )}
 
       {/* 🏛️ Vertical Columns Image Parallax Intro Page */}
       <AnimatePresence>
