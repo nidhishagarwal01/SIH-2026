@@ -40,32 +40,57 @@
 }
 
 .dark-theme {
-  --bg-canvas: #140B07;
-  --bg-canvas-subtle: #1C100A;
-  --bg-card: #22150E;
-  --border-stone: #42291B;
+  --bg-canvas: #120A06;
+  --bg-canvas-subtle: #1A0F09;
+  --bg-card: #20130C;
+  --border-stone: #3D2416;
   --text-primary: #FAF5ED;
   --text-secondary: #D8C7B8;
   --text-muted: #A89080;
-  background-color: #140B07 !important;
+  background-color: #120A06 !important;
   color: #FAF5ED !important;
+}
+
+.dark-theme .museum-bg {
+  background-color: #120A06 !important;
+  background-image: 
+    radial-gradient(circle at 50% 12%, rgba(186, 83, 43, 0.14) 0%, rgba(194, 146, 68, 0.09) 35%, transparent 70%),
+    radial-gradient(circle at 88% 60%, rgba(186, 83, 43, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 12% 80%, rgba(194, 146, 68, 0.08) 0%, transparent 50%) !important;
 }
 
 .dark-theme nav, .dark-theme header {
-  background-color: rgba(30, 18, 11, 0.94) !important;
-  border-color: #42291B !important;
+  background-color: rgba(22, 13, 8, 0.94) !important;
+  border-color: #3D2416 !important;
 }
 
-.dark-theme .bg-white {
-  background-color: #20130C !important;
-  border-color: #42291B !important;
+.dark-theme .sandstone-card,
+.dark-theme .frosted-glass-card,
+.dark-theme .bg-white,
+.dark-theme .bg-white\/80,
+.dark-theme .bg-white\/90 {
+  background-color: #1E120B !important;
+  border-color: #3D2416 !important;
   color: #FAF5ED !important;
 }
 
-.dark-theme .bg-\[\#FAF5ED\] {
-  background-color: #1C100A !important;
-  border-color: #42291B !important;
+.dark-theme .bg-\[\#FAF5ED\],
+.dark-theme .bg-\[\#FAF5ED\]\/90,
+.dark-theme .bg-\[\#FAF5ED\]\/80 {
+  background-color: #160D08 !important;
+  border-color: #3D2416 !important;
   color: #FAF5ED !important;
+}
+
+.dark-theme .bg-\[\#F0E7DA\] {
+  background-color: #120A06 !important;
+}
+
+.dark-theme .border-\[\#DACDB8\],
+.dark-theme .border-\[\#DACDB8\]\/40,
+.dark-theme .border-\[\#DACDB8\]\/50,
+.dark-theme .border-\[\#DACDB8\]\/60 {
+  border-color: #3D2416 !important;
 }
 
 .dark-theme .text-\[\#24160E\] {
@@ -80,8 +105,23 @@
   color: #A89080 !important;
 }
 
-.dark-theme .border-\[\#DACDB8\] {
-  border-color: #42291B !important;
+.dark-theme select,
+.dark-theme input {
+  background-color: #1E120B !important;
+  color: #FAF5ED !important;
+  border-color: #3D2416 !important;
+}
+
+.dark-theme .frosted-btn {
+  background-color: #1E120B !important;
+  color: #FAF5ED !important;
+  border-color: #3D2416 !important;
+}
+
+.dark-theme .frosted-btn:hover {
+  background-color: #2E1A0F !important;
+  border-color: #BA532B !important;
+  color: #BA532B !important;
 }
 
 .museum-bg {

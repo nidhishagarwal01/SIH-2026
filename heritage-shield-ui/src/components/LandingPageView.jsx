@@ -206,7 +206,7 @@ export default function LandingPageView({
 
   return (
     <div 
-      className="min-h-screen bg-[#F0E7DA] text-[#24160E] font-sans selection:bg-[#BA532B] selection:text-white overflow-x-hidden relative museum-bg"
+      className={`min-h-screen ${isDarkTheme ? 'dark-theme bg-[#120A06] text-[#FAF5ED]' : 'bg-[#F0E7DA] text-[#24160E]'} font-sans selection:bg-[#BA532B] selection:text-white overflow-x-hidden relative museum-bg transition-colors duration-500`}
     >
       {/* 🚀 TOP SPRING-SMOOTHED SCROLL PROGRESS BAR (Active only after intro) */}
       {!showIntro && (
@@ -226,7 +226,7 @@ export default function LandingPageView({
         initial={{ y: -25, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="sticky top-0 z-[9999] bg-[#FAF5ED]/95 backdrop-blur-2xl border-b border-[#DACDB8]/80 px-6 sm:px-10 py-3.5 shadow-[0_4px_20px_-4px_rgba(36,22,14,0.05)]"
+        className={`sticky top-0 z-[9999] ${isDarkTheme ? 'bg-[#180E09]/92 border-[#3D2416]' : 'bg-[#FAF5ED]/95 border-[#DACDB8]/80'} backdrop-blur-2xl border-b px-6 sm:px-10 py-3.5 shadow-[0_4px_20px_-4px_rgba(36,22,14,0.05)] transition-colors duration-500`}
       >
         <div className="max-w-[1680px] mx-auto flex items-center justify-between gap-6">
           
@@ -241,10 +241,10 @@ export default function LandingPageView({
           </div>
 
           {/* Center: Beautified Capsule Nav Links */}
-          <div className="hidden lg:flex items-center gap-1.5 bg-[#F0E7DA]/60 border border-[#DACDB8]/80 px-2.5 py-1.5 rounded-2xl shadow-inner font-mono text-[13px] tracking-wider uppercase font-semibold">
+          <div className={`hidden lg:flex items-center gap-1.5 ${isDarkTheme ? 'bg-[#140B07]/80 border-[#3D2416]' : 'bg-[#F0E7DA]/60 border-[#DACDB8]/80'} border px-2.5 py-1.5 rounded-2xl shadow-inner font-mono text-[13px] tracking-wider uppercase font-semibold transition-all duration-300`}>
             <button 
               onClick={() => scrollToSection('pipeline-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
+              className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
             >
               Architecture
             </button>
@@ -343,8 +343,8 @@ export default function LandingPageView({
           />
 
           {/* Sunlit Sandstone & Terracotta Ambient Lighting Gradients */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#F0E7DA] via-[#F0E7DA]/80 to-[#F0E7DA]/45" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F0E7DA]/90 via-transparent to-[#F0E7DA]/90" />
+          <div className={`absolute inset-0 bg-gradient-to-t ${isDarkTheme ? 'from-[#120A06] via-[#120A06]/85 to-[#120A06]/55' : 'from-[#F0E7DA] via-[#F0E7DA]/80 to-[#F0E7DA]/45'} transition-all duration-500`} />
+          <div className={`absolute inset-0 bg-gradient-to-r ${isDarkTheme ? 'from-[#120A06]/95 via-transparent to-[#120A06]/95' : 'from-[#F0E7DA]/90 via-transparent to-[#F0E7DA]/90'} transition-all duration-500`} />
           <div className="absolute inset-0 bg-[#BA532B]/8 mix-blend-color-burn" />
 
           {/* Floating Subtle Ambient Sandstone Motes */}
