@@ -236,6 +236,46 @@ export default function LandingPageView({
             />
           </div>
 
+          {/* Center: Minimalist Nav Links */}
+          <div className="hidden lg:flex items-center gap-8 text-xs font-mono tracking-widest uppercase">
+            <a 
+              href="#hero-section" 
+              className="text-[#BA532B] font-bold transition hover:opacity-80"
+            >
+              Overview
+            </a>
+            <a 
+              href="#pipeline-section" 
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            >
+              Architecture
+            </a>
+            <a 
+              href="#consoles-section" 
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            >
+              Living Twins
+            </a>
+            <a 
+              href="#simulator-section" 
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            >
+              2030 Predictor
+            </a>
+            <a 
+              href="#registry-section" 
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            >
+              Heritage Sites
+            </a>
+            <a 
+              href="#faq-section" 
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            >
+              Archive FAQ
+            </a>
+          </div>
+
           {/* Right: Actions & Login */}
           <div className="flex items-center gap-3">
             {currentUser ? (
@@ -278,7 +318,7 @@ export default function LandingPageView({
         {/* 🏛️ Full-Page Animated Heritage Monument Cinematic Backdrop */}
         <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
           <motion.img
-            src="/monuments/qutub_minar.jpg"
+            src="/monuments/hampi.jpg"
             alt="Heritage Monument Backdrop"
             animate={{ 
               scale: [1.02, 1.09, 1.02],
@@ -289,7 +329,7 @@ export default function LandingPageView({
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
-            className="w-full h-full object-cover object-center filter brightness-[0.72] contrast-[1.25] sepia-[0.35] saturate-[1.4]"
+            className="w-full h-full object-cover object-center filter brightness-[0.78] contrast-[1.22] sepia-[0.32] saturate-[1.4]"
           />
 
           {/* Sunlit Sandstone & Terracotta Ambient Lighting Gradients */}
@@ -334,9 +374,9 @@ export default function LandingPageView({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, ease: smoothEase }}
-            className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] leading-[1.08] tracking-tight max-w-4xl"
+            className="text-5xl sm:text-7xl lg:text-8xl font-serif font-bold text-[#24160E] leading-[1.05] tracking-tight max-w-4xl"
           >
-            Safeguarding Monumental Soul with <span className="gold-cream-text">Autonomous AI Twins</span>
+            HERITAGE <span className="text-[#BA532B]">SHIELD</span>
           </motion.h1>
 
           {/* Subtitle */}
