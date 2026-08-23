@@ -19,11 +19,20 @@ export default function CinematicIntroReveal({ onComplete }) {
       setIsRevealed(true);
     }, 700);
 
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+        if (onComplete) onComplete();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [onComplete]);
 
   const handleEnter = () => {
     if (onComplete) onComplete();
@@ -36,6 +45,17 @@ export default function CinematicIntroReveal({ onComplete }) {
       exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
     >
+      {/* ⚡ Instant Top-Right Skip Intro Button (Always Accessible) */}
+      <div className="absolute top-6 right-6 z-[100002] pointer-events-auto">
+        <button
+          onClick={handleEnter}
+          className="px-4 py-2 rounded-xl frosted-btn text-xs font-mono font-bold text-gray-300 hover:text-white flex items-center gap-1.5 cursor-pointer shadow-lg hover:border-[#E06D44]"
+          title="Skip to Website"
+        >
+          <span>Skip Intro</span>
+          <span className="text-sm">✕</span>
+        </button>
+      </div>
       {/* ========================================================================= */}
       {/* 🏛️ 1. 3D APERTURE SPLIT PANELS (MULTI-MONUMENT MOSAIC SHUTTERS)            */}
       {/* ========================================================================= */}
