@@ -41,6 +41,7 @@ import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
 import CinematicIntroReveal from './CinematicIntroReveal';
+import EpigraphicWatermarkDivider from './EpigraphicWatermarkDivider';
 
 export default function LandingPageView({ 
   onEnterDashboard, 
@@ -391,6 +392,9 @@ export default function LandingPageView({
         </div>
       </section>
 
+      {/* 🏺 1. Ancient Inscription Divider: Hero to Pipeline */}
+      <EpigraphicWatermarkDivider speed={50} />
+
       {/* ========================================================================= */}
       {/* ⚙️ 3. SUBMERGED 8-MODULE DECISION PIPELINE                                */}
       {/* ========================================================================= */}
@@ -457,6 +461,9 @@ export default function LandingPageView({
         </div>
 
       </motion.section>
+
+      {/* 🏺 2. Ancient Inscription Divider: Pipeline to Consoles */}
+      <EpigraphicWatermarkDivider speed={42} reverse={true} />
 
       {/* ========================================================================= */}
       {/* 💻 4. SUBMERGED 4-CONSOLE INTELLIGENCE SANDBOX                             */}
@@ -748,6 +755,9 @@ export default function LandingPageView({
 
       </motion.section>
 
+      {/* 🏺 3. Ancient Inscription Divider: Consoles to Simulator */}
+      <EpigraphicWatermarkDivider speed={48} />
+
       {/* ========================================================================= */}
       {/* 🧪 5. SUBMERGED ENVIRONMENTAL STRESS SIMULATOR                            */}
       {/* ========================================================================= */}
@@ -840,24 +850,8 @@ export default function LandingPageView({
 
       </motion.section>
 
-      {/* ========================================================================= */}
-      {/* 🏺 ANCIENT BRAHMI & SANSKRIT EPIGRAPHIC WATERMARK MOTIF (SECTION DIVIDER) */}
-      {/* ========================================================================= */}
-      <div className="relative w-full overflow-hidden py-4 pointer-events-none select-none opacity-[0.06] border-y border-[#DACDB8]/40">
-        <motion.div 
-          animate={{ x: [0, -1000] }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-          className="flex whitespace-nowrap gap-12 text-3xl sm:text-5xl font-serif text-[#24160E] tracking-[0.3em] uppercase font-bold"
-        >
-          <span>॥ धर्मो रक्षति रक्षितः ॥</span>
-          <span>𑀥𑀁𑀫𑁄 𑀭𑀓𑁆𑀔𑀢𑀺 𑀭𑀓𑁆𑀔𑀺𑀢𑁄</span>
-          <span>॥ सत्यमेव जयते नानृतम् ॥</span>
-          <span>॥ वासुधैव कुटुम्बकम् ॥</span>
-          <span>॥ धर्मो रक्षति रक्षितः ॥</span>
-          <span>𑀥𑀁𑀫𑁄 𑀭𑀓𑁆𑀔𑀢𑀺 𑀭𑀓𑁆𑀔𑀺𑀢𑁄</span>
-          <span>॥ सत्यमेव जयते नानृतम् ॥</span>
-        </motion.div>
-      </div>
+      {/* 🏺 4. Ancient Inscription Divider: Simulator to Registry */}
+      <EpigraphicWatermarkDivider speed={52} reverse={true} />
 
       {/* ========================================================================= */}
       {/* 🏛️ 6. SUBMERGED CENTRALLY PROTECTED MONUMENTS REGISTRY (STONE PLINTHS)     */}
@@ -980,6 +974,9 @@ export default function LandingPageView({
 
       </motion.section>
 
+      {/* 🏺 5. Ancient Inscription Divider: Registry to FAQ */}
+      <EpigraphicWatermarkDivider speed={44} />
+
       {/* ========================================================================= */}
       {/* ❓ 7. SUBMERGED TECHNICAL FAQ ACCORDION                                    */}
       {/* ========================================================================= */}
@@ -1028,6 +1025,9 @@ export default function LandingPageView({
         </div>
 
       </motion.section>
+
+      {/* 🏺 6. Ancient Inscription Divider: FAQ to Footer */}
+      <EpigraphicWatermarkDivider speed={50} reverse={true} />
 
       {/* ========================================================================= */}
       {/* 🛡️ 8. INSTITUTIONAL FOOTER                                                */}

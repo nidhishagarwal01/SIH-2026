@@ -18,6 +18,7 @@ import {
 
 import HeritageGisMap from './HeritageGisMap';
 import HeritageShieldLogo from './HeritageShieldLogo';
+import EpigraphicWatermarkDivider from './EpigraphicWatermarkDivider';
 
 export default function MonumentPortalView({
   sites = [],
@@ -235,6 +236,9 @@ export default function MonumentPortalView({
         </div>
       </section>
 
+      {/* 🏺 Ancient Inscription Divider */}
+      <EpigraphicWatermarkDivider speed={52} />
+
       {/* 🏛️ 4. NATIONAL MONUMENTS REPOSITORY DIRECTORY */}
       <main className="flex-1 px-6 pb-20 max-w-[1600px] w-full mx-auto space-y-6">
         
@@ -356,6 +360,9 @@ export default function MonumentPortalView({
         )}
 
       </main>
+
+      {/* 🏺 Ancient Inscription Divider */}
+      <EpigraphicWatermarkDivider speed={46} reverse={true} />
 
       {/* 🛡️ FOOTER */}
       <footer className="border-t border-[#DACDB8] bg-[#FAF5ED] py-8 px-6 text-center text-xs font-mono text-[#7A5B49]">
