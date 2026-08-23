@@ -116,18 +116,18 @@ export default function CinematicIntroReveal({ onComplete }) {
       )}
 
       {/* ========================================================================= */}
-      {/* 🏛️ 1. 3D APERTURE SPLIT PANELS (ZERO-GAP SEAMLESS MONUMENT MOSAIC)        */}
+      {/* 🏛️ 1. 3D APERTURE SPLIT PANELS (DARK RUSTY BROWN ORANGISH MOSAIC)         */}
       {/* ========================================================================= */}
       <div className="absolute inset-0 flex pointer-events-none z-10" style={{ transformStyle: 'preserve-3d' }}>
         
-        {/* 🏛️ Left 3D Shutter (6 Monuments - Completely Seamless, No Gaps) */}
+        {/* 🏛️ Left 3D Shutter (6 Monuments - Dark Rusty Brownish-Orangish Tone) */}
         <motion.div
-          className="w-1/2 h-full relative overflow-hidden bg-[#1E140E] border-r-2 border-[#BA532B] shadow-2xl origin-left"
-          initial={{ x: "0%", rotateY: 0, filter: "brightness(0.96)" }}
+          className="w-1/2 h-full relative overflow-hidden bg-[#140B07] border-r-2 border-[#BA532B] shadow-2xl origin-left"
+          initial={{ x: "0%", rotateY: 0, filter: "brightness(0.92)" }}
           animate={{
             x: isSplit ? "-102%" : "0%",
             rotateY: isSplit ? -20 : 0,
-            filter: isSplit ? "brightness(0.75)" : "brightness(0.96)"
+            filter: isSplit ? "brightness(0.7)" : "brightness(0.92)"
           }}
           transition={{
             duration: 1.6,
@@ -141,26 +141,26 @@ export default function CinematicIntroReveal({ onComplete }) {
             className="absolute inset-0 grid grid-cols-2 grid-rows-3 h-full w-full gap-0 p-0 m-0"
           >
             {leftMonuments.map((mon, idx) => (
-              <div key={idx} className="relative overflow-hidden w-full h-full p-0 m-0">
+              <div key={idx} className="relative overflow-hidden w-full h-full p-0 m-0 bg-[#140B07]">
                 <img
                   src={mon.img}
                   alt="Heritage Monument"
-                  className="w-full h-full object-cover filter contrast-[1.06] brightness-[0.92]"
+                  className="w-full h-full object-cover filter brightness-[0.78] contrast-[1.28] sepia-[0.38] saturate-[1.45]"
                 />
-                {/* Medium-Tone Clay Sandstone & Terracotta Warmth Overlay */}
-                <div className="absolute inset-0 bg-[#BA532B]/10 mix-blend-multiply pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
+                {/* Deep Rusty Brown & Terracotta Warmth Overlays */}
+                <div className="absolute inset-0 bg-[#8A3816]/25 mix-blend-color-burn pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#140B07]/90 via-[#4A2010]/30 to-black/35 pointer-events-none" />
               </div>
             ))}
           </motion.div>
 
-          {/* Shutter Atmospheric Warm Sandstone Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1E140E]/40 via-transparent to-transparent pointer-events-none" />
+          {/* Shutter Atmospheric Dark Sandstone Rust Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#140B07]/75 via-[#8A3816]/20 to-transparent pointer-events-none" />
 
           {/* Shutter Rusty Terracotta & Bronze Laser Edge */}
           <motion.div
-            className="absolute right-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#B88636] shadow-[0_0_16px_#BA532B]"
-            animate={{ opacity: [0.75, 1, 0.75] }}
+            className="absolute right-0 top-0 bottom-0 w-[3.5px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#B88636] shadow-[0_0_18px_#BA532B]"
+            animate={{ opacity: [0.8, 1, 0.8] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
 
@@ -168,19 +168,19 @@ export default function CinematicIntroReveal({ onComplete }) {
           {!isSplit && (
             <motion.div
               style={{ top: smoothMouseY }}
-              className="absolute right-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#B88636] blur-md opacity-90 pointer-events-none -translate-y-1/2"
+              className="absolute right-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#B88636] blur-md opacity-95 pointer-events-none -translate-y-1/2"
             />
           )}
         </motion.div>
 
-        {/* 🏛️ Right 3D Shutter (6 Monuments - Completely Seamless, No Gaps) */}
+        {/* 🏛️ Right 3D Shutter (6 Monuments - Dark Rusty Brownish-Orangish Tone) */}
         <motion.div
-          className="w-1/2 h-full relative overflow-hidden bg-[#1E140E] border-l-2 border-[#BA532B] shadow-2xl origin-right"
-          initial={{ x: "0%", rotateY: 0, filter: "brightness(0.96)" }}
+          className="w-1/2 h-full relative overflow-hidden bg-[#140B07] border-l-2 border-[#BA532B] shadow-2xl origin-right"
+          initial={{ x: "0%", rotateY: 0, filter: "brightness(0.92)" }}
           animate={{
             x: isSplit ? "102%" : "0%",
             rotateY: isSplit ? 20 : 0,
-            filter: isSplit ? "brightness(0.75)" : "brightness(0.96)"
+            filter: isSplit ? "brightness(0.7)" : "brightness(0.92)"
           }}
           transition={{
             duration: 1.6,
@@ -194,26 +194,26 @@ export default function CinematicIntroReveal({ onComplete }) {
             className="absolute inset-0 grid grid-cols-2 grid-rows-3 h-full w-full gap-0 p-0 m-0"
           >
             {rightMonuments.map((mon, idx) => (
-              <div key={idx} className="relative overflow-hidden w-full h-full p-0 m-0">
+              <div key={idx} className="relative overflow-hidden w-full h-full p-0 m-0 bg-[#140B07]">
                 <img
                   src={mon.img}
                   alt="Heritage Monument"
-                  className="w-full h-full object-cover filter contrast-[1.06] brightness-[0.92]"
+                  className="w-full h-full object-cover filter brightness-[0.78] contrast-[1.28] sepia-[0.38] saturate-[1.45]"
                 />
-                {/* Medium-Tone Clay Sandstone & Terracotta Warmth Overlay */}
-                <div className="absolute inset-0 bg-[#BA532B]/10 mix-blend-multiply pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
+                {/* Deep Rusty Brown & Terracotta Warmth Overlays */}
+                <div className="absolute inset-0 bg-[#8A3816]/25 mix-blend-color-burn pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#140B07]/90 via-[#4A2010]/30 to-black/35 pointer-events-none" />
               </div>
             ))}
           </motion.div>
 
-          {/* Shutter Atmospheric Warm Sandstone Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-l from-[#1E140E]/40 via-transparent to-transparent pointer-events-none" />
+          {/* Shutter Atmospheric Dark Sandstone Rust Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-l from-[#140B07]/75 via-[#8A3816]/20 to-transparent pointer-events-none" />
 
           {/* Shutter Rusty Terracotta & Bronze Laser Edge */}
           <motion.div
-            className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#B88636] shadow-[0_0_16px_#BA532B]"
-            animate={{ opacity: [0.75, 1, 0.75] }}
+            className="absolute left-0 top-0 bottom-0 w-[3.5px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#B88636] shadow-[0_0_18px_#BA532B]"
+            animate={{ opacity: [0.8, 1, 0.8] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
 
@@ -221,7 +221,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           {!isSplit && (
             <motion.div
               style={{ top: smoothMouseY }}
-              className="absolute left-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#B88636] blur-md opacity-90 pointer-events-none -translate-y-1/2"
+              className="absolute left-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#B88636] blur-md opacity-95 pointer-events-none -translate-y-1/2"
             />
           )}
         </motion.div>
