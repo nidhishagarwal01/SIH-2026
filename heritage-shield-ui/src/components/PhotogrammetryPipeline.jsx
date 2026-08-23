@@ -114,7 +114,7 @@ export default function PhotogrammetryPipeline() {
               Automated Scan-to-Twin
             </span>
           </div>
-          <h3 className="text-base font-serif font-bold text-[#EBE2D3] mt-0.5">
+          <h3 className="text-base font-serif font-bold text-[#F0E7DA] mt-0.5">
             Automated Photogrammetry & 3D Reconstruction Pipeline
           </h3>
         </div>
@@ -139,7 +139,7 @@ export default function PhotogrammetryPipeline() {
               onClick={() => setCurrentStep(st.step)}
               className={`text-left p-3 rounded-xl border transition cursor-pointer ${
                 currentStep === st.step
-                  ? 'border-[#BA532B] bg-[#181D2E] text-[#EBE2D3] shadow-lg ring-1 ring-[#BA532B]/40'
+                  ? 'border-[#BA532B] bg-[#181D2E] text-[#F0E7DA] shadow-lg ring-1 ring-[#BA532B]/40'
                   : currentStep > st.step
                   ? 'border-emerald-800/60 bg-emerald-950/20 text-emerald-300'
                   : 'border-white/10 bg-[#121522]/80 text-gray-400 hover:border-white/20 hover:text-white'
@@ -163,7 +163,7 @@ export default function PhotogrammetryPipeline() {
           
           {/* Top Canvas Tag */}
           <div className="flex justify-between items-center z-10">
-            <span className="text-xs font-mono text-[#B88636] bg-[#121418] px-3 py-1 rounded border border-[#1E2228]">
+            <span className="text-xs font-mono text-[#C29244] bg-[#121418] px-3 py-1 rounded border border-[#1E2228]">
               {activeStageData.tag}
             </span>
             <span className="text-xs font-mono text-emerald-400 bg-[#121418] px-3 py-1 rounded border border-[#1E2228]">
@@ -283,7 +283,7 @@ export default function PhotogrammetryPipeline() {
           
           <div className="space-y-4">
             <div>
-              <span className="text-[10px] font-mono uppercase text-[#B88636] font-bold">
+              <span className="text-[10px] font-mono uppercase text-[#C29244] font-bold">
                 Step 0{activeStageData.step} Technical Specification:
               </span>
               <h4 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
@@ -310,8 +310,8 @@ export default function PhotogrammetryPipeline() {
           </div>
 
           {/* Scalability Defense Box */}
-          <div className="bg-[#0E1013] p-3.5 rounded-lg border-l-4 border-l-[#B88636] border-[#1E2228] text-xs leading-relaxed space-y-1">
-            <div className="text-[10px] font-mono text-[#B88636] uppercase font-bold">
+          <div className="bg-[#0E1013] p-3.5 rounded-lg border-l-4 border-l-[#C29244] border-[#1E2228] text-xs leading-relaxed space-y-1">
+            <div className="text-[10px] font-mono text-[#C29244] uppercase font-bold">
               Why This Solves Scalability at National Scale:
             </div>
             <p className="text-gray-300 text-[11px]">

@@ -172,7 +172,7 @@ export default function HeritageShieldLogo({
       {/* Brand Typographic Wordmark */}
       {showText && (
         <div className="flex items-center text-left">
-          <span className={`font-serif font-bold tracking-wider text-[#1E140E] group-hover:text-[#BA532B] transition-colors leading-none ${dim.text} ${textClassName}`}>
+          <span className={`font-serif font-bold tracking-wider text-[#24160E] group-hover:text-[#BA532B] transition-colors leading-none ${dim.text} ${textClassName}`}>
             HERITAGE <span className="text-[#BA532B]">SHIELD</span>
           </span>
         </div>

@@ -452,7 +452,7 @@ export default function InspectionPhotoViewer({
         <div className="flex items-center gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono text-[#B88636] uppercase font-bold tracking-wider">
+              <span className="text-xs font-mono text-[#C29244] uppercase font-bold tracking-wider">
                 Photo Condition Preset:
               </span>
               <div className="flex bg-[#121622] p-1 rounded-xl border border-[#283042] gap-1">
@@ -464,7 +464,7 @@ export default function InspectionPhotoViewer({
                       onClick={() => handleSelectPreset(idx)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer font-bold ${
                         isCur
-                          ? 'bg-gradient-to-r from-[#B88636] to-[#D4AF37] text-[#0A0C10] shadow-sm'
+                          ? 'bg-gradient-to-r from-[#C29244] to-[#D4AF37] text-[#0A0C10] shadow-sm'
                           : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
                       }`}
                     >
@@ -542,7 +542,7 @@ export default function InspectionPhotoViewer({
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={isAnalyzing}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#B88636] to-[#D4AF37] hover:brightness-110 text-[#0A0C10] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-950/20 cursor-pointer border border-[#E5C07B]/40"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C29244] to-[#D4AF37] hover:brightness-110 text-[#0A0C10] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-950/20 cursor-pointer border border-[#E5C07B]/40"
           >
             <span>{isAnalyzing ? '⏳ Processing OpenCV...' : '📤 Upload Drone Scan'}</span>
           </button>
@@ -635,14 +635,14 @@ export default function InspectionPhotoViewer({
               <h3 className="text-lg font-serif font-bold text-[#F3EFE6] mt-2 leading-snug">
                 {activeDefectData?.label || 'Select a Defect'}
               </h3>
-              <p className="text-[11px] font-mono text-[#B88636] mt-0.5 font-semibold">
+              <p className="text-[11px] font-mono text-[#C29244] mt-0.5 font-semibold">
                 Defect ID: {activeDefectData?.id}
               </p>
             </div>
 
             {/* Quantitative Damage Extraction Table */}
             <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase text-[#B88636] tracking-wider font-bold block">
+              <span className="text-[10px] font-mono uppercase text-[#C29244] tracking-wider font-bold block">
                 Extracted Metric Dimensions (Calibrated)
               </span>
 

@@ -45,7 +45,7 @@ export default function AssetSwitcherModal({
 
           <button
             onClick={onClose}
-            className="text-[#6D5545] hover:text-[#181B1F] text-xs font-mono px-3 py-1.5 rounded-xl bg-white border border-[#E6E1D8] cursor-pointer shadow-sm"
+            className="text-[#7A5B49] hover:text-[#181B1F] text-xs font-mono px-3 py-1.5 rounded-xl bg-white border border-[#E6E1D8] cursor-pointer shadow-sm"
           >
             ✕
           </button>
@@ -64,7 +64,7 @@ export default function AssetSwitcherModal({
           </div>
 
           <div className="flex items-center gap-2 overflow-x-auto">
-            <span className="text-[10px] font-mono text-[#6D5545] uppercase font-semibold">State:</span>
+            <span className="text-[10px] font-mono text-[#7A5B49] uppercase font-semibold">State:</span>
             <select
               value={filterState}
               onChange={(e) => setFilterState(e.target.value)}
@@ -98,7 +98,7 @@ export default function AssetSwitcherModal({
               >
                 <div>
                   {/* Top Bar: ASI ID & State */}
-                  <div className="flex justify-between items-center text-[10px] font-mono text-[#6D5545] mb-2">
+                  <div className="flex justify-between items-center text-[10px] font-mono text-[#7A5B49] mb-2">
                     <span className="font-bold text-[#C85A32]">{site.id}</span>
                     <span className="bg-[#FAF8F5] px-2 py-0.5 rounded text-[#181B1F] border border-[#E6E1D8]">
                       {site.state}
@@ -123,7 +123,7 @@ export default function AssetSwitcherModal({
                       <h4 className="text-xs font-serif font-bold text-[#181B1F] leading-snug group-hover:text-[#C85A32] transition">
                         {site.name}
                       </h4>
-                      <p className="text-[10px] text-[#6D5545] font-mono mt-0.5">
+                      <p className="text-[10px] text-[#7A5B49] font-mono mt-0.5">
                         {site.builtEra.split('(')[0]}
                       </p>
                     </div>
@@ -138,7 +138,7 @@ export default function AssetSwitcherModal({
 
                 {/* Bottom Stats Strip */}
                 <div className="mt-3 pt-2.5 border-t border-[#E6E1D8] flex justify-between items-center text-[10px] font-mono">
-                  <span className="text-[#6D5545]">
+                  <span className="text-[#7A5B49]">
                     Health: <strong className="text-[#181B1F]">{site.healthScore}/100</strong>
                   </span>
                   <span

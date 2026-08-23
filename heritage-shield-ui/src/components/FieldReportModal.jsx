@@ -78,7 +78,7 @@ export default function FieldReportModal({
               🛡️
             </div>
             <div>
-              <h3 className="text-sm font-serif font-bold text-[#EBE2D3] tracking-wide">
+              <h3 className="text-sm font-serif font-bold text-[#F0E7DA] tracking-wide">
                 HERITAGE SENTINEL · DAMAGE INCIDENT REPORT
               </h3>
               <span className="text-[10px] font-mono text-gray-400">

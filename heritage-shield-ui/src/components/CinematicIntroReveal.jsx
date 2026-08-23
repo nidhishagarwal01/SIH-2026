@@ -100,7 +100,7 @@ export default function CinematicIntroReveal({ onComplete }) {
     <motion.div
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="fixed inset-0 z-[100000] bg-[#EBE2D3] flex items-center justify-center overflow-hidden select-none overscroll-none touch-none pointer-events-auto"
+      className="fixed inset-0 z-[100000] bg-[#F0E7DA] flex items-center justify-center overflow-hidden select-none overscroll-none touch-none pointer-events-auto"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
@@ -111,7 +111,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           initial={{ scale: 0.1, opacity: 0.95 }}
           animate={{ scale: 4.8, opacity: 0 }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-[#BA532B] via-[#B88636] to-[#EBE2D3] pointer-events-none blur-2xl z-50"
+          className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-[#BA532B] via-[#C29244] to-[#F0E7DA] pointer-events-none blur-2xl z-50"
         />
       )}
 
@@ -159,7 +159,7 @@ export default function CinematicIntroReveal({ onComplete }) {
 
           {/* Shutter Rusty Terracotta & Bronze Laser Edge */}
           <motion.div
-            className="absolute right-0 top-0 bottom-0 w-[3.5px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#B88636] shadow-[0_0_18px_#BA532B]"
+            className="absolute right-0 top-0 bottom-0 w-[3.5px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#C29244] shadow-[0_0_18px_#BA532B]"
             animate={{ opacity: [0.8, 1, 0.8] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -168,7 +168,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           {!isSplit && (
             <motion.div
               style={{ top: smoothMouseY }}
-              className="absolute right-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#B88636] blur-md opacity-95 pointer-events-none -translate-y-1/2"
+              className="absolute right-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#C29244] blur-md opacity-95 pointer-events-none -translate-y-1/2"
             />
           )}
         </motion.div>
@@ -212,7 +212,7 @@ export default function CinematicIntroReveal({ onComplete }) {
 
           {/* Shutter Rusty Terracotta & Bronze Laser Edge */}
           <motion.div
-            className="absolute left-0 top-0 bottom-0 w-[3.5px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#B88636] shadow-[0_0_18px_#BA532B]"
+            className="absolute left-0 top-0 bottom-0 w-[3.5px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#C29244] shadow-[0_0_18px_#BA532B]"
             animate={{ opacity: [0.8, 1, 0.8] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -221,7 +221,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           {!isSplit && (
             <motion.div
               style={{ top: smoothMouseY }}
-              className="absolute left-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#B88636] blur-md opacity-95 pointer-events-none -translate-y-1/2"
+              className="absolute left-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#C29244] blur-md opacity-95 pointer-events-none -translate-y-1/2"
             />
           )}
         </motion.div>
@@ -294,9 +294,9 @@ export default function CinematicIntroReveal({ onComplete }) {
             transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
           >
             <svg viewBox="0 0 260 260" className="w-full h-full opacity-45 filter drop-shadow-[0_0_15px_rgba(186,83,43,0.45)]">
-              <circle cx="130" cy="130" r="115" stroke="#B88636" strokeWidth="1.2" strokeDasharray="4 4" fill="none" />
+              <circle cx="130" cy="130" r="115" stroke="#C29244" strokeWidth="1.2" strokeDasharray="4 4" fill="none" />
               <circle cx="130" cy="130" r="100" stroke="#BA532B" strokeWidth="1.6" fill="none" opacity="0.85" />
-              <circle cx="130" cy="130" r="88" stroke="#B88636" strokeWidth="0.8" fill="none" opacity="0.65" />
+              <circle cx="130" cy="130" r="88" stroke="#C29244" strokeWidth="0.8" fill="none" opacity="0.65" />
               
               {/* 24 Radiant Ashoka Sun Wheel Spoke Rays */}
               {[...Array(24)].map((_, idx) => {
@@ -309,7 +309,7 @@ export default function CinematicIntroReveal({ onComplete }) {
                     y1="130"
                     x2={130 + 100 * Math.cos(rad)}
                     y2={130 + 100 * Math.sin(rad)}
-                    stroke="#B88636"
+                    stroke="#C29244"
                     strokeWidth="1.3"
                     opacity="0.8"
                   />
@@ -319,7 +319,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           </motion.div>
 
           {/* Outer Pulsing Aura */}
-          <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-[#BA532B]/30 via-[#B88636]/25 to-[#1E140E]/25 blur-2xl animate-pulse" />
+          <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-[#BA532B]/30 via-[#C29244]/25 to-[#24160E]/25 blur-2xl animate-pulse" />
           
           <HeritageShieldLogo size="2xl" showText={false} />
         </motion.div>
@@ -334,10 +334,10 @@ export default function CinematicIntroReveal({ onComplete }) {
           transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="space-y-3"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#1E140E] tracking-tight leading-none">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] tracking-tight leading-none">
             HERITAGE <span className="text-[#BA532B]">SHIELD</span>
           </h1>
-          <p className="text-sm sm:text-lg text-[#3E2B1F] font-sans leading-relaxed max-w-2xl mx-auto font-medium">
+          <p className="text-sm sm:text-lg text-[#4D3425] font-sans leading-relaxed max-w-2xl mx-auto font-medium">
             Preserving India's Architectural Soul Through Living Digital Twins & Autonomous Intelligence
           </p>
         </motion.div>
@@ -359,7 +359,7 @@ export default function CinematicIntroReveal({ onComplete }) {
             whileTap={{ scale: 0.95 }}
             onClick={handleEnter}
             disabled={isTransitioning}
-            className="px-10 py-4 rounded-2xl bg-gradient-to-r from-[#BA532B] via-[#C86036] to-[#A84520] text-white border border-[#B88636]/50 font-mono text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-3 cursor-pointer shadow-xl relative overflow-hidden group hover:shadow-[#BA532B]/40"
+            className="px-10 py-4 rounded-2xl bg-gradient-to-r from-[#BA532B] via-[#C86036] to-[#A84520] text-white border border-[#C29244]/50 font-mono text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-3 cursor-pointer shadow-xl relative overflow-hidden group hover:shadow-[#BA532B]/40"
           >
             {/* Shimmer Glint */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full duration-1000 transition-transform bg-gradient-to-r from-transparent via-white/20 to-transparent" />
