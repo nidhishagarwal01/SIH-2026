@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useScroll } from 'framer-motion';
-import LiquidFluidDistortion from './LiquidFluidDistortion';
 
+/**
+ * 🏛️ Submerged Silky Fluid Aura & Ambient Museum Torch
+ * Submerges smoothly behind the glass panels and typography, illuminating the architectural obsidian
+ * canvas with velvety terracotta-gold liquid plasma waves that feel organic, flowy, and 100% non-distracting.
+ */
 export default function MuseumCursorTorch() {
   const mouseX = useMotionValue(-500);
   const mouseY = useMotionValue(-500);
 
-  // Smooth spring physics for cursor follower
-  const springConfig = { damping: 28, stiffness: 200, mass: 0.5 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
+  // Ultra-silky fluid spring physics (submerged and flowy)
+  const springPrimary = { damping: 36, stiffness: 120, mass: 0.8 };
+  const smoothX = useSpring(mouseX, springPrimary);
+  const smoothY = useSpring(mouseY, springPrimary);
 
-  // Trailing larger ambient glow
-  const ambientSpringConfig = { damping: 40, stiffness: 90, mass: 1.2 };
-  const ambientX = useSpring(mouseX, ambientSpringConfig);
-  const ambientY = useSpring(mouseY, ambientSpringConfig);
+  // Secondary lagging liquid wake (creates fluid wave trail behind cursor)
+  const springLag = { damping: 48, stiffness: 60, mass: 1.6 };
+  const lagX = useSpring(mouseX, springLag);
+  const lagY = useSpring(mouseY, springLag);
+
+  // Tertiary deep ambient pool
+  const springDeep = { damping: 60, stiffness: 40, mass: 2.4 };
+  const deepX = useSpring(mouseX, springDeep);
+  const deepY = useSpring(mouseY, springDeep);
 
   // Page Scroll Progress
   const { scrollYProgress } = useScroll();
@@ -50,33 +59,45 @@ export default function MuseumCursorTorch() {
     <>
       {/* 🌟 1. Top Luxury Scroll Progress Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#C85A32] via-[#E06D44] to-[#D4AF37] z-[99999] origin-left shadow-[0_0_12px_#E06D44]"
+        className="fixed top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#C85A32] via-[#E06D44] to-[#D4AF37] z-[99999] origin-left shadow-[0_0_12px_#E06D44]"
         style={{ scaleX }}
       />
 
-      {/* 🌊 2. WebGL Liquid Distortion, Fluid Flowmaps & Dynamic Mouse Trails */}
-      <LiquidFluidDistortion />
-
-      {/* 🔦 3. Interactive Cursor Torch & Ambient Spotlight (Follows Mouse Fluidly) */}
+      {/* 🌊 2. Submerged Fluid Liquid Plasma Aura (Behind Glass Cards, Non-Distracting) */}
       {isVisible && (
-        <div className="fixed inset-0 pointer-events-none z-[100005] overflow-hidden">
+        <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden select-none">
           
-          {/* Broad Ambient Terracotta Glow */}
+          {/* Deep Viscous Fluid Pool (Lagging Ambient Warmth) */}
           <motion.div
             className="absolute rounded-full pointer-events-none"
             style={{
-              x: ambientX,
-              y: ambientY,
+              x: deepX,
+              y: deepY,
               translateX: '-50%',
               translateY: '-50%',
-              width: 550,
-              height: 550,
-              background: 'radial-gradient(circle, rgba(224, 109, 68, 0.12) 0%, rgba(212, 175, 55, 0.05) 45%, transparent 70%)',
-              filter: 'blur(35px)',
+              width: 750,
+              height: 750,
+              background: 'radial-gradient(circle, rgba(200, 90, 50, 0.09) 0%, rgba(212, 175, 55, 0.04) 45%, transparent 70%)',
+              filter: 'blur(75px)',
             }}
           />
 
-          {/* Precision Gold Spotlight Halo */}
+          {/* Flowing Mid-Liquid Plasma Wave (Lagging Fluid Swirl) */}
+          <motion.div
+            className="absolute rounded-full pointer-events-none"
+            style={{
+              x: lagX,
+              y: lagY,
+              translateX: '-50%',
+              translateY: '-50%',
+              width: 440,
+              height: 440,
+              background: 'radial-gradient(circle, rgba(224, 109, 68, 0.14) 0%, rgba(245, 196, 81, 0.07) 50%, transparent 75%)',
+              filter: 'blur(45px)',
+            }}
+          />
+
+          {/* Primary Silky Smooth Torch Core (Follows Cursor Softly) */}
           <motion.div
             className="absolute rounded-full pointer-events-none"
             style={{
@@ -84,51 +105,36 @@ export default function MuseumCursorTorch() {
               y: smoothY,
               translateX: '-50%',
               translateY: '-50%',
-              width: 220,
-              height: 220,
-              background: 'radial-gradient(circle, rgba(255, 235, 200, 0.16) 0%, rgba(224, 109, 68, 0.08) 50%, transparent 80%)',
-              filter: 'blur(15px)',
-            }}
-          />
-
-          {/* Micro Cursor Dot */}
-          <motion.div
-            className="absolute rounded-full pointer-events-none border border-[#E06D44]/40"
-            style={{
-              x: mouseX,
-              y: mouseY,
-              translateX: '-50%',
-              translateY: '-50%',
-              width: 28,
-              height: 28,
-              backgroundColor: 'rgba(224, 109, 68, 0.08)',
-              boxShadow: '0 0 10px rgba(224, 109, 68, 0.4)',
+              width: 260,
+              height: 260,
+              background: 'radial-gradient(circle, rgba(255, 235, 205, 0.16) 0%, rgba(224, 109, 68, 0.09) 45%, transparent 75%)',
+              filter: 'blur(25px)',
             }}
           />
         </div>
       )}
 
       {/* ✨ 3. Cinematic Atmospheric Floating Dust Particles */}
-      <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
-        {[...Array(16)].map((_, i) => (
+      <div className="fixed inset-0 pointer-events-none z-[2] overflow-hidden select-none">
+        {[...Array(14)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full bg-[#E5C07B]"
             style={{
-              width: i % 3 === 0 ? 3 : i % 2 === 0 ? 2 : 1.5,
-              height: i % 3 === 0 ? 3 : i % 2 === 0 ? 2 : 1.5,
+              width: i % 3 === 0 ? 2.5 : 1.5,
+              height: i % 3 === 0 ? 2.5 : 1.5,
               top: `${(i * 19 + 7) % 100}%`,
               left: `${(i * 23 + 11) % 100}%`,
-              opacity: 0.25 + (i % 4) * 0.12,
-              boxShadow: '0 0 6px rgba(229, 192, 123, 0.6)',
+              opacity: 0.18 + (i % 4) * 0.08,
+              boxShadow: '0 0 6px rgba(229, 192, 123, 0.4)',
             }}
             animate={{
-              y: [0, -35, 0],
-              x: [0, (i % 2 === 0 ? 15 : -15), 0],
-              opacity: [0.2, 0.6, 0.2],
+              y: [0, -30, 0],
+              x: [0, (i % 2 === 0 ? 12 : -12), 0],
+              opacity: [0.15, 0.35, 0.15],
             }}
             transition={{
-              duration: 8 + (i % 5) * 3,
+              duration: 9 + (i % 5) * 3,
               repeat: Infinity,
               ease: "easeInOut",
               delay: (i % 7) * 1.2,
