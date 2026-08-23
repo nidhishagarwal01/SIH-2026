@@ -36,28 +36,29 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
   const stableCount = sites.filter(s => s.status === 'Stable').length;
 
   return (
-    <div className="min-h-screen bg-[#090A0C] text-[#E8E6E3] font-sans flex flex-col selection:bg-[#C5A059] selection:text-[#090A0C]">
+    <div className="min-h-screen bg-[#0A0C10] text-[#E8E6E3] font-sans flex flex-col selection:bg-[#C5A059] selection:text-[#090A0C] heritage-radial-bg">
       
       {/* 🏛️ 1. TOP ENTERPRISE GOVT / ASI COMMAND BAR (Sticky Top Header with Persistent Search) */}
-      <header className="sticky top-0 z-[9999] bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-2.5 shadow-2xl">
+      <header className="sticky top-0 z-[9999] bg-[#0A0C10]/95 backdrop-blur-xl border-b border-[#232A38] px-6 py-3 shadow-2xl">
         <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
           
           {/* Clickable Home Brand */}
           <HeritageShieldLogo
             size="md"
             showText={true}
+            textClassName="text-lg tracking-wide font-serif"
             onClick={onBackToLanding}
           />
 
           {/* Persistent Universal Search Bar (Always Visible on Scroll) */}
           <div className="relative flex-1 max-w-xl mx-2 sm:mx-6">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">🔍</span>
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C5A059] text-sm pointer-events-none">🔍</span>
             <input
               type="text"
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#14171E] border border-[#2B313D] focus:border-[#C5A059] rounded-xl pl-10 pr-20 py-2 text-xs sm:text-sm text-gray-100 placeholder-gray-500 focus:outline-none transition shadow-inner font-sans"
+              className="w-full bg-[#12151E] border border-[#2B313D] focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059]/40 rounded-xl pl-10 pr-20 py-2.5 text-xs sm:text-sm text-gray-100 placeholder-gray-500 focus:outline-none transition shadow-inner font-sans"
             />
             {searchQuery && (
               <button
@@ -77,20 +78,20 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
       </header>
 
       {/* 🔍 2. QUICK FILTER BAR */}
-      <section className="bg-gradient-to-b from-[#111317] to-[#0E1013] border-b border-[#1E2228] px-6 py-3 shadow-md">
+      <section className="bg-[#0D0F16] border-b border-[#1E2330] px-6 py-3 shadow-md">
         <div className="max-w-[1600px] mx-auto">
           {/* Quick Filters Row */}
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
             
             {/* Status Pills */}
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-gray-500 uppercase text-[10px] mr-1">Filter:</span>
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-[#C5A059] uppercase text-[10px] mr-1 font-bold tracking-wider">Heritage Filter:</span>
               <button
                 onClick={() => setStatusFilter('ALL')}
-                className={`px-3 py-1.5 rounded-lg border transition cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-xl border transition cursor-pointer font-bold ${
                   statusFilter === 'ALL'
-                    ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold shadow'
-                    : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
+                    ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#E5C07B] shadow-sm'
+                    : 'border-[#232A38] bg-[#12151E] text-gray-400 hover:text-gray-200 hover:border-[#384152]'
                 }`}
               >
                 All Heritage Sites
@@ -98,22 +99,22 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
 
               <button
                 onClick={() => setStatusFilter('Critical')}
-                className={`px-3 py-1.5 rounded-lg border transition flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-xl border transition flex items-center gap-1.5 cursor-pointer font-bold ${
                   statusFilter === 'Critical'
-                    ? 'border-rose-500 bg-rose-500/20 text-rose-300 font-bold shadow'
-                    : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
+                    ? 'border-rose-500 bg-rose-500/20 text-rose-300 shadow-sm'
+                    : 'border-[#232A38] bg-[#12151E] text-gray-400 hover:text-gray-200 hover:border-[#384152]'
                 }`}
               >
-                <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+                <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
                 <span>Critical Urgency</span>
               </button>
 
               <button
                 onClick={() => setStatusFilter('Watch')}
-                className={`px-3 py-1.5 rounded-lg border transition flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-xl border transition flex items-center gap-1.5 cursor-pointer font-bold ${
                   statusFilter === 'Watch'
-                    ? 'border-amber-500 bg-amber-500/20 text-amber-300 font-bold shadow'
-                    : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
+                    ? 'border-amber-500 bg-amber-500/20 text-amber-300 shadow-sm'
+                    : 'border-[#232A38] bg-[#12151E] text-gray-400 hover:text-gray-200 hover:border-[#384152]'
                 }`}
               >
                 <span className="w-2 h-2 rounded-full bg-amber-500"></span>
@@ -122,10 +123,10 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
 
               <button
                 onClick={() => setStatusFilter('Stable')}
-                className={`px-3 py-1.5 rounded-lg border transition flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-xl border transition flex items-center gap-1.5 cursor-pointer font-bold ${
                   statusFilter === 'Stable'
-                    ? 'border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold shadow'
-                    : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
+                    ? 'border-emerald-500 bg-emerald-500/20 text-emerald-300 shadow-sm'
+                    : 'border-[#232A38] bg-[#12151E] text-gray-400 hover:text-gray-200 hover:border-[#384152]'
                 }`}
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
@@ -133,17 +134,17 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
               </button>
 
               <button
-                onClick={() => setStatusFilter('ZoneIV_V')}
-                className={`px-3 py-1.5 rounded-lg border transition flex items-center gap-1.5 ${
-                  statusFilter === 'ZoneIV_V'
-                    ? 'border-orange-500 bg-orange-500/20 text-orange-300 font-bold shadow'
-                    : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:text-gray-200'
+                onClick={() => setStatusFilter('Zone IV/V')}
+                className={`px-3.5 py-1.5 rounded-xl border transition flex items-center gap-1.5 cursor-pointer font-bold ${
+                  statusFilter === 'Zone IV/V'
+                    ? 'border-purple-500 bg-purple-500/20 text-purple-300 shadow-sm'
+                    : 'border-[#232A38] bg-[#12151E] text-gray-400 hover:text-gray-200 hover:border-[#384152]'
                 }`}
               >
-                <span>🌋 High Seismic (Zone IV/V)</span>
+                <span>🌋</span>
+                <span>High Seismic Zone IV/V</span>
               </button>
             </div>
-
 
             {/* State Filter Dropdown */}
             <div className="flex items-center gap-2">
@@ -220,49 +221,48 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredSites.map((site) => (
               <div
                 key={site.id}
                 onClick={() => onSelectMonument(site.index)}
-                className="group cursor-pointer bg-[#121418] hover:bg-[#15181E] border border-[#1E2228] hover:border-[#C5A059]/60 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-amber-950/20 hover:-translate-y-1 flex flex-col justify-between"
+                className="group cursor-pointer bg-[#0D1017] hover:bg-[#121620] border border-[#232A38] hover:border-[#C5A059]/70 rounded-2xl overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-amber-950/25 hover:-translate-y-1 flex flex-col justify-between heritage-card-glow"
               >
                 <div>
                   {/* Image Container with Badges */}
-                  <div className="relative h-44 w-full bg-[#1A1D24] overflow-hidden">
+                  <div className="relative h-48 w-full bg-[#1A1D24] overflow-hidden">
                     <img
                       src={site.imageUrl}
                       alt={site.name}
                       referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95"
                       onError={(e) => {
                         e.target.style.display = 'none';
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#121418] via-transparent to-black/60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0D1017] via-[#0D1017]/30 to-black/60" />
 
                     {/* Top Badges */}
                     <div className="absolute top-3 right-3 flex items-center text-[10px] font-mono">
                       <span
-                        className="px-2 py-0.5 rounded backdrop-blur-md font-bold uppercase tracking-wider text-[9px] flex items-center gap-1 shadow"
+                        className="px-2.5 py-1 rounded-lg backdrop-blur-md font-bold uppercase tracking-wider text-[9px] flex items-center gap-1.5 shadow-lg border"
                         style={{
                           backgroundColor: `${site.color}25`,
                           color: site.color,
-                          border: `1px solid ${site.color}50`
+                          borderColor: `${site.color}60`
                         }}
                       >
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: site.color }} />
+                        <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: site.color }} />
                         <span>{site.status}</span>
                       </span>
                     </div>
 
-
                     {/* Bottom overlay text */}
                     <div className="absolute bottom-3 left-3 right-3">
-                      <span className="text-[10px] font-mono text-gray-300 block mb-0.5">
+                      <span className="text-[10px] font-mono text-[#C5A059] font-semibold block mb-0.5 tracking-wide">
                         📍 {site.location}, {site.state}
                       </span>
-                      <h3 className="text-base font-serif font-bold text-white group-hover:text-[#C5A059] transition drop-shadow">
+                      <h3 className="text-base font-serif font-bold text-white group-hover:text-[#F3EFE6] transition drop-shadow-md leading-tight">
                         {site.name}
                       </h3>
                     </div>
@@ -270,19 +270,19 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
 
                   {/* Body Content */}
                   <div className="p-4 space-y-3 flex-1 flex flex-col justify-between">
-                    <p className="text-[11px] text-gray-300 font-mono leading-relaxed">
-                      🏛️ Built: {site.builtEra}
+                    <p className="text-[11px] text-gray-300 font-mono leading-relaxed bg-[#11141D] p-2 rounded-lg border border-[#1E2433]">
+                      🏛️ Built: <span className="text-gray-200">{site.builtEra}</span>
                     </p>
 
                     <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
-                      <div className="bg-[#0E1013] p-2 rounded-lg border border-[#1E2228] flex flex-col justify-between">
+                      <div className="bg-[#11141D] p-2.5 rounded-xl border border-[#1E2433] flex flex-col justify-between">
                         <span className="text-gray-500 uppercase block text-[9px] font-bold">Material Typology</span>
                         <span className="text-gray-200 font-semibold block mt-1 leading-snug break-words">
                           {site.material}
                         </span>
                       </div>
 
-                      <div className="bg-[#0E1013] p-2 rounded-lg border border-[#1E2228] flex flex-col justify-between">
+                      <div className="bg-[#11141D] p-2.5 rounded-xl border border-[#1E2433] flex flex-col justify-between">
                         <span className="text-gray-500 uppercase block text-[9px] font-bold">Seismic Exposure</span>
                         <span className="text-amber-300 font-semibold block mt-1 leading-snug break-words">
                           {site.seismicZone}
@@ -290,9 +290,9 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                       </div>
                     </div>
 
-                    <div className="bg-[#0E1013] p-2.5 rounded-lg border border-[#1E2228] text-[10px] font-mono flex justify-between items-center">
-                      <span className="text-gray-400">Vulnerability Index:</span>
-                      <span className="font-bold text-xs" style={{ color: site.color }}>
+                    <div className="bg-[#11141D] p-2.5 rounded-xl border border-[#1E2433] text-[10px] font-mono flex justify-between items-center">
+                      <span className="text-gray-400 font-medium">Vulnerability Index:</span>
+                      <span className="font-bold text-xs font-mono" style={{ color: site.color }}>
                         {site.riskScore} / 100
                       </span>
                     </div>
@@ -300,26 +300,26 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                 </div>
 
                 {/* Card Action Buttons */}
-                <div className="p-4 pt-0 grid grid-cols-2 gap-2">
+                <div className="p-4 pt-0 grid grid-cols-2 gap-2 font-mono">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       onSelectMonument(site.index, 'twin');
                     }}
-                    className="py-2.5 rounded-xl bg-[#181B22] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-200 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 shadow"
+                    className="py-2.5 rounded-xl bg-[#141822] hover:bg-[#C5A059] border border-[#283042] hover:border-[#C5A059] text-gray-200 hover:text-[#0A0C10] text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md cursor-pointer group/btn"
                     title="Open 3D Living Twin to inspect structural components"
                   >
-                    <span>🏛️ Explore 3D Twin</span>
+                    <span>🏛️ 3D Twin</span>
                   </button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       onSelectMonument(site.index, 'vision');
                     }}
-                    className="py-2.5 rounded-xl bg-sky-950/40 hover:bg-sky-600 border border-sky-700/50 hover:border-sky-500 text-sky-300 hover:text-white text-xs font-mono font-bold transition flex items-center justify-center gap-1.5 shadow"
+                    className="py-2.5 rounded-xl bg-sky-950/30 hover:bg-sky-600 border border-sky-800/40 hover:border-sky-500 text-sky-300 hover:text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md cursor-pointer"
                     title="Run AI Computer Vision to detect and quantify defects"
                   >
-                    <span>🔍 Inspect AI Vision</span>
+                    <span>🔍 AI Vision</span>
                   </button>
                 </div>
 

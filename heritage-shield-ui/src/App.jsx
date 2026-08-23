@@ -395,10 +395,10 @@ export default function App() {
   // 🏛️ VIEW 3: DEDICATED MONUMENT STUDIO & COMMAND CENTER
   // ---------------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-[#090A0C] text-[#E8E6E3] font-sans antialiased selection:bg-[#C5A059] selection:text-[#090A0C] flex flex-col">
+    <div className="min-h-screen bg-[#0A0C10] text-[#E8E6E3] font-sans antialiased selection:bg-[#C5A059] selection:text-[#090A0C] flex flex-col heritage-radial-bg">
       
       {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
-      <header className="sticky top-0 z-[9999] bg-[#0E1013]/95 backdrop-blur-md border-b border-[#1E2228] px-6 py-2.5 shadow-2xl">
+      <header className="sticky top-0 z-[9999] bg-[#0A0C10]/95 backdrop-blur-xl border-b border-[#232A38] px-6 py-3 shadow-2xl">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
           {/* Brand & Return to Portal Button */}
@@ -407,17 +407,15 @@ export default function App() {
             <HeritageShieldLogo
               size="sm"
               showText={true}
-              textClassName="text-sm"
+              textClassName="text-sm tracking-wide font-serif"
               onClick={() => setViewMode('landing')}
             />
 
-
-
-            <div className="w-[1px] h-6 bg-[#1E2228]" />
+            <div className="w-[1px] h-6 bg-[#232A38]" />
 
             <button
               onClick={() => setViewMode('portal')}
-              className="px-3 py-1.5 rounded-lg bg-[#14171C] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-300 hover:text-[#090A0C] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow"
+              className="px-3.5 py-1.5 rounded-xl bg-[#12151E] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-300 hover:text-[#0A0C10] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow cursor-pointer"
               title="Return to National Map & Directory"
             >
               <span>🗺️</span>
@@ -425,11 +423,10 @@ export default function App() {
             </button>
           </div>
 
-
           {/* Active Heritage Site Switcher Pill */}
           <button
             onClick={() => setIsAssetSwitcherOpen(true)}
-            className="flex items-center gap-3 bg-[#14171C] hover:bg-[#1C2027] border border-[#2B313D] hover:border-[#C5A059] px-4 py-1.5 rounded-xl transition shadow-md group"
+            className="flex items-center gap-3 bg-[#12151E] hover:bg-[#181D2A] border border-[#2B313D] hover:border-[#C5A059] px-4 py-2 rounded-xl transition shadow-md group cursor-pointer"
             title="Switch Heritage Site"
           >
             <span
@@ -454,16 +451,15 @@ export default function App() {
 
             <button
               onClick={() => setIsLiveIngestOpen(true)}
-              className="px-3.5 py-1.5 rounded-lg bg-cyan-950/40 border border-cyan-700/50 hover:bg-cyan-900/40 text-cyan-300 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm"
+              className="px-3.5 py-2 rounded-xl bg-cyan-950/30 border border-cyan-700/40 hover:bg-cyan-900/40 text-cyan-300 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-              <span>🌐 Live Ingest & Examine</span>
+              <span>🌐 Live Ingest</span>
             </button>
-
 
             <button
               onClick={() => setIsFieldReportOpen(true)}
-              className="px-3.5 py-1.5 rounded-lg bg-[#14171C] border border-[#282E38] hover:border-emerald-500/50 text-emerald-400 text-xs font-mono font-medium transition flex items-center gap-1.5 shadow-sm"
+              className="px-3.5 py-2 rounded-xl bg-[#12151E] border border-[#282E38] hover:border-emerald-500/50 text-emerald-400 text-xs font-mono font-medium transition flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               <span>Field Sentinel</span>
@@ -471,9 +467,9 @@ export default function App() {
 
             <button
               onClick={() => setIsReportOpen(true)}
-              className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:brightness-110 text-[#090A0C] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-950/30"
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:brightness-110 text-[#0A0C10] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-950/30 cursor-pointer border border-[#E5C07B]/40"
             >
-              <span>📄 ASI Work-Order</span>
+              <span>📄 ASI Dossier</span>
             </button>
           </div>
 
@@ -481,7 +477,7 @@ export default function App() {
       </header>
 
       {/* 🎛️ 2. STUDIO CONSOLE TABS */}
-      <div className="bg-[#0D0E11] border-b border-[#1A1D23] px-6">
+      <div className="bg-[#0D0F16] border-b border-[#1E2330] px-6">
         <div className="max-w-[1600px] mx-auto flex items-center gap-2 overflow-x-auto py-2.5">
           
           <button
@@ -491,8 +487,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'twin'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#C5A059] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418] border border-transparent'
+                ? 'bg-[#181D2A] text-[#F3EFE6] border border-[#C5A059] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#12151E] border border-transparent'
             }`}
           >
             <span className="text-sm">🏛️</span>
@@ -506,8 +502,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'vision'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#C5A059] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418] border border-transparent'
+                ? 'bg-[#181D2A] text-[#F3EFE6] border border-[#C5A059] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#12151E] border border-transparent'
             }`}
           >
             <span className="text-sm">🔍</span>
@@ -521,8 +517,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'risk'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#C5A059] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418] border border-transparent'
+                ? 'bg-[#181D2A] text-[#F3EFE6] border border-[#C5A059] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#12151E] border border-transparent'
             }`}
           >
             <span className="text-sm">📊</span>
@@ -536,8 +532,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'queue'
-                ? 'bg-[#181B22] text-[#F3EFE6] border border-[#C5A059] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#121418] border border-transparent'
+                ? 'bg-[#181D2A] text-[#F3EFE6] border border-[#C5A059] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-[#12151E] border border-transparent'
             }`}
           >
             <span className="text-sm">📋</span>
@@ -557,10 +553,10 @@ export default function App() {
           <div className="space-y-6">
             
             {/* Top Studio Control Bar */}
-            <div className="bg-[#121418] border border-[#1E2228] p-4 rounded-xl space-y-3">
+            <div className="bg-[#0D1017] border border-[#232A38] p-5 rounded-2xl space-y-3 shadow-xl heritage-card-glow">
               <div className="flex flex-wrap justify-between items-center gap-4">
                 <div>
-                  <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
+                  <h2 className="text-xl font-serif font-bold text-[#F3EFE6] tracking-wide">
                     {curSite.name} — Living 3D Digital Twin
                   </h2>
                 </div>
@@ -568,7 +564,7 @@ export default function App() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setShowPhotogrammetryDrawer(!showPhotogrammetryDrawer)}
-                    className="px-3 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-cyan-300 text-xs font-mono font-semibold hover:bg-[#222730] transition flex items-center gap-1.5 cursor-pointer"
+                    className="px-3.5 py-2 rounded-xl bg-[#141822] border border-[#2B313D] text-cyan-300 text-xs font-mono font-semibold hover:bg-[#1C2230] transition flex items-center gap-1.5 cursor-pointer shadow"
                   >
                     <span>🏗️ {showPhotogrammetryDrawer ? 'Hide' : 'Show'} Scan-to-Twin Pipeline</span>
                   </button>
@@ -576,18 +572,18 @@ export default function App() {
               </div>
 
               {/* Clean Organized Telemetry Strip */}
-              <div className="pt-2.5 border-t border-[#1E2228] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-gray-400">
-                <div className="flex items-center gap-4 flex-wrap">
+              <div className="pt-3 border-t border-[#1E2433] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-gray-400">
+                <div className="flex items-center gap-5 flex-wrap">
                   <span className="flex items-center gap-1.5">
-                    <span className="text-gray-500 uppercase text-[10px]">🌋 Hazard:</span>
+                    <span className="text-gray-500 uppercase text-[10px] font-bold">🌋 Hazard:</span>
                     <strong className="text-amber-400 font-semibold">{curSite.seismicZone}</strong>
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <span className="text-gray-500 uppercase text-[10px]">🌦️ Weather:</span>
+                    <span className="text-gray-500 uppercase text-[10px] font-bold">🌦️ Weather:</span>
                     <strong className="text-sky-400 font-semibold">{liveWeather.temp} · {liveWeather.humidity} RH</strong>
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <span className="text-gray-500 uppercase text-[10px]">📍 WGS84:</span>
+                    <span className="text-gray-500 uppercase text-[10px] font-bold">📍 WGS84:</span>
                     <span className="text-gray-300 font-medium">
                       {Array.isArray(curSite.coords) ? `${curSite.coords[0]}° N, ${curSite.coords[1]}° E` : curSite.coords}
                     </span>
@@ -621,10 +617,13 @@ export default function App() {
               <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
                 
                 {/* Node Selector List */}
-                <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-4 space-y-3">
-                  <div className="flex justify-between items-center border-b border-[#1E2228] pb-2">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-gray-400 font-bold">
+                <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-5 space-y-3 shadow-xl">
+                  <div className="flex justify-between items-center border-b border-[#1E2433] pb-2.5">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#C5A059] font-bold">
                       Architectural Nodes
+                    </span>
+                    <span className="text-[10px] font-mono text-gray-400">
+                      {components.length} Monitored Segments
                     </span>
                   </div>
 
@@ -633,20 +632,20 @@ export default function App() {
                       <button
                         key={idx}
                         onClick={() => handleSelectComponent(idx)}
-                        className={`w-full p-3 rounded-lg border text-left flex justify-between items-center transition ${
+                        className={`w-full p-3 rounded-xl border text-left flex justify-between items-center transition cursor-pointer ${
                           activeComponent === idx
-                            ? 'border-[#C5A059] bg-[#C5A059]/10 text-[#F3EFE6] shadow'
-                            : 'border-[#1E2228] bg-[#0E1013] text-gray-400 hover:border-gray-600'
+                            ? 'border-[#C5A059] bg-[#C5A059]/15 text-[#F3EFE6] shadow-md'
+                            : 'border-[#1E2433] bg-[#11141D] text-gray-400 hover:border-[#384152] hover:bg-[#151924]'
                         }`}
                       >
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-bold text-[#C5A059] bg-black/50 px-1.5 py-0.5 rounded border border-[#C5A059]/30">
+                            <span className="font-mono text-xs font-bold text-[#C5A059] bg-black/60 px-2 py-0.5 rounded border border-[#C5A059]/40">
                               {c.code}
                             </span>
                             <span className="font-medium text-xs text-gray-200">{c.name}</span>
                           </div>
-                          <div className="text-[10px] font-mono text-gray-500 mt-1">
+                          <div className="text-[10px] font-mono text-gray-400 mt-1">
                             Elevation: {c.elevation} · Inspected: {c.inspected}
                           </div>
                         </div>
@@ -656,8 +655,12 @@ export default function App() {
                             {c.score}/100
                           </span>
                           <div
-                            className="text-[9px] font-mono px-1.5 py-0.2 rounded font-bold uppercase mt-0.5"
-                            style={{ backgroundColor: `${c.color}22`, color: c.color }}
+                            className="text-[9px] font-mono px-2 py-0.5 rounded-full font-bold uppercase mt-1 inline-block border"
+                            style={{ 
+                              backgroundColor: `${c.color}20`, 
+                              color: c.color,
+                              borderColor: `${c.color}50`
+                            }}
                           >
                             {c.status}
                           </div>
@@ -668,27 +671,27 @@ export default function App() {
                 </div>
 
                 {/* Selected Node Details Card */}
-                <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-5 space-y-4">
+                <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-5 space-y-4 shadow-xl">
                   <div className="flex justify-between items-start">
                     <div>
-                      <span className="text-[10px] font-mono uppercase text-gray-400">Node Telemetry Profile</span>
+                      <span className="text-[10px] font-mono uppercase text-[#C5A059] font-bold tracking-wider">Node Telemetry Profile</span>
                       <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
                         {curComp.name} ({curComp.code})
                       </h3>
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-serif font-bold" style={{ color: curComp.color }}>
+                      <div className="text-3xl font-serif font-bold" style={{ color: curComp.color }}>
                         {curComp.score}
                       </div>
-                      <span className="text-[9px] font-mono uppercase text-gray-400">Health Index</span>
+                      <span className="text-[9px] font-mono text-gray-400">Health Index</span>
                     </div>
                   </div>
 
-                  <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228] text-xs space-y-1.5">
-                    <div className="text-[10px] font-mono text-[#C5A059] uppercase font-bold">
-                      Prescribed Conservation Protocol:
-                    </div>
-                    <p className="text-gray-300 leading-relaxed font-sans text-xs">
+                  <div className="bg-[#11141D] p-3 rounded-xl border border-[#1E2433] space-y-1">
+                    <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider block">
+                      Mandated Conservation Action
+                    </span>
+                    <p className="text-xs text-gray-200 font-sans leading-relaxed">
                       {curComp.action}
                     </p>
                   </div>
@@ -975,26 +978,26 @@ export default function App() {
               </div>
 
               {/* Calculated Score Card */}
-              <div className="lg:col-span-5 bg-[#0E1013] border border-[#1E2228] rounded-2xl p-6 text-center flex flex-col justify-center items-center shadow-lg">
-                <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider">
-                  Computed Vulnerability Risk
+              <div className="lg:col-span-5 bg-[#0A0C12] border border-[#232A38] rounded-2xl p-6 text-center flex flex-col justify-center items-center shadow-xl heritage-card-glow">
+                <span className="text-[10px] font-mono uppercase text-[#C5A059] tracking-wider font-bold">
+                  Computed Vulnerability Risk (ISO 31000)
                 </span>
                 <div className="text-6xl font-serif font-bold text-rose-500 my-3">
                   {computedRisk} <span className="text-xs font-sans text-gray-400 font-normal">/ 100</span>
                 </div>
-                <span className={`text-xs px-3.5 py-1 rounded-full font-mono font-bold uppercase tracking-wider ${
+                <span className={`text-xs px-4 py-1.5 rounded-full font-mono font-bold uppercase tracking-wider ${
                   computedRisk >= 70
-                    ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                    ? 'bg-rose-500/20 text-rose-400 border border-rose-500/40'
                     : computedRisk >= 45
-                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                    : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40'
+                    : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
                 }`}>
                   {computedRisk >= 70 ? '● CRITICAL · EMERGENCY INTERVENTION' : computedRisk >= 45 ? '▲ WATCH · RE-INSPECT' : '✔ STABLE'}
                 </span>
 
                 <button
                   onClick={() => setIsReportOpen(true)}
-                  className="w-full mt-5 py-2.5 rounded-lg bg-[#C5A059] text-[#090A0C] font-mono font-bold text-xs hover:bg-[#d8ac67] transition flex items-center justify-center gap-2 shadow"
+                  className="w-full mt-5 py-3 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-[#0A0C10] font-mono font-bold text-xs hover:brightness-110 transition flex items-center justify-center gap-2 shadow-lg cursor-pointer border border-[#E5C07B]/40"
                 >
                   <span>📄 Generate Official ASI Dossier</span>
                 </button>
@@ -1002,13 +1005,13 @@ export default function App() {
             </div>
 
             {/* 💰 Preventive Conservation ROI Analysis */}
-            <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4">
+            <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-6 space-y-5 shadow-2xl heritage-card-glow">
               <div className="flex flex-wrap justify-between items-center gap-3">
                 <div>
                   <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
                     Cost-Benefit Intelligence · Preventive vs Reactive
                   </span>
-                  <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+                  <h3 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
                     Preventive Conservation ROI Analysis — {curSite.name}
                   </h3>
                 </div>
@@ -1016,28 +1019,28 @@ export default function App() {
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {/* Reactive Cost */}
-                <div className="bg-[#0E1013] border border-rose-800/30 rounded-xl p-4 text-center">
-                  <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider">Reactive Restoration Cost</span>
+                <div className="bg-[#0A0C12] border border-rose-800/30 rounded-2xl p-5 text-center shadow">
+                  <span className="text-[10px] font-mono uppercase text-rose-400/80 tracking-wider font-bold">Reactive Restoration Cost</span>
                   <div className="text-3xl font-bold text-rose-400 font-mono mt-2">₹14.2 Cr</div>
-                  <p className="text-[10px] text-gray-500 mt-1 font-mono">Emergency repairs, structural rebuilding, loss of heritage fabric</p>
+                  <p className="text-[10px] text-gray-400 mt-2 font-mono leading-relaxed">Emergency rebuilding, heavy scaffolding, structural stone loss</p>
                 </div>
 
                 {/* Preventive Cost */}
-                <div className="bg-[#0E1013] border border-emerald-800/30 rounded-xl p-4 text-center">
-                  <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider">Preventive Monitoring Cost</span>
+                <div className="bg-[#0A0C12] border border-emerald-800/30 rounded-2xl p-5 text-center shadow">
+                  <span className="text-[10px] font-mono uppercase text-emerald-400/80 tracking-wider font-bold">Preventive Monitoring Cost</span>
                   <div className="text-3xl font-bold text-emerald-400 font-mono mt-2">₹0.94 Cr</div>
-                  <p className="text-[10px] text-gray-500 mt-1 font-mono">IoT sensors, routine inspections, micro-interventions, AI diagnostics</p>
+                  <p className="text-[10px] text-gray-400 mt-2 font-mono leading-relaxed">IoT sensors, routine drone photogrammetry, AI diagnostics</p>
                 </div>
 
                 {/* Net Savings */}
-                <div className="bg-emerald-950/20 border border-emerald-700/40 rounded-xl p-4 text-center">
-                  <span className="text-[10px] font-mono uppercase text-emerald-400 tracking-wider font-bold">Net Savings</span>
+                <div className="bg-[#0A0C12] border border-[#C5A059]/40 rounded-2xl p-5 text-center shadow-lg heritage-card-glow">
+                  <span className="text-[10px] font-mono uppercase text-[#E5C07B] tracking-wider font-bold">Net National Savings</span>
                   <div className="text-3xl font-bold text-emerald-300 font-mono mt-2">₹13.26 Cr</div>
                   <div className="mt-2">
-                    <div className="w-full bg-[#0E1013] rounded-full h-2.5">
-                      <div className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2.5 rounded-full transition-all duration-700" style={{ width: '93.4%' }} />
+                    <div className="w-full bg-[#141822] rounded-full h-2.5 overflow-hidden">
+                      <div className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2.5 rounded-full transition-all duration-700 shadow" style={{ width: '93.4%' }} />
                     </div>
-                    <span className="text-xs font-mono text-emerald-400 font-bold mt-1 inline-block">93.4% ROI Efficiency</span>
+                    <span className="text-xs font-mono text-emerald-400 font-bold mt-1.5 inline-block">93.4% Cost Efficiency</span>
                   </div>
                 </div>
               </div>

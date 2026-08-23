@@ -443,29 +443,29 @@ export default function InspectionPhotoViewer({
   const activeDefectData = filteredDetections[selectedDefect] || filteredDetections[0] || detections[0];
 
   return (
-    <div className="bg-[#121418] border border-[#1E2228] rounded-xl overflow-hidden shadow-2xl">
+    <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl overflow-hidden shadow-2xl heritage-card-glow">
       
-      {/* 1. Header Toolbar & Real Photographic Inspection Presets */}
-      <div className="bg-[#0E1013] border-b border-[#1E2228] px-6 py-3.5 flex flex-wrap justify-between items-center gap-4">
+      {/* 1. Header Toolbar */}
+      <div className="bg-[#0C0E14] border-b border-[#202636] p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
         
-        {/* Left: Component & Sub-Node Label */}
-        <div className="flex items-center gap-4">
+        {/* Left: Component & Preset Selector */}
+        <div className="flex items-center gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono uppercase text-[#C5A059] font-bold tracking-wider">
-                Inspection Target:
+              <span className="text-xs font-mono text-[#C5A059] uppercase font-bold tracking-wider">
+                Photo Condition Preset:
               </span>
-              <div className="flex items-center gap-1.5 bg-[#14171C] p-1 rounded-lg border border-[#222730]">
-                {Object.keys(presetData).map((key) => {
-                  const p = presetData[key];
+              <div className="flex bg-[#121622] p-1 rounded-xl border border-[#283042] gap-1">
+                {presets.map((p, idx) => {
+                  const isCur = currentPresetIdx === idx && !uploadedImage;
                   return (
                     <button
-                      key={key}
-                      onClick={() => handleSelectPreset(key)}
-                      className={`px-3 py-1 rounded text-xs font-mono transition ${
-                        activePreset === key && !uploadedImage
-                          ? 'bg-[#222730] text-[#C5A059] font-bold border border-[#C5A059]/40 shadow-sm'
-                          : 'text-gray-400 hover:text-gray-200'
+                      key={p.id}
+                      onClick={() => handleSelectPreset(idx)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer font-bold ${
+                        isCur
+                          ? 'bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-[#0A0C10] shadow-sm'
+                          : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
                       }`}
                     >
                       {p.tabLabel}
@@ -484,23 +484,23 @@ export default function InspectionPhotoViewer({
         <div className="flex items-center gap-3 flex-wrap">
           
           {/* Defect Filter Pills */}
-          <div className="flex bg-[#14171C] p-1 rounded-lg border border-[#222730] gap-1">
+          <div className="flex bg-[#121622] p-1 rounded-xl border border-[#283042] gap-1">
             <button
               onClick={() => { setSelectedFilter('all'); setSelectedDefect(0); }}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition font-medium ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition font-bold cursor-pointer ${
                 selectedFilter === 'all'
-                  ? 'bg-[#222730] text-gray-100 font-bold'
-                  : 'text-gray-400 hover:text-gray-200'
+                  ? 'bg-[#1E2536] text-gray-100 shadow-sm'
+                  : 'text-gray-400 hover:text-gray-200 hover:bg-[#181D2B]'
               }`}
             >
               All ({detections.length})
             </button>
             <button
               onClick={() => { setSelectedFilter('structural'); setSelectedDefect(0); }}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition flex items-center gap-1 font-medium ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition flex items-center gap-1.5 font-bold cursor-pointer ${
                 selectedFilter === 'structural'
-                  ? 'bg-rose-950/60 text-rose-300 font-bold border border-rose-800/40'
-                  : 'text-rose-400/80 hover:text-rose-300'
+                  ? 'bg-rose-950/70 text-rose-300 border border-rose-700/50 shadow-sm'
+                  : 'text-rose-400 hover:text-rose-300 hover:bg-[#181D2B]'
               }`}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
@@ -508,10 +508,10 @@ export default function InspectionPhotoViewer({
             </button>
             <button
               onClick={() => { setSelectedFilter('environmental'); setSelectedDefect(0); }}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition flex items-center gap-1 font-medium ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition flex items-center gap-1.5 font-bold cursor-pointer ${
                 selectedFilter === 'environmental'
-                  ? 'bg-amber-950/60 text-amber-300 font-bold border border-amber-800/40'
-                  : 'text-amber-400/80 hover:text-amber-300'
+                  ? 'bg-amber-950/70 text-amber-300 border border-amber-700/50 shadow-sm'
+                  : 'text-amber-400 hover:text-amber-300 hover:bg-[#181D2B]'
               }`}
             >
               <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
@@ -522,10 +522,10 @@ export default function InspectionPhotoViewer({
           {/* Toggle Bounding Boxes Overlay */}
           <button
             onClick={() => setShowMasks(!showMasks)}
-            className={`px-3 py-1.5 rounded-lg border text-xs font-mono transition font-semibold flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-xl border text-xs font-mono transition font-bold flex items-center gap-1.5 cursor-pointer ${
               showMasks
-                ? 'bg-cyan-950/40 border-cyan-700/50 text-cyan-300'
-                : 'bg-[#14171C] border-[#282E38] text-gray-400'
+                ? 'bg-cyan-950/40 border-cyan-700/50 text-cyan-300 shadow-sm'
+                : 'bg-[#121622] border-[#283042] text-gray-400'
             }`}
           >
             <span>{showMasks ? '👁️ Mask: ON' : '🕶️ Mask: OFF'}</span>
@@ -542,9 +542,9 @@ export default function InspectionPhotoViewer({
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={isAnalyzing}
-            className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:brightness-110 text-[#090A0C] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-950/20"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:brightness-110 text-[#0A0C10] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-950/20 cursor-pointer border border-[#E5C07B]/40"
           >
-            <span>{isAnalyzing ? '⏳ Processing OpenCV...' : '📤 Upload Inspection Photo'}</span>
+            <span>{isAnalyzing ? '⏳ Processing OpenCV...' : '📤 Upload Drone Scan'}</span>
           </button>
 
         </div>
@@ -606,55 +606,53 @@ export default function InspectionPhotoViewer({
               </div>
             )}
 
-
-
           </div>
 
         </div>
 
         {/* Right: High-Precision Defect Extraction Sidebar */}
-        <div className="lg:col-span-4 bg-[#101216] border-l border-[#1E2228] p-5 flex flex-col justify-between space-y-4">
+        <div className="lg:col-span-4 bg-[#0A0C12] border-l border-[#202636] p-6 flex flex-col justify-between space-y-4">
           
           <div className="space-y-4">
             
             {/* Defect Header Card */}
-            <div className="border-b border-[#1E2228] pb-3">
+            <div className="border-b border-[#1E2433] pb-3.5">
               <div className="flex justify-between items-center text-xs font-mono">
                 <span
-                  className="px-2 py-0.5 rounded font-bold uppercase tracking-wider"
+                  className="px-2.5 py-1 rounded-full font-bold uppercase tracking-wider text-[9px] border"
                   style={{
                     backgroundColor: `${activeDefectData?.color}20`,
                     color: activeDefectData?.color,
-                    border: `1px solid ${activeDefectData?.color}50`
+                    borderColor: `${activeDefectData?.color}60`
                   }}
                 >
                   {activeDefectData?.type || 'Defect'}
                 </span>
-                <span className="text-gray-400">
-                  Confidence: <strong className="text-emerald-400 font-mono">{activeDefectData?.confidence}%</strong>
+                <span className="text-gray-400 font-mono">
+                  Confidence: <strong className="text-emerald-400 font-bold">{activeDefectData?.confidence}%</strong>
                 </span>
               </div>
-              <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-2">
+              <h3 className="text-lg font-serif font-bold text-[#F3EFE6] mt-2 leading-snug">
                 {activeDefectData?.label || 'Select a Defect'}
               </h3>
-              <p className="text-[11px] font-mono text-[#C5A059] mt-0.5">
-                ID: {activeDefectData?.id}
+              <p className="text-[11px] font-mono text-[#C5A059] mt-0.5 font-semibold">
+                Defect ID: {activeDefectData?.id}
               </p>
             </div>
 
             {/* Quantitative Damage Extraction Table */}
             <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider font-bold">
-                Extracted Metric Dimensions
+              <span className="text-[10px] font-mono uppercase text-[#C5A059] tracking-wider font-bold block">
+                Extracted Metric Dimensions (Calibrated)
               </span>
 
-              <div className="grid grid-cols-2 gap-2 bg-[#090A0C] p-3 rounded-lg border border-[#1E2228] text-xs font-mono">
+              <div className="grid grid-cols-2 gap-2 bg-[#10131B] p-3 rounded-xl border border-[#1E2433] text-xs font-mono">
                 {activeDefectData?.metrics && Object.entries(activeDefectData.metrics).map(([key, val]) => (
                   <div key={key} className="space-y-0.5">
-                    <span className="text-[10px] text-gray-500 uppercase tracking-tight">
+                    <span className="text-[10px] text-gray-500 uppercase tracking-tight block font-bold">
                       {key.replace('_', ' ')}
                     </span>
-                    <p className="text-gray-200 font-semibold text-xs">
+                    <p className="text-gray-100 font-semibold text-xs font-mono">
                       {val}
                     </p>
                   </div>
@@ -664,10 +662,10 @@ export default function InspectionPhotoViewer({
 
             {/* Diagnostic Field Annotation */}
             <div className="space-y-1.5">
-              <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider font-bold">
+              <span className="text-[10px] font-mono uppercase text-gray-400 tracking-wider font-bold block">
                 AI Diagnostic Summary & Forensic Path
               </span>
-              <p className="text-xs text-gray-300 font-mono bg-[#14171C] p-3 rounded-lg border border-[#1E2228] leading-relaxed">
+              <p className="text-xs text-gray-300 font-mono bg-[#10131B] p-3.5 rounded-xl border border-[#1E2433] leading-relaxed">
                 {activeDefectData?.annotation}
               </p>
             </div>
@@ -675,7 +673,7 @@ export default function InspectionPhotoViewer({
           </div>
 
           {/* Action CTA Strip */}
-          <div className="pt-3 border-t border-[#1E2228] flex items-center justify-between text-xs font-mono">
+          <div className="pt-3.5 border-t border-[#1E2433] flex items-center justify-between text-xs font-mono">
             <span className="text-gray-400 text-[11px]">
               Defect {selectedDefect + 1} of {filteredDetections.length}
             </span>
@@ -683,20 +681,19 @@ export default function InspectionPhotoViewer({
               <button
                 onClick={() => setSelectedDefect(Math.max(0, selectedDefect - 1))}
                 disabled={selectedDefect === 0}
-                className="px-2.5 py-1 rounded bg-[#181B22] border border-[#282E38] text-gray-300 disabled:opacity-30"
+                className="px-3 py-1.5 rounded-xl bg-[#141822] border border-[#283042] text-gray-300 hover:text-white disabled:opacity-30 cursor-pointer font-bold transition"
               >
                 ◀ Prev
               </button>
               <button
                 onClick={() => setSelectedDefect(Math.min(filteredDetections.length - 1, selectedDefect + 1))}
                 disabled={selectedDefect >= filteredDetections.length - 1}
-                className="px-2.5 py-1 rounded bg-[#181B22] border border-[#282E38] text-gray-300 disabled:opacity-30"
+                className="px-3 py-1.5 rounded-xl bg-[#141822] border border-[#283042] text-gray-300 hover:text-white disabled:opacity-30 cursor-pointer font-bold transition"
               >
                 Next ▶
               </button>
             </div>
           </div>
-
         </div>
 
       </div>
