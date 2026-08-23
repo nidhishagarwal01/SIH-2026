@@ -1,12 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import HeritageShieldLogo from './HeritageShieldLogo';
 
 export default function CinematicIntroReveal({ onComplete }) {
-  // Smooth split aperture animation immediately on mount
+  // 3D Split Aperture States
   const [isSplit, setIsSplit] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const containerRef = useRef(null);
+
+  // ---------------------------------------------------------------------------
+  // 4. 🧲 INTERACTIVE CURSOR-REACTIVE SEAM GLOW
+  // ---------------------------------------------------------------------------
+  const mouseY = useMotionValue(typeof window !== 'undefined' ? window.innerHeight / 2 : 400);
+  const smoothMouseY = useSpring(mouseY, { damping: 25, stiffness: 120 });
+
+  const handleMouseMove = (e) => {
+    mouseY.set(e.clientY);
+  };
 
   useEffect(() => {
     // 🔒 Lock background scrolling completely on macOS & Mobile
@@ -36,7 +48,7 @@ export default function CinematicIntroReveal({ onComplete }) {
 
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
-        if (onComplete) onComplete();
+        handleEnter();
       }
     };
 
@@ -54,17 +66,36 @@ export default function CinematicIntroReveal({ onComplete }) {
     };
   }, [onComplete]);
 
+  // ---------------------------------------------------------------------------
+  // 5. ✨ PULSING TERRACOTTA LIGHT WAVE ON "ENTER PLATFORM" CLICK
+  // ---------------------------------------------------------------------------
   const handleEnter = () => {
-    if (onComplete) onComplete();
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      if (onComplete) onComplete();
+    }, 650);
   };
 
   return (
     <motion.div
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
       className="fixed inset-0 z-[100000] bg-[#FDFBF7] flex items-center justify-center overflow-hidden select-none overscroll-none touch-none pointer-events-auto"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
+      exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
     >
+      {/* 5. ✨ Expanding Terracotta Light Wave Shockwave */}
+      {isTransitioning && (
+        <motion.div
+          initial={{ scale: 0.1, opacity: 0.95 }}
+          animate={{ scale: 4.8, opacity: 0 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-[#E06D44] via-[#C5A059] to-[#FDFBF7] pointer-events-none blur-2xl z-50"
+        />
+      )}
+
       {/* ========================================================================= */}
       {/* 🏛️ 1. 3D APERTURE SPLIT PANELS (HERITAGE MONUMENT MOSAIC SHUTTERS)        */}
       {/* ========================================================================= */}
@@ -84,13 +115,17 @@ export default function CinematicIntroReveal({ onComplete }) {
             ease: [0.76, 0, 0.24, 1]
           }}
         >
-          {/* Dual Monument Composite */}
-          <div className="absolute inset-0 grid grid-rows-2 h-full w-[200%] max-w-none">
+          {/* Dual Monument Composite with 3. 🎬 Cinematic Ken Burns Push-In */}
+          <motion.div 
+            animate={isSplit ? { scale: 1.08 } : { scale: 1 }}
+            transition={{ duration: 3.5, ease: "easeOut" }}
+            className="absolute inset-0 grid grid-rows-2 h-full w-[200%] max-w-none"
+          >
             <div className="relative h-full overflow-hidden">
               <img
                 src="/monuments/khajuraho.jpg"
                 alt="Khajuraho Sandstone Relief"
-                className="w-full h-full object-cover object-left filter brightness-[0.85] contrast-105"
+                className="w-full h-full object-cover object-left filter brightness-[0.88] contrast-105"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
             </div>
@@ -98,11 +133,11 @@ export default function CinematicIntroReveal({ onComplete }) {
               <img
                 src="/monuments/hampi.jpg"
                 alt="Hampi Stone Chariot"
-                className="w-full h-full object-cover object-left filter brightness-[0.8] contrast-105"
+                className="w-full h-full object-cover object-left filter brightness-[0.82] contrast-105"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
             </div>
-          </div>
+          </motion.div>
 
           {/* Shutter Atmospheric Overlays */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#0E1B2E]/60 via-transparent to-transparent" />
@@ -114,6 +149,14 @@ export default function CinematicIntroReveal({ onComplete }) {
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
+
+          {/* 4. 🧲 Cursor-Reactive Seam Flare */}
+          {!isSplit && (
+            <motion.div
+              style={{ top: smoothMouseY }}
+              className="absolute right-[-12px] w-6 h-24 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#E06D44] to-[#C5A059] blur-md opacity-85 pointer-events-none -translate-y-1/2"
+            />
+          )}
         </motion.div>
 
         {/* 🏛️ Right 3D Shutter (Taj Mahal & Konark Sun Temple Imagery) */}
@@ -130,13 +173,17 @@ export default function CinematicIntroReveal({ onComplete }) {
             ease: [0.76, 0, 0.24, 1]
           }}
         >
-          {/* Dual Monument Composite */}
-          <div className="absolute inset-0 grid grid-rows-2 h-full w-[200%] max-w-none -translate-x-1/2">
+          {/* Dual Monument Composite with 3. 🎬 Cinematic Ken Burns Push-In */}
+          <motion.div 
+            animate={isSplit ? { scale: 1.08 } : { scale: 1 }}
+            transition={{ duration: 3.5, ease: "easeOut" }}
+            className="absolute inset-0 grid grid-rows-2 h-full w-[200%] max-w-none -translate-x-1/2"
+          >
             <div className="relative h-full overflow-hidden">
               <img
                 src="/monuments/taj_mahal.jpg"
                 alt="Taj Mahal White Marble"
-                className="w-full h-full object-cover object-right filter brightness-[0.85] contrast-105"
+                className="w-full h-full object-cover object-right filter brightness-[0.88] contrast-105"
               />
               <div className="absolute inset-0 bg-gradient-to-l from-black/60 via-transparent to-transparent" />
             </div>
@@ -144,11 +191,11 @@ export default function CinematicIntroReveal({ onComplete }) {
               <img
                 src="/monuments/konark.jpg"
                 alt="Konark Sun Temple Wheel"
-                className="w-full h-full object-cover object-right filter brightness-[0.8] contrast-105"
+                className="w-full h-full object-cover object-right filter brightness-[0.82] contrast-105"
               />
               <div className="absolute inset-0 bg-gradient-to-l from-black/60 via-transparent to-transparent" />
             </div>
-          </div>
+          </motion.div>
 
           {/* Shutter Atmospheric Overlays */}
           <div className="absolute inset-0 bg-gradient-to-l from-[#0E1B2E]/60 via-transparent to-transparent" />
@@ -160,6 +207,14 @@ export default function CinematicIntroReveal({ onComplete }) {
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
+
+          {/* 4. 🧲 Cursor-Reactive Seam Flare */}
+          {!isSplit && (
+            <motion.div
+              style={{ top: smoothMouseY }}
+              className="absolute left-[-12px] w-6 h-24 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#E06D44] to-[#C5A059] blur-md opacity-85 pointer-events-none -translate-y-1/2"
+            />
+          )}
         </motion.div>
 
       </div>
@@ -171,9 +226,9 @@ export default function CinematicIntroReveal({ onComplete }) {
       
       {/* Radial Sandstone Gold Flare */}
       <div 
-        className="absolute w-[600px] h-[600px] rounded-full pointer-events-none blur-[90px] opacity-25 animate-pulse"
+        className="absolute w-[650px] h-[650px] rounded-full pointer-events-none blur-[100px] opacity-30 animate-pulse"
         style={{
-          background: 'radial-gradient(circle, rgba(224, 109, 68, 0.35) 0%, rgba(197, 160, 89, 0.15) 50%, transparent 75%)'
+          background: 'radial-gradient(circle, rgba(224, 109, 68, 0.4) 0%, rgba(197, 160, 89, 0.2) 50%, transparent 75%)'
         }}
       />
 
@@ -206,11 +261,11 @@ export default function CinematicIntroReveal({ onComplete }) {
       </div>
 
       {/* ========================================================================= */}
-      {/* 🛡️ 3. RISING 3D HERITAGE SHIELD EMBLEM & USER CONTROLLED PORTAL CTA        */}
+      {/* 🛡️ 3. RISING 3D HERITAGE SHIELD EMBLEM & ASHOKA SOLAR MANDALA HALO         */}
       {/* ========================================================================= */}
       <div className="relative z-30 flex flex-col items-center justify-center text-center px-6 max-w-4xl space-y-6">
         
-        {/* 🏛️ Official Royal Logo Emblem */}
+        {/* 🏛️ Official Royal Logo Emblem with 1. ☀️ Ashoka Solar Mandala Halo */}
         <motion.div
           initial={{ opacity: 0, y: 80, scale: 0.7, rotateX: 20 }}
           animate={{
@@ -223,8 +278,39 @@ export default function CinematicIntroReveal({ onComplete }) {
           className="relative group cursor-pointer"
           onClick={handleEnter}
         >
-          {/* Outer Pulsing Halo */}
-          <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#E06D44]/25 via-[#C5A059]/20 to-[#0E1B2E]/25 blur-2xl animate-pulse" />
+          {/* 1. ☀️ Rotating Ashoka Solar Mandala Ray Halo */}
+          <motion.div
+            className="absolute -inset-20 pointer-events-none flex items-center justify-center"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+          >
+            <svg viewBox="0 0 240 240" className="w-full h-full opacity-40 filter drop-shadow-[0_0_15px_rgba(224,109,68,0.45)]">
+              <circle cx="120" cy="120" r="105" stroke="#C5A059" strokeWidth="1.2" strokeDasharray="4 4" fill="none" />
+              <circle cx="120" cy="120" r="92" stroke="#E06D44" strokeWidth="1.6" fill="none" opacity="0.8" />
+              <circle cx="120" cy="120" r="80" stroke="#D4AF37" strokeWidth="0.8" fill="none" opacity="0.6" />
+              
+              {/* 24 Radiant Ashoka Sun Wheel Spoke Rays */}
+              {[...Array(24)].map((_, idx) => {
+                const angle = (idx * 360) / 24;
+                const rad = (angle * Math.PI) / 180;
+                return (
+                  <line
+                    key={idx}
+                    x1="120"
+                    y1="120"
+                    x2={120 + 92 * Math.cos(rad)}
+                    y2={120 + 92 * Math.sin(rad)}
+                    stroke="#D4AF37"
+                    strokeWidth="1.2"
+                    opacity="0.75"
+                  />
+                );
+              })}
+            </svg>
+          </motion.div>
+
+          {/* Outer Pulsing Aura */}
+          <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-[#E06D44]/30 via-[#C5A059]/25 to-[#0E1B2E]/30 blur-2xl animate-pulse" />
           
           <HeritageShieldLogo size="2xl" showText={false} />
         </motion.div>
@@ -247,7 +333,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           </p>
         </motion.div>
 
-        {/* 🚀 4. USER CONTROLLED TACTILE ACTION */}
+        {/* 🚀 4. USER CONTROLLED TACTILE ACTION WITH PULSING LIGHT WAVE */}
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.9 }}
           animate={{
@@ -259,13 +345,19 @@ export default function CinematicIntroReveal({ onComplete }) {
           className="pt-4 flex flex-col sm:flex-row items-center gap-4"
         >
           {/* Main High-Impact CTA Button */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleEnter}
-            className="px-9 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-3 cursor-pointer shadow-lg hover:scale-105"
+            disabled={isTransitioning}
+            className="px-9 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-3 cursor-pointer shadow-lg relative overflow-hidden group"
           >
-            <span>Enter Platform</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+            {/* Shimmer Glint */}
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full duration-1000 transition-transform bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+            
+            <span>{isTransitioning ? 'Entering Platform...' : 'Enter Platform'}</span>
+            <ArrowRight className={`w-4 h-4 transition-transform duration-300 ${isTransitioning ? 'translate-x-1.5' : ''}`} />
+          </motion.button>
         </motion.div>
 
       </div>
