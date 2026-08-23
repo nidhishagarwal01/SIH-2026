@@ -100,7 +100,7 @@ export default function CinematicIntroReveal({ onComplete }) {
     <motion.div
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="fixed inset-0 z-[100000] bg-[#EFE7DC] flex items-center justify-center overflow-hidden select-none overscroll-none touch-none pointer-events-auto"
+      className="fixed inset-0 z-[100000] bg-[#EBE2D3] flex items-center justify-center overflow-hidden select-none overscroll-none touch-none pointer-events-auto"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
@@ -111,7 +111,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           initial={{ scale: 0.1, opacity: 0.95 }}
           animate={{ scale: 4.8, opacity: 0 }}
           transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-[#C86438] via-[#E07248] to-[#EFE7DC] pointer-events-none blur-2xl z-50"
+          className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-[#BA532B] via-[#B88636] to-[#EBE2D3] pointer-events-none blur-2xl z-50"
         />
       )}
 
@@ -122,7 +122,7 @@ export default function CinematicIntroReveal({ onComplete }) {
         
         {/* 🏛️ Left 3D Shutter (6 Monuments - Completely Seamless, No Gaps) */}
         <motion.div
-          className="w-1/2 h-full relative overflow-hidden bg-[#241A14] border-r-2 border-[#C86438] shadow-2xl origin-left"
+          className="w-1/2 h-full relative overflow-hidden bg-[#1E140E] border-r-2 border-[#BA532B] shadow-2xl origin-left"
           initial={{ x: "0%", rotateY: 0, filter: "brightness(0.96)" }}
           animate={{
             x: isSplit ? "-102%" : "0%",
@@ -147,19 +147,19 @@ export default function CinematicIntroReveal({ onComplete }) {
                   alt="Heritage Monument"
                   className="w-full h-full object-cover filter contrast-[1.06] brightness-[0.92]"
                 />
-                {/* Medium-Tone Sandstone & Terracotta Warmth Overlay */}
-                <div className="absolute inset-0 bg-[#C86438]/12 mix-blend-multiply pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+                {/* Medium-Tone Clay Sandstone & Terracotta Warmth Overlay */}
+                <div className="absolute inset-0 bg-[#BA532B]/10 mix-blend-multiply pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
               </div>
             ))}
           </motion.div>
 
           {/* Shutter Atmospheric Warm Sandstone Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#241A14]/40 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1E140E]/40 via-transparent to-transparent pointer-events-none" />
 
           {/* Shutter Rusty Terracotta & Bronze Laser Edge */}
           <motion.div
-            className="absolute right-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#FFA57E] via-[#E07248] via-[#C86438] to-[#C29244] shadow-[0_0_16px_#C86438]"
+            className="absolute right-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#B88636] shadow-[0_0_16px_#BA532B]"
             animate={{ opacity: [0.75, 1, 0.75] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -168,14 +168,14 @@ export default function CinematicIntroReveal({ onComplete }) {
           {!isSplit && (
             <motion.div
               style={{ top: smoothMouseY }}
-              className="absolute right-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#E07248] to-[#C86438] blur-md opacity-90 pointer-events-none -translate-y-1/2"
+              className="absolute right-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#B88636] blur-md opacity-90 pointer-events-none -translate-y-1/2"
             />
           )}
         </motion.div>
 
         {/* 🏛️ Right 3D Shutter (6 Monuments - Completely Seamless, No Gaps) */}
         <motion.div
-          className="w-1/2 h-full relative overflow-hidden bg-[#241A14] border-l-2 border-[#C86438] shadow-2xl origin-right"
+          className="w-1/2 h-full relative overflow-hidden bg-[#1E140E] border-l-2 border-[#BA532B] shadow-2xl origin-right"
           initial={{ x: "0%", rotateY: 0, filter: "brightness(0.96)" }}
           animate={{
             x: isSplit ? "102%" : "0%",
@@ -200,19 +200,19 @@ export default function CinematicIntroReveal({ onComplete }) {
                   alt="Heritage Monument"
                   className="w-full h-full object-cover filter contrast-[1.06] brightness-[0.92]"
                 />
-                {/* Medium-Tone Sandstone & Terracotta Warmth Overlay */}
-                <div className="absolute inset-0 bg-[#C86438]/12 mix-blend-multiply pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+                {/* Medium-Tone Clay Sandstone & Terracotta Warmth Overlay */}
+                <div className="absolute inset-0 bg-[#BA532B]/10 mix-blend-multiply pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none" />
               </div>
             ))}
           </motion.div>
 
           {/* Shutter Atmospheric Warm Sandstone Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-l from-[#241A14]/40 via-transparent to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#1E140E]/40 via-transparent to-transparent pointer-events-none" />
 
           {/* Shutter Rusty Terracotta & Bronze Laser Edge */}
           <motion.div
-            className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#FFA57E] via-[#E07248] via-[#C86438] to-[#C29244] shadow-[0_0_16px_#C86438]"
+            className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#FFA57E] via-[#BA532B] via-[#C86036] to-[#B88636] shadow-[0_0_16px_#BA532B]"
             animate={{ opacity: [0.75, 1, 0.75] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -221,7 +221,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           {!isSplit && (
             <motion.div
               style={{ top: smoothMouseY }}
-              className="absolute left-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#E07248] to-[#C86438] blur-md opacity-90 pointer-events-none -translate-y-1/2"
+              className="absolute left-[-14px] w-7 h-28 rounded-full bg-gradient-to-b from-[#FFA57E] via-[#BA532B] to-[#B88636] blur-md opacity-90 pointer-events-none -translate-y-1/2"
             />
           )}
         </motion.div>
@@ -229,15 +229,15 @@ export default function CinematicIntroReveal({ onComplete }) {
       </div>
 
       {/* ========================================================================= */}
-      {/* 🌟 2. MEDIUM-TONE SANDSTONE & RUST-GOLD AMBIENCE                           */}
+      {/* 🌟 2. MEDIUM-TONE TERRACOTTA OCHRE & BRONZE AMBIENCE                       */}
       {/* ========================================================================= */}
-      <div className="absolute inset-0 museum-spotlight opacity-75 pointer-events-none" />
+      <div className="absolute inset-0 museum-spotlight opacity-80 pointer-events-none" />
       
       {/* Radial Sandstone Amber-Rust Flare */}
       <div 
-        className="absolute w-[680px] h-[680px] rounded-full pointer-events-none blur-[100px] opacity-30 animate-pulse"
+        className="absolute w-[680px] h-[680px] rounded-full pointer-events-none blur-[100px] opacity-35 animate-pulse"
         style={{
-          background: 'radial-gradient(circle, rgba(200, 100, 56, 0.4) 0%, rgba(224, 114, 72, 0.25) 40%, rgba(194, 146, 68, 0.15) 65%, transparent 75%)'
+          background: 'radial-gradient(circle, rgba(186, 83, 43, 0.45) 0%, rgba(184, 134, 54, 0.25) 45%, transparent 75%)'
         }}
       />
 
@@ -246,14 +246,14 @@ export default function CinematicIntroReveal({ onComplete }) {
         {[...Array(16)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-[#C86438]"
+            className="absolute rounded-full bg-[#BA532B]"
             style={{
               width: (i % 3) + 2,
               height: (i % 3) + 2,
               top: `${(i * 17 + 5) % 100}%`,
               left: `${(i * 23 + 7) % 100}%`,
               opacity: 0.25 + (i % 3) * 0.15,
-              boxShadow: '0 0 6px rgba(200, 100, 56, 0.6)'
+              boxShadow: '0 0 6px rgba(186, 83, 43, 0.6)'
             }}
             animate={{
               y: [0, -35, 0],
@@ -270,7 +270,7 @@ export default function CinematicIntroReveal({ onComplete }) {
       </div>
 
       {/* ========================================================================= */}
-      {/* 🛡️ 3. RISING MEDIUM-TONE SANDSTONE CARD WITH ASHOKA MANDALA HALO           */}
+      {/* 🛡️ 3. RISING WARM PARCHMENT EMBLEM CARD WITH ASHOKA MANDALA HALO           */}
       {/* ========================================================================= */}
       <div className="relative z-30 flex flex-col items-center justify-center text-center px-6 max-w-4xl space-y-6">
         
@@ -293,10 +293,10 @@ export default function CinematicIntroReveal({ onComplete }) {
             animate={{ rotate: 360 }}
             transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
           >
-            <svg viewBox="0 0 260 260" className="w-full h-full opacity-45 filter drop-shadow-[0_0_15px_rgba(200,100,56,0.45)]">
-              <circle cx="130" cy="130" r="115" stroke="#C29244" strokeWidth="1.2" strokeDasharray="4 4" fill="none" />
-              <circle cx="130" cy="130" r="100" stroke="#C86438" strokeWidth="1.6" fill="none" opacity="0.85" />
-              <circle cx="130" cy="130" r="88" stroke="#E07248" strokeWidth="0.8" fill="none" opacity="0.65" />
+            <svg viewBox="0 0 260 260" className="w-full h-full opacity-45 filter drop-shadow-[0_0_15px_rgba(186,83,43,0.45)]">
+              <circle cx="130" cy="130" r="115" stroke="#B88636" strokeWidth="1.2" strokeDasharray="4 4" fill="none" />
+              <circle cx="130" cy="130" r="100" stroke="#BA532B" strokeWidth="1.6" fill="none" opacity="0.85" />
+              <circle cx="130" cy="130" r="88" stroke="#B88636" strokeWidth="0.8" fill="none" opacity="0.65" />
               
               {/* 24 Radiant Ashoka Sun Wheel Spoke Rays */}
               {[...Array(24)].map((_, idx) => {
@@ -309,7 +309,7 @@ export default function CinematicIntroReveal({ onComplete }) {
                     y1="130"
                     x2={130 + 100 * Math.cos(rad)}
                     y2={130 + 100 * Math.sin(rad)}
-                    stroke="#C29244"
+                    stroke="#B88636"
                     strokeWidth="1.3"
                     opacity="0.8"
                   />
@@ -319,7 +319,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           </motion.div>
 
           {/* Outer Pulsing Aura */}
-          <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-[#C86438]/30 via-[#E07248]/25 to-[#C29244]/25 blur-2xl animate-pulse" />
+          <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-[#BA532B]/30 via-[#B88636]/25 to-[#1E140E]/25 blur-2xl animate-pulse" />
           
           <HeritageShieldLogo size="2xl" showText={false} />
         </motion.div>
@@ -334,10 +334,10 @@ export default function CinematicIntroReveal({ onComplete }) {
           transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="space-y-3"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#2A1D15] tracking-tight leading-none">
-            HERITAGE <span className="text-[#C86438]">SHIELD</span>
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#1E140E] tracking-tight leading-none">
+            HERITAGE <span className="text-[#BA532B]">SHIELD</span>
           </h1>
-          <p className="text-sm sm:text-lg text-[#5C4334] font-sans leading-relaxed max-w-2xl mx-auto font-medium">
+          <p className="text-sm sm:text-lg text-[#3E2B1F] font-sans leading-relaxed max-w-2xl mx-auto font-medium">
             Preserving India's Architectural Soul Through Living Digital Twins & Autonomous Intelligence
           </p>
         </motion.div>
@@ -353,13 +353,13 @@ export default function CinematicIntroReveal({ onComplete }) {
           transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="pt-4 flex flex-col sm:flex-row items-center gap-4"
         >
-          {/* Main High-Impact CTA Button in Medium Terracotta-Rust & Antique Gold Border */}
+          {/* Main High-Impact CTA Button in Option B Terracotta-Rust & Bronze Gold Border */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleEnter}
             disabled={isTransitioning}
-            className="px-10 py-4 rounded-2xl bg-gradient-to-r from-[#C86438] via-[#E07248] to-[#B85028] text-white border border-[#C29244]/50 font-mono text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-3 cursor-pointer shadow-xl relative overflow-hidden group hover:shadow-[#C86438]/40"
+            className="px-10 py-4 rounded-2xl bg-gradient-to-r from-[#BA532B] via-[#C86036] to-[#A84520] text-white border border-[#B88636]/50 font-mono text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-3 cursor-pointer shadow-xl relative overflow-hidden group hover:shadow-[#BA532B]/40"
           >
             {/* Shimmer Glint */}
             <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full duration-1000 transition-transform bg-gradient-to-r from-transparent via-white/20 to-transparent" />

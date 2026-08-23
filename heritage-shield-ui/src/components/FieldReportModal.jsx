@@ -78,7 +78,7 @@ export default function FieldReportModal({
               🛡️
             </div>
             <div>
-              <h3 className="text-sm font-serif font-bold text-[#FDFBF7] tracking-wide">
+              <h3 className="text-sm font-serif font-bold text-[#EBE2D3] tracking-wide">
                 HERITAGE SENTINEL · DAMAGE INCIDENT REPORT
               </h3>
               <span className="text-[10px] font-mono text-gray-400">
@@ -99,7 +99,7 @@ export default function FieldReportModal({
           
           {/* Reporter Role Selector */}
           <div>
-            <label className="text-[10px] font-mono uppercase text-[#E06D44] block mb-1.5 font-bold tracking-wider">
+            <label className="text-[10px] font-mono uppercase text-[#BA532B] block mb-1.5 font-bold tracking-wider">
               Reporting Entity:
             </label>
             <div className="grid grid-cols-2 gap-3">
@@ -137,7 +137,7 @@ export default function FieldReportModal({
               <select
                 value={selectedMonument}
                 onChange={(e) => setSelectedMonument(Number(e.target.value))}
-                className="w-full bg-[#121522] border border-white/15 rounded-xl px-3 py-2 text-xs text-gray-200 focus:border-[#E06D44] outline-none cursor-pointer"
+                className="w-full bg-[#121522] border border-white/15 rounded-xl px-3 py-2 text-xs text-gray-200 focus:border-[#BA532B] outline-none cursor-pointer"
               >
                 {monuments.map((m, idx) => (
                   <option key={idx} value={idx} className="bg-[#0C0E16] text-gray-200">
@@ -156,7 +156,7 @@ export default function FieldReportModal({
                 value={componentName}
                 onChange={(e) => setComponentName(e.target.value)}
                 placeholder="e.g. North Façade Wall, Balcony Corbel"
-                className="w-full bg-[#121522] border border-white/15 rounded-xl px-3 py-2 text-xs text-gray-200 focus:border-[#E06D44] outline-none font-mono"
+                className="w-full bg-[#121522] border border-white/15 rounded-xl px-3 py-2 text-xs text-gray-200 focus:border-[#BA532B] outline-none font-mono"
                 required
               />
             </div>

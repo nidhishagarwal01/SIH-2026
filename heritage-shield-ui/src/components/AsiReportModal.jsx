@@ -121,7 +121,7 @@ export default function AsiReportModal({
               <span className="text-xs font-mono font-bold text-[#181B1F] uppercase tracking-wider">
                 Archaeological Survey of India · Form HS-2026 Dispatcher
               </span>
-              <div className="text-[10px] font-mono text-[#64748B]">
+              <div className="text-[10px] font-mono text-[#6D5545]">
                 Security Gate: {isAuthenticated ? '🟢 ASI Officer Authenticated & Unlocked' : '🔒 Officer Authentication Required'}
               </div>
             </div>
@@ -238,7 +238,7 @@ export default function AsiReportModal({
 
               {/* Fast 1-Click Officer Sign-In Profiles */}
               <div className="pt-4 border-t border-[#E6E1D8] max-w-lg mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
-                <span className="text-[#64748B] text-[11px]">⚡ Fast Demo Access:</span>
+                <span className="text-[#6D5545] text-[11px]">⚡ Fast Demo Access:</span>
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleQuickLogin('Dr. Rajeshwar Sharma, Ph.D.', 'Superintending Archaeologist', 'ASI-AGRA-2026-0842', site?.circle || 'Agra Circle')}
@@ -276,18 +276,18 @@ export default function AsiReportModal({
                       </span>
                     </div>
                     <p className="text-gray-400 mt-0.5">
-                      {officerDesignation} · Jurisdiction: <strong className="text-gray-200">{officerCircle}</strong> · Service ID: <strong className="text-[#C5A059]">{officerServiceId}</strong>
+                      {officerDesignation} · Jurisdiction: <strong className="text-gray-200">{officerCircle}</strong> · Service ID: <strong className="text-[#B88636]">{officerServiceId}</strong>
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <label className="flex items-center gap-2 bg-[#0E1013] px-3.5 py-2 rounded-lg border border-[#2B313D] cursor-pointer hover:border-[#C5A059]">
+                  <label className="flex items-center gap-2 bg-[#0E1013] px-3.5 py-2 rounded-lg border border-[#2B313D] cursor-pointer hover:border-[#B88636]">
                     <input
                       type="checkbox"
                       checked={isSignOffComplete}
                       onChange={(e) => setIsSignOffComplete(e.target.checked)}
-                      className="rounded text-[#C5A059] w-4 h-4"
+                      className="rounded text-[#B88636] w-4 h-4"
                     />
                     <span className="text-xs text-gray-200 font-bold font-mono">
                       {isSignOffComplete ? '✓ Approved & Digitally Sealed' : '✍️ Apply Digital Signature Seal'}

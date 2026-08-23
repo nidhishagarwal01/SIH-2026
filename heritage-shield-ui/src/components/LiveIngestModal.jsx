@@ -106,12 +106,12 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
         <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex justify-between items-center">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono text-[#E06D44] uppercase font-bold tracking-wider">Autonomous Ingestion Engine</span>
+              <span className="text-xs font-mono text-[#BA532B] uppercase font-bold tracking-wider">Autonomous Ingestion Engine</span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 font-bold">
                 Live Data Fetcher & AI Diagnostics
               </span>
             </div>
-            <h3 className="text-base font-serif font-bold text-[#FDFBF7] mt-0.5">
+            <h3 className="text-base font-serif font-bold text-[#EBE2D3] mt-0.5">
               Live External Data Ingestion & Autonomous Examination
             </h3>
           </div>
@@ -138,7 +138,7 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
                 value={siteQuery}
                 onChange={(e) => setSiteQuery(e.target.value)}
                 placeholder="Enter monument (e.g. Qutub Minar, Hampi, Konark Sun Temple)..."
-                className="flex-1 bg-[#0C0E16] border border-white/15 rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#FDFBF7] focus:outline-none focus:border-[#E06D44]"
+                className="flex-1 bg-[#0C0E16] border border-white/15 rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#EBE2D3] focus:outline-none focus:border-[#BA532B]"
               />
               <button
                 onClick={handleRunLiveIngest}
@@ -176,7 +176,7 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
                     {liveResult.live_weather.temperature}°C · {liveResult.live_weather.relative_humidity}% RH
                   </div>
                   <div className="text-[10px] text-gray-400">
-                    Env Factor E: <strong className="text-[#C5A059]">{liveResult.live_weather.environmental_stress_factor_e}/100</strong>
+                    Env Factor E: <strong className="text-[#B88636]">{liveResult.live_weather.environmental_stress_factor_e}/100</strong>
                   </div>
                 </div>
 
@@ -206,7 +206,7 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
 
               {/* Data Sources Provenance Stamp */}
               <div className="bg-[#0E1013] p-4 rounded-xl border border-[#1E2228] space-y-2">
-                <div className="text-[10px] font-mono text-[#C5A059] uppercase font-bold">
+                <div className="text-[10px] font-mono text-[#B88636] uppercase font-bold">
                   Data Provenance & Source Audit Trail:
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-gray-300">
@@ -218,8 +218,8 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
               </div>
 
               {/* AI Synthesized Executive Summary */}
-              <div className="bg-[#0E1013] p-4 rounded-xl border border-l-4 border-l-[#C5A059] border-[#1E2228] space-y-1.5">
-                <div className="text-xs font-mono text-[#C5A059] uppercase font-bold">
+              <div className="bg-[#0E1013] p-4 rounded-xl border border-l-4 border-l-[#B88636] border-[#1E2228] space-y-1.5">
+                <div className="text-xs font-mono text-[#B88636] uppercase font-bold">
                   Autonomous Conservation Diagnosis:
                 </div>
                 <p className="text-xs text-gray-300 leading-relaxed font-sans">
@@ -230,7 +230,7 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
               {/* Recommended Protocol */}
               <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228] text-xs font-mono flex justify-between items-center">
                 <span className="text-gray-400">Action Protocol:</span>
-                <span className="text-[#C5A059] font-bold">
+                <span className="text-[#B88636] font-bold">
                   {liveResult.risk_assessment.recommended_action}
                 </span>
               </div>

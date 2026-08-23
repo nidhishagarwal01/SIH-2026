@@ -63,12 +63,12 @@ export default function ScenarioSimulator({
       <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex flex-wrap justify-between items-center gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-[#E06D44] uppercase font-bold tracking-wider">Predictive Simulation Engine</span>
+            <span className="text-xs font-mono text-[#BA532B] uppercase font-bold tracking-wider">Predictive Simulation Engine</span>
             <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-300 border border-rose-800/40 font-bold">
               What-If Hazard Modeling
             </span>
           </div>
-          <h3 className="text-base font-serif font-bold text-[#FDFBF7] mt-0.5">
+          <h3 className="text-base font-serif font-bold text-[#EBE2D3] mt-0.5">
             Extreme Climate & Disaster Scenario Simulator
           </h3>
         </div>
@@ -119,7 +119,7 @@ export default function ScenarioSimulator({
               <span className="text-xs font-mono text-gray-300 uppercase font-semibold">
                 {activeScenario === 'monsoon' ? 'Excess Precipitation Surge (%):' : activeScenario === 'seismic' ? 'Earthquake Magnitude (Richter Scale):' : 'Continuous Ground Vibration (Hz):'}
               </span>
-              <span className="text-sm font-mono font-bold text-[#C5A059]">
+              <span className="text-sm font-mono font-bold text-[#B88636]">
                 {activeScenario === 'monsoon' ? `+${monsoonIntensity}% Excess` : activeScenario === 'seismic' ? `${seismicMagnitude} M` : `${urbanVibration} Hz`}
               </span>
             </div>
@@ -230,7 +230,7 @@ export default function ScenarioSimulator({
 
           {/* Mandated Contingency Remediation */}
           <div className="bg-[#0E1013] p-4 rounded-xl border border-l-4 border-l-rose-500 border-[#1E2228] space-y-1.5">
-            <div className="text-xs font-mono text-[#C5A059] uppercase font-bold">
+            <div className="text-xs font-mono text-[#B88636] uppercase font-bold">
               Automated Contingency Protocol:
             </div>
             <p className="text-xs text-gray-200 leading-relaxed font-sans">

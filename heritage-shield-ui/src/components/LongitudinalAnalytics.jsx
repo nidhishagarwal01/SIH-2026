@@ -128,7 +128,7 @@ export default function LongitudinalAnalytics({
       <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex flex-wrap justify-between items-center gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-[#E06D44] uppercase font-bold tracking-wider">Predictive Analytics Engine</span>
+            <span className="text-xs font-mono text-[#BA532B] uppercase font-bold tracking-wider">Predictive Analytics Engine</span>
             <span className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full border font-bold flex items-center gap-1.5 ${
               apiConnected 
                 ? 'bg-emerald-950/70 text-emerald-300 border-emerald-800/60'
@@ -138,7 +138,7 @@ export default function LongitudinalAnalytics({
               <span>{apiConnected ? '● Live FastAPI 2030 Decay API' : '● Physics-Informed 2030 Engine'}</span>
             </span>
           </div>
-          <h3 className="text-base font-serif font-bold text-[#FDFBF7] mt-0.5">
+          <h3 className="text-base font-serif font-bold text-[#EBE2D3] mt-0.5">
             Longitudinal Condition History & 2030 Predictive Decay Trajectories
           </h3>
         </div>
@@ -218,7 +218,7 @@ export default function LongitudinalAnalytics({
         <button
           onClick={fetchPredictionFromApi}
           disabled={isLoading}
-          className="px-3 py-1 rounded bg-[#1A202C] hover:bg-[#C5A059] hover:text-[#07080A] text-gray-200 border border-[#2D3748] transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+          className="px-3 py-1 rounded bg-[#1A202C] hover:bg-[#B88636] hover:text-[#07080A] text-gray-200 border border-[#2D3748] transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
           <span>{isLoading ? 'Computing...' : 'Recalculate 2030 Trajectory via API'}</span>
@@ -235,7 +235,7 @@ export default function LongitudinalAnalytics({
           <div className="flex flex-wrap justify-between items-center gap-2 z-10">
             <div className="flex items-center gap-4 text-xs font-mono">
               <span className="flex items-center gap-1.5 text-gray-300">
-                <span className="w-3 h-0.5 bg-[#C5A059]"></span> 2020–2026 Observations
+                <span className="w-3 h-0.5 bg-[#B88636]"></span> 2020–2026 Observations
               </span>
               <span className="flex items-center gap-1.5 text-rose-400 font-bold">
                 <span className="w-3 h-0.5 bg-rose-500 border-b border-dashed"></span> Path A: No Action (Till 2030)
@@ -266,8 +266,8 @@ export default function LongitudinalAnalytics({
               )}
 
               {/* Vertical 2026 Divider Line */}
-              <line x1={getX(3)} y1="15" x2={getX(3)} y2="215" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3,3" />
-              <text x={getX(3) + 5} y="26" fill="#C5A059" fontSize="10" fontFamily="monospace" fontWeight="bold">2026 (NOW)</text>
+              <line x1={getX(3)} y1="15" x2={getX(3)} y2="215" stroke="#B88636" strokeWidth="1.5" strokeDasharray="3,3" />
+              <text x={getX(3) + 5} y="26" fill="#B88636" fontSize="10" fontFamily="monospace" fontWeight="bold">2026 (NOW)</text>
 
               {/* --- 1. HEALTH METRIC RENDERING (0-100) --- */}
               {selectedMetric === 'health' && (
@@ -276,7 +276,7 @@ export default function LongitudinalAnalytics({
                   <polyline
                     points={`${getX(0)},${getYHealth(timeSeriesData[0]?.health || 91)} ${getX(1)},${getYHealth(timeSeriesData[1]?.health || 84)} ${getX(2)},${getYHealth(timeSeriesData[2]?.health || 76)} ${getX(3)},${getYHealth(timeSeriesData[3]?.health || 62)}`}
                     fill="none"
-                    stroke="#C5A059"
+                    stroke="#B88636"
                     strokeWidth="3.5"
                   />
 
@@ -304,7 +304,7 @@ export default function LongitudinalAnalytics({
                       cx={getX(i)}
                       cy={getYHealth(timeSeriesData[i]?.health || 75)}
                       r={i === 3 ? 6 : 4}
-                      fill="#C5A059"
+                      fill="#B88636"
                       stroke={i === 3 ? "#FFFFFF" : "none"}
                       strokeWidth={i === 3 ? 2 : 0}
                       className="cursor-pointer transition-all"
@@ -338,7 +338,7 @@ export default function LongitudinalAnalytics({
                   <polyline
                     points={`${getX(0)},${getYCrack(timeSeriesData[0]?.crackLength || 12.4)} ${getX(1)},${getYCrack(timeSeriesData[1]?.crackLength || 15.1)} ${getX(2)},${getYCrack(timeSeriesData[2]?.crackLength || 18.2)} ${getX(3)},${getYCrack(timeSeriesData[3]?.crackLength || 25.1)}`}
                     fill="none"
-                    stroke="#C5A059"
+                    stroke="#B88636"
                     strokeWidth="3.5"
                   />
                   <polyline
@@ -355,7 +355,7 @@ export default function LongitudinalAnalytics({
                     strokeWidth="3.5"
                   />
                   {[0, 1, 2, 3].map(i => (
-                    <circle key={i} cx={getX(i)} cy={getYCrack(timeSeriesData[i]?.crackLength || 20)} r={i === 3 ? 6 : 4} fill="#C5A059" onMouseEnter={() => setHoveredIndex(i)} />
+                    <circle key={i} cx={getX(i)} cy={getYCrack(timeSeriesData[i]?.crackLength || 20)} r={i === 3 ? 6 : 4} fill="#B88636" onMouseEnter={() => setHoveredIndex(i)} />
                   ))}
                   {[4, 5, 6, 7].map(i => (
                     <g key={i} onMouseEnter={() => setHoveredIndex(i)}>
@@ -372,7 +372,7 @@ export default function LongitudinalAnalytics({
                   <polyline
                     points={`${getX(0)},${getYMoisture(timeSeriesData[0]?.moisture || 6.2)} ${getX(1)},${getYMoisture(timeSeriesData[1]?.moisture || 9.8)} ${getX(2)},${getYMoisture(timeSeriesData[2]?.moisture || 11.5)} ${getX(3)},${getYMoisture(timeSeriesData[3]?.moisture || 14.8)}`}
                     fill="none"
-                    stroke="#C5A059"
+                    stroke="#B88636"
                     strokeWidth="3.5"
                   />
                   <polyline
@@ -389,7 +389,7 @@ export default function LongitudinalAnalytics({
                     strokeWidth="3.5"
                   />
                   {[0, 1, 2, 3].map(i => (
-                    <circle key={i} cx={getX(i)} cy={getYMoisture(timeSeriesData[i]?.moisture || 10)} r={i === 3 ? 6 : 4} fill="#C5A059" onMouseEnter={() => setHoveredIndex(i)} />
+                    <circle key={i} cx={getX(i)} cy={getYMoisture(timeSeriesData[i]?.moisture || 10)} r={i === 3 ? 6 : 4} fill="#B88636" onMouseEnter={() => setHoveredIndex(i)} />
                   ))}
                   {[4, 5, 6, 7].map(i => (
                     <g key={i} onMouseEnter={() => setHoveredIndex(i)}>
@@ -407,7 +407,7 @@ export default function LongitudinalAnalytics({
                   x={getX(i)}
                   y="235"
                   textAnchor="middle"
-                  fill={i === 3 ? '#C5A059' : i >= 4 ? '#A7A296' : '#6E6A60'}
+                  fill={i === 3 ? '#B88636' : i >= 4 ? '#A7A296' : '#6E6A60'}
                   fontSize="11"
                   fontFamily="monospace"
                   fontWeight={i === 3 || i === 7 ? 'bold' : 'normal'}
@@ -421,7 +421,7 @@ export default function LongitudinalAnalytics({
           {/* Interactive Inspection Epoch Telemetry Detail */}
           <div className="bg-[#121418] border border-[#232A38] p-3 rounded-xl flex flex-wrap justify-between items-center gap-3 text-xs font-mono">
             <div className="flex items-center gap-2">
-              <span className="text-[#C5A059] font-bold">[{activePoint?.year}] Epoch Telemetry:</span>
+              <span className="text-[#B88636] font-bold">[{activePoint?.year}] Epoch Telemetry:</span>
               <span className="text-gray-300">{activePoint?.note}</span>
             </div>
             
@@ -432,7 +432,7 @@ export default function LongitudinalAnalytics({
                   <span>Path B (Mitigated): <strong className="text-emerald-400">{selectedMetric === 'health' ? `${activePoint.healthWithIntervention}/100` : selectedMetric === 'crack' ? `${activePoint.crackWithIntervention} cm` : `${activePoint.moistureWithIntervention}%`}</strong></span>
                 </>
               ) : (
-                <span>Recorded Status: <strong className="text-[#C5A059]">{selectedMetric === 'health' ? `Health ${activePoint?.health}/100` : selectedMetric === 'crack' ? `${activePoint?.crackLength} cm` : `${activePoint?.moisture}% moisture`}</strong></span>
+                <span>Recorded Status: <strong className="text-[#B88636]">{selectedMetric === 'health' ? `Health ${activePoint?.health}/100` : selectedMetric === 'crack' ? `${activePoint?.crackLength} cm` : `${activePoint?.moisture}% moisture`}</strong></span>
               )}
             </div>
           </div>
@@ -444,7 +444,7 @@ export default function LongitudinalAnalytics({
           
           <div className="space-y-4">
             <div>
-              <span className="text-[10px] font-mono uppercase text-[#C5A059] font-bold">
+              <span className="text-[10px] font-mono uppercase text-[#B88636] font-bold">
                 Economic & Structural Impact Analysis (Till 2030):
               </span>
               <h4 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
@@ -487,7 +487,7 @@ export default function LongitudinalAnalytics({
               </div>
               <div className="text-right">
                 <div className="text-[10px] font-mono text-gray-400 uppercase">Cost Reduction:</div>
-                <div className="text-xl font-mono font-bold text-[#C5A059] mt-0.5">95.6%</div>
+                <div className="text-xl font-mono font-bold text-[#B88636] mt-0.5">95.6%</div>
               </div>
             </div>
 

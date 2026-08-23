@@ -401,11 +401,11 @@ export default function App() {
   // 🏛️ VIEW 3: DEDICATED MONUMENT STUDIO & COMMAND CENTER
   // ---------------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-[#FDFBF7] text-[#0E1B2E] font-sans antialiased selection:bg-[#E06D44] selection:text-white flex flex-col museum-bg">
+    <div className="min-h-screen bg-[#EBE2D3] text-[#1E140E] font-sans antialiased selection:bg-[#BA532B] selection:text-white flex flex-col museum-bg">
       <MuseumCursorTorch />
       
       {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
-      <header className="sticky top-0 z-[9999] bg-[#FAF7F2]/90 backdrop-blur-2xl border-b border-[#EDE6DA] px-6 py-3.5 shadow-sm">
+      <header className="sticky top-0 z-[9999] bg-[#F7F2E8]/90 backdrop-blur-2xl border-b border-[#DACDBA] px-6 py-3.5 shadow-sm">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
           {/* Brand & Return to Portal Button */}
@@ -414,11 +414,11 @@ export default function App() {
             <HeritageShieldLogo
               size="sm"
               showText={true}
-              textClassName="text-sm tracking-wider font-serif font-bold text-[#0E1B2E]"
+              textClassName="text-sm tracking-wider font-serif font-bold text-[#1E140E]"
               onClick={() => setViewMode('landing')}
             />
 
-            <div className="w-[1px] h-6 bg-[#EDE6DA]" />
+            <div className="w-[1px] h-6 bg-[#DACDBA]" />
 
             <button
               onClick={() => setViewMode('portal')}
@@ -433,7 +433,7 @@ export default function App() {
           {/* Active Heritage Site Switcher Pill */}
           <button
             onClick={() => setIsAssetSwitcherOpen(true)}
-            className="flex items-center gap-3 bg-white hover:bg-[#FAF7F2] border border-[#EDE6DA] hover:border-[#E06D44]/60 px-4 py-2 rounded-2xl transition shadow-sm group cursor-pointer"
+            className="flex items-center gap-3 bg-white hover:bg-[#F7F2E8] border border-[#DACDBA] hover:border-[#BA532B]/60 px-4 py-2 rounded-2xl transition shadow-sm group cursor-pointer"
             title="Switch Heritage Site"
           >
             <span
@@ -441,13 +441,13 @@ export default function App() {
               style={{ backgroundColor: curSite.color }}
             />
             <div className="text-left">
-              <div className="text-[9px] font-mono uppercase text-[#64748B] font-semibold flex items-center gap-1.5">
+              <div className="text-[9px] font-mono uppercase text-[#6D5545] font-semibold flex items-center gap-1.5">
                 <span>Active Heritage Site:</span>
               </div>
-              <div className="text-xs font-serif font-bold text-[#0E1B2E] group-hover:text-[#E06D44] flex items-center gap-1.5">
+              <div className="text-xs font-serif font-bold text-[#1E140E] group-hover:text-[#BA532B] flex items-center gap-1.5">
                 <span>{curSite.name}</span>
-                <span className="text-[10px] text-[#64748B] font-mono">({curSite.state})</span>
-                <span className="text-[10px] text-[#E06D44] font-mono font-bold">▼ Switch</span>
+                <span className="text-[10px] text-[#6D5545] font-mono">({curSite.state})</span>
+                <span className="text-[10px] text-[#BA532B] font-mono font-bold">▼ Switch</span>
               </div>
             </div>
           </button>
@@ -482,7 +482,7 @@ export default function App() {
       </header>
 
       {/* 🎛️ 2. STUDIO CONSOLE TABS */}
-      <div className="bg-white border-b border-[#EDE6DA] px-6">
+      <div className="bg-white border-b border-[#DACDBA] px-6">
         <div className="max-w-[1600px] mx-auto flex items-center gap-2 overflow-x-auto py-2.5">
           
           <button
@@ -492,8 +492,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'twin'
-                ? 'bg-[#FAF7F2] text-[#E06D44] border border-[#E06D44] shadow-sm'
-                : 'text-[#64748B] hover:text-[#0E1B2E] hover:bg-[#FAF7F2] border border-transparent'
+                ? 'bg-[#F7F2E8] text-[#BA532B] border border-[#BA532B] shadow-sm'
+                : 'text-[#6D5545] hover:text-[#1E140E] hover:bg-[#F7F2E8] border border-transparent'
             }`}
           >
             <span className="text-sm">🏛️</span>
@@ -507,8 +507,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'vision'
-                ? 'bg-[#FAF7F2] text-[#E06D44] border border-[#E06D44] shadow-sm'
-                : 'text-[#64748B] hover:text-[#0E1B2E] hover:bg-[#FAF7F2] border border-transparent'
+                ? 'bg-[#F7F2E8] text-[#BA532B] border border-[#BA532B] shadow-sm'
+                : 'text-[#6D5545] hover:text-[#1E140E] hover:bg-[#F7F2E8] border border-transparent'
             }`}
           >
             <span className="text-sm">🔍</span>
@@ -522,8 +522,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'risk'
-                ? 'bg-[#FAF7F2] text-[#E06D44] border border-[#E06D44] shadow-sm'
-                : 'text-[#64748B] hover:text-[#0E1B2E] hover:bg-[#FAF7F2] border border-transparent'
+                ? 'bg-[#F7F2E8] text-[#BA532B] border border-[#BA532B] shadow-sm'
+                : 'text-[#6D5545] hover:text-[#1E140E] hover:bg-[#F7F2E8] border border-transparent'
             }`}
           >
             <span className="text-sm">📊</span>
@@ -537,8 +537,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'queue'
-                ? 'bg-[#FAF7F2] text-[#E06D44] border border-[#E06D44] shadow-sm'
-                : 'text-[#64748B] hover:text-[#0E1B2E] hover:bg-[#FAF7F2] border border-transparent'
+                ? 'bg-[#F7F2E8] text-[#BA532B] border border-[#BA532B] shadow-sm'
+                : 'text-[#6D5545] hover:text-[#1E140E] hover:bg-[#F7F2E8] border border-transparent'
             }`}
           >
             <span className="text-sm">📋</span>
@@ -580,15 +580,15 @@ export default function App() {
               <div className="pt-3 border-t border-[#E6E1D8] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#4B5563]">
                 <div className="flex items-center gap-5 flex-wrap">
                   <span className="flex items-center gap-1.5">
-                    <span className="text-[#64748B] uppercase text-[10px] font-bold">🌋 Hazard:</span>
+                    <span className="text-[#6D5545] uppercase text-[10px] font-bold">🌋 Hazard:</span>
                     <strong className="text-amber-800 font-semibold">{curSite.seismicZone}</strong>
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <span className="text-[#64748B] uppercase text-[10px] font-bold">🌦️ Weather:</span>
+                    <span className="text-[#6D5545] uppercase text-[10px] font-bold">🌦️ Weather:</span>
                     <strong className="text-sky-800 font-semibold">{liveWeather.temp} · {liveWeather.humidity} RH</strong>
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <span className="text-[#64748B] uppercase text-[10px] font-bold">📍 WGS84:</span>
+                    <span className="text-[#6D5545] uppercase text-[10px] font-bold">📍 WGS84:</span>
                     <span className="text-[#181B1F] font-medium">
                       {Array.isArray(curSite.coords) ? `${curSite.coords[0]}° N, ${curSite.coords[1]}° E` : curSite.coords}
                     </span>
@@ -624,7 +624,7 @@ export default function App() {
                 {/* Node Selector List */}
                 <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-5 space-y-3 shadow-xl">
                   <div className="flex justify-between items-center border-b border-[#1E2433] pb-2.5">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#C5A059] font-bold">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#B88636] font-bold">
                       Architectural Nodes
                     </span>
                     <span className="text-[10px] font-mono text-gray-400">
@@ -639,13 +639,13 @@ export default function App() {
                         onClick={() => handleSelectComponent(idx)}
                         className={`w-full p-3 rounded-xl border text-left flex justify-between items-center transition cursor-pointer ${
                           activeComponent === idx
-                            ? 'border-[#C5A059] bg-[#C5A059]/15 text-[#F3EFE6] shadow-md'
+                            ? 'border-[#B88636] bg-[#B88636]/15 text-[#F3EFE6] shadow-md'
                             : 'border-[#1E2433] bg-[#11141D] text-gray-400 hover:border-[#384152] hover:bg-[#151924]'
                         }`}
                       >
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-bold text-[#C5A059] bg-black/60 px-2 py-0.5 rounded border border-[#C5A059]/40">
+                            <span className="font-mono text-xs font-bold text-[#B88636] bg-black/60 px-2 py-0.5 rounded border border-[#B88636]/40">
                               {c.code}
                             </span>
                             <span className="font-medium text-xs text-gray-200">{c.name}</span>
@@ -679,7 +679,7 @@ export default function App() {
                 <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-5 space-y-4 shadow-xl">
                   <div className="flex justify-between items-start">
                     <div>
-                      <span className="text-[10px] font-mono uppercase text-[#C5A059] font-bold tracking-wider">Node Telemetry Profile</span>
+                      <span className="text-[10px] font-mono uppercase text-[#B88636] font-bold tracking-wider">Node Telemetry Profile</span>
                       <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
                         {curComp.name} ({curComp.code})
                       </h3>
@@ -739,7 +739,7 @@ export default function App() {
             <div className="bg-[#121418] border border-[#1E2228] rounded-xl p-6 space-y-4 shadow-xl">
               <div className="flex flex-wrap justify-between items-center gap-3">
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-[#C5A059] font-bold tracking-wider">
+                  <span className="text-[10px] font-mono uppercase text-[#B88636] font-bold tracking-wider">
                     Longitudinal Delta Analysis · Computer Vision Forensic Scrubbing
                   </span>
                   <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
@@ -747,7 +747,7 @@ export default function App() {
                   </h3>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono text-[#C5A059] font-bold bg-[#14171C] px-3 py-1 rounded border border-[#2B313D]">
+                  <span className="text-xs font-mono text-[#B88636] font-bold bg-[#14171C] px-3 py-1 rounded border border-[#2B313D]">
                     Epoch: {sliderPos === 0 ? 'Jan 2024 (Baseline)' : sliderPos === 100 ? 'Apr 2026 (Live Survey)' : `Cycle ${(2024 + (sliderPos / 100) * 2).toFixed(1)}`}
                   </span>
                   <span className={`text-xs font-mono font-bold px-3 py-1 rounded border ${
@@ -761,8 +761,8 @@ export default function App() {
               <div className="bg-[#0E1013] p-5 rounded-xl border border-[#1E2228] space-y-4">
                 <div>
                   <div className="flex justify-between text-xs font-mono text-gray-400 mb-2">
-                    <span className={sliderPos === 0 ? 'text-[#C5A059] font-bold' : ''}>◄ 2024 Baseline (18.2 cm · 1.1 mm)</span>
-                    <span className="text-[#C5A059] font-semibold">● Slide to scrub temporal evolution ({sliderPos}%) ●</span>
+                    <span className={sliderPos === 0 ? 'text-[#B88636] font-bold' : ''}>◄ 2024 Baseline (18.2 cm · 1.1 mm)</span>
+                    <span className="text-[#B88636] font-semibold">● Slide to scrub temporal evolution ({sliderPos}%) ●</span>
                     <span className={sliderPos === 100 ? 'text-rose-400 font-bold' : ''}>2026 Inspection (25.1 cm · 2.2 mm) ►</span>
                   </div>
                   <input
@@ -771,7 +771,7 @@ export default function App() {
                     max="100"
                     value={sliderPos}
                     onChange={(e) => setSliderPos(Number(e.target.value))}
-                    className="w-full accent-[#C5A059] h-2.5 bg-[#1E2228] rounded-lg cursor-ew-resize transition-all"
+                    className="w-full accent-[#B88636] h-2.5 bg-[#1E2228] rounded-lg cursor-ew-resize transition-all"
                   />
                   <div className="flex justify-between text-[10px] font-mono text-gray-500 mt-1">
                     <span>2024 Baseline Laser Mesh</span>
@@ -859,7 +859,7 @@ export default function App() {
 
               <div className="flex items-center gap-3 text-xs font-mono">
                 <span className="text-gray-400 bg-[#0E1013] px-3 py-1.5 rounded-lg border border-[#1E2228]">
-                  Focused Site: <strong className="text-[#C5A059]">{curSite.name}</strong>
+                  Focused Site: <strong className="text-[#B88636]">{curSite.name}</strong>
                 </span>
                 <span className="text-gray-400 bg-[#0E1013] px-3 py-1.5 rounded-lg border border-[#1E2228]">
                   Grid Standard: <strong className="text-sky-400">ISRO Bhuvan WGS84</strong>
@@ -888,7 +888,7 @@ export default function App() {
             
             <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
               <div>
-                <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
+                <span className="text-[10px] font-mono text-[#B88636] uppercase tracking-widest font-bold">
                   Explainable Multi-Criteria Formula · ISO 31000 Risk Framework
                 </span>
                 <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
@@ -897,7 +897,7 @@ export default function App() {
               </div>
 
               <div className="text-xs font-mono bg-[#0E1013] px-3.5 py-1.5 rounded-lg border border-[#1E2228] text-gray-300">
-                Formula: <strong className="text-[#C5A059]">R = 0.30C + 0.25D + 0.15H + 0.15E + 0.15S</strong>
+                Formula: <strong className="text-[#B88636]">R = 0.30C + 0.25D + 0.15H + 0.15E + 0.15S</strong>
               </div>
             </div>
 
@@ -909,7 +909,7 @@ export default function App() {
                 <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
                   <div className="flex justify-between text-xs text-gray-300 mb-1">
                     <span><strong>C</strong> — Condition Severity (Weight: 30%)</span>
-                    <span className="font-mono text-[#C5A059] font-bold">{riskFactors.condition}/100</span>
+                    <span className="font-mono text-[#B88636] font-bold">{riskFactors.condition}/100</span>
                   </div>
                   <input
                     type="range"
@@ -917,14 +917,14 @@ export default function App() {
                     max="100"
                     value={riskFactors.condition}
                     onChange={(e) => setRiskFactors({ ...riskFactors, condition: Number(e.target.value) })}
-                    className="w-full accent-[#C5A059] h-1.5 bg-[#1E2228] rounded cursor-pointer"
+                    className="w-full accent-[#B88636] h-1.5 bg-[#1E2228] rounded cursor-pointer"
                   />
                 </div>
 
                 <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
                   <div className="flex justify-between text-xs text-gray-300 mb-1">
                     <span><strong>D</strong> — Deterioration Velocity (Weight: 25%)</span>
-                    <span className="font-mono text-[#C5A059] font-bold">{riskFactors.deterioration}/100</span>
+                    <span className="font-mono text-[#B88636] font-bold">{riskFactors.deterioration}/100</span>
                   </div>
                   <input
                     type="range"
@@ -932,14 +932,14 @@ export default function App() {
                     max="100"
                     value={riskFactors.deterioration}
                     onChange={(e) => setRiskFactors({ ...riskFactors, deterioration: Number(e.target.value) })}
-                    className="w-full accent-[#C5A059] h-1.5 bg-[#1E2228] rounded cursor-pointer"
+                    className="w-full accent-[#B88636] h-1.5 bg-[#1E2228] rounded cursor-pointer"
                   />
                 </div>
 
                 <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
                   <div className="flex justify-between text-xs text-gray-300 mb-1">
                     <span><strong>H</strong> — Natural Hazard & Seismic Exposure (Weight: 15%)</span>
-                    <span className="font-mono text-[#C5A059] font-bold">{riskFactors.hazard}/100</span>
+                    <span className="font-mono text-[#B88636] font-bold">{riskFactors.hazard}/100</span>
                   </div>
                   <input
                     type="range"
@@ -947,14 +947,14 @@ export default function App() {
                     max="100"
                     value={riskFactors.hazard}
                     onChange={(e) => setRiskFactors({ ...riskFactors, hazard: Number(e.target.value) })}
-                    className="w-full accent-[#C5A059] h-1.5 bg-[#1E2228] rounded cursor-pointer"
+                    className="w-full accent-[#B88636] h-1.5 bg-[#1E2228] rounded cursor-pointer"
                   />
                 </div>
 
                 <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
                   <div className="flex justify-between text-xs text-gray-300 mb-1">
                     <span><strong>E</strong> — Environmental Stress & Weather (Weight: 15%)</span>
-                    <span className="font-mono text-[#C5A059] font-bold">{riskFactors.environment}/100</span>
+                    <span className="font-mono text-[#B88636] font-bold">{riskFactors.environment}/100</span>
                   </div>
                   <input
                     type="range"
@@ -962,14 +962,14 @@ export default function App() {
                     max="100"
                     value={riskFactors.environment}
                     onChange={(e) => setRiskFactors({ ...riskFactors, environment: Number(e.target.value) })}
-                    className="w-full accent-[#C5A059] h-1.5 bg-[#1E2228] rounded cursor-pointer"
+                    className="w-full accent-[#B88636] h-1.5 bg-[#1E2228] rounded cursor-pointer"
                   />
                 </div>
 
                 <div className="bg-[#0E1013] p-3 rounded-lg border border-[#1E2228]">
                   <div className="flex justify-between text-xs text-gray-300 mb-1">
                     <span><strong>S</strong> — Archaeological & National Significance (Weight: 15%)</span>
-                    <span className="font-mono text-[#C5A059] font-bold">{riskFactors.significance}/100</span>
+                    <span className="font-mono text-[#B88636] font-bold">{riskFactors.significance}/100</span>
                   </div>
                   <input
                     type="range"
@@ -977,14 +977,14 @@ export default function App() {
                     max="100"
                     value={riskFactors.significance}
                     onChange={(e) => setRiskFactors({ ...riskFactors, significance: Number(e.target.value) })}
-                    className="w-full accent-[#C5A059] h-1.5 bg-[#1E2228] rounded cursor-pointer"
+                    className="w-full accent-[#B88636] h-1.5 bg-[#1E2228] rounded cursor-pointer"
                   />
                 </div>
               </div>
 
               {/* Calculated Score Card */}
               <div className="lg:col-span-5 bg-[#0A0C12] border border-[#232A38] rounded-2xl p-6 text-center flex flex-col justify-center items-center shadow-xl heritage-card-glow">
-                <span className="text-[10px] font-mono uppercase text-[#C5A059] tracking-wider font-bold">
+                <span className="text-[10px] font-mono uppercase text-[#B88636] tracking-wider font-bold">
                   Computed Vulnerability Risk (ISO 31000)
                 </span>
                 <div className="text-6xl font-serif font-bold text-rose-500 my-3">
@@ -1002,7 +1002,7 @@ export default function App() {
 
                 <button
                   onClick={() => setIsReportOpen(true)}
-                  className="w-full mt-5 py-3 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-[#0A0C10] font-mono font-bold text-xs hover:brightness-110 transition flex items-center justify-center gap-2 shadow-lg cursor-pointer border border-[#E5C07B]/40"
+                  className="w-full mt-5 py-3 rounded-xl bg-gradient-to-r from-[#B88636] to-[#D4AF37] text-[#0A0C10] font-mono font-bold text-xs hover:brightness-110 transition flex items-center justify-center gap-2 shadow-lg cursor-pointer border border-[#E5C07B]/40"
                 >
                   <span>📄 Generate Official ASI Dossier</span>
                 </button>
@@ -1013,7 +1013,7 @@ export default function App() {
             <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-6 space-y-5 shadow-2xl heritage-card-glow">
               <div className="flex flex-wrap justify-between items-center gap-3">
                 <div>
-                  <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
+                  <span className="text-[10px] font-mono text-[#B88636] uppercase tracking-widest font-bold">
                     Cost-Benefit Intelligence · Preventive vs Reactive
                   </span>
                   <h3 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
@@ -1038,7 +1038,7 @@ export default function App() {
                 </div>
 
                 {/* Net Savings */}
-                <div className="bg-[#0A0C12] border border-[#C5A059]/40 rounded-2xl p-5 text-center shadow-lg heritage-card-glow">
+                <div className="bg-[#0A0C12] border border-[#B88636]/40 rounded-2xl p-5 text-center shadow-lg heritage-card-glow">
                   <span className="text-[10px] font-mono uppercase text-[#E5C07B] tracking-wider font-bold">Net National Savings</span>
                   <div className="text-3xl font-bold text-emerald-300 font-mono mt-2">₹13.26 Cr</div>
                   <div className="mt-2">
@@ -1077,7 +1077,7 @@ export default function App() {
             
             <div className="flex flex-wrap justify-between items-center gap-4 bg-[#121418] border border-[#1E2228] p-4 rounded-xl">
               <div>
-                <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-widest font-bold">
+                <span className="text-[10px] font-mono text-[#B88636] uppercase tracking-widest font-bold">
                   Decision Support & National Intervention Triage
                 </span>
                 <h2 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
@@ -1094,7 +1094,7 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => setIsReportOpen(true)}
-                  className="px-3.5 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-[#C5A059] text-xs font-mono font-semibold hover:text-white transition"
+                  className="px-3.5 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-[#B88636] text-xs font-mono font-semibold hover:text-white transition"
                 >
                   📄 Export Batch Dossiers
                 </button>
@@ -1128,7 +1128,7 @@ export default function App() {
                   <tbody className="divide-y divide-[#1E2228]">
                     {priorityQueue.map((item, idx) => (
                       <tr key={idx} className={idx === 0 ? "bg-rose-950/15" : "hover:bg-[#181B22]/50"}>
-                        <td className="py-3.5 px-4 font-mono font-bold text-[#C5A059]">#{item.rank}</td>
+                        <td className="py-3.5 px-4 font-mono font-bold text-[#B88636]">#{item.rank}</td>
                         <td className="py-3.5 px-4 font-medium text-gray-200">{item.component}</td>
                         <td className="py-3.5 px-4 text-gray-400 font-mono">{item.site}</td>
                         <td className="py-3.5 px-4 font-mono font-bold text-gray-200">{item.score}/100</td>
@@ -1147,7 +1147,7 @@ export default function App() {
                         <td className="py-3.5 px-4">
                           <button
                             onClick={() => setIsReportOpen(true)}
-                            className="text-[11px] font-mono px-2 py-1 rounded bg-[#0E1013] border border-[#1E2228] text-[#C5A059] hover:bg-[#C5A059]/20 transition"
+                            className="text-[11px] font-mono px-2 py-1 rounded bg-[#0E1013] border border-[#1E2228] text-[#B88636] hover:bg-[#B88636]/20 transition"
                           >
                             Dossier
                           </button>
@@ -1180,7 +1180,7 @@ export default function App() {
                         <div className="flex items-center gap-2">
                           <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded font-bold ${
                             report.role === 'officer'
-                              ? 'bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/30'
+                              ? 'bg-[#B88636]/20 text-[#B88636] border border-[#B88636]/30'
                               : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
                           }`}>
                             {report.role === 'officer' ? '👷 ASI Officer' : '🧑‍🤝‍🧑 Citizen Sentinel'}
@@ -1191,7 +1191,7 @@ export default function App() {
                       </div>
 
                       <h4 className="text-sm font-serif font-bold text-gray-100 mt-2">
-                        {report.monumentName} · <span className="text-[#C5A059] font-mono font-normal text-xs">{report.component}</span>
+                        {report.monumentName} · <span className="text-[#B88636] font-mono font-normal text-xs">{report.component}</span>
                       </h4>
 
                       <p className="text-xs text-gray-300 mt-1.5 leading-relaxed bg-[#121418] p-2.5 rounded border border-[#1E2228]">
