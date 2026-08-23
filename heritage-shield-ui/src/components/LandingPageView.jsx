@@ -37,6 +37,7 @@ import HeritageShieldLogo from './HeritageShieldLogo';
 import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
+import SplitScreenIntroLanding from './SplitScreenIntroLanding';
 
 export default function LandingPageView({ 
   onEnterDashboard, 
@@ -183,9 +184,19 @@ export default function LandingPageView({
       </div>
 
       {/* ========================================================================= */}
+      {/* 🎬 0. WEBFLOW PIONEER SPLIT-SCREEN MASKED SCROLL INTRO                    */}
+      {/* ========================================================================= */}
+      <SplitScreenIntroLanding 
+        onEnterSite={() => {
+          const el = document.getElementById('main-site-content');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }}
+      />
+
+      {/* ========================================================================= */}
       {/* 🎬 1. DREAMCORE ETHEREAL HERO SECTION                                     */}
       {/* ========================================================================= */}
-      <section className="relative z-10 w-full min-h-screen flex flex-col justify-between pt-4 pb-20 px-6 sm:px-10 lg:px-16 max-w-[1600px] mx-auto">
+      <section id="main-site-content" className="relative z-10 w-full min-h-screen flex flex-col justify-between pt-4 pb-20 px-6 sm:px-10 lg:px-16 max-w-[1600px] mx-auto">
         
         {/* 🧭 TOP FLOATING FROSTED GLASS CAPSULE NAVBAR */}
         <motion.header 
