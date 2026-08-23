@@ -4,7 +4,8 @@ import {
   AnimatePresence, 
   useScroll, 
   useSpring, 
-  useTransform 
+  useTransform,
+  useMotionValue
 } from 'framer-motion';
 import { 
   Shield, 
@@ -58,7 +59,17 @@ export default function LandingPageView({
   // 🎛️ 4. Interactive Hero Twin Scan Mode & 6. 🔦 Museum Cursor Follower
   const [heroScanMode, setHeroScanMode] = useState('photo'); // 'photo' | 'lidar' | 'fea'
   const [activePin, setActivePin] = useState(null);
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+
+  // 6. 🔦 Fluid Precision Spring-Driven Amber Cursor System
+  const mouseX = useMotionValue(-1000);
+  const mouseY = useMotionValue(-1000);
+  const smoothMouseX = useSpring(mouseX, { damping: 28, stiffness: 220, mass: 0.4 });
+  const smoothMouseY = useSpring(mouseY, { damping: 28, stiffness: 220, mass: 0.4 });
+
+  const handleMouseMove = (e) => {
+    mouseX.set(e.clientX);
+    mouseY.set(e.clientY);
+  };
 
   // State for Sandbox Showcase
   const [showcaseTab, setShowcaseTab] = useState('twin');
@@ -178,16 +189,18 @@ export default function LandingPageView({
 
   return (
     <div 
-      onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
+      onMouseMove={handleMouseMove}
       className="min-h-screen bg-[#F0E7DA] text-[#24160E] font-sans selection:bg-[#BA532B] selection:text-white overflow-x-hidden relative museum-bg"
     >
-      {/* 6. 🔦 Museum Amber Spotlight Cursor Follower */}
-      <div 
-        className="fixed pointer-events-none w-[500px] h-[500px] rounded-full -translate-x-1/2 -translate-y-1/2 z-0 blur-[100px] opacity-20 transition-transform duration-75 ease-out"
+      {/* 6. 🔦 Fluid Submerged Amber Cursor Follower */}
+      <motion.div 
+        className="fixed top-0 left-0 pointer-events-none w-[520px] h-[520px] rounded-full blur-[110px] opacity-25 z-0"
         style={{
-          left: mousePos.x,
-          top: mousePos.y,
-          background: 'radial-gradient(circle, rgba(186, 83, 43, 0.5) 0%, rgba(194, 146, 68, 0.25) 45%, transparent 70%)'
+          x: smoothMouseX,
+          y: smoothMouseY,
+          translateX: '-50%',
+          translateY: '-50%',
+          background: 'radial-gradient(circle, rgba(186, 83, 43, 0.48) 0%, rgba(194, 146, 68, 0.22) 45%, transparent 70%)'
         }}
       />
       
@@ -221,46 +234,6 @@ export default function LandingPageView({
               textClassName="text-lg tracking-wider font-serif font-bold text-[#24160E]"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             />
-          </div>
-
-          {/* Center: Minimalist Nav Links */}
-          <div className="hidden lg:flex items-center gap-8 text-xs font-mono tracking-widest uppercase">
-            <a 
-              href="#hero-section" 
-              className="text-[#BA532B] font-bold transition"
-            >
-              Overview
-            </a>
-            <a 
-              href="#pipeline-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              Architecture
-            </a>
-            <a 
-              href="#consoles-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              Living Twins
-            </a>
-            <a 
-              href="#simulator-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              2030 Predictor
-            </a>
-            <a 
-              href="#registry-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              Heritage Sites
-            </a>
-            <a 
-              href="#faq-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
-            >
-              Archive FAQ
-            </a>
           </div>
 
           {/* Right: Actions & Login */}
@@ -320,12 +293,6 @@ export default function LandingPageView({
             transition={{ duration: 0.8, ease: smoothEase }}
             className="lg:col-span-7 space-y-6 text-left"
           >
-            {/* Monument Category Chip */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#DACDB8] text-[#BA532B] text-xs font-mono font-bold tracking-wider uppercase shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-[#BA532B] animate-ping" />
-              <span>National Built Heritage Command Center · SIH 2026</span>
-            </div>
-
             {/* Editorial Serif Heading */}
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] leading-[1.08] tracking-tight">
               Safeguarding Monumental Soul with <span className="gold-cream-text">Autonomous AI Twins</span>
@@ -527,10 +494,6 @@ export default function LandingPageView({
         
         {/* Section Header */}
         <div className="max-w-3xl space-y-3 text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#DACDB8] text-[#BA532B] text-[11px] font-mono font-bold uppercase tracking-wider">
-            <span>⚙️ Autonomous Conservation Pipeline</span>
-          </div>
-
           <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#24160E] tracking-tight">
             The decision layer, <span className="gold-cream-text">module by module</span>
           </h2>
@@ -599,9 +562,6 @@ export default function LandingPageView({
         {/* Section Header with Console Tabs */}
         <div className="flex flex-wrap justify-between items-end gap-6">
           <div className="space-y-2 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#DACDB8] text-[#BA532B] text-[11px] font-mono font-bold uppercase tracking-wider">
-              <span>💻 Autonomous Sandbox</span>
-            </div>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#24160E]">
               Experience the 4 Core Intelligence Consoles
             </h2>
@@ -890,9 +850,6 @@ export default function LandingPageView({
       >
         
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#DACDB8] text-[#BA532B] text-[11px] font-mono font-bold uppercase tracking-wider mb-2">
-            <span>🧪 Real-Time Physics Test</span>
-          </div>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#24160E]">
             Extreme Climate & Seismic Stress Simulator
           </h2>
