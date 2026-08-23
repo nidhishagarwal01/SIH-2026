@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
   motion, 
   AnimatePresence, 
@@ -32,8 +32,7 @@ import {
   Workflow,
   Lock,
   LogOut,
-  UserCheck,
-  ChevronLeft
+  UserCheck
 } from 'lucide-react';
 
 import CinematicIntroReveal from './CinematicIntroReveal';
@@ -76,16 +75,12 @@ export default function LandingPageView({
   // ---------------------------------------------------------------------------
   const { scrollYProgress, scrollY } = useScroll();
 
-  // Top hardware-accelerated spring progress bar
+  // Top hardware-accelerated spring progress bar in Royal Amber & Gold
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
     damping: 30,
     restDelta: 0.001
   });
-
-  // Smooth parallax layer shifts
-  const heroParallaxY = useTransform(scrollY, [0, 800], [0, 100]);
-  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
@@ -181,16 +176,14 @@ export default function LandingPageView({
   ];
 
   const flagshipSites = sites.slice(0, 6);
-
-  // Easing curve for smooth, luxury slide transitions
   const smoothEase = [0.16, 1, 0.3, 1];
 
   return (
-    <div className="min-h-screen bg-[#F7F5F0] text-[#181B1F] font-sans selection:bg-[#C85A32] selection:text-white overflow-x-hidden relative museum-bg">
+    <div className="min-h-screen bg-[#FDFBF7] text-[#0E1B2E] font-sans selection:bg-[#E06D44] selection:text-white overflow-x-hidden relative museum-bg">
       
       {/* 🚀 TOP SPRING-SMOOTHED SCROLL PROGRESS BAR */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#C85A32] via-[#E06D44] to-[#B8860B] z-[100001] origin-left shadow-sm pointer-events-none"
+        className="fixed top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#E06D44] via-[#C5A059] to-[#0E1B2E] z-[100001] origin-left shadow-sm pointer-events-none"
         style={{ scaleX }}
       />
 
@@ -199,12 +192,12 @@ export default function LandingPageView({
         {showIntro && <CinematicIntroReveal onComplete={handleIntroComplete} />}
       </AnimatePresence>
 
-      {/* 🌟 1. TOP MINIMALIST SOVEREIGN SANDSTONE NAVIGATION BAR */}
+      {/* 🌟 1. TOP MINIMALIST ARCHIVAL IVORY & DEEP INDIGO NAVIGATION BAR */}
       <motion.nav 
         initial={{ y: -25, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="sticky top-0 z-[9999] bg-[#FAF8F5]/90 backdrop-blur-2xl border-b border-[#E6E1D8] px-6 py-4 shadow-sm"
+        className="sticky top-0 z-[9999] bg-[#FAF7F2]/90 backdrop-blur-2xl border-b border-[#EDE6DA] px-6 py-4 shadow-sm"
       >
         <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6">
           
@@ -213,7 +206,7 @@ export default function LandingPageView({
             <HeritageShieldLogo
               size="md"
               showText={true}
-              textClassName="text-lg tracking-wider font-serif font-bold text-[#181B1F]"
+              textClassName="text-lg tracking-wider font-serif font-bold text-[#0E1B2E]"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             />
           </div>
@@ -222,37 +215,37 @@ export default function LandingPageView({
           <div className="hidden lg:flex items-center gap-8 text-xs font-mono tracking-widest uppercase">
             <a 
               href="#hero-section" 
-              className="text-[#C85A32] font-bold transition"
+              className="text-[#E06D44] font-bold transition"
             >
               Overview
             </a>
             <a 
               href="#pipeline-section" 
-              className="text-[#4B5563] hover:text-[#C85A32] transition font-semibold"
+              className="text-[#334155] hover:text-[#E06D44] transition font-semibold"
             >
               Architecture
             </a>
             <a 
               href="#consoles-section" 
-              className="text-[#4B5563] hover:text-[#C85A32] transition font-semibold"
+              className="text-[#334155] hover:text-[#E06D44] transition font-semibold"
             >
               Living Twins
             </a>
             <a 
               href="#simulator-section" 
-              className="text-[#4B5563] hover:text-[#C85A32] transition font-semibold"
+              className="text-[#334155] hover:text-[#E06D44] transition font-semibold"
             >
               2030 Predictor
             </a>
             <a 
               href="#registry-section" 
-              className="text-[#4B5563] hover:text-[#C85A32] transition font-semibold"
+              className="text-[#334155] hover:text-[#E06D44] transition font-semibold"
             >
               Heritage Sites
             </a>
             <a 
               href="#faq-section" 
-              className="text-[#4B5563] hover:text-[#C85A32] transition font-semibold"
+              className="text-[#334155] hover:text-[#E06D44] transition font-semibold"
             >
               Archive FAQ
             </a>
@@ -262,8 +255,8 @@ export default function LandingPageView({
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowIntro(true)}
-              className="px-3.5 py-1.5 rounded-xl frosted-btn text-[11px] font-mono font-bold text-[#C85A32] hover:text-white hover:bg-[#C85A32] transition flex items-center gap-1.5 cursor-pointer shadow-sm"
-              title="Replay Cinematic Split Reveal"
+              className="px-3.5 py-1.5 rounded-xl frosted-btn text-[11px] font-mono font-bold text-[#E06D44] hover:text-white hover:bg-[#E06D44] transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+              title="Replay Intro"
             >
               <span>🎬</span>
               <span className="hidden sm:inline">Replay Intro</span>
@@ -272,9 +265,9 @@ export default function LandingPageView({
             <ThemeToggle />
 
             {currentUser ? (
-              <div className="flex items-center gap-2.5 bg-white border border-[#E6E1D8] px-3.5 py-1.5 rounded-xl shadow-sm">
-                <span className="text-xs font-mono font-bold text-[#181B1F] flex items-center gap-1.5">
-                  <UserCheck className="w-3.5 h-3.5 text-[#C85A32]" />
+              <div className="flex items-center gap-2.5 bg-white border border-[#EDE6DA] px-3.5 py-1.5 rounded-xl shadow-sm">
+                <span className="text-xs font-mono font-bold text-[#0E1B2E] flex items-center gap-1.5">
+                  <UserCheck className="w-3.5 h-3.5 text-[#E06D44]" />
                   <span>{currentUser.role === 'officer' ? '🏛️ ' : '👥 '}{currentUser.name}</span>
                 </span>
                 <button
@@ -304,7 +297,7 @@ export default function LandingPageView({
       </motion.nav>
 
       {/* ========================================================================= */}
-      {/* 🚀 2. GRAND SUBMERGED HERO EXHIBITION (FULL BLEED, NO BOX CONTAINER)      */}
+      {/* 🚀 2. GRAND SUBMERGED HERO EXHIBITION (Option 3 Royal Ivory & Indigo)     */}
       {/* ========================================================================= */}
       <section id="hero-section" className="relative min-h-[90vh] flex items-center px-6 sm:px-12 lg:px-20 py-16 max-w-[1600px] mx-auto overflow-hidden">
         
@@ -315,7 +308,7 @@ export default function LandingPageView({
             alt="Heritage Background"
             className="w-full h-full object-cover filter brightness-110 contrast-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#F7F5F0]/80 to-[#F7F5F0]" />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#FDFBF7]/80 to-[#FDFBF7]" />
         </div>
 
         <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -328,20 +321,20 @@ export default function LandingPageView({
             className="lg:col-span-7 space-y-6 text-left"
           >
             {/* National Authority Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-[#E6E1D8] shadow-sm">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#C85A32] animate-ping" />
-              <span className="text-[11px] font-mono text-[#C85A32] font-bold uppercase tracking-widest">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-[#EDE6DA] shadow-sm">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E06D44] animate-ping" />
+              <span className="text-[11px] font-mono text-[#E06D44] font-bold uppercase tracking-widest">
                 National Built Heritage Command Center · SIH 2026
               </span>
             </div>
 
             {/* Display Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#181B1F] tracking-tight leading-[1.1]">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#0E1B2E] tracking-tight leading-[1.1]">
               Custodian of Heritage & <span className="gold-cream-text">Living Digital Twins</span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg text-[#4B5563] font-sans leading-relaxed max-w-2xl">
+            <p className="text-base sm:text-lg text-[#334155] font-sans leading-relaxed max-w-2xl">
               Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 3,690+ protected monuments with auditable foresight.
             </p>
 
@@ -363,11 +356,11 @@ export default function LandingPageView({
               </a>
             </div>
 
-            {/* Live National Telemetry Pill */}
-            <div className="pt-6 border-t border-[#E6E1D8] flex flex-wrap items-center gap-6 text-xs font-mono text-[#64748B]">
+            {/* Live National Telemetry Strip */}
+            <div className="pt-6 border-t border-[#EDE6DA] flex flex-wrap items-center gap-6 text-xs font-mono text-[#64748B]">
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                <span><strong>12</strong> UNESCO Living Twins</span>
+                <span><strong className="text-[#0E1B2E]">12</strong> UNESCO Living Twins</span>
               </span>
               <span>•</span>
               <span>Standard: ISRO Bhuvan WGS84</span>
@@ -376,45 +369,45 @@ export default function LandingPageView({
             </div>
           </motion.div>
 
-          {/* Right: Floating 3D Artefact Showcase (Seamlessly Integrated) */}
+          {/* Right: Floating 3D Artefact Showcase */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.15, ease: smoothEase }}
             className="lg:col-span-5 flex justify-center"
           >
-            <div className="w-full max-w-md bg-white border border-[#E6E1D8] rounded-3xl p-5 shadow-2xl space-y-4 relative group">
+            <div className="w-full max-w-md bg-white border border-[#EDE6DA] rounded-3xl p-5 shadow-2xl space-y-4 relative group">
               
               {/* Top Control Strip */}
               <div className="flex justify-between items-center text-xs font-mono px-1">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#C85A32] animate-pulse" />
-                  <span className="text-[10px] text-[#181B1F] font-bold uppercase tracking-wider">
+                  <span className="w-2 h-2 rounded-full bg-[#E06D44] animate-pulse" />
+                  <span className="text-[10px] text-[#0E1B2E] font-bold uppercase tracking-wider">
                     Artefact Twin #{selectedTwinSiteIdx + 1}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => setSelectedTwinSiteIdx((selectedTwinSiteIdx - 1 + sites.length) % sites.length)}
-                    className="w-7 h-7 rounded-full bg-[#FAF8F5] border border-[#E6E1D8] text-xs hover:bg-[#C85A32] hover:text-white transition cursor-pointer flex items-center justify-center font-bold"
+                    className="w-7 h-7 rounded-full bg-[#FAF7F2] border border-[#EDE6DA] text-xs hover:bg-[#E06D44] hover:text-white transition cursor-pointer flex items-center justify-center font-bold"
                     title="Previous"
                   >‹</button>
                   <button
                     onClick={() => setSelectedTwinSiteIdx((selectedTwinSiteIdx + 1) % sites.length)}
-                    className="w-7 h-7 rounded-full bg-[#FAF8F5] border border-[#E6E1D8] text-xs hover:bg-[#C85A32] hover:text-white transition cursor-pointer flex items-center justify-center font-bold"
+                    className="w-7 h-7 rounded-full bg-[#FAF7F2] border border-[#EDE6DA] text-xs hover:bg-[#E06D44] hover:text-white transition cursor-pointer flex items-center justify-center font-bold"
                     title="Next"
                   >›</button>
                 </div>
               </div>
 
               {/* Monument Showcase Image Display */}
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#E6E1D8] bg-[#FAF8F5]">
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#EDE6DA] bg-[#FAF7F2]">
                 <img
                   src={sites[selectedTwinSiteIdx]?.imageUrl || '/monuments/qutub_minar.jpg'}
                   alt={sites[selectedTwinSiteIdx]?.name}
                   className="w-full h-full object-cover filter brightness-100 group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#181B1F]/80 via-transparent to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/85 via-transparent to-black/20" />
                 
                 {/* Status Tag Overlay */}
                 <div className="absolute top-3 right-3">
@@ -432,7 +425,7 @@ export default function LandingPageView({
 
                 {/* Bottom Image Overlay Details */}
                 <div className="absolute bottom-3 left-3 right-3 space-y-1">
-                  <span className="text-[10px] font-mono text-[#F5E6CC] font-semibold block">
+                  <span className="text-[10px] font-mono text-[#C5A059] font-semibold block">
                     📍 {sites[selectedTwinSiteIdx]?.location}, {sites[selectedTwinSiteIdx]?.state}
                   </span>
                   <h4 className="text-lg font-serif font-bold text-white leading-tight">
@@ -443,7 +436,7 @@ export default function LandingPageView({
 
               {/* Card Meta & Interactive CTA */}
               <div className="space-y-3 pt-1">
-                <p className="text-xs text-[#4B5563] font-sans leading-relaxed line-clamp-2">
+                <p className="text-xs text-[#334155] font-sans leading-relaxed line-clamp-2">
                   {sites[selectedTwinSiteIdx]?.builtEra} · {sites[selectedTwinSiteIdx]?.material}
                 </p>
 
@@ -463,7 +456,7 @@ export default function LandingPageView({
       </section>
 
       {/* ========================================================================= */}
-      {/* ⚙️ 3. SUBMERGED 8-MODULE DECISION PIPELINE (SLIDES SMOOTHLY ON SCROLL)    */}
+      {/* ⚙️ 3. SUBMERGED 8-MODULE DECISION PIPELINE                                */}
       {/* ========================================================================= */}
       <motion.section 
         id="pipeline-section" 
@@ -471,20 +464,20 @@ export default function LandingPageView({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-12 border-t border-[#E6E1D8]"
+        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-12 border-t border-[#EDE6DA]"
       >
         
         {/* Section Header */}
         <div className="max-w-3xl space-y-3 text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#E6E1D8] text-[#C85A32] text-[11px] font-mono font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#EDE6DA] text-[#E06D44] text-[11px] font-mono font-bold uppercase tracking-wider">
             <span>⚙️ Autonomous Conservation Pipeline</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#181B1F] tracking-tight">
+          <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#0E1B2E] tracking-tight">
             The decision layer, <span className="gold-cream-text">module by module</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-[#4B5563] font-sans leading-relaxed">
+          <p className="text-sm sm:text-base text-[#334155] font-sans leading-relaxed">
             Eight synchronized AI & engineering subsystems executing autonomous diagnostics, structural physics calculations, and authoritative decision dispatch.
           </p>
         </div>
@@ -504,25 +497,25 @@ export default function LandingPageView({
                 onClick={() => setActiveWorkflowIndex(idx)}
                 className={`p-6 rounded-3xl border transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-4 group ${
                   isSelected
-                    ? 'bg-white border-[#C85A32] shadow-xl shadow-[#C85A32]/10 ring-1 ring-[#C85A32]'
-                    : 'bg-white/80 border-[#E6E1D8] shadow-sm hover:border-[#C85A32]/50 hover:shadow-lg'
+                    ? 'bg-white border-[#E06D44] shadow-xl shadow-[#E06D44]/10 ring-1 ring-[#E06D44]'
+                    : 'bg-white/80 border-[#EDE6DA] shadow-sm hover:border-[#E06D44]/50 hover:shadow-lg'
                 }`}
               >
                 <div className="space-y-3">
                   <div className="flex justify-between items-center text-xs font-mono">
                     <span className={`font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider text-[10px] ${
-                      isSelected ? 'bg-[#C85A32] text-white' : 'bg-[#FAF8F5] text-[#C85A32] border border-[#E6E1D8]'
+                      isSelected ? 'bg-[#E06D44] text-white' : 'bg-[#FAF7F2] text-[#E06D44] border border-[#EDE6DA]'
                     }`}>
                       Step {mod.step}
                     </span>
                     <span className="text-[#64748B] font-semibold">{mod.kicker.split('·')[1]}</span>
                   </div>
 
-                  <h3 className="text-lg font-serif font-bold text-[#181B1F] group-hover:text-[#C85A32] transition leading-snug">
+                  <h3 className="text-lg font-serif font-bold text-[#0E1B2E] group-hover:text-[#E06D44] transition leading-snug">
                     {mod.title}
                   </h3>
 
-                  <p className="text-xs text-[#4B5563] font-sans leading-relaxed">
+                  <p className="text-xs text-[#334155] font-sans leading-relaxed">
                     {mod.desc}
                   </p>
                 </div>
@@ -542,28 +535,28 @@ export default function LandingPageView({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-8 border-t border-[#E6E1D8]"
+        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-8 border-t border-[#EDE6DA]"
       >
         
         {/* Section Header with Console Tabs */}
         <div className="flex flex-wrap justify-between items-end gap-6">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E6E1D8] text-[#C85A32] text-[11px] font-mono font-bold uppercase tracking-wider">
+          <div className="space-y-2 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#EDE6DA] text-[#E06D44] text-[11px] font-mono font-bold uppercase tracking-wider">
               <span>💻 Autonomous Sandbox</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#181B1F]">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#0E1B2E]">
               Experience the 4 Core Intelligence Consoles
             </h2>
           </div>
 
           {/* Clean Submerged Tabs */}
-          <div className="bg-white p-1.5 rounded-2xl border border-[#E6E1D8] flex items-center gap-1.5 font-mono text-xs overflow-x-auto shadow-sm">
+          <div className="bg-white p-1.5 rounded-2xl border border-[#EDE6DA] flex items-center gap-1.5 font-mono text-xs overflow-x-auto shadow-sm">
             <button
               onClick={() => setShowcaseTab('twin')}
               className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
                 showcaseTab === 'twin'
                   ? 'terracotta-btn shadow-md'
-                  : 'text-[#64748B] hover:text-[#181B1F] hover:bg-[#FAF8F5]'
+                  : 'text-[#334155] hover:text-[#0E1B2E] hover:bg-[#FAF7F2]'
               }`}
             >
               <span>🏛️</span>
@@ -573,8 +566,8 @@ export default function LandingPageView({
               onClick={() => setShowcaseTab('vision')}
               className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
                 showcaseTab === 'vision'
-                  ? 'bg-sky-600 text-white shadow-md'
-                  : 'text-[#64748B] hover:text-[#181B1F] hover:bg-[#FAF8F5]'
+                  ? 'bg-sky-700 text-white shadow-md'
+                  : 'text-[#334155] hover:text-[#0E1B2E] hover:bg-[#FAF7F2]'
               }`}
             >
               <span>🔍</span>
@@ -584,8 +577,8 @@ export default function LandingPageView({
               onClick={() => setShowcaseTab('temporal')}
               className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
                 showcaseTab === 'temporal'
-                  ? 'bg-amber-600 text-white shadow-md'
-                  : 'text-[#64748B] hover:text-[#181B1F] hover:bg-[#FAF8F5]'
+                  ? 'bg-[#C5A059] text-white shadow-md'
+                  : 'text-[#334155] hover:text-[#0E1B2E] hover:bg-[#FAF7F2]'
               }`}
             >
               <span>📈</span>
@@ -595,8 +588,8 @@ export default function LandingPageView({
               onClick={() => setShowcaseTab('gis')}
               className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
                 showcaseTab === 'gis'
-                  ? 'bg-emerald-600 text-white shadow-md'
-                  : 'text-[#64748B] hover:text-[#181B1F] hover:bg-[#FAF8F5]'
+                  ? 'bg-emerald-700 text-white shadow-md'
+                  : 'text-[#334155] hover:text-[#0E1B2E] hover:bg-[#FAF7F2]'
               }`}
             >
               <span>🗺️</span>
@@ -606,21 +599,21 @@ export default function LandingPageView({
         </div>
 
         {/* Viewport Display Area */}
-        <div className="bg-white border border-[#E6E1D8] rounded-3xl overflow-hidden shadow-xl p-6 sm:p-8 relative">
+        <div className="bg-white border border-[#EDE6DA] rounded-3xl overflow-hidden shadow-xl p-6 sm:p-8 relative">
           
           {showcaseTab === 'twin' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-5 space-y-4 text-left">
-                <h3 className="text-2xl font-serif font-bold text-[#181B1F]">
+                <h3 className="text-2xl font-serif font-bold text-[#0E1B2E]">
                   3D Living Digital Twin
                 </h3>
-                <p className="text-sm text-[#4B5563] leading-relaxed font-sans">
+                <p className="text-sm text-[#334155] leading-relaxed font-sans">
                   A realistic 3D model of the heritage site. You can rotate 360°, zoom in, and click directly on individual domes, balconies, pillars, or base walls to inspect their condition history.
                 </p>
                 
                 {/* Select 3D Twin Custom Dropdown */}
                 <div className="pt-2 space-y-1.5">
-                  <label className="text-xs font-mono text-[#C85A32] block font-bold uppercase tracking-wider flex items-center gap-1.5">
+                  <label className="text-xs font-mono text-[#E06D44] block font-bold uppercase tracking-wider flex items-center gap-1.5">
                     <span>🏛️</span>
                     <span>Select Heritage Site:</span>
                   </label>
@@ -628,15 +621,15 @@ export default function LandingPageView({
                     <select
                       value={selectedTwinSiteIdx}
                       onChange={(e) => setSelectedTwinSiteIdx(Number(e.target.value))}
-                      className="w-full appearance-none bg-[#FAF8F5] border border-[#E6E1D8] hover:border-[#C85A32] text-[#181B1F] text-sm font-serif font-bold py-3 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#C85A32] cursor-pointer shadow-sm"
+                      className="w-full appearance-none bg-[#FAF7F2] border border-[#EDE6DA] hover:border-[#E06D44] text-[#0E1B2E] text-sm font-serif font-bold py-3 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#E06D44] cursor-pointer shadow-sm"
                     >
                       {sites.map((s, idx) => (
-                        <option key={s.id || idx} value={idx} className="bg-white text-[#181B1F] py-2">
+                        <option key={s.id || idx} value={idx} className="bg-white text-[#0E1B2E] py-2">
                           {s.name} ({s.state})
                         </option>
                       ))}
                     </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-[#C85A32]">
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-[#E06D44]">
                       <ChevronDown className="w-4 h-4" />
                     </div>
                   </div>
@@ -652,7 +645,7 @@ export default function LandingPageView({
                 </div>
               </div>
 
-              <div className="lg:col-span-7 h-[500px] min-h-[500px] relative rounded-2xl overflow-hidden border border-[#E6E1D8] shadow-lg bg-[#FAF8F5]">
+              <div className="lg:col-span-7 h-[500px] min-h-[500px] relative rounded-2xl overflow-hidden border border-[#EDE6DA] shadow-lg bg-[#FAF7F2]">
                 <MonumentViewer3D
                   siteIndex={selectedTwinSiteIdx}
                   siteData={sites[selectedTwinSiteIdx] || sites[0]}
@@ -676,15 +669,15 @@ export default function LandingPageView({
             return (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-5 space-y-4 text-left">
-                  <h3 className="text-2xl font-serif font-bold text-[#181B1F]">
+                  <h3 className="text-2xl font-serif font-bold text-[#0E1B2E]">
                     AI Defect Vision Scanner
                   </h3>
-                  <p className="text-sm text-[#4B5563] leading-relaxed font-sans">
+                  <p className="text-sm text-[#334155] leading-relaxed font-sans">
                     Smart computer vision scans inspection photos to detect cracks, peeling stone, and water dampness. It measures the exact length and width of cracks to catch damage early.
                   </p>
                   
                   <div className="pt-2 space-y-1.5">
-                    <label className="text-xs font-mono text-sky-600 block font-bold uppercase tracking-wider flex items-center gap-1.5">
+                    <label className="text-xs font-mono text-sky-700 block font-bold uppercase tracking-wider flex items-center gap-1.5">
                       <span>🏛️</span>
                       <span>Select Heritage Site:</span>
                     </label>
@@ -692,15 +685,15 @@ export default function LandingPageView({
                       <select
                         value={selectedVisionSiteIdx}
                         onChange={(e) => setSelectedVisionSiteIdx(Number(e.target.value))}
-                        className="w-full appearance-none bg-[#FAF8F5] border border-[#E6E1D8] hover:border-sky-500 text-[#181B1F] text-sm font-serif font-bold py-3 pl-4 pr-10 rounded-xl focus:outline-none cursor-pointer shadow-sm"
+                        className="w-full appearance-none bg-[#FAF7F2] border border-[#EDE6DA] hover:border-sky-600 text-[#0E1B2E] text-sm font-serif font-bold py-3 pl-4 pr-10 rounded-xl focus:outline-none cursor-pointer shadow-sm"
                       >
                         {sites.map((s, idx) => (
-                          <option key={s.id || idx} value={idx} className="bg-white text-[#181B1F] py-2">
+                          <option key={s.id || idx} value={idx} className="bg-white text-[#0E1B2E] py-2">
                             {s.name} ({s.state})
                           </option>
                         ))}
                       </select>
-                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-sky-600">
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3.5 text-sky-700">
                         <ChevronDown className="w-4 h-4" />
                       </div>
                     </div>
@@ -709,16 +702,16 @@ export default function LandingPageView({
                   <div className="pt-2">
                     <button
                       onClick={() => onSelectMonument ? onSelectMonument(selectedVisionSiteIdx, 'vision') : onEnterDashboard()}
-                      className="px-6 py-3 rounded-xl bg-sky-600 text-white font-mono text-xs font-bold hover:bg-sky-500 transition cursor-pointer shadow-md"
+                      className="px-6 py-3 rounded-xl bg-sky-700 text-white font-mono text-xs font-bold hover:bg-sky-600 transition cursor-pointer shadow-md"
                     >
                       Open AI Diagnostics Lab →
                     </button>
                   </div>
                 </div>
 
-                <div className="lg:col-span-7 h-[500px] min-h-[500px] relative rounded-2xl overflow-hidden border border-[#E6E1D8] shadow-lg bg-[#FAF8F5] flex flex-col justify-between">
-                  <div className="bg-[#FAF8F5] border-b border-[#E6E1D8] px-4 py-2.5 flex items-center justify-between z-10 shrink-0">
-                    <h3 className="text-sm font-serif font-bold text-[#181B1F]">
+                <div className="lg:col-span-7 h-[500px] min-h-[500px] relative rounded-2xl overflow-hidden border border-[#EDE6DA] shadow-lg bg-[#FAF7F2] flex flex-col justify-between">
+                  <div className="bg-[#FAF7F2] border-b border-[#EDE6DA] px-4 py-2.5 flex items-center justify-between z-10 shrink-0">
+                    <h3 className="text-sm font-serif font-bold text-[#0E1B2E]">
                       {curVisionSite.name} · AI Vision Scanner
                     </h3>
                   </div>
@@ -736,8 +729,8 @@ export default function LandingPageView({
                     </div>
                   </div>
 
-                  <div className="bg-[#FAF8F5] border-t border-[#E6E1D8] px-4 py-2.5 font-mono text-[11px] text-[#4B5563]">
-                    <span>Telemetry: <strong className="text-[#181B1F]">{curDefect.metrics}</strong></span>
+                  <div className="bg-[#FAF7F2] border-t border-[#EDE6DA] px-4 py-2.5 font-mono text-[11px] text-[#334155]">
+                    <span>Telemetry: <strong className="text-[#0E1B2E]">{curDefect.metrics}</strong></span>
                   </div>
                 </div>
               </div>
@@ -747,40 +740,40 @@ export default function LandingPageView({
           {showcaseTab === 'temporal' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-5 space-y-4 text-left">
-                <h3 className="text-2xl font-serif font-bold text-[#181B1F]">
+                <h3 className="text-2xl font-serif font-bold text-[#0E1B2E]">
                   2030 Structural Decay Predictor
                 </h3>
-                <p className="text-sm text-[#4B5563] leading-relaxed font-sans">
+                <p className="text-sm text-[#334155] leading-relaxed font-sans">
                   Forecasting how damage will worsen over the next 4 to 6 years if left untreated. It proves that fixing minor cracks early for ₹3 Lakhs avoids ₹70+ Lakhs in emergency rebuilds later.
                 </p>
                 <div className="pt-2">
                   <button
                     onClick={onEnterDashboard}
-                    className="px-6 py-3 rounded-xl bg-amber-600 text-white font-mono text-xs font-bold hover:bg-amber-500 transition cursor-pointer shadow-md"
+                    className="px-6 py-3 rounded-xl bg-[#C5A059] text-white font-mono text-xs font-bold hover:bg-[#B89246] transition cursor-pointer shadow-md"
                   >
                     Run 2030 Predictive Lab →
                   </button>
                 </div>
               </div>
 
-              <div className="lg:col-span-7 bg-[#FAF8F5] p-6 rounded-2xl border border-[#E6E1D8] space-y-3 font-mono text-xs h-[480px] flex flex-col justify-center shadow-inner">
-                <div className="flex justify-between items-center text-[#64748B] border-b border-[#E6E1D8] pb-3 text-sm font-bold">
+              <div className="lg:col-span-7 bg-[#FAF7F2] p-6 rounded-2xl border border-[#EDE6DA] space-y-3 font-mono text-xs h-[480px] flex flex-col justify-center shadow-inner">
+                <div className="flex justify-between items-center text-[#64748B] border-b border-[#EDE6DA] pb-3 text-sm font-bold">
                   <span>Forecast Year</span>
                   <span>Predicted Health Score</span>
                 </div>
-                <div className="flex justify-between items-center text-[#181B1F] py-2.5 border-b border-[#E6E1D8]/60">
+                <div className="flex justify-between items-center text-[#0E1B2E] py-2.5 border-b border-[#EDE6DA]/60">
                   <span>2020 Baseline Survey</span>
                   <span className="text-emerald-600 font-bold">91 / 100 (Safe)</span>
                 </div>
-                <div className="flex justify-between items-center text-[#181B1F] py-2.5 border-b border-[#E6E1D8]/60">
+                <div className="flex justify-between items-center text-[#0E1B2E] py-2.5 border-b border-[#EDE6DA]/60">
                   <span>2024 Interim Survey</span>
                   <span className="text-emerald-700 font-bold">82 / 100 (Stable)</span>
                 </div>
-                <div className="flex justify-between items-center text-[#181B1F] py-2.5 border-b border-[#E6E1D8]/60">
+                <div className="flex justify-between items-center text-[#0E1B2E] py-2.5 border-b border-[#EDE6DA]/60">
                   <span>2026 Today (Current Scan)</span>
                   <span className="text-amber-600 font-bold">62 / 100 (Needs Attention)</span>
                 </div>
-                <div className="flex justify-between items-center text-rose-600 font-bold py-2.5 border-b border-[#E6E1D8]/60">
+                <div className="flex justify-between items-center text-rose-600 font-bold py-2.5 border-b border-[#EDE6DA]/60">
                   <span>2028 Projected (Untreated)</span>
                   <span>32 / 100 (Critical)</span>
                 </div>
@@ -795,23 +788,23 @@ export default function LandingPageView({
           {showcaseTab === 'gis' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-5 space-y-4 text-left">
-                <h3 className="text-2xl font-serif font-bold text-[#181B1F]">
+                <h3 className="text-2xl font-serif font-bold text-[#0E1B2E]">
                   National GIS Radar & Hazard Map
                 </h3>
-                <p className="text-sm text-[#4B5563] leading-relaxed font-sans">
+                <p className="text-sm text-[#334155] leading-relaxed font-sans">
                   View all 12 Centrally Protected Heritage Sites across India on an interactive map. Overlay live monsoon rainfall alerts and earthquake hazard zones to protect endangered sites in advance.
                 </p>
                 <div className="pt-2">
                   <button
                     onClick={onEnterDashboard}
-                    className="px-6 py-3 rounded-xl bg-emerald-600 text-white font-mono text-xs font-bold hover:bg-emerald-500 transition cursor-pointer shadow-md"
+                    className="px-6 py-3 rounded-xl bg-emerald-700 text-white font-mono text-xs font-bold hover:bg-emerald-600 transition cursor-pointer shadow-md"
                   >
                     Open National GIS Map →
                   </button>
                 </div>
               </div>
 
-              <div className="lg:col-span-7 h-[480px] min-h-[480px] relative rounded-2xl overflow-hidden border border-[#E6E1D8] shadow-lg bg-[#FAF8F5]">
+              <div className="lg:col-span-7 h-[480px] min-h-[480px] relative rounded-2xl overflow-hidden border border-[#EDE6DA] shadow-lg bg-[#FAF7F2]">
                 <HeritageGisMap
                   activeSiteIndex={0}
                   onSelectSite={(idx) => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
@@ -835,28 +828,28 @@ export default function LandingPageView({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-12 border-t border-[#E6E1D8]"
+        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-12 border-t border-[#EDE6DA]"
       >
         
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E6E1D8] text-[#C85A32] text-[11px] font-mono font-bold uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#EDE6DA] text-[#E06D44] text-[11px] font-mono font-bold uppercase tracking-wider mb-2">
             <span>🧪 Real-Time Physics Test</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#181B1F]">
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#0E1B2E]">
             Extreme Climate & Seismic Stress Simulator
           </h2>
-          <p className="text-sm text-[#4B5563] font-sans">
+          <p className="text-sm text-[#334155] font-sans">
             Adjust environmental parameters to see how climatic anomalies affect heritage site degradation in real-time.
           </p>
         </div>
 
-        <div className="bg-white border border-[#E6E1D8] p-8 sm:p-10 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-xl">
+        <div className="bg-white border border-[#EDE6DA] p-8 sm:p-10 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-xl">
           
           <div className="lg:col-span-7 space-y-6">
             <div className="space-y-2 text-left">
-              <div className="flex justify-between text-xs font-mono text-[#181B1F]">
+              <div className="flex justify-between text-xs font-mono text-[#0E1B2E]">
                 <span>🌧️ Monsoon Cloudburst Anomaly:</span>
-                <strong className="text-sky-600 font-bold">+{simMonsoon}% Excess Precipitation</strong>
+                <strong className="text-sky-700 font-bold">+{simMonsoon}% Excess Precipitation</strong>
               </div>
               <input
                 type="range"
@@ -864,12 +857,12 @@ export default function LandingPageView({
                 max="80"
                 value={simMonsoon}
                 onChange={(e) => setSimMonsoon(Number(e.target.value))}
-                className="w-full accent-[#C85A32] h-2 bg-[#E6E1D8] rounded-lg cursor-pointer"
+                className="w-full accent-[#E06D44] h-2 bg-[#EDE6DA] rounded-lg cursor-pointer"
               />
             </div>
 
             <div className="space-y-2 text-left">
-              <div className="flex justify-between text-xs font-mono text-[#181B1F]">
+              <div className="flex justify-between text-xs font-mono text-[#0E1B2E]">
                 <span>🌋 Seismic Ground Motion Velocity:</span>
                 <strong className="text-rose-600 font-bold">{simSeismic.toFixed(2)}x (Peak Zone Factor)</strong>
               </div>
@@ -880,13 +873,13 @@ export default function LandingPageView({
                 step="0.05"
                 value={simSeismic}
                 onChange={(e) => setSimSeismic(Number(e.target.value))}
-                className="w-full accent-[#C85A32] h-2 bg-[#E6E1D8] rounded-lg cursor-pointer"
+                className="w-full accent-[#E06D44] h-2 bg-[#EDE6DA] rounded-lg cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-[#FAF8F5] border border-[#E6E1D8] p-8 rounded-2xl text-center space-y-3 shadow-inner">
-            <span className="text-[10px] font-mono uppercase text-[#C85A32] tracking-widest font-bold">Simulated Health Score</span>
+          <div className="lg:col-span-5 bg-[#FAF7F2] border border-[#EDE6DA] p-8 rounded-2xl text-center space-y-3 shadow-inner">
+            <span className="text-[10px] font-mono uppercase text-[#E06D44] tracking-widest font-bold">Simulated Health Score</span>
             <div className="text-5xl font-serif font-bold">
               <span style={{ color: simulatedHealth < 45 ? '#DC2626' : simulatedHealth < 70 ? '#D97706' : '#16A34A' }}>
                 {simulatedHealth}
@@ -930,15 +923,15 @@ export default function LandingPageView({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-12 border-t border-[#E6E1D8]"
+        className="py-24 px-6 sm:px-12 lg:px-20 max-w-[1600px] mx-auto space-y-12 border-t border-[#EDE6DA]"
       >
         
         <div className="flex flex-wrap justify-between items-end gap-4">
           <div className="text-left">
-            <span className="text-xs font-mono text-[#C85A32] uppercase tracking-widest font-bold block">
+            <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold block">
               National Heritage Registry
             </span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#181B1F] mt-1">
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#0E1B2E] mt-1">
               Protected UNESCO Heritage Sites
             </h2>
           </div>
@@ -962,9 +955,9 @@ export default function LandingPageView({
               transition={{ duration: 0.5, delay: (idx % 3) * 0.08, ease: smoothEase }}
               whileHover={{ y: -8, scale: 1.02 }}
               onClick={() => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
-              className="bg-white border border-[#E6E1D8] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-[#C85A32]/50 transition-all duration-500 group cursor-pointer flex flex-col justify-between"
+              className="bg-white border border-[#EDE6DA] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-[#E06D44]/50 transition-all duration-500 group cursor-pointer flex flex-col justify-between"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-[#FAF8F5]">
+              <div className="relative aspect-[16/10] overflow-hidden bg-[#FAF7F2]">
                 <img
                   src={s.imageUrl || '/monuments/qutub_minar.jpg'}
                   alt={s.name}
@@ -986,15 +979,15 @@ export default function LandingPageView({
 
               <div className="p-6 space-y-3 text-left">
                 <div>
-                  <span className="text-[10px] font-mono text-[#C85A32] uppercase font-semibold">{s.state} · {s.period}</span>
-                  <h3 className="text-lg font-serif font-bold text-[#181B1F] group-hover:text-[#C85A32] transition mt-0.5">
+                  <span className="text-[10px] font-mono text-[#E06D44] uppercase font-semibold">{s.state} · {s.period}</span>
+                  <h3 className="text-lg font-serif font-bold text-[#0E1B2E] group-hover:text-[#E06D44] transition mt-0.5">
                     {s.name}
                   </h3>
                 </div>
 
-                <div className="flex justify-between items-center text-xs font-mono pt-3 border-t border-[#E6E1D8]">
-                  <span className="text-[#64748B]">Hazard: <strong className="text-[#181B1F]">{s.seismicZone}</strong></span>
-                  <span className="text-[#C85A32] font-bold flex items-center gap-1">
+                <div className="flex justify-between items-center text-xs font-mono pt-3 border-t border-[#EDE6DA]">
+                  <span className="text-[#64748B]">Hazard: <strong className="text-[#0E1B2E]">{s.seismicZone}</strong></span>
+                  <span className="text-[#E06D44] font-bold flex items-center gap-1">
                     <span>Explore Twin</span>
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                   </span>
@@ -1015,14 +1008,14 @@ export default function LandingPageView({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-100px" }}
         transition={{ duration: 0.8, ease: smoothEase }}
-        className="py-24 px-6 max-w-4xl mx-auto space-y-8 border-t border-[#E6E1D8]"
+        className="py-24 px-6 max-w-4xl mx-auto space-y-8 border-t border-[#EDE6DA]"
       >
         
         <div className="text-center space-y-2">
-          <span className="text-xs font-mono text-[#C85A32] uppercase tracking-widest font-bold">
+          <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold">
             Frequently Answered Questions
           </span>
-          <h2 className="text-3xl font-serif font-bold text-[#181B1F]">
+          <h2 className="text-3xl font-serif font-bold text-[#0E1B2E]">
             Heritage Shield Technical Architecture
           </h2>
         </div>
@@ -1033,18 +1026,18 @@ export default function LandingPageView({
             return (
               <div
                 key={idx}
-                className="bg-white border border-[#E6E1D8] shadow-sm rounded-2xl overflow-hidden transition hover:border-[#C85A32]/40"
+                className="bg-white border border-[#EDE6DA] shadow-sm rounded-2xl overflow-hidden transition hover:border-[#E06D44]/40"
               >
                 <button
                   onClick={() => setActiveFaq(isOpen ? null : idx)}
-                  className="w-full p-5 text-left flex justify-between items-center gap-4 font-serif font-bold text-base text-[#181B1F] hover:text-[#C85A32] cursor-pointer transition"
+                  className="w-full p-5 text-left flex justify-between items-center gap-4 font-serif font-bold text-base text-[#0E1B2E] hover:text-[#E06D44] cursor-pointer transition"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-5 h-5 text-[#C85A32] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-5 h-5 text-[#E06D44] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 text-xs text-[#4B5563] font-sans leading-relaxed border-t border-[#E6E1D8] pt-3.5">
+                  <div className="px-5 pb-5 text-xs text-[#334155] font-sans leading-relaxed border-t border-[#EDE6DA] pt-3.5">
                     {faq.a}
                   </div>
                 )}
@@ -1058,7 +1051,7 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       {/* 🛡️ 8. INSTITUTIONAL FOOTER                                                */}
       {/* ========================================================================= */}
-      <footer className="border-t border-[#E6E1D8] bg-[#FAF8F5] py-12 px-6">
+      <footer className="border-t border-[#EDE6DA] bg-[#FAF7F2] py-12 px-6">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-6 text-xs font-mono text-[#64748B]">
           
           <div className="flex items-center gap-3">

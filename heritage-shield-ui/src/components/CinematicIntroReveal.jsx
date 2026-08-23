@@ -40,7 +40,7 @@ export default function CinematicIntroReveal({ onComplete }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100000] bg-[#F7F5F0] flex items-center justify-center overflow-hidden select-none pointer-events-auto"
+      className="fixed inset-0 z-[100000] bg-[#FDFBF7] flex items-center justify-center overflow-hidden select-none pointer-events-auto"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
@@ -49,7 +49,7 @@ export default function CinematicIntroReveal({ onComplete }) {
       <div className="absolute top-6 right-6 z-[100002] pointer-events-auto">
         <button
           onClick={handleEnter}
-          className="px-4 py-2 rounded-xl bg-white border border-[#E6E1D8] text-xs font-mono font-bold text-[#181B1F] hover:text-[#C85A32] hover:border-[#C85A32] flex items-center gap-1.5 cursor-pointer shadow-md transition"
+          className="px-4 py-2 rounded-xl bg-white border border-[#EDE6DA] text-xs font-mono font-bold text-[#0E1B2E] hover:text-[#E06D44] hover:border-[#E06D44] flex items-center gap-1.5 cursor-pointer shadow-md transition"
           title="Skip to Website"
         >
           <span>Skip Intro</span>
@@ -64,7 +64,7 @@ export default function CinematicIntroReveal({ onComplete }) {
         
         {/* 🏛️ Left 3D Shutter (Khajuraho & Hampi Heritage Imagery) */}
         <motion.div
-          className="w-1/2 h-full relative overflow-hidden bg-[#FAF8F5] border-r border-[#C85A32]/40 shadow-2xl origin-left"
+          className="w-1/2 h-full relative overflow-hidden bg-[#FAF7F2] border-r border-[#E06D44]/40 shadow-2xl origin-left"
           initial={{ x: "0%", rotateY: 0, filter: "brightness(0.95)" }}
           animate={{
             x: isSplit ? "-102%" : "0%",
@@ -97,12 +97,12 @@ export default function CinematicIntroReveal({ onComplete }) {
           </div>
 
           {/* Shutter Atmospheric Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#181B1F]/60 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-[#C85A32]/10 mix-blend-color-dodge" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0E1B2E]/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[#E06D44]/10 mix-blend-color-dodge" />
 
           {/* Shutter Laser Telemetry Line */}
           <motion.div
-            className="absolute right-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#C85A32] to-[#B8860B] shadow-[0_0_15px_#C85A32]"
+            className="absolute right-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#E06D44] to-[#C5A059] shadow-[0_0_15px_#E06D44]"
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -110,7 +110,7 @@ export default function CinematicIntroReveal({ onComplete }) {
 
         {/* 🏛️ Right 3D Shutter (Konark & Qutub Minar Heritage Imagery) */}
         <motion.div
-          className="w-1/2 h-full relative overflow-hidden bg-[#FAF8F5] border-l border-[#C85A32]/40 shadow-2xl origin-right"
+          className="w-1/2 h-full relative overflow-hidden bg-[#FAF7F2] border-l border-[#E06D44]/40 shadow-2xl origin-right"
           initial={{ x: "0%", rotateY: 0, filter: "brightness(0.95)" }}
           animate={{
             x: isSplit ? "102%" : "0%",
@@ -143,12 +143,12 @@ export default function CinematicIntroReveal({ onComplete }) {
           </div>
 
           {/* Shutter Atmospheric Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-l from-[#181B1F]/60 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-[#B8860B]/10 mix-blend-color-dodge" />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#0E1B2E]/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[#C5A059]/10 mix-blend-color-dodge" />
 
           {/* Shutter Laser Telemetry Line */}
           <motion.div
-            className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#C85A32] to-[#B8860B] shadow-[0_0_15px_#C85A32]"
+            className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#E06D44] to-[#C5A059] shadow-[0_0_15px_#E06D44]"
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -165,7 +165,7 @@ export default function CinematicIntroReveal({ onComplete }) {
       <div 
         className="absolute w-[600px] h-[600px] rounded-full pointer-events-none blur-[90px] opacity-25 animate-pulse"
         style={{
-          background: 'radial-gradient(circle, rgba(200, 90, 50, 0.35) 0%, rgba(184, 134, 11, 0.15) 50%, transparent 75%)'
+          background: 'radial-gradient(circle, rgba(224, 109, 68, 0.35) 0%, rgba(197, 160, 89, 0.15) 50%, transparent 75%)'
         }}
       />
 
@@ -174,14 +174,14 @@ export default function CinematicIntroReveal({ onComplete }) {
         {[...Array(16)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-[#C85A32]"
+            className="absolute rounded-full bg-[#E06D44]"
             style={{
               width: (i % 3) + 2,
               height: (i % 3) + 2,
               top: `${(i * 17 + 5) % 100}%`,
               left: `${(i * 23 + 7) % 100}%`,
               opacity: 0.2 + (i % 3) * 0.15,
-              boxShadow: '0 0 6px rgba(200, 90, 50, 0.6)'
+              boxShadow: '0 0 6px rgba(224, 109, 68, 0.6)'
             }}
             animate={{
               y: [0, -35, 0],
@@ -216,7 +216,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           onClick={handleEnter}
         >
           {/* Outer Pulsing Halo */}
-          <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#C85A32]/25 via-[#E06D44]/20 to-[#B8860B]/25 blur-2xl animate-pulse" />
+          <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#E06D44]/25 via-[#C5A059]/20 to-[#0E1B2E]/25 blur-2xl animate-pulse" />
           
           <HeritageShieldLogo size="2xl" showText={false} />
         </motion.div>
@@ -229,10 +229,10 @@ export default function CinematicIntroReveal({ onComplete }) {
             y: isRevealed ? 0 : 50
           }}
           transition={{ duration: 0.85, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white border border-[#E6E1D8] shadow-md"
+          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white border border-[#EDE6DA] shadow-md"
         >
-          <span className="w-2 h-2 rounded-full bg-[#C85A32] animate-ping" />
-          <span className="text-[11px] font-mono text-[#C85A32] uppercase tracking-widest font-bold">
+          <span className="w-2 h-2 rounded-full bg-[#E06D44] animate-ping" />
+          <span className="text-[11px] font-mono text-[#E06D44] uppercase tracking-widest font-bold">
             Autonomous Digital Twin Architecture · SIH 2026
           </span>
         </motion.div>
@@ -247,10 +247,10 @@ export default function CinematicIntroReveal({ onComplete }) {
           transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="space-y-3"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#181B1F] tracking-tight leading-none">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#0E1B2E] tracking-tight leading-none">
             HERITAGE <span className="gold-cream-text">SHIELD</span>
           </h1>
-          <p className="text-sm sm:text-lg text-[#4B5563] font-sans leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm sm:text-lg text-[#334155] font-sans leading-relaxed max-w-2xl mx-auto">
             Preserving India's Architectural Soul Through Living Digital Twins & Autonomous Intelligence
           </p>
         </motion.div>
