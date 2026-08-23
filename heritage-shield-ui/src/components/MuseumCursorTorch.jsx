@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useScroll } from 'framer-motion';
-import OglMouseTrail from './OglMouseTrail';
+import LiquidFluidDistortion from './LiquidFluidDistortion';
 
 export default function MuseumCursorTorch() {
   const mouseX = useMotionValue(-500);
@@ -54,8 +54,8 @@ export default function MuseumCursorTorch() {
         style={{ scaleX }}
       />
 
-      {/* 🎨 2. OGL / WebGL Polyline Fluid Mouse Ribbon Effect */}
-      <OglMouseTrail />
+      {/* 🌊 2. WebGL Liquid Distortion, Fluid Flowmaps & Dynamic Mouse Trails */}
+      <LiquidFluidDistortion />
 
       {/* 🔦 3. Interactive Cursor Torch & Ambient Spotlight (Follows Mouse Fluidly) */}
       {isVisible && (
