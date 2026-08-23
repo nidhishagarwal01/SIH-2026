@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Sparkles, Compass, Shield, Eye } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import HeritageShieldLogo from './HeritageShieldLogo';
 
 export default function CinematicIntroReveal({ onComplete }) {
-  // Directly trigger smooth split animation immediately upon mount (no dead pause)
+  // Smooth split aperture animation immediately on mount
   const [isSplit, setIsSplit] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
+    // 🔒 Lock background scrolling completely on macOS & Mobile
+    const originalOverflow = document.body.style.overflow;
+    const originalTouchAction = document.body.style.touchAction;
+
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    window.scrollTo(0, 0);
+
+    const preventScroll = (e) => {
+      e.preventDefault();
+    };
+
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+
     // Start 3D split immediately upon load (100ms)
     const t1 = setTimeout(() => {
       setIsSplit(true);
     }, 100);
 
-    // Reveal the Heritage Shield Emblem & Portal Entrance (700ms)
+    // Reveal the Heritage Shield Center & Entrance (700ms)
     const t2 = setTimeout(() => {
       setIsRevealed(true);
     }, 700);
@@ -30,7 +45,12 @@ export default function CinematicIntroReveal({ onComplete }) {
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
+      document.body.style.overflow = originalOverflow;
+      document.body.style.touchAction = originalTouchAction;
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     };
   }, [onComplete]);
 
@@ -40,25 +60,13 @@ export default function CinematicIntroReveal({ onComplete }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100000] bg-[#FDFBF7] flex items-center justify-center overflow-hidden select-none pointer-events-auto"
+      className="fixed inset-0 z-[100000] bg-[#FDFBF7] flex items-center justify-center overflow-hidden select-none overscroll-none touch-none pointer-events-auto"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
     >
-      {/* ⚡ Instant Top-Right Skip Intro Button (Always Accessible) */}
-      <div className="absolute top-6 right-6 z-[100002] pointer-events-auto">
-        <button
-          onClick={handleEnter}
-          className="px-4 py-2 rounded-xl bg-white border border-[#EDE6DA] text-xs font-mono font-bold text-[#0E1B2E] hover:text-[#E06D44] hover:border-[#E06D44] flex items-center gap-1.5 cursor-pointer shadow-md transition"
-          title="Skip to Website"
-        >
-          <span>Skip Intro</span>
-          <span className="text-sm">✕</span>
-        </button>
-      </div>
-
       {/* ========================================================================= */}
-      {/* 🏛️ 1. 3D APERTURE SPLIT PANELS (MULTI-MONUMENT MOSAIC SHUTTERS)            */}
+      {/* 🏛️ 1. 3D APERTURE SPLIT PANELS (HERITAGE MONUMENT MOSAIC SHUTTERS)        */}
       {/* ========================================================================= */}
       <div className="absolute inset-0 flex pointer-events-none z-10" style={{ transformStyle: 'preserve-3d' }}>
         
@@ -98,9 +106,9 @@ export default function CinematicIntroReveal({ onComplete }) {
 
           {/* Shutter Atmospheric Overlays */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#0E1B2E]/60 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-[#E06D44]/10 mix-blend-color-dodge" />
+          <div className="absolute inset-0 bg-[#E06D44]/10 mix-blend-color-burn pointer-events-none" />
 
-          {/* Shutter Laser Telemetry Line */}
+          {/* Shutter Golden Edge Glow Accent */}
           <motion.div
             className="absolute right-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#E06D44] to-[#C5A059] shadow-[0_0_15px_#E06D44]"
             animate={{ opacity: [0.6, 1, 0.6] }}
@@ -108,7 +116,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           />
         </motion.div>
 
-        {/* 🏛️ Right 3D Shutter (Konark & Qutub Minar Heritage Imagery) */}
+        {/* 🏛️ Right 3D Shutter (Taj Mahal & Konark Sun Temple Imagery) */}
         <motion.div
           className="w-1/2 h-full relative overflow-hidden bg-[#FAF7F2] border-l border-[#E06D44]/40 shadow-2xl origin-right"
           initial={{ x: "0%", rotateY: 0, filter: "brightness(0.95)" }}
@@ -123,19 +131,19 @@ export default function CinematicIntroReveal({ onComplete }) {
           }}
         >
           {/* Dual Monument Composite */}
-          <div className="absolute inset-0 -left-full grid grid-rows-2 h-full w-[200%] max-w-none">
+          <div className="absolute inset-0 grid grid-rows-2 h-full w-[200%] max-w-none -translate-x-1/2">
             <div className="relative h-full overflow-hidden">
               <img
-                src="/monuments/konark.jpg"
-                alt="Konark Sun Temple Carvings"
+                src="/monuments/taj_mahal.jpg"
+                alt="Taj Mahal White Marble"
                 className="w-full h-full object-cover object-right filter brightness-[0.85] contrast-105"
               />
               <div className="absolute inset-0 bg-gradient-to-l from-black/60 via-transparent to-transparent" />
             </div>
             <div className="relative h-full overflow-hidden">
               <img
-                src="/monuments/qutub_minar.jpg"
-                alt="Qutub Minar Fluted Masonry"
+                src="/monuments/konark.jpg"
+                alt="Konark Sun Temple Wheel"
                 className="w-full h-full object-cover object-right filter brightness-[0.8] contrast-105"
               />
               <div className="absolute inset-0 bg-gradient-to-l from-black/60 via-transparent to-transparent" />
@@ -144,9 +152,9 @@ export default function CinematicIntroReveal({ onComplete }) {
 
           {/* Shutter Atmospheric Overlays */}
           <div className="absolute inset-0 bg-gradient-to-l from-[#0E1B2E]/60 via-transparent to-transparent" />
-          <div className="absolute inset-0 bg-[#C5A059]/10 mix-blend-color-dodge" />
+          <div className="absolute inset-0 bg-[#E06D44]/10 mix-blend-color-burn pointer-events-none" />
 
-          {/* Shutter Laser Telemetry Line */}
+          {/* Shutter Golden Edge Glow Accent */}
           <motion.div
             className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#E06D44] to-[#C5A059] shadow-[0_0_15px_#E06D44]"
             animate={{ opacity: [0.6, 1, 0.6] }}
@@ -221,22 +229,6 @@ export default function CinematicIntroReveal({ onComplete }) {
           <HeritageShieldLogo size="2xl" showText={false} />
         </motion.div>
 
-        {/* 🏛️ National Authority Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{
-            opacity: isRevealed ? 1 : 0,
-            y: isRevealed ? 0 : 50
-          }}
-          transition={{ duration: 0.85, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white border border-[#EDE6DA] shadow-md"
-        >
-          <span className="w-2 h-2 rounded-full bg-[#E06D44] animate-ping" />
-          <span className="text-[11px] font-mono text-[#E06D44] uppercase tracking-widest font-bold">
-            Autonomous Digital Twin Architecture · SIH 2026
-          </span>
-        </motion.div>
-
         {/* 🏛️ Grand Monolithic Title */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
@@ -248,14 +240,14 @@ export default function CinematicIntroReveal({ onComplete }) {
           className="space-y-3"
         >
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#0E1B2E] tracking-tight leading-none">
-            HERITAGE <span className="gold-cream-text">SHIELD</span>
+            HERITAGE <span className="text-[#E06D44]">SHIELD</span>
           </h1>
           <p className="text-sm sm:text-lg text-[#334155] font-sans leading-relaxed max-w-2xl mx-auto">
             Preserving India's Architectural Soul Through Living Digital Twins & Autonomous Intelligence
           </p>
         </motion.div>
 
-        {/* 🚀 4. USER CONTROLLED TACTILE ACTION (NO AUTO TIMEOUT) */}
+        {/* 🚀 4. USER CONTROLLED TACTILE ACTION */}
         <motion.div
           initial={{ opacity: 0, y: 40, scale: 0.9 }}
           animate={{
@@ -271,7 +263,7 @@ export default function CinematicIntroReveal({ onComplete }) {
             onClick={handleEnter}
             className="px-9 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-3 cursor-pointer shadow-lg hover:scale-105"
           >
-            <span>Enter Command Portal</span>
+            <span>Enter Platform</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </motion.div>

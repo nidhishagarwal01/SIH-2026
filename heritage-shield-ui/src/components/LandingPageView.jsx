@@ -39,7 +39,7 @@ import HeritageShieldLogo from './HeritageShieldLogo';
 import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
-import VerticalColumnsIntro from './VerticalColumnsIntro';
+import CinematicIntroReveal from './CinematicIntroReveal';
 
 export default function LandingPageView({ 
   onEnterDashboard, 
@@ -182,9 +182,9 @@ export default function LandingPageView({
         />
       )}
 
-      {/* 🏛️ Vertical Columns Image Parallax Intro Page */}
+      {/* 🎬 Split-Reveal Aperture Intro Screen */}
       <AnimatePresence>
-        {showIntro && <VerticalColumnsIntro onComplete={() => setShowIntro(false)} />}
+        {showIntro && <CinematicIntroReveal onComplete={() => setShowIntro(false)} />}
       </AnimatePresence>
 
       {/* 🌟 1. TOP MINIMALIST ARCHIVAL IVORY & DEEP INDIGO NAVIGATION BAR */}
