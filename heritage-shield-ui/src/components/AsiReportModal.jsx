@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import HeritageShieldLogo from './HeritageShieldLogo';
 
 export default function AsiReportModal({
   isOpen,
@@ -167,8 +168,8 @@ export default function AsiReportModal({
             <div className="bg-[#101216] border-2 border-amber-500/30 rounded-2xl p-8 shadow-2xl space-y-6 text-center my-4">
               
               {/* National Crest & Header */}
-              <div className="w-16 h-16 rounded-2xl bg-[#181B22] border border-[#C5A059]/40 mx-auto flex items-center justify-center text-3xl shadow-lg shadow-amber-950/20">
-                🏛️
+              <div className="flex justify-center my-2">
+                <HeritageShieldLogo size="lg" showText={false} />
               </div>
 
               <div className="space-y-1 max-w-lg mx-auto">

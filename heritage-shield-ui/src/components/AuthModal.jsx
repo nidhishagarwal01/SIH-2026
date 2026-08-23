@@ -14,6 +14,7 @@ import {
   Sparkles,
   MapPin
 } from 'lucide-react';
+import HeritageShieldLogo from './HeritageShieldLogo';
 
 export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }) {
   const [role, setRole] = useState('officer'); // 'officer' | 'public'
@@ -94,13 +95,16 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
             
             {/* Modal Header */}
             <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-white/10 text-[#E06D44] border border-white/15">
-                  <Shield className="w-5 h-5" />
-                </span>
-                <span className="text-xs font-mono font-bold text-[#E06D44] uppercase tracking-wider">
-                  Heritage Shield Authentication
-                </span>
+              <div className="flex items-center gap-3">
+                <HeritageShieldLogo size="sm" showText={false} />
+                <div>
+                  <span className="text-xs font-mono font-bold text-[#E06D44] uppercase tracking-wider block">
+                    Heritage Shield Authentication
+                  </span>
+                  <span className="text-[10px] font-mono text-gray-400">
+                    Sovereign Built Heritage Custodian Gate
+                  </span>
+                </div>
               </div>
               <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#FDFBF7]">
                 Portal Login & Access
