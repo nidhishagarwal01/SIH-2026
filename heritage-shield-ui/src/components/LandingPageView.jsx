@@ -339,13 +339,13 @@ export default function LandingPageView({
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
-            className={`w-full h-full object-cover object-center ${isDarkTheme ? 'brightness-[0.88] contrast-[1.28] saturate-[1.2] sepia-[0.1]' : 'brightness-[0.78] contrast-[1.22] sepia-[0.32] saturate-[1.4]'} transition-all duration-700`}
+            className={`w-full h-full object-cover object-center ${isDarkTheme ? 'brightness-[0.58] contrast-[1.18] sepia-[0.38] saturate-[1.1] hue-rotate-[-10deg]' : 'brightness-[0.78] contrast-[1.22] sepia-[0.32] saturate-[1.4]'} transition-all duration-700`}
           />
 
-          {/* Sunlit Sandstone & Cinematic Nocturnal Lighting Gradients */}
-          <div className={`absolute inset-0 bg-gradient-to-t ${isDarkTheme ? 'from-[#120A06] via-[#120A06]/30 to-black/40' : 'from-[#F0E7DA] via-[#F0E7DA]/80 to-[#F0E7DA]/45'} transition-all duration-500`} />
-          <div className={`absolute inset-0 bg-gradient-to-r ${isDarkTheme ? 'from-[#120A06]/60 via-transparent to-[#120A06]/60' : 'from-[#F0E7DA]/90 via-transparent to-[#F0E7DA]/90'} transition-all duration-500`} />
-          <div className={`absolute inset-0 ${isDarkTheme ? 'bg-[#BA532B]/12 mix-blend-overlay' : 'bg-[#BA532B]/8 mix-blend-color-burn'}`} />
+          {/* Sunlit Sandstone & Submerged Nocturnal Lighting Gradients */}
+          <div className={`absolute inset-0 bg-gradient-to-t ${isDarkTheme ? 'from-[#120A06] via-[#120A06]/65 to-[#120A06]/40' : 'from-[#F0E7DA] via-[#F0E7DA]/80 to-[#F0E7DA]/45'} transition-all duration-500`} />
+          <div className={`absolute inset-0 bg-gradient-to-r ${isDarkTheme ? 'from-[#120A06]/85 via-transparent to-[#120A06]/85' : 'from-[#F0E7DA]/90 via-transparent to-[#F0E7DA]/90'} transition-all duration-500`} />
+          <div className={`absolute inset-0 ${isDarkTheme ? 'bg-[#BA532B]/15 mix-blend-color-burn' : 'bg-[#BA532B]/8 mix-blend-color-burn'}`} />
 
           {/* Floating Subtle Ambient Sandstone Motes */}
           <div className="absolute inset-0">
