@@ -274,7 +274,7 @@ export default function CinematicIntroReveal({ onComplete }) {
       {/* ========================================================================= */}
       <div className="relative z-30 flex flex-col items-center justify-center text-center px-6 max-w-4xl space-y-6">
         
-        {/* 🏛️ Official Royal Logo Emblem with 1. ☀️ Ashoka Solar Mandala Halo */}
+        {/* 🏛️ Official Royal Logo Emblem with 1. ☀️ Ashoka Solar Mandala Halo (Layered Behind) */}
         <motion.div
           initial={{ opacity: 0, y: 80, scale: 0.7, rotateX: 20 }}
           animate={{
@@ -284,19 +284,19 @@ export default function CinematicIntroReveal({ onComplete }) {
             rotateX: isRevealed ? 0 : 20
           }}
           transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-          className="relative group cursor-pointer"
+          className="relative group cursor-pointer z-10"
           onClick={handleEnter}
         >
-          {/* 1. ☀️ Rotating Ashoka Solar Mandala Ray Halo */}
+          {/* 1. ☀️ Rotating Ashoka Solar Mandala Ray Halo (Layered Strictly Behind) */}
           <motion.div
-            className="absolute -inset-24 pointer-events-none flex items-center justify-center"
+            className="absolute -inset-10 pointer-events-none flex items-center justify-center -z-10"
             animate={{ rotate: 360 }}
             transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
           >
-            <svg viewBox="0 0 260 260" className="w-full h-full opacity-45 filter drop-shadow-[0_0_15px_rgba(186,83,43,0.45)]">
-              <circle cx="130" cy="130" r="115" stroke="#C29244" strokeWidth="1.2" strokeDasharray="4 4" fill="none" />
-              <circle cx="130" cy="130" r="100" stroke="#BA532B" strokeWidth="1.6" fill="none" opacity="0.85" />
-              <circle cx="130" cy="130" r="88" stroke="#C29244" strokeWidth="0.8" fill="none" opacity="0.65" />
+            <svg viewBox="0 0 220 220" className="w-full h-full opacity-40 filter drop-shadow-[0_0_12px_rgba(186,83,43,0.4)]">
+              <circle cx="110" cy="110" r="95" stroke="#C29244" strokeWidth="1.2" strokeDasharray="4 4" fill="none" />
+              <circle cx="110" cy="110" r="82" stroke="#BA532B" strokeWidth="1.5" fill="none" opacity="0.8" />
+              <circle cx="110" cy="110" r="70" stroke="#C29244" strokeWidth="0.8" fill="none" opacity="0.6" />
               
               {/* 24 Radiant Ashoka Sun Wheel Spoke Rays */}
               {[...Array(24)].map((_, idx) => {
@@ -305,13 +305,13 @@ export default function CinematicIntroReveal({ onComplete }) {
                 return (
                   <line
                     key={idx}
-                    x1="130"
-                    y1="130"
-                    x2={130 + 100 * Math.cos(rad)}
-                    y2={130 + 100 * Math.sin(rad)}
+                    x1="110"
+                    y1="110"
+                    x2={110 + 82 * Math.cos(rad)}
+                    y2={110 + 82 * Math.sin(rad)}
                     stroke="#C29244"
-                    strokeWidth="1.3"
-                    opacity="0.8"
+                    strokeWidth="1.2"
+                    opacity="0.75"
                   />
                 );
               })}
@@ -319,12 +319,12 @@ export default function CinematicIntroReveal({ onComplete }) {
           </motion.div>
 
           {/* Outer Pulsing Aura */}
-          <div className="absolute -inset-8 rounded-full bg-gradient-to-r from-[#BA532B]/30 via-[#C29244]/25 to-[#24160E]/25 blur-2xl animate-pulse" />
+          <div className="absolute -inset-6 rounded-full bg-gradient-to-r from-[#BA532B]/30 via-[#C29244]/25 to-[#24160E]/25 blur-2xl animate-pulse -z-10" />
           
           <HeritageShieldLogo size="2xl" showText={false} />
         </motion.div>
 
-        {/* 🏛️ Grand Monolithic Title */}
+        {/* 🏛️ Grand Monolithic Title (Layered Above on z-20) */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{
@@ -332,9 +332,9 @@ export default function CinematicIntroReveal({ onComplete }) {
             y: isRevealed ? 0 : 60
           }}
           transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="space-y-3"
+          className="space-y-3 relative z-20"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] tracking-tight leading-none">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] tracking-tight leading-none drop-shadow-sm">
             HERITAGE <span className="text-[#BA532B]">SHIELD</span>
           </h1>
           <p className="text-sm sm:text-lg text-[#4D3425] font-sans leading-relaxed max-w-2xl mx-auto font-medium">
