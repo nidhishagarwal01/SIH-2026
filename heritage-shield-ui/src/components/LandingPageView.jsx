@@ -187,6 +187,19 @@ export default function LandingPageView({
   const flagshipSites = sites.slice(0, 6);
   const smoothEase = [0.16, 1, 0.3, 1];
 
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const navOffset = 80;
+      const elementPosition = el.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <div 
       onMouseMove={handleMouseMove}
@@ -238,42 +251,42 @@ export default function LandingPageView({
 
           {/* Center: Minimalist Nav Links */}
           <div className="hidden lg:flex items-center gap-8 text-xs font-mono tracking-widest uppercase">
-            <a 
-              href="#hero-section" 
-              className="text-[#BA532B] font-bold transition hover:opacity-80"
+            <button 
+              onClick={() => scrollToSection('hero-section')}
+              className="text-[#BA532B] font-bold transition hover:opacity-80 cursor-pointer"
             >
               Overview
-            </a>
-            <a 
-              href="#pipeline-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            </button>
+            <button 
+              onClick={() => scrollToSection('pipeline-section')}
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
             >
               Architecture
-            </a>
-            <a 
-              href="#consoles-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            </button>
+            <button 
+              onClick={() => scrollToSection('consoles-section')}
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
             >
               Living Twins
-            </a>
-            <a 
-              href="#simulator-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            </button>
+            <button 
+              onClick={() => scrollToSection('simulator-section')}
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
             >
               2030 Predictor
-            </a>
-            <a 
-              href="#registry-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            </button>
+            <button 
+              onClick={() => scrollToSection('registry-section')}
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
             >
               Heritage Sites
-            </a>
-            <a 
-              href="#faq-section" 
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold"
+            </button>
+            <button 
+              onClick={() => scrollToSection('faq-section')}
+              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
             >
               Archive FAQ
-            </a>
+            </button>
           </div>
 
           {/* Right: Actions & Login */}
@@ -403,31 +416,6 @@ export default function LandingPageView({
               <span>Launch National Studio</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-          </motion.div>
-
-          {/* Clean Integrated Telemetry Metrics Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.35, ease: smoothEase }}
-            className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 w-full max-w-4xl border-t border-[#DACDB8]/80 mt-4"
-          >
-            <div className="space-y-1">
-              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#24160E] block">12</span>
-              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">Living Twins</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#BA532B] block">4.8M+</span>
-              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">Point Clouds</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#C29244] block">0.02mm</span>
-              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">FEM Precision</span>
-            </div>
-            <div className="space-y-1">
-              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#24160E] block">ISO 31000</span>
-              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">Risk Standard</span>
-            </div>
           </motion.div>
 
         </div>
