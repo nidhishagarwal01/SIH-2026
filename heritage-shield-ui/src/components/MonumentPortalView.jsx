@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { 
   Shield, 
   MapPin, 
@@ -29,6 +29,13 @@ export default function MonumentPortalView({
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [stateFilter, setStateFilter] = useState('ALL');
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   const uniqueStates = ['ALL', ...Array.from(new Set(sites.map(s => s.state)))].sort();
 
@@ -60,6 +67,12 @@ export default function MonumentPortalView({
   return (
     <div className="min-h-screen bg-[#F7F5F0] text-[#181B1F] font-sans flex flex-col selection:bg-[#C85A32] selection:text-white museum-bg">
       
+      {/* 🚀 TOP SPRING-SMOOTHED SCROLL PROGRESS BAR */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#C85A32] via-[#E06D44] to-[#B8860B] z-[100001] origin-left shadow-sm pointer-events-none"
+        style={{ scaleX }}
+      />
+
       {/* 🏛️ 1. TOP COMMAND BAR */}
       <header className="sticky top-0 z-[9999] bg-[#FAF8F5]/90 backdrop-blur-2xl border-b border-[#E6E1D8] px-6 py-4 shadow-sm">
         <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
@@ -241,10 +254,10 @@ export default function MonumentPortalView({
             {filteredSites.map((site, idx) => (
               <motion.div
                 key={site.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-30px" }}
-                transition={{ duration: 0.45, delay: (idx % 4) * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ opacity: 0, y: 35, scale: 0.97 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: (idx % 4) * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -8, scale: 1.02 }}
                 onClick={() => onSelectMonument(site.index)}
                 className="group cursor-pointer bg-white border border-[#E6E1D8] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-[#C85A32]/50 transition-all duration-500 flex flex-col justify-between"

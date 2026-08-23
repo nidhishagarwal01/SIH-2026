@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { 
+  motion, 
+  AnimatePresence, 
+  useScroll, 
+  useSpring, 
+  useTransform, 
+  useInView 
+} from 'framer-motion';
 import { 
   Shield, 
   Layers, 
@@ -46,7 +53,6 @@ export default function LandingPageView({
   onLogout
 }) {
   // State for Interactive Hero Banner Display Mode
-  const [heroMode, setHeroMode] = useState('split');
   const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
   
   // State for Auth Modal
@@ -66,6 +72,32 @@ export default function LandingPageView({
 
   // State for Cinematic Split-Reveal Intro on Page Load / Refresh
   const [showIntro, setShowIntro] = useState(true);
+
+  // ---------------------------------------------------------------------------
+  // 🌟 MOTION SCROLL-LINKED & SCROLL-TRIGGERED ANIMATION HOOKS (motion.dev standard)
+  // ---------------------------------------------------------------------------
+  const containerRef = useRef(null);
+  const { scrollYProgress, scrollY } = useScroll();
+
+  // 1. Hardware-accelerated smooth spring scroll progress bar
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  // 2. Parallax layers for Hero section
+  const heroParallaxY = useTransform(scrollY, [0, 700], [0, 90]);
+  const heroImgScale = useTransform(scrollY, [0, 700], [1, 1.12]);
+  const heroCardRotate = useTransform(scrollY, [0, 500], [0, -2]);
+
+  // 3. Scroll-linked horizontal telemetry ticker (Moves with vertical scroll)
+  const tickerX1 = useTransform(scrollY, [0, 2000], [0, -320]);
+  const tickerX2 = useTransform(scrollY, [0, 2000], [-320, 0]);
+
+  // 4. Subtle parallax depth for sandbox and stress simulator
+  const sandboxParallaxY = useTransform(scrollYProgress, [0.2, 0.6], [30, -30]);
+  const simParallaxY = useTransform(scrollYProgress, [0.5, 0.85], [30, -25]);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
@@ -163,8 +195,14 @@ export default function LandingPageView({
   const flagshipSites = sites.slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-[#F7F5F0] text-[#181B1F] font-sans selection:bg-[#C85A32] selection:text-white overflow-x-hidden relative museum-bg">
+    <div ref={containerRef} className="min-h-screen bg-[#F7F5F0] text-[#181B1F] font-sans selection:bg-[#C85A32] selection:text-white overflow-x-hidden relative museum-bg">
       
+      {/* 🚀 TOP SPRING-SMOOTHED HARDWARE-ACCELERATED SCROLL PROGRESS BAR */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#C85A32] via-[#E06D44] to-[#B8860B] z-[100001] origin-left shadow-sm pointer-events-none"
+        style={{ scaleX }}
+      />
+
       {/* 🎬 Split-Reveal of Monument Images & Rising Heritage Shield Intro */}
       <AnimatePresence>
         {showIntro && <CinematicIntroReveal onComplete={handleIntroComplete} />}
@@ -275,15 +313,19 @@ export default function LandingPageView({
       </motion.nav>
 
       {/* ========================================================================= */}
-      {/* 🚀 2. CINEMATIC SOVEREIGN SANDSTONE HERO BANNER                             */}
+      {/* 🚀 2. SCROLL-LINKED PARALLAX HERO BANNER (Motion.dev standard)             */}
       {/* ========================================================================= */}
-      <section id="hero-banner" className="relative pt-6 pb-16 px-4 sm:px-6 max-w-[1600px] mx-auto">
+      <section id="hero-banner" className="relative pt-6 pb-14 px-4 sm:px-6 max-w-[1600px] mx-auto overflow-hidden">
         
-        <div className="relative rounded-3xl overflow-hidden border border-[#E6E1D8] bg-white shadow-xl min-h-[620px] flex items-center p-6 sm:p-10 lg:p-14">
+        <motion.div 
+          style={{ y: heroParallaxY }}
+          className="relative rounded-3xl overflow-hidden border border-[#E6E1D8] bg-white shadow-xl min-h-[620px] flex items-center p-6 sm:p-10 lg:p-14"
+        >
           
-          {/* Subtle Architectural Ambient Vignette */}
-          <div className="absolute inset-0 z-0 select-none pointer-events-none opacity-25">
-            <img
+          {/* Subtle Architectural Ambient Vignette with Parallax Zoom */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-none opacity-25 overflow-hidden">
+            <motion.img
+              style={{ scale: heroImgScale }}
               src="/monuments/khajuraho.jpg"
               alt="Indian Built Heritage Masterpiece"
               className="absolute inset-0 w-full h-full object-cover object-center filter brightness-110 contrast-105"
@@ -294,12 +336,13 @@ export default function LandingPageView({
           {/* Two-Column Grid: Left Floating Showcase Card + Right Majestic Headline */}
           <div className="relative z-20 w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            {/* 📱 LEFT COLUMN: Floating Showcase Card */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-start" style={{ perspective: 1000 }}>
+            {/* 📱 LEFT COLUMN: Floating Showcase Card with 3D Tilt & Scroll Physics */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-start" style={{ perspective: 1200 }}>
               <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
+                style={{ rotateZ: heroCardRotate }}
+                initial={{ opacity: 0, x: -40, rotateY: 10 }}
+                animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ y: -8, rotateX: 4, rotateY: -4, scale: 1.02 }}
                 className="w-full max-w-sm rounded-[2.25rem] border border-[#E6E1D8] bg-white shadow-2xl p-4 sm:p-5 space-y-4 relative group cursor-pointer"
                 style={{
@@ -389,7 +432,7 @@ export default function LandingPageView({
               
               {/* National Authority Eyebrow Badge */}
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF8F5] border border-[#E6E1D8] shadow-sm"
@@ -402,9 +445,9 @@ export default function LandingPageView({
 
               {/* Main Display Headline */}
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#181B1F] tracking-tight leading-[1.12]"
               >
                 Custodian of Heritage & <span className="gold-cream-text">Living Digital Twins</span>
@@ -412,9 +455,9 @@ export default function LandingPageView({
 
               {/* Authoritative Cultural Subtitle */}
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="text-base sm:text-lg text-[#4B5563] font-sans leading-relaxed max-w-xl"
               >
                 Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 3,690+ protected monuments with auditable foresight.
@@ -422,9 +465,9 @@ export default function LandingPageView({
 
               {/* Action Buttons */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-wrap items-center gap-4 pt-2"
               >
                 <button
@@ -447,20 +490,65 @@ export default function LandingPageView({
 
           </div>
 
-        </div>
+        </motion.div>
+
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 📜 2.5 SCROLL-DRIVEN DUAL TELEMETRY TICKER (Motion.dev Marquee pattern)   */}
+      {/* ========================================================================= */}
+      <section className="py-4 overflow-hidden border-y border-[#E6E1D8] bg-[#FAF8F5]/80 select-none">
+        
+        {/* Track 1 (Scrolls Left) */}
+        <motion.div style={{ x: tickerX1 }} className="flex items-center gap-8 whitespace-nowrap text-xs font-mono font-bold uppercase text-[#64748B]">
+          {[...Array(3)].map((_, loopIdx) => (
+            <React.Fragment key={`loop1-${loopIdx}`}>
+              <span className="flex items-center gap-2 text-[#C85A32]">
+                <span>🏛️</span> 12 UNESCO CENTRALLY PROTECTED MONUMENTS
+              </span>
+              <span className="text-[#E6E1D8]">•</span>
+              <span>PARIS-ERDOGAN CRACK MECHANICS</span>
+              <span className="text-[#E6E1D8]">•</span>
+              <span className="text-emerald-700">ISO 31000:2018 AUDITABLE RISK ENGINE</span>
+              <span className="text-[#E6E1D8]">•</span>
+              <span>ISRO BHUVAN WGS84 GIS RADAR</span>
+              <span className="text-[#E6E1D8]">•</span>
+              <span className="text-sky-700">OFFLINE-FIRST FIELD SENTINEL</span>
+              <span className="text-[#E6E1D8]">•</span>
+            </React.Fragment>
+          ))}
+        </motion.div>
+
+        {/* Track 2 (Scrolls Right in Counter Direction) */}
+        <motion.div style={{ x: tickerX2 }} className="flex items-center gap-8 whitespace-nowrap text-[11px] font-mono font-semibold uppercase text-[#94A3B8] pt-2">
+          {[...Array(3)].map((_, loopIdx) => (
+            <React.Fragment key={`loop2-${loopIdx}`}>
+              <span>ARCHAEOLOGICAL SURVEY OF INDIA (ASI)</span>
+              <span className="text-[#E6E1D8]">•</span>
+              <span className="text-[#B8860B]">MINISTRY OF CULTURE</span>
+              <span className="text-[#E6E1D8]">•</span>
+              <span>SMART INDIA HACKATHON 2026 (TEAM ID: 031)</span>
+              <span className="text-[#E6E1D8]">•</span>
+              <span>MILLIMETER LIDAR POINT CLOUD ALIGNMENT</span>
+              <span className="text-[#E6E1D8]">•</span>
+              <span className="text-rose-700">2026-2030 DECAY FORECASTING</span>
+              <span className="text-[#E6E1D8]">•</span>
+            </React.Fragment>
+          ))}
+        </motion.div>
 
       </section>
 
       {/* ========================================================================= */}
       {/* 🏛️ 3. "THE DECISION LAYER, MODULE BY MODULE" (8 DETAILED MODULES)          */}
       {/* ========================================================================= */}
-      <section id="decision-modules" className="py-20 px-6 max-w-[1600px] mx-auto space-y-12">
+      <section id="decision-modules" className="py-24 px-6 max-w-[1600px] mx-auto space-y-12">
         
-        {/* Section Header */}
+        {/* Section Header with Scroll-Triggered Push Down */}
         <motion.div 
-          initial={{ opacity: 0, y: 45 }}
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: false, margin: "-80px" }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl space-y-3"
         >
@@ -477,18 +565,18 @@ export default function LandingPageView({
           </p>
         </motion.div>
 
-        {/* 8-Module Interactive Grid */}
+        {/* 8-Module Interactive Grid with Staggered Scroll-Triggered In-View Animation */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {workflowSteps.map((mod, idx) => {
             const isSelected = activeWorkflowIndex === idx;
             return (
               <motion.div
                 key={mod.step}
-                initial={{ opacity: 0, y: 35 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -7, scale: 1.02 }}
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, margin: "-50px" }}
+                transition={{ duration: 0.55, delay: (idx % 4) * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -8, scale: 1.02 }}
                 onClick={() => setActiveWorkflowIndex(idx)}
                 className={`p-6 rounded-3xl border transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-4 group ${
                   isSelected
@@ -525,13 +613,13 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       {/* 💻 4. INTERACTIVE LIVE CONSOLE SANDBOX SHOWCASE                           */}
       {/* ========================================================================= */}
-      <section id="sandbox-showcase" className="py-20 px-6 bg-[#FAF8F5] border-y border-[#E6E1D8] relative">
+      <section id="sandbox-showcase" className="py-24 px-6 bg-[#FAF8F5] border-y border-[#E6E1D8] relative">
         <div className="max-w-[1600px] mx-auto space-y-8">
           
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
+            viewport={{ once: false, margin: "-60px" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-wrap justify-between items-end gap-4"
           >
@@ -593,8 +681,15 @@ export default function LandingPageView({
             </div>
           </motion.div>
 
-          {/* Sandbox Showcase Display Container */}
-          <div className="bg-white border border-[#E6E1D8] rounded-3xl overflow-hidden shadow-xl p-6 sm:p-8 relative">
+          {/* Sandbox Showcase Display Container with Scroll-Linked Parallax */}
+          <motion.div 
+            style={{ y: sandboxParallaxY }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-60px" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="bg-white border border-[#E6E1D8] rounded-3xl overflow-hidden shadow-xl p-6 sm:p-8 relative"
+          >
             
             {showcaseTab === 'twin' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -840,7 +935,7 @@ export default function LandingPageView({
               </div>
             )}
 
-          </div>
+          </motion.div>
 
         </div>
       </section>
@@ -848,12 +943,12 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       {/* 🧪 6. INTERACTIVE ENVIRONMENTAL STRESS & SCENARIO SIMULATOR               */}
       {/* ========================================================================= */}
-      <section id="climate-simulator" className="py-20 px-6 max-w-[1600px] mx-auto space-y-12">
+      <section id="climate-simulator" className="py-24 px-6 max-w-[1600px] mx-auto space-y-12">
         
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 45 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: false, margin: "-60px" }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="text-center max-w-2xl mx-auto space-y-2"
         >
@@ -869,10 +964,11 @@ export default function LandingPageView({
         </motion.div>
 
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          style={{ y: simParallaxY }}
+          initial={{ opacity: 0, y: 50, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, margin: "-60px" }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="bg-white border border-[#E6E1D8] p-8 sm:p-10 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-xl"
         >
           
@@ -948,9 +1044,15 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       {/* 🏛️ 7. CENTRALLY PROTECTED MONUMENTS REGISTRY GALLERY                      */}
       {/* ========================================================================= */}
-      <section id="monument-registry" className="py-20 px-6 max-w-[1600px] mx-auto space-y-12">
+      <section id="monument-registry" className="py-24 px-6 max-w-[1600px] mx-auto space-y-12">
         
-        <div className="flex flex-wrap justify-between items-end gap-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-60px" }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-wrap justify-between items-end gap-4"
+        >
           <div>
             <span className="text-xs font-mono text-[#C85A32] uppercase tracking-widest font-bold">
               National Heritage Registry
@@ -967,16 +1069,16 @@ export default function LandingPageView({
             <span>View All 12 Heritage Sites</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
           {flagshipSites.map((s, idx) => (
             <motion.div
               key={s.id || idx}
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: 45, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, margin: "-40px" }}
+              transition={{ duration: 0.6, delay: (idx % 3) * 0.09, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -8, scale: 1.02 }}
               onClick={() => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
               className="bg-white border border-[#E6E1D8] rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-[#C85A32]/50 transition-all duration-500 group cursor-pointer flex flex-col justify-between"
@@ -1026,23 +1128,33 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       {/* ❓ 8. FAQ ACCORDION                                                       */}
       {/* ========================================================================= */}
-      <section id="faq" className="py-20 px-6 max-w-4xl mx-auto space-y-8">
+      <section id="faq" className="py-24 px-6 max-w-4xl mx-auto space-y-8">
         
-        <div className="text-center space-y-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-60px" }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center space-y-2"
+        >
           <span className="text-xs font-mono text-[#C85A32] uppercase tracking-widest font-bold">
             Frequently Answered Questions
           </span>
           <h2 className="text-3xl font-serif font-bold text-[#181B1F]">
             Heritage Shield Technical Architecture
           </h2>
-        </div>
+        </motion.div>
 
         <div className="space-y-3.5">
           {faqs.map((faq, idx) => {
             const isOpen = activeFaq === idx;
             return (
-              <div
+              <motion.div
                 key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: "-30px" }}
+                transition={{ duration: 0.5, delay: idx * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 className="bg-white border border-[#E6E1D8] shadow-sm rounded-2xl overflow-hidden transition hover:border-[#C85A32]/40"
               >
                 <button
@@ -1058,7 +1170,7 @@ export default function LandingPageView({
                     {faq.a}
                   </div>
                 )}
-              </div>
+              </motion.div>
             );
           })}
         </div>
