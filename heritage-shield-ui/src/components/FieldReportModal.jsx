@@ -68,15 +68,17 @@ export default function FieldReportModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="bg-[#1D1F23] text-[#EDE8DE] border border-[#33353B] rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-4 overflow-y-auto">
+      <div className="bg-[#0C0E16] text-[#EDE8DE] border border-white/15 rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         
         {/* Header */}
-        <div className="bg-[#16171A] border-b border-[#33353B] px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2.5">
-            <span className="w-3 h-3 rounded-full bg-[#C9A15C] animate-pulse"></span>
+        <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center text-lg">
+              🛡️
+            </div>
             <div>
-              <h3 className="text-base font-serif font-bold text-[#EDE8DE]">
+              <h3 className="text-sm font-serif font-bold text-[#FDFBF7] tracking-wide">
                 HERITAGE SENTINEL · DAMAGE INCIDENT REPORT
               </h3>
               <span className="text-[10px] font-mono text-gray-400">
@@ -86,7 +88,7 @@ export default function FieldReportModal({
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white text-sm font-mono px-2 py-1 rounded bg-[#1D1F23] border border-[#33353B]"
+            className="text-gray-400 hover:text-white text-xs font-mono px-3 py-1.5 rounded-xl frosted-btn cursor-pointer"
           >
             ✕
           </button>
@@ -97,17 +99,17 @@ export default function FieldReportModal({
           
           {/* Reporter Role Selector */}
           <div>
-            <label className="text-[10px] font-mono uppercase text-gray-400 block mb-1.5 font-semibold">
+            <label className="text-[10px] font-mono uppercase text-[#E06D44] block mb-1.5 font-bold tracking-wider">
               Reporting Entity:
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setReporterRole('officer')}
-                className={`py-2.5 px-3 rounded-lg border font-mono text-xs flex items-center justify-center gap-2 transition ${
+                className={`py-2.5 px-3 rounded-xl border font-mono text-xs flex items-center justify-center gap-2 transition cursor-pointer ${
                   reporterRole === 'officer'
-                    ? 'border-[#C9A15C] bg-[#C9A15C]/20 text-[#EDE8DE] font-bold shadow'
-                    : 'border-[#33353B] bg-[#16171A] text-gray-400 hover:border-gray-500'
+                    ? 'terracotta-btn font-bold shadow-md'
+                    : 'border-white/10 bg-[#121522]/70 text-gray-400 hover:text-white'
                 }`}
               >
                 <span>👷 ASI Circle Field Officer</span>
@@ -115,10 +117,10 @@ export default function FieldReportModal({
               <button
                 type="button"
                 onClick={() => setReporterRole('citizen')}
-                className={`py-2.5 px-3 rounded-lg border font-mono text-xs flex items-center justify-center gap-2 transition ${
+                className={`py-2.5 px-3 rounded-xl border font-mono text-xs flex items-center justify-center gap-2 transition cursor-pointer ${
                   reporterRole === 'citizen'
-                    ? 'border-emerald-500 bg-emerald-500/20 text-emerald-200 font-bold shadow'
-                    : 'border-[#33353B] bg-[#16171A] text-gray-400 hover:border-gray-500'
+                    ? 'border-emerald-500 bg-emerald-500/20 text-emerald-300 font-bold shadow-md'
+                    : 'border-white/10 bg-[#121522]/70 text-gray-400 hover:text-white'
                 }`}
               >
                 <span>🧑‍🤝‍🧑 Citizen / Visitor Sentinel</span>
@@ -135,10 +137,10 @@ export default function FieldReportModal({
               <select
                 value={selectedMonument}
                 onChange={(e) => setSelectedMonument(Number(e.target.value))}
-                className="w-full bg-[#16171A] border border-[#33353B] rounded-lg px-3 py-2 text-xs text-gray-200 focus:border-[#C9A15C] outline-none"
+                className="w-full bg-[#121522] border border-white/15 rounded-xl px-3 py-2 text-xs text-gray-200 focus:border-[#E06D44] outline-none cursor-pointer"
               >
                 {monuments.map((m, idx) => (
-                  <option key={idx} value={idx}>
+                  <option key={idx} value={idx} className="bg-[#0C0E16] text-gray-200">
                     {m.name}
                   </option>
                 ))}
@@ -154,7 +156,7 @@ export default function FieldReportModal({
                 value={componentName}
                 onChange={(e) => setComponentName(e.target.value)}
                 placeholder="e.g. North Façade Wall, Balcony Corbel"
-                className="w-full bg-[#16171A] border border-[#33353B] rounded-lg px-3 py-2 text-xs text-gray-200 focus:border-[#C9A15C] outline-none font-mono"
+                className="w-full bg-[#121522] border border-white/15 rounded-xl px-3 py-2 text-xs text-gray-200 focus:border-[#E06D44] outline-none font-mono"
                 required
               />
             </div>

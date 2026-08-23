@@ -58,28 +58,28 @@ export default function ScenarioSimulator({
   }
 
   return (
-    <div className="bg-[#121418] border border-[#1E2228] rounded-xl overflow-hidden shadow-2xl">
+    <div className="bg-[#0C0E16] border border-white/15 rounded-3xl overflow-hidden shadow-2xl">
       {/* Top Header */}
-      <div className="bg-[#0E1013] border-b border-[#1E2228] px-6 py-4 flex flex-wrap justify-between items-center gap-3">
+      <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex flex-wrap justify-between items-center gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-[#C5A059] uppercase font-bold">Predictive Simulation Engine</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-800/40 font-bold">
+            <span className="text-xs font-mono text-[#E06D44] uppercase font-bold tracking-wider">Predictive Simulation Engine</span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-950/60 text-rose-300 border border-rose-800/40 font-bold">
               What-If Hazard Modeling
             </span>
           </div>
-          <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+          <h3 className="text-base font-serif font-bold text-[#FDFBF7] mt-0.5">
             Extreme Climate & Disaster Scenario Simulator
           </h3>
         </div>
 
         {/* Scenario Switcher Tabs */}
-        <div className="flex items-center gap-1.5 bg-[#0E1013] p-1 rounded-lg border border-[#1E2228]">
+        <div className="flex items-center gap-1.5 bg-[#121522] p-1 rounded-2xl border border-white/15">
           <button
             onClick={() => setActiveScenario('monsoon')}
-            className={`text-xs px-3 py-1.5 rounded-lg font-mono transition flex items-center gap-1.5 ${
+            className={`text-xs px-3.5 py-2 rounded-xl font-mono transition flex items-center gap-1.5 cursor-pointer ${
               activeScenario === 'monsoon'
-                ? 'bg-sky-600 text-white font-bold shadow'
+                ? 'bg-sky-600 text-white font-bold shadow-md'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -87,9 +87,9 @@ export default function ScenarioSimulator({
           </button>
           <button
             onClick={() => setActiveScenario('seismic')}
-            className={`text-xs px-3 py-1.5 rounded-lg font-mono transition flex items-center gap-1.5 ${
+            className={`text-xs px-3.5 py-2 rounded-xl font-mono transition flex items-center gap-1.5 cursor-pointer ${
               activeScenario === 'seismic'
-                ? 'bg-rose-600 text-white font-bold shadow'
+                ? 'bg-rose-600 text-white font-bold shadow-md'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -97,9 +97,9 @@ export default function ScenarioSimulator({
           </button>
           <button
             onClick={() => setActiveScenario('urban')}
-            className={`text-xs px-3 py-1.5 rounded-lg font-mono transition flex items-center gap-1.5 ${
+            className={`text-xs px-3.5 py-2 rounded-xl font-mono transition flex items-center gap-1.5 cursor-pointer ${
               activeScenario === 'urban'
-                ? 'bg-amber-600 text-[#090A0C] font-bold shadow'
+                ? 'terracotta-btn font-bold shadow-md'
                 : 'text-gray-400 hover:text-white'
             }`}
           >

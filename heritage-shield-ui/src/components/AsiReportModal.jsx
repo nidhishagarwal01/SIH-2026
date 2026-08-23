@@ -109,15 +109,15 @@ export default function AsiReportModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-lg p-4 overflow-y-auto">
-      <div className="bg-[#14171C] text-[#EDE8DE] border border-[#2B313D] rounded-2xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-4 overflow-y-auto">
+      <div className="bg-[#0C0E16] text-[#EDE8DE] border border-white/15 rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         
         {/* Modal Action Header */}
-        <div className="print:hidden bg-[#0E1013] border-b border-[#2B313D] px-6 py-4 flex flex-wrap justify-between items-center gap-3">
+        <div className="print:hidden bg-[#07080B] border-b border-white/10 px-6 py-4 flex flex-wrap justify-between items-center gap-3">
           <div className="flex items-center gap-2.5">
-            <span className={`w-3 h-3 rounded-full ${isAuthenticated ? 'bg-emerald-400 animate-pulse' : 'bg-rose-500 animate-ping'}`} />
+            <span className={`w-3 h-3 rounded-full ${isAuthenticated ? 'bg-emerald-400 animate-pulse' : 'bg-[#E06D44] animate-ping'}`} />
             <div>
-              <span className="text-xs font-mono font-bold text-gray-200 uppercase tracking-wide">
+              <span className="text-xs font-mono font-bold text-[#FDFBF7] uppercase tracking-wider">
                 Archaeological Survey of India · Form HS-2026 Dispatcher
               </span>
               <div className="text-[10px] font-mono text-gray-400">
@@ -131,19 +131,19 @@ export default function AsiReportModal({
               <>
                 <button
                   onClick={handlePrint}
-                  className="px-4 py-1.5 rounded-lg bg-[#C5A059] text-[#090A0C] font-mono font-bold text-xs hover:brightness-110 transition flex items-center gap-2 shadow"
+                  className="px-4 py-2 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-2 shadow cursor-pointer"
                 >
                   <span>🖨️ Print / Save PDF</span>
                 </button>
                 <button
                   onClick={handleDownloadJson}
-                  className="px-3.5 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-gray-300 font-mono text-xs hover:text-white transition flex items-center gap-1.5"
+                  className="px-3.5 py-2 rounded-xl frosted-btn text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>⬇️ Export JSON</span>
                 </button>
                 <button
                   onClick={() => setIsAuthenticated(false)}
-                  className="px-3 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-amber-300 font-mono text-xs hover:text-white transition"
+                  className="px-3.5 py-2 rounded-xl bg-white/[0.06] border border-white/15 text-amber-300 font-mono text-xs font-bold hover:text-white transition cursor-pointer"
                 >
                   🔒 Lock & Sign Out
                 </button>
@@ -152,7 +152,7 @@ export default function AsiReportModal({
 
             <button
               onClick={onClose}
-              className="px-3 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-gray-400 hover:text-white font-mono text-xs transition"
+              className="px-3.5 py-2 rounded-xl frosted-btn text-gray-400 hover:text-white font-mono text-xs font-bold transition cursor-pointer"
             >
               ✕ Close
             </button>

@@ -99,26 +99,26 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-[#121418] border border-[#1E2228] w-full max-w-3xl rounded-2xl overflow-hidden shadow-2xl space-y-0 my-8">
+    <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-[#0C0E16] border border-white/15 w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl space-y-0 my-8">
         
         {/* Header */}
-        <div className="bg-[#0E1013] border-b border-[#1E2228] px-6 py-4 flex justify-between items-center">
+        <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex justify-between items-center">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono text-[#C5A059] uppercase font-bold">Autonomous Ingestion Engine</span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 font-bold">
+              <span className="text-xs font-mono text-[#E06D44] uppercase font-bold tracking-wider">Autonomous Ingestion Engine</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950/60 text-emerald-300 border border-emerald-800/40 font-bold">
                 Live Data Fetcher & AI Diagnostics
               </span>
             </div>
-            <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+            <h3 className="text-base font-serif font-bold text-[#FDFBF7] mt-0.5">
               Live External Data Ingestion & Autonomous Examination
             </h3>
           </div>
 
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white text-lg font-mono p-1"
+            className="text-gray-400 hover:text-white text-xs font-mono px-3 py-1.5 rounded-xl frosted-btn cursor-pointer"
           >
             ✕
           </button>
@@ -128,27 +128,27 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
         <div className="p-6 space-y-5">
           
           {/* Query Bar */}
-          <div className="bg-[#0E1013] p-4 rounded-xl border border-[#1E2228] space-y-3">
-            <label className="text-xs font-mono text-gray-300 uppercase font-semibold block">
+          <div className="bg-[#121522]/80 p-5 rounded-2xl border border-white/15 space-y-3">
+            <label className="text-xs font-mono text-[#E5C07B] uppercase font-semibold block">
               Target National Monument / Heritage Asset:
             </label>
-            <div className="flex gap-2">
+            <div className="flex gap-2.5">
               <input
                 type="text"
                 value={siteQuery}
                 onChange={(e) => setSiteQuery(e.target.value)}
                 placeholder="Enter monument (e.g. Qutub Minar, Hampi, Konark Sun Temple)..."
-                className="flex-1 bg-[#121418] border border-[#1E2228] rounded-lg px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-[#C5A059]"
+                className="flex-1 bg-[#0C0E16] border border-white/15 rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#FDFBF7] focus:outline-none focus:border-[#E06D44]"
               />
               <button
                 onClick={handleRunLiveIngest}
                 disabled={isLoading}
-                className="px-5 py-2 rounded-lg bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:brightness-110 text-[#090A0C] font-mono font-bold text-xs transition flex items-center gap-2 shadow disabled:opacity-50"
+                className="px-5 py-2.5 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-2 shadow-md disabled:opacity-50 cursor-pointer"
               >
                 <span>{isLoading ? "⚡ Ingesting..." : "⚡ Fetch Live Data & Examine"}</span>
               </button>
             </div>
-            <div className="text-[11px] font-mono text-gray-500">
+            <div className="text-[11px] font-mono text-gray-400">
               Streams data live from: <strong>Open-Meteo API</strong> · <strong>USGS/NCS Seismic Feeds</strong> · <strong>ASI Public Registry</strong>
             </div>
           </div>

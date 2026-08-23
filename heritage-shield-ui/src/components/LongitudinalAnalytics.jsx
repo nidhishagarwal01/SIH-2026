@@ -122,14 +122,14 @@ export default function LongitudinalAnalytics({
   const getYMoisture = (pct) => 210 - (Math.min(pct, 60) / 60) * 170;
 
   return (
-    <div className="bg-[#121418] border border-[#1E2228] rounded-xl overflow-hidden shadow-2xl space-y-0">
+    <div className="bg-[#0C0E16] border border-white/15 rounded-3xl overflow-hidden shadow-2xl space-y-0">
       
       {/* 🌟 1. HEADER & LIVE API STATUS */}
-      <div className="bg-[#0E1013] border-b border-[#1E2228] px-6 py-4 flex flex-wrap justify-between items-center gap-3">
+      <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex flex-wrap justify-between items-center gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-[#C5A059] uppercase font-bold">Predictive Analytics Engine</span>
-            <span className={`text-[10px] font-mono px-2.5 py-0.5 rounded border font-bold flex items-center gap-1.5 ${
+            <span className="text-xs font-mono text-[#E06D44] uppercase font-bold tracking-wider">Predictive Analytics Engine</span>
+            <span className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full border font-bold flex items-center gap-1.5 ${
               apiConnected 
                 ? 'bg-emerald-950/70 text-emerald-300 border-emerald-800/60'
                 : 'bg-cyan-950/70 text-cyan-300 border-cyan-800/60'
@@ -138,19 +138,19 @@ export default function LongitudinalAnalytics({
               <span>{apiConnected ? '● Live FastAPI 2030 Decay API' : '● Physics-Informed 2030 Engine'}</span>
             </span>
           </div>
-          <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+          <h3 className="text-base font-serif font-bold text-[#FDFBF7] mt-0.5">
             Longitudinal Condition History & 2030 Predictive Decay Trajectories
           </h3>
         </div>
 
         {/* Metric Selector Pills */}
-        <div className="flex items-center gap-1.5 bg-[#0E1013] p-1 rounded-lg border border-[#1E2228]">
+        <div className="flex items-center gap-1.5 bg-[#121522] p-1 rounded-2xl border border-white/15">
           <button
             onClick={() => setSelectedMetric('health')}
             title="Display historical and projected overall health score (0-100)"
-            className={`text-xs px-3 py-1.5 rounded-lg font-mono transition flex items-center gap-1.5 cursor-pointer ${
+            className={`text-xs px-3.5 py-2 rounded-xl font-mono transition flex items-center gap-1.5 cursor-pointer ${
               selectedMetric === 'health'
-                ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
+                ? 'terracotta-btn font-bold shadow-md'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -160,9 +160,9 @@ export default function LongitudinalAnalytics({
           <button
             onClick={() => setSelectedMetric('crack')}
             title="Display structural crack expansion history and velocity (cm)"
-            className={`text-xs px-3 py-1.5 rounded-lg font-mono transition flex items-center gap-1.5 cursor-pointer ${
+            className={`text-xs px-3.5 py-2 rounded-xl font-mono transition flex items-center gap-1.5 cursor-pointer ${
               selectedMetric === 'crack'
-                ? 'bg-rose-600 text-white font-bold shadow'
+                ? 'bg-rose-600 text-white font-bold shadow-md'
                 : 'text-gray-400 hover:text-white'
             }`}
           >
@@ -172,9 +172,9 @@ export default function LongitudinalAnalytics({
           <button
             onClick={() => setSelectedMetric('moisture')}
             title="Display surface and sub-surface moisture saturation history (%)"
-            className={`text-xs px-3 py-1.5 rounded-lg font-mono transition flex items-center gap-1.5 cursor-pointer ${
+            className={`text-xs px-3.5 py-2 rounded-xl font-mono transition flex items-center gap-1.5 cursor-pointer ${
               selectedMetric === 'moisture'
-                ? 'bg-sky-600 text-white font-bold shadow'
+                ? 'bg-sky-600 text-white font-bold shadow-md'
                 : 'text-gray-400 hover:text-white'
             }`}
           >

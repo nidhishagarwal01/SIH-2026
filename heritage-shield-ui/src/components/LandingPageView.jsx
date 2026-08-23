@@ -75,13 +75,10 @@ export default function LandingPageView({
   // State for FAQ Accordion
   const [activeFaq, setActiveFaq] = useState(null);
 
-  // State for Cinematic Split-Reveal Intro on Initial Page Load
-  const [showIntro, setShowIntro] = useState(() => {
-    return !sessionStorage.getItem('hs_intro_seen');
-  });
+  // State for Cinematic Split-Reveal Intro on Page Load / Refresh
+  const [showIntro, setShowIntro] = useState(true);
 
   const handleIntroComplete = () => {
-    sessionStorage.setItem('hs_intro_seen', 'true');
     setShowIntro(false);
   };
 
@@ -256,6 +253,15 @@ export default function LandingPageView({
 
           {/* Right: Actions & Login */}
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowIntro(true)}
+              className="px-3 py-1.5 rounded-xl frosted-btn text-[11px] font-mono font-bold text-[#E5C07B] hover:text-white transition flex items-center gap-1.5 cursor-pointer"
+              title="Replay Cinematic Split Reveal"
+            >
+              <span>🎬</span>
+              <span className="hidden sm:inline">Replay Intro</span>
+            </button>
+
             <ThemeToggle />
 
             {currentUser ? (
@@ -314,14 +320,16 @@ export default function LandingPageView({
           <div className="relative z-20 w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* 📱 LEFT COLUMN: Floating Showcase Card (Directly Styled from Reference Artifact Card) */}
-            <div className="lg:col-span-5 flex justify-center lg:justify-start">
+            <div className="lg:col-span-5 flex justify-center lg:justify-start" style={{ perspective: 1000 }}>
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                className="w-full max-w-sm rounded-[2.25rem] border border-white/15 bg-[#0C0E16]/80 backdrop-blur-2xl shadow-2xl p-4 sm:p-5 space-y-4 relative group"
+                whileHover={{ y: -8, rotateX: 4, rotateY: -4, scale: 1.02 }}
+                className="w-full max-w-sm rounded-[2.25rem] border border-white/15 bg-[#0C0E16]/80 backdrop-blur-2xl shadow-2xl p-4 sm:p-5 space-y-4 relative group cursor-pointer"
                 style={{
-                  boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.08) inset'
+                  boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.08) inset',
+                  transformStyle: 'preserve-3d'
                 }}
               >
                 {/* Showcase Top Bar */}
@@ -473,18 +481,26 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       <section id="decision-modules" className="py-20 px-6 max-w-[1600px] mx-auto space-y-12">
         
-        {/* Section Header */}
-        <div className="max-w-3xl space-y-3">
-          <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold">
-            Workflow & System Architecture
-          </span>
+        {/* Section Header with Push-Down Scroll Reveal */}
+        <motion.div 
+          initial={{ opacity: 0, y: 45 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-3xl space-y-3"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-[#E06D44] text-[11px] font-mono font-bold uppercase tracking-wider">
+            <span>⚙️ Autonomous Conservation Pipeline</span>
+          </div>
+
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#FDFBF7] tracking-tight">
-            The decision layer, module by module
+            The decision layer, <span className="gold-cream-text">module by module</span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-400 font-sans leading-relaxed">
-            The 3D twin is the spatial interface. The real product is the workflow that connects evidence to an action a conservation authority can defend.
+
+          <p className="text-sm sm:text-base text-gray-300 font-sans leading-relaxed">
+            Eight synchronized AI & engineering subsystems executing autonomous diagnostics, structural physics calculations, and authoritative decision dispatch.
           </p>
-        </div>
+        </motion.div>
 
         {/* 8-Module Interactive Grid with Staggered Scroll Motion & Hover Lift */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -537,12 +553,18 @@ export default function LandingPageView({
       <section id="sandbox-showcase" className="py-20 px-6 bg-[#090B10]/80 border-y border-white/[0.08] relative">
         <div className="max-w-[1600px] mx-auto space-y-8">
           
-          <div className="flex flex-wrap justify-between items-end gap-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-wrap justify-between items-end gap-4"
+          >
             <div>
-              <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold">
-                Live Interactive Sandbox
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#FDFBF7] mt-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-[#E06D44] text-[11px] font-mono font-bold uppercase tracking-wider mb-2">
+                <span>💻 Autonomous Sandbox</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#FDFBF7]">
                 Experience the 4 Core Intelligence Consoles
               </h2>
             </div>
@@ -594,7 +616,7 @@ export default function LandingPageView({
                 <span>GIS Radar</span>
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Sandbox Showcase Display Container */}
           <div className="bg-[#0A0C14]/90 border border-white/10 rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-8 backdrop-blur-xl relative">
@@ -853,19 +875,31 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       <section id="climate-simulator" className="py-20 px-6 max-w-[1600px] mx-auto space-y-12">
         
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold">
-            Physics-Informed Climate Stress Test
-          </span>
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center max-w-2xl mx-auto space-y-2"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/10 text-[#E06D44] text-[11px] font-mono font-bold uppercase tracking-wider mb-2">
+            <span>🧪 Real-Time Physics Test</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#FDFBF7]">
             Extreme Climate & Seismic Stress Simulator
           </h2>
-          <p className="text-sm text-gray-400 font-sans">
+          <p className="text-sm text-gray-300 font-sans">
             Adjust environmental parameters to see how climatic anomalies affect heritage site degradation in real-time.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="bg-[#0C0E16]/80 border border-white/10 p-8 sm:p-10 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center backdrop-blur-xl shadow-2xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          className="bg-[#0C0E16]/80 border border-white/10 p-8 sm:p-10 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center backdrop-blur-xl shadow-2xl"
+        >
           
           <div className="lg:col-span-7 space-y-6">
             <div className="space-y-2">
@@ -932,7 +966,7 @@ export default function LandingPageView({
             </button>
           </div>
 
-        </div>
+        </motion.div>
 
       </section>
 

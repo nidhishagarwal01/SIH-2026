@@ -24,79 +24,76 @@ export default function AssetSwitcherModal({
   });
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="bg-[#121418] border border-[#1E2228] w-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh] animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl flex items-center justify-center p-4">
+      <div className="bg-[#0C0E16] border border-white/15 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh] animate-in fade-in zoom-in-95 duration-200">
         
         {/* Header */}
-        <div className="bg-[#0E1013] border-b border-[#1E2228] px-6 py-4 flex justify-between items-center">
+        <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex justify-between items-center">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono text-[#C5A059] uppercase font-bold tracking-wider">
+              <span className="text-[10px] font-mono text-[#E06D44] uppercase font-bold tracking-wider">
                 National Built Heritage Command Center
               </span>
-              <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#C5A059]/15 text-[#C5A059] border border-[#C5A059]/30 font-bold">
+              <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#E06D44]/15 text-[#E06D44] border border-[#E06D44]/30 font-bold">
                 {UNESCO_SITES.length} UNESCO Sites Active
               </span>
             </div>
-            <h2 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+            <h2 className="text-base font-serif font-bold text-[#FDFBF7] mt-0.5">
               Select Heritage Site of National Importance
             </h2>
           </div>
 
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white text-lg font-mono p-1 rounded-lg hover:bg-[#181B22]"
+            className="text-gray-400 hover:text-white text-xs font-mono px-3 py-1.5 rounded-xl frosted-btn cursor-pointer"
           >
             ✕
           </button>
         </div>
 
         {/* Search & State Filter Bar */}
-        <div className="p-5 border-b border-[#1E2228] bg-[#0E1013]/60 flex flex-wrap gap-3 items-center">
+        <div className="p-5 border-b border-white/10 bg-[#07080B]/60 flex flex-wrap gap-3 items-center">
           <div className="flex-1 min-w-[240px]">
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search by name, state, material typology, ID..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-[#121418] border border-[#2B313D] rounded-xl px-4 py-2 text-xs font-mono text-white placeholder-gray-500 focus:outline-none focus:border-[#C5A059]"
+              className="w-full bg-[#121522] border border-white/15 rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#FDFBF7] placeholder-gray-500 focus:outline-none focus:border-[#E06D44]"
             />
-
           </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto">
+          <div className="flex items-center gap-2 overflow-x-auto">
             <span className="text-[10px] font-mono text-gray-400 uppercase font-semibold">State:</span>
-            {states.slice(0, 6).map((st) => (
-              <button
-                key={st}
-                onClick={() => setFilterState(st)}
-                className={`text-[11px] font-mono px-2.5 py-1 rounded-lg transition ${
-                  filterState === st
-                    ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
-                    : 'bg-[#181B22] text-gray-400 hover:text-white border border-[#2B313D]'
-                }`}
-              >
-                {st}
-              </button>
-            ))}
+            <select
+              value={filterState}
+              onChange={(e) => setFilterState(e.target.value)}
+              className="bg-[#121522] border border-white/15 rounded-xl px-3 py-2 text-xs font-mono text-gray-300 focus:outline-none focus:border-[#E06D44] cursor-pointer"
+            >
+              {states.map(st => (
+                <option key={st} value={st} className="bg-[#0C0E16] text-gray-200">
+                  {st}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
-        {/* Monuments Grid */}
-        <div className="p-6 overflow-y-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Monument Grid */}
+        <div className="p-5 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 flex-1">
           {filtered.map((site) => {
-            const isSelected = activeSiteIndex === site.index;
+            const isCurrent = site.index === activeSiteIndex;
             return (
-              <div
-                key={site.index}
+              <button
+                key={site.id}
                 onClick={() => {
                   onSelectSite(site.index);
                   onClose();
                 }}
-                className={`group cursor-pointer rounded-xl border p-4 transition-all duration-200 flex flex-col justify-between hover:scale-[1.02] ${
-                  isSelected
-                    ? 'border-[#C5A059] bg-[#C5A059]/10 shadow-lg shadow-amber-950/20 ring-1 ring-[#C5A059]'
-                    : 'border-[#1E2228] bg-[#0E1013] hover:border-[#3A4250] hover:bg-[#14171C]'
+                className={`p-3.5 rounded-2xl border text-left transition flex flex-col justify-between space-y-2.5 cursor-pointer ${
+                  isCurrent
+                    ? 'bg-[#181D2E] border-[#E06D44] ring-1 ring-[#E06D44]/50 shadow-xl'
+                    : 'frosted-glass-card hover:border-[#E06D44]/50 hover:bg-white/[0.06]'
                 }`}
               >
                 <div>
@@ -141,12 +138,12 @@ export default function AssetSwitcherModal({
                 </div>
 
                 {/* Bottom Stats Strip */}
-                <div className="mt-3 pt-2.5 border-t border-[#1E2228] flex justify-between items-center text-[10px] font-mono">
+                <div className="mt-3 pt-2.5 border-t border-white/10 flex justify-between items-center text-[10px] font-mono">
                   <span className="text-gray-400">
-                    Health: <strong className="text-white">{site.healthScore}/100</strong>
+                    Health: <strong className="text-[#FDFBF7]">{site.healthScore}/100</strong>
                   </span>
                   <span
-                    className="px-2 py-0.5 rounded font-bold uppercase"
+                    className="px-2.5 py-0.5 rounded-full font-bold uppercase"
                     style={{
                       backgroundColor: `${site.color}20`,
                       color: site.color,
@@ -156,16 +153,16 @@ export default function AssetSwitcherModal({
                     {site.status}
                   </span>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
 
         {/* Footer */}
-        <div className="bg-[#0E1013] border-t border-[#1E2228] px-6 py-3 flex justify-end items-center text-xs font-mono">
+        <div className="bg-[#07080B] border-t border-white/10 px-6 py-3.5 flex justify-end items-center text-xs font-mono">
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-[#181B22] border border-[#2B313D] text-gray-300 hover:text-white"
+            className="px-4 py-2 rounded-xl frosted-btn text-gray-300 hover:text-white font-bold cursor-pointer"
           >
             Close
           </button>

@@ -104,17 +104,17 @@ export default function PhotogrammetryPipeline() {
   const activeStageData = pipelineStages[currentStep - 1];
 
   return (
-    <div className="bg-[#121418] border border-[#1E2228] rounded-xl overflow-hidden shadow-2xl">
+    <div className="bg-[#0C0E16] border border-white/15 rounded-3xl overflow-hidden shadow-2xl">
       {/* Header */}
-      <div className="bg-[#0E1013] border-b border-[#1E2228] px-6 py-4 flex flex-wrap justify-between items-center gap-3">
+      <div className="bg-[#07080B] border-b border-white/10 px-6 py-4 flex flex-wrap justify-between items-center gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono text-[#C5A059] uppercase font-bold">Automation & Scalability Engine</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 font-bold">
+            <span className="text-xs font-mono text-[#E06D44] uppercase font-bold tracking-wider">Automation & Scalability Engine</span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-950/60 text-cyan-300 border border-cyan-800/40 font-bold">
               Automated Scan-to-Twin
             </span>
           </div>
-          <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+          <h3 className="text-base font-serif font-bold text-[#FDFBF7] mt-0.5">
             Automated Photogrammetry & 3D Reconstruction Pipeline
           </h3>
         </div>
@@ -123,7 +123,7 @@ export default function PhotogrammetryPipeline() {
           <button
             onClick={handleRunSimulation}
             disabled={isRunning}
-            className="px-4 py-2 rounded-lg bg-[#C5A059] text-[#090A0C] font-mono font-bold text-xs hover:bg-[#d8ac67] transition flex items-center gap-2 shadow disabled:opacity-50"
+            className="px-5 py-2.5 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-2 shadow-md disabled:opacity-50 cursor-pointer"
           >
             <span>{isRunning ? "⚙️ Processing Photogrammetry..." : "▶ Run Ingestion Simulation"}</span>
           </button>
@@ -131,18 +131,18 @@ export default function PhotogrammetryPipeline() {
       </div>
 
       {/* 5-Step Pipeline Progress Bar */}
-      <div className="bg-[#0E1013] px-6 py-4 border-b border-[#1E2228]">
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+      <div className="bg-[#07080B]/80 px-6 py-4 border-b border-white/10 backdrop-blur-md">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
           {pipelineStages.map((st) => (
             <button
               key={st.step}
               onClick={() => setCurrentStep(st.step)}
-              className={`text-left p-2.5 rounded-lg border transition ${
+              className={`text-left p-3 rounded-xl border transition cursor-pointer ${
                 currentStep === st.step
-                  ? 'border-[#C5A059] bg-[#C5A059]/15 text-[#F3EFE6]'
+                  ? 'border-[#E06D44] bg-[#181D2E] text-[#FDFBF7] shadow-lg ring-1 ring-[#E06D44]/40'
                   : currentStep > st.step
                   ? 'border-emerald-800/60 bg-emerald-950/20 text-emerald-300'
-                  : 'border-[#1E2228] bg-[#121418] text-gray-400 hover:border-gray-500'
+                  : 'border-white/10 bg-[#121522]/80 text-gray-400 hover:border-white/20 hover:text-white'
               }`}
             >
               <div className="flex items-center justify-between">

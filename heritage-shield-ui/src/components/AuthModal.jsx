@@ -74,20 +74,18 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-4 overflow-y-auto">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative w-full max-w-lg bg-[#0E1015] border border-[#262C38] rounded-3xl shadow-2xl overflow-hidden font-sans"
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="bg-[#0C0E16] border border-white/15 text-[#EDE8DE] rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden relative"
         >
-          {/* Top Decorative Amber Line */}
-          <div className="h-1.5 w-full bg-gradient-to-r from-[#C5A059] via-amber-400 to-[#C5A059]" />
-
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 rounded-xl bg-[#171A21] text-gray-400 hover:text-white border border-[#2B313D] hover:border-[#C5A059] transition cursor-pointer"
+            className="absolute top-5 right-5 p-2 rounded-xl frosted-btn text-gray-400 hover:text-white transition cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -97,26 +95,26 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
             {/* Modal Header */}
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-[#C5A059]/20 text-[#C5A059] border border-[#C5A059]/30">
+                <span className="p-1.5 rounded-lg bg-white/10 text-[#E06D44] border border-white/15">
                   <Shield className="w-5 h-5" />
                 </span>
-                <span className="text-xs font-mono font-bold text-[#C5A059] uppercase tracking-wider">
+                <span className="text-xs font-mono font-bold text-[#E06D44] uppercase tracking-wider">
                   Heritage Shield Authentication
                 </span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#F3EFE6]">
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#FDFBF7]">
                 Portal Login & Access
               </h2>
             </div>
 
             {/* Role Switcher Tabs */}
-            <div className="grid grid-cols-2 p-1 bg-[#14171F] border border-[#262C38] rounded-2xl">
+            <div className="grid grid-cols-2 p-1 bg-[#121522] border border-white/15 rounded-2xl">
               <button
                 type="button"
                 onClick={() => setRole('officer')}
                 className={`py-3 px-4 rounded-xl font-mono text-xs font-bold transition flex items-center justify-center gap-2 cursor-pointer ${
                   role === 'officer'
-                    ? 'bg-[#C5A059] text-black shadow-lg'
+                    ? 'terracotta-btn shadow-lg'
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
@@ -141,9 +139,9 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
             {/* FORM 1: OFFICIAL ASI PERSONNEL */}
             {role === 'officer' && (
               <form onSubmit={handleOfficerLogin} className="space-y-4">
-                <div className="p-3 rounded-xl bg-amber-950/20 border border-amber-800/40 flex items-center justify-between text-[11px] font-mono text-amber-300">
+                <div className="p-3 rounded-xl bg-[#121522] border border-white/10 flex items-center justify-between text-[11px] font-mono text-[#E5C07B]">
                   <span className="flex items-center gap-1.5">
-                    <Fingerprint className="w-4 h-4 text-[#C5A059]" />
+                    <Fingerprint className="w-4 h-4 text-[#E06D44]" />
                     <span>Govt of India · Ministry of Culture</span>
                   </span>
                   <span className="bg-amber-900/60 px-2 py-0.5 rounded text-[10px] font-bold">2FA Enabled</span>
@@ -151,7 +149,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-mono text-gray-300 uppercase font-bold flex items-center gap-1.5">
-                    <User className="w-3.5 h-3.5 text-[#C5A059]" />
+                    <User className="w-3.5 h-3.5 text-[#E06D44]" />
                     <span>Officer / Employee ID:</span>
                   </label>
                   <input
@@ -159,43 +157,39 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
                     value={officerId}
                     onChange={(e) => setOfficerId(e.target.value)}
                     placeholder="e.g. ASI-OFFICER-031"
-                    className="w-full bg-[#14171F] border border-[#2B313D] focus:border-[#C5A059] text-gray-100 text-xs font-mono px-3.5 py-2.5 rounded-xl focus:outline-none transition"
+                    className="w-full bg-[#121522] border border-white/15 focus:border-[#E06D44] text-[#FDFBF7] text-xs font-mono px-3.5 py-2.5 rounded-xl focus:outline-none transition"
                   />
                 </div>
 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-mono text-gray-300 uppercase font-bold flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#C5A059]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#E06D44]" />
                     <span>Regional ASI Circle:</span>
                   </label>
                   <select
                     value={officerCircle}
                     onChange={(e) => setOfficerCircle(e.target.value)}
-                    className="w-full bg-[#14171F] border border-[#2B313D] focus:border-[#C5A059] text-gray-100 text-xs font-mono px-3.5 py-2.5 rounded-xl focus:outline-none transition cursor-pointer"
+                    className="w-full bg-[#121522] border border-white/15 focus:border-[#E06D44] text-[#FDFBF7] text-xs font-mono px-3.5 py-2.5 rounded-xl focus:outline-none transition cursor-pointer"
                   >
-                    <option value="Delhi Circle">Delhi Circle (Delhi NCR)</option>
-                    <option value="Agra Circle">Agra Circle (Uttar Pradesh)</option>
-                    <option value="Bhubaneswar Circle">Bhubaneswar Circle (Odisha)</option>
-                    <option value="Hyderabad Circle">Hyderabad Circle (Telangana)</option>
-                    <option value="Hampi Mini-Circle">Hampi Mini-Circle (Karnataka)</option>
-                    <option value="Aurangabad Circle">Aurangabad Circle (Maharashtra)</option>
-                    <option value="Bhopal Circle">Bhopal Circle (Madhya Pradesh)</option>
-                    <option value="Chennai Circle">Chennai Circle (Tamil Nadu)</option>
-                    <option value="Vadodara Circle">Vadodara Circle (Gujarat)</option>
+                    <option value="Delhi Circle" className="bg-[#0C0E16]">Delhi Circle (Delhi NCR)</option>
+                    <option value="Agra Circle" className="bg-[#0C0E16]">Agra Circle (Uttar Pradesh)</option>
+                    <option value="Bhubaneswar Circle" className="bg-[#0C0E16]">Bhubaneswar Circle (Odisha)</option>
+                    <option value="Hyderabad Circle" className="bg-[#0C0E16]">Hyderabad Circle (Telangana)</option>
+                    <option value="Hampi Mini-Circle" className="bg-[#0C0E16]">Hampi Mini-Circle (Karnataka)</option>
                   </select>
                 </div>
 
                 <div className="space-y-1.5">
                   <label className="text-[11px] font-mono text-gray-300 uppercase font-bold flex items-center gap-1.5">
-                    <Lock className="w-3.5 h-3.5 text-[#C5A059]" />
-                    <span>Sovereign Access Key / PIN:</span>
+                    <Lock className="w-3.5 h-3.5 text-[#E06D44]" />
+                    <span>Secure Clearance Key / Password:</span>
                   </label>
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter Security PIN"
-                    className="w-full bg-[#14171F] border border-[#2B313D] focus:border-[#C5A059] text-gray-100 text-xs font-mono px-3.5 py-2.5 rounded-xl focus:outline-none transition"
+                    className="w-full bg-[#121522] border border-white/15 focus:border-[#E06D44] text-[#FDFBF7] text-xs font-mono px-3.5 py-2.5 rounded-xl focus:outline-none transition"
                   />
                 </div>
 
@@ -203,7 +197,7 @@ export default function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full py-3 rounded-xl bg-[#C5A059] hover:bg-[#D8B46E] text-black font-mono text-xs font-bold transition flex items-center justify-center gap-2 shadow-xl cursor-pointer"
+                    className="w-full py-3.5 rounded-xl terracotta-btn text-xs font-mono font-bold tracking-wider uppercase transition flex items-center justify-center gap-2 shadow-xl cursor-pointer"
                   >
                     {isLoading ? (
                       <span>Verifying Sovereign Credentials...</span>
