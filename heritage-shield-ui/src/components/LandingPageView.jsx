@@ -339,13 +339,13 @@ export default function LandingPageView({
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
-            className={`w-full h-full object-cover object-center ${isDarkTheme ? 'brightness-[0.72] contrast-[1.24] sepia-[0.24] saturate-[1.2]' : 'brightness-[0.78] contrast-[1.22] sepia-[0.32] saturate-[1.4]'} transition-all duration-700`}
+            className={`w-full h-full object-cover object-center ${isDarkTheme ? 'brightness-[0.72] contrast-[1.24] sepia-[0.24] saturate-[1.2]' : 'brightness-[0.92] contrast-[1.18] sepia-[0.16] saturate-[1.25]'} transition-all duration-700`}
           />
 
           {/* Sunlit Sandstone & Balanced Nocturnal Lighting Gradients */}
-          <div className={`absolute inset-0 bg-gradient-to-t ${isDarkTheme ? 'from-[#120A06] via-[#120A06]/45 to-[#120A06]/25' : 'from-[#F0E7DA] via-[#F0E7DA]/80 to-[#F0E7DA]/45'} transition-all duration-500`} />
-          <div className={`absolute inset-0 bg-gradient-to-r ${isDarkTheme ? 'from-[#120A06]/70 via-transparent to-[#120A06]/70' : 'from-[#F0E7DA]/90 via-transparent to-[#F0E7DA]/90'} transition-all duration-500`} />
-          <div className={`absolute inset-0 ${isDarkTheme ? 'bg-[#BA532B]/10 mix-blend-overlay' : 'bg-[#BA532B]/8 mix-blend-color-burn'}`} />
+          <div className={`absolute inset-0 bg-gradient-to-t ${isDarkTheme ? 'from-[#120A06] via-[#120A06]/45 to-[#120A06]/25' : 'from-[#F0E7DA] via-[#F0E7DA]/35 to-[#F0E7DA]/15'} transition-all duration-500`} />
+          <div className={`absolute inset-0 bg-gradient-to-r ${isDarkTheme ? 'from-[#120A06]/70 via-transparent to-[#120A06]/70' : 'from-[#F0E7DA]/55 via-transparent to-[#F0E7DA]/55'} transition-all duration-500`} />
+          <div className={`absolute inset-0 ${isDarkTheme ? 'bg-[#BA532B]/10 mix-blend-overlay' : 'bg-[#BA532B]/6 mix-blend-multiply'}`} />
 
           {/* Floating Subtle Ambient Sandstone Motes */}
           <div className="absolute inset-0">
