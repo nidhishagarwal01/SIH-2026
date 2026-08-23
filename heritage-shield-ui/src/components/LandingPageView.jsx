@@ -271,209 +271,122 @@ export default function LandingPageView({
       </motion.nav>
 
       {/* ========================================================================= */}
-      {/* 🚀 2. GRAND SUBMERGED HERO EXHIBITION                                      */}
+      {/* 🚀 2. GRAND SUBMERGED HERO EXHIBITION (FULL-PAGE ANIMATED BACKDROP)        */}
       {/* ========================================================================= */}
-      <section id="hero-section" className="relative min-h-[90vh] flex items-center px-6 sm:px-12 lg:px-20 py-16 max-w-[1600px] mx-auto overflow-hidden">
+      <section id="hero-section" className="relative min-h-[92vh] flex items-center justify-center px-6 sm:px-12 lg:px-20 py-20 max-w-[1600px] mx-auto overflow-hidden">
         
-        {/* Subtle Ambient Background Watermark */}
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full opacity-15 pointer-events-none select-none overflow-hidden">
-          <img
+        {/* 🏛️ Full-Page Animated Heritage Monument Cinematic Backdrop */}
+        <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
+          <motion.img
             src="/monuments/qutub_minar.jpg"
-            alt="Heritage Motif"
-            className="w-full h-full object-cover filter blur-[90px] brightness-[0.78] contrast-[1.28] sepia-[0.38] saturate-[1.45]"
+            alt="Heritage Monument Backdrop"
+            animate={{ 
+              scale: [1.02, 1.09, 1.02],
+              y: [0, -15, 0]
+            }}
+            transition={{ 
+              duration: 22, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+            className="w-full h-full object-cover object-center filter brightness-[0.72] contrast-[1.25] sepia-[0.35] saturate-[1.4]"
           />
+
+          {/* Sunlit Sandstone & Terracotta Ambient Lighting Gradients */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#F0E7DA] via-[#F0E7DA]/80 to-[#F0E7DA]/45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F0E7DA]/90 via-transparent to-[#F0E7DA]/90" />
+          <div className="absolute inset-0 bg-[#BA532B]/8 mix-blend-color-burn" />
+
+          {/* Floating Subtle Ambient Sandstone Motes */}
+          <div className="absolute inset-0">
+            {[...Array(14)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full bg-[#BA532B]"
+                style={{
+                  width: (i % 3) + 2,
+                  height: (i % 3) + 2,
+                  top: `${(i * 19 + 7) % 100}%`,
+                  left: `${(i * 29 + 11) % 100}%`,
+                  opacity: 0.2 + (i % 3) * 0.15,
+                  boxShadow: '0 0 8px rgba(186, 83, 43, 0.5)'
+                }}
+                animate={{
+                  y: [0, -40, 0],
+                  x: [0, i % 2 === 0 ? 20 : -20, 0],
+                  opacity: [0.15, 0.45, 0.15],
+                }}
+                transition={{
+                  duration: 8 + (i % 4) * 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full relative z-10">
+        {/* Centered Grand Editorial Column */}
+        <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center space-y-8 py-10">
           
-          {/* Left: Monolithic Editorial Text Column */}
-          <motion.div 
-            initial={{ opacity: 0, y: 35 }}
+          {/* Editorial Serif Heading */}
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: smoothEase }}
-            className="lg:col-span-7 space-y-6 text-left"
+            transition={{ duration: 0.85, ease: smoothEase }}
+            className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] leading-[1.08] tracking-tight max-w-4xl"
           >
-            {/* Editorial Serif Heading */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] leading-[1.08] tracking-tight">
-              Safeguarding Monumental Soul with <span className="gold-cream-text">Autonomous AI Twins</span>
-            </h1>
+            Safeguarding Monumental Soul with <span className="gold-cream-text">Autonomous AI Twins</span>
+          </motion.h1>
 
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg text-[#4D3425] font-sans leading-relaxed max-w-2xl">
-              Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 3,690+ protected monuments with auditable foresight.
-            </p>
+          {/* Subtitle */}
+          <motion.p 
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.15, ease: smoothEase }}
+            className="text-base sm:text-xl text-[#4D3425] font-sans leading-relaxed max-w-3xl font-medium"
+          >
+            Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 3,690+ protected monuments with auditable foresight.
+          </motion.p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-4">
-              <button
-                onClick={onEnterDashboard}
-                className="px-8 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold uppercase tracking-wider transition flex items-center gap-2.5 cursor-pointer shadow-lg hover:scale-105"
-              >
-                <span>Launch National Studio</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+          {/* Action Buttons */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.25, ease: smoothEase }}
+            className="flex flex-wrap items-center justify-center gap-4 pt-2"
+          >
+            <button
+              onClick={onEnterDashboard}
+              className="px-9 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold uppercase tracking-wider transition flex items-center gap-2.5 cursor-pointer shadow-xl hover:scale-105"
+            >
+              <span>Launch National Studio</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </motion.div>
 
-          {/* Right: Floating 3D Artefact Showcase with 4. 🎛️ Interactive Twin Scan Mode */}
+          {/* Clean Integrated Telemetry Metrics Bar */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.15, ease: smoothEase }}
-            className="lg:col-span-5 flex justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.35, ease: smoothEase }}
+            className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 w-full max-w-4xl border-t border-[#DACDB8]/80 mt-4"
           >
-            <div className="w-full max-w-md bg-white border border-[#DACDB8] rounded-3xl p-5 shadow-2xl space-y-3.5 relative group">
-              
-              {/* Top Control Strip */}
-              <div className="flex justify-between items-center text-xs font-mono px-1">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#BA532B] animate-pulse" />
-                  <span className="text-[11px] text-[#24160E] font-bold uppercase tracking-wider">
-                    {sites[selectedTwinSiteIdx]?.name}
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <button
-                    onClick={() => setSelectedTwinSiteIdx((selectedTwinSiteIdx - 1 + sites.length) % sites.length)}
-                    className="w-7 h-7 rounded-full bg-[#FAF5ED] border border-[#DACDB8] text-xs hover:bg-[#BA532B] hover:text-white transition cursor-pointer flex items-center justify-center font-bold"
-                    title="Previous"
-                  >‹</button>
-                  <button
-                    onClick={() => setSelectedTwinSiteIdx((selectedTwinSiteIdx + 1) % sites.length)}
-                    className="w-7 h-7 rounded-full bg-[#FAF5ED] border border-[#DACDB8] text-xs hover:bg-[#BA532B] hover:text-white transition cursor-pointer flex items-center justify-center font-bold"
-                    title="Next"
-                  >›</button>
-                </div>
-              </div>
-
-              {/* 4. 🎛️ Interactive 3-Mode Scan Selector Strip */}
-              <div className="grid grid-cols-3 gap-1 bg-[#FAF5ED] p-1 rounded-xl border border-[#DACDB8] text-[10px] font-mono font-bold uppercase">
-                <button
-                  onClick={() => setHeroScanMode('photo')}
-                  className={`py-1.5 rounded-lg transition-all cursor-pointer ${heroScanMode === 'photo' ? 'bg-[#BA532B] text-white shadow-xs' : 'text-[#4D3425] hover:text-[#BA532B]'}`}
-                >
-                  📸 Surface
-                </button>
-                <button
-                  onClick={() => setHeroScanMode('lidar')}
-                  className={`py-1.5 rounded-lg transition-all cursor-pointer ${heroScanMode === 'lidar' ? 'bg-[#BA532B] text-white shadow-xs' : 'text-[#4D3425] hover:text-[#BA532B]'}`}
-                >
-                  🕸️ LiDAR Mesh
-                </button>
-                <button
-                  onClick={() => setHeroScanMode('fea')}
-                  className={`py-1.5 rounded-lg transition-all cursor-pointer ${heroScanMode === 'fea' ? 'bg-[#BA532B] text-white shadow-xs' : 'text-[#4D3425] hover:text-[#BA532B]'}`}
-                >
-                  🔥 FEA Stress
-                </button>
-              </div>
-
-              {/* Monument Showcase Image Display with Scan Layers */}
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#DACDB8] bg-[#140B07]">
-                <img
-                  src={sites[selectedTwinSiteIdx]?.imageUrl || '/monuments/qutub_minar.jpg'}
-                  alt={sites[selectedTwinSiteIdx]?.name}
-                  className={`w-full h-full object-cover transition-all duration-500 ${
-                    heroScanMode === 'lidar' ? 'filter brightness-50 contrast-150 grayscale' :
-                    heroScanMode === 'fea' ? 'filter brightness-65 contrast-125 saturate-150' :
-                    'filter brightness-[0.92] contrast-[1.12]'
-                  }`}
-                />
-
-                {/* Mode Overlay: LiDAR Laser & Point Cloud Mesh */}
-                {heroScanMode === 'lidar' && (
-                  <div className="absolute inset-0 pointer-events-none">
-                    {/* LiDAR Point Grid */}
-                    <div 
-                      className="absolute inset-0 opacity-40"
-                      style={{
-                        backgroundImage: 'radial-gradient(#34D399 1.2px, transparent 1.2px)',
-                        backgroundSize: '14px 14px'
-                      }}
-                    />
-                    {/* Animated Scanning Laser Line */}
-                    <motion.div
-                      animate={{ y: [0, 240, 0] }}
-                      transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
-                      className="w-full h-[2px] bg-emerald-400 shadow-[0_0_12px_#34D399]"
-                    />
-                    {/* LiDAR Telemetry Badge */}
-                    <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2 py-1 rounded-md border border-emerald-500/40 text-[9px] font-mono text-emerald-400">
-                      ⚡ 14,800 pts/m² · σ: ±0.02mm
-                    </div>
-                  </div>
-                )}
-
-                {/* Mode Overlay: FEA Finite Element Stress Heatmap */}
-                {heroScanMode === 'fea' && (
-                  <div className="absolute inset-0">
-                    {/* Stress Color Gradient Contour */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/35 via-amber-500/40 to-rose-600/50 mix-blend-color-burn pointer-events-none" />
-                    
-                    {/* Stress Legend */}
-                    <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2 py-1 rounded-md border border-[#BA532B]/40 text-[9px] font-mono text-[#FFA57E]">
-                      🔥 Peak Load: 4.82 MPa [Tension]
-                    </div>
-
-                    {/* Interactive Clickable Hotspot Pins */}
-                    <button
-                      onClick={() => setActivePin(activePin === 1 ? null : 1)}
-                      className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-rose-500/80 border-2 border-white flex items-center justify-center text-white text-[9px] font-mono animate-bounce cursor-pointer shadow-lg z-20"
-                      title="Inspect Fracture Anomaly"
-                    >
-                      !
-                    </button>
-                    {activePin === 1 && (
-                      <div className="absolute top-[42%] left-1/2 -translate-x-1/2 bg-[#FAF5ED] border border-[#BA532B] p-2 rounded-xl shadow-2xl text-[10px] font-mono text-[#24160E] w-48 z-30">
-                        <span className="font-bold text-rose-600 block">⚠️ Micro-Crack Anomaly</span>
-                        <span>Length: 142mm · Paris-Erdogan da/dN: 0.08mm/yr</span>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                <div className="absolute inset-0 bg-gradient-to-t from-[#24160E]/85 via-transparent to-black/20 pointer-events-none" />
-                
-                {/* Status Tag Overlay */}
-                <div className="absolute top-3 right-3">
-                  <span 
-                    className="px-2.5 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider backdrop-blur-md border shadow"
-                    style={{
-                      backgroundColor: `${sites[selectedTwinSiteIdx]?.color}25`,
-                      color: sites[selectedTwinSiteIdx]?.color,
-                      borderColor: `${sites[selectedTwinSiteIdx]?.color}60`
-                    }}
-                  >
-                    ● {sites[selectedTwinSiteIdx]?.status}
-                  </span>
-                </div>
-
-                {/* Bottom Image Overlay Details */}
-                <div className="absolute bottom-3 left-3 right-3 space-y-1 pointer-events-none">
-                  <span className="text-[10px] font-mono text-[#C29244] font-semibold block">
-                    📍 {sites[selectedTwinSiteIdx]?.location}, {sites[selectedTwinSiteIdx]?.state}
-                  </span>
-                  <h4 className="text-lg font-serif font-bold text-white leading-tight">
-                    {sites[selectedTwinSiteIdx]?.name}
-                  </h4>
-                </div>
-              </div>
-
-              {/* Card Meta & Interactive CTA */}
-              <div className="space-y-3 pt-1">
-                <p className="text-xs text-[#4D3425] font-sans leading-relaxed line-clamp-2">
-                  {sites[selectedTwinSiteIdx]?.builtEra} · {sites[selectedTwinSiteIdx]?.material}
-                </p>
-
-                <button
-                  onClick={() => onSelectMonument ? onSelectMonument(selectedTwinSiteIdx) : onEnterDashboard()}
-                  className="w-full py-3.5 rounded-xl terracotta-btn font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer shadow-lg"
-                >
-                  <span>Explore 3D Living Twin</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-
+            <div className="space-y-1">
+              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#24160E] block">12</span>
+              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">Living Twins</span>
+            </div>
+            <div className="space-y-1">
+              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#BA532B] block">4.8M+</span>
+              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">Point Clouds</span>
+            </div>
+            <div className="space-y-1">
+              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#C29244] block">0.02mm</span>
+              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">FEM Precision</span>
+            </div>
+            <div className="space-y-1">
+              <span className="text-2xl sm:text-3xl font-serif font-bold text-[#24160E] block">ISO 31000</span>
+              <span className="text-[11px] font-mono text-[#7A5B49] uppercase tracking-wider block font-semibold">Risk Standard</span>
             </div>
           </motion.div>
 
