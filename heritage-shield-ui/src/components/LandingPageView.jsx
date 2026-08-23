@@ -56,20 +56,9 @@ export default function LandingPageView({
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
 
-  // 🎛️ 4. Interactive Hero Twin Scan Mode & 6. 🔦 Museum Cursor Follower
+  // 🎛️ 4. Interactive Hero Twin Scan Mode
   const [heroScanMode, setHeroScanMode] = useState('photo'); // 'photo' | 'lidar' | 'fea'
   const [activePin, setActivePin] = useState(null);
-
-  // 6. 🔦 Fluid Precision Spring-Driven Amber Cursor System
-  const mouseX = useMotionValue(-1000);
-  const mouseY = useMotionValue(-1000);
-  const smoothMouseX = useSpring(mouseX, { damping: 28, stiffness: 220, mass: 0.4 });
-  const smoothMouseY = useSpring(mouseY, { damping: 28, stiffness: 220, mass: 0.4 });
-
-  const handleMouseMove = (e) => {
-    mouseX.set(e.clientX);
-    mouseY.set(e.clientY);
-  };
 
   // State for Sandbox Showcase
   const [showcaseTab, setShowcaseTab] = useState('twin');
@@ -202,21 +191,8 @@ export default function LandingPageView({
 
   return (
     <div 
-      onMouseMove={handleMouseMove}
       className="min-h-screen bg-[#F0E7DA] text-[#24160E] font-sans selection:bg-[#BA532B] selection:text-white overflow-x-hidden relative museum-bg"
     >
-      {/* 6. 🔦 Fluid Submerged Amber Cursor Follower */}
-      <motion.div 
-        className="fixed top-0 left-0 pointer-events-none w-[520px] h-[520px] rounded-full blur-[110px] opacity-25 z-0"
-        style={{
-          x: smoothMouseX,
-          y: smoothMouseY,
-          translateX: '-50%',
-          translateY: '-50%',
-          background: 'radial-gradient(circle, rgba(186, 83, 43, 0.48) 0%, rgba(194, 146, 68, 0.22) 45%, transparent 70%)'
-        }}
-      />
-      
       {/* 🚀 TOP SPRING-SMOOTHED SCROLL PROGRESS BAR (Active only after intro) */}
       {!showIntro && (
         <motion.div

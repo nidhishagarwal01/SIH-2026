@@ -18,6 +18,12 @@
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  @media (pointer: fine) {
+    body, button, a, input, select, textarea, [role="button"], .cursor-pointer {
+      cursor: none !important;
+    }
+  }
 }
 
 /* 🏛️ Option B: Sunlit Terracotta Sandstone & Sovereign Umber Architecture */
