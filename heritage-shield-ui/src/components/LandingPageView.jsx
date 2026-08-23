@@ -235,55 +235,49 @@ export default function LandingPageView({
         initial={{ y: -25, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="sticky top-0 z-[9999] bg-[#FAF5ED]/90 backdrop-blur-2xl border-b border-[#DACDB8] px-6 py-4 shadow-sm"
+        className="sticky top-0 z-[9999] bg-[#FAF5ED]/95 backdrop-blur-2xl border-b border-[#DACDB8]/80 px-6 sm:px-10 py-3.5 shadow-[0_4px_20px_-4px_rgba(36,22,14,0.05)]"
       >
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6">
+        <div className="max-w-[1680px] mx-auto flex items-center justify-between gap-6">
           
           {/* Left: Brand Logo & Emblem */}
           <div className="flex items-center gap-4">
             <HeritageShieldLogo
               size="md"
               showText={true}
-              textClassName="text-lg tracking-wider font-serif font-bold text-[#24160E]"
+              textClassName="text-xl tracking-wider font-serif font-bold text-[#24160E]"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             />
           </div>
 
-          {/* Center: Minimalist Nav Links */}
-          <div className="hidden lg:flex items-center gap-8 text-xs font-mono tracking-widest uppercase">
-            <button 
-              onClick={() => scrollToSection('hero-section')}
-              className="text-[#BA532B] font-bold transition hover:opacity-80 cursor-pointer"
-            >
-              Overview
-            </button>
+          {/* Center: Beautified Capsule Nav Links */}
+          <div className="hidden lg:flex items-center gap-1.5 bg-[#F0E7DA]/60 border border-[#DACDB8]/80 px-2.5 py-1.5 rounded-2xl shadow-inner font-mono text-[13px] tracking-wider uppercase font-semibold">
             <button 
               onClick={() => scrollToSection('pipeline-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
+              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
             >
               Architecture
             </button>
             <button 
               onClick={() => scrollToSection('consoles-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
+              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
             >
               Living Twins
             </button>
             <button 
               onClick={() => scrollToSection('simulator-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
+              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
             >
               2030 Predictor
             </button>
             <button 
               onClick={() => scrollToSection('registry-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
+              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
             >
               Heritage Sites
             </button>
             <button 
               onClick={() => scrollToSection('faq-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] transition font-semibold cursor-pointer"
+              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
             >
               Archive FAQ
             </button>
@@ -292,7 +286,7 @@ export default function LandingPageView({
           {/* Right: Actions & Login */}
           <div className="flex items-center gap-3">
             {currentUser ? (
-              <div className="flex items-center gap-2.5 bg-white border border-[#DACDB8] px-3.5 py-1.5 rounded-xl shadow-sm">
+              <div className="flex items-center gap-2.5 bg-white border border-[#DACDB8] px-4 py-2 rounded-xl shadow-sm">
                 <span className="text-xs font-mono font-bold text-[#24160E] flex items-center gap-1.5">
                   <UserCheck className="w-3.5 h-3.5 text-[#BA532B]" />
                   <span>{currentUser.role === 'officer' ? '🏛️ ' : '👥 '}{currentUser.name}</span>
@@ -310,7 +304,7 @@ export default function LandingPageView({
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsAuthModalOpen(true)}
-                className="px-4 py-2 rounded-xl terracotta-btn font-mono text-xs font-bold tracking-wider uppercase cursor-pointer shadow-md"
+                className="px-5 py-2.5 rounded-xl terracotta-btn font-mono text-xs font-bold tracking-wider uppercase cursor-pointer shadow-md"
               >
                 <div className="flex items-center gap-1.5">
                   <Lock className="w-3.5 h-3.5" />
