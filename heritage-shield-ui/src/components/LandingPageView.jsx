@@ -167,63 +167,85 @@ export default function LandingPageView({
   const flagshipSites = sites.slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-[#07080A] text-[#EDE8DE] font-sans selection:bg-[#C5A059] selection:text-[#07080A] overflow-x-hidden relative">
+    <div className="min-h-screen bg-[#07080B] text-[#EDE8DE] font-sans selection:bg-[#E06D44] selection:text-[#07080B] overflow-x-hidden relative museum-bg">
       
-      {/* Background Ambient Dot Matrix */}
+      {/* Background Ambient Spotlight & Warm Dust Grain */}
+      <div className="fixed inset-0 pointer-events-none z-0 museum-spotlight opacity-70" />
       <div 
-        className="fixed inset-0 pointer-events-none z-0 opacity-30"
+        className="fixed inset-0 pointer-events-none z-0 opacity-20"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(197, 160, 89, 0.12) 1px, transparent 0)`,
-          backgroundSize: '32px 32px'
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(224, 109, 68, 0.15) 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
         }}
       />
 
-      {/* 🌟 1. TOP LUXURY NAVIGATION BAR */}
+      {/* 🌟 1. TOP MINIMALIST MUSEUM NAVIGATION BAR (Matching Reference Aesthetic) */}
       <motion.nav 
-        initial={{ y: -30, opacity: 0 }}
+        initial={{ y: -25, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="sticky top-0 z-[9999] bg-[#0A0C10]/92 backdrop-blur-xl border-b border-[#1E2330] px-6 py-3.5 shadow-2xl"
+        className="sticky top-0 z-[9999] bg-[#07080B]/85 backdrop-blur-2xl border-b border-white/[0.08] px-6 py-4 shadow-2xl"
       >
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
+        <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-6">
           
-          {/* Logo Brand */}
-          <HeritageShieldLogo
-            size="md"
-            showText={true}
-            textClassName="text-lg tracking-wide font-serif"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          />
-
-          {/* Navigation Links */}
-          <div className="hidden lg:flex items-center gap-8 text-xs font-mono text-gray-300">
-            <a href="#decision-modules" className="hover:text-[#C5A059] transition flex items-center gap-1.5">
-              <span>🏛️</span>
-              <span>Architecture</span>
-            </a>
-            <a href="#sandbox-showcase" className="hover:text-[#C5A059] transition flex items-center gap-1.5">
-              <span>🌐</span>
-              <span>Live Twin Studio</span>
-            </a>
-            <a href="#climate-simulator" className="hover:text-[#C5A059] transition flex items-center gap-1.5">
-              <span>📈</span>
-              <span>2030 Predictor</span>
-            </a>
-            <a href="#monument-registry" className="hover:text-[#C5A059] transition flex items-center gap-1.5">
-              <span>📍</span>
-              <span>Heritage Sites</span>
-            </a>
-            <a href="#faq" className="hover:text-[#C5A059] transition">FAQ</a>
+          {/* Left: Brand Logo & Emblem */}
+          <div className="flex items-center gap-4">
+            <HeritageShieldLogo
+              size="md"
+              showText={true}
+              textClassName="text-lg tracking-wider font-serif font-bold text-[#FDFBF7]"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            />
           </div>
 
-          {/* Right Action & Theme Toggle */}
+          {/* Center: Minimalist Museum Nav Links with Terracotta/Coral Active Highlight */}
+          <div className="hidden lg:flex items-center gap-9 text-xs font-mono tracking-widest uppercase">
+            <a 
+              href="#hero-banner" 
+              className="text-[#E06D44] font-bold border-b-2 border-[#E06D44] pb-1 transition"
+            >
+              Overview
+            </a>
+            <a 
+              href="#decision-modules" 
+              className="text-gray-300 hover:text-[#E06D44] transition"
+            >
+              Architecture
+            </a>
+            <a 
+              href="#sandbox-showcase" 
+              className="text-gray-300 hover:text-[#E06D44] transition"
+            >
+              Living Twins
+            </a>
+            <a 
+              href="#climate-simulator" 
+              className="text-gray-300 hover:text-[#E06D44] transition"
+            >
+              2030 Predictor
+            </a>
+            <a 
+              href="#monument-registry" 
+              className="text-gray-300 hover:text-[#E06D44] transition"
+            >
+              Heritage Sites
+            </a>
+            <a 
+              href="#faq" 
+              className="text-gray-300 hover:text-[#E06D44] transition"
+            >
+              Archive FAQ
+            </a>
+          </div>
+
+          {/* Right: Actions & Login */}
           <div className="flex items-center gap-3">
             <ThemeToggle />
 
             {currentUser ? (
-              <div className="flex items-center gap-2.5 bg-[#13161F] border border-[#2B313D] px-3.5 py-1.5 rounded-xl shadow">
-                <span className="text-xs font-mono font-bold text-[#F3EFE6] flex items-center gap-1.5">
-                  <UserCheck className="w-3.5 h-3.5 text-[#C5A059]" />
+              <div className="flex items-center gap-2.5 bg-white/[0.06] border border-white/10 px-3.5 py-1.5 rounded-xl shadow backdrop-blur-md">
+                <span className="text-xs font-mono font-bold text-[#FDFBF7] flex items-center gap-1.5">
+                  <UserCheck className="w-3.5 h-3.5 text-[#E06D44]" />
                   <span>{currentUser.role === 'officer' ? '🏛️ ' : '👥 '}{currentUser.name}</span>
                 </span>
                 <button
@@ -239,10 +261,12 @@ export default function LandingPageView({
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsAuthModalOpen(true)}
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:from-[#D8B46E] hover:to-[#E5C07B] text-[#0A0C10] font-mono text-xs font-bold tracking-wide shadow-lg shadow-amber-950/40 transition flex items-center gap-1.5 group cursor-pointer border border-[#E5C07B]/40"
+                className="px-4 py-2 rounded-xl terracotta-btn font-mono text-xs font-bold tracking-wider uppercase cursor-pointer"
               >
-                <Lock className="w-3.5 h-3.5" />
-                <span>Authority Login</span>
+                <div className="flex items-center gap-1.5">
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>Authority Login</span>
+                </div>
               </motion.button>
             )}
           </div>
@@ -251,107 +275,176 @@ export default function LandingPageView({
       </motion.nav>
 
       {/* ========================================================================= */}
-      {/* 🚀 2. ICONIC HERO PANORAMIC BANNER (HERITAGE EDITORIAL & DIGITAL TWIN)    */}
+      {/* 🚀 2. CINEMATIC MUSEUM HERO BANNER (MATCHING REFERENCE COMPOSITION)        */}
       {/* ========================================================================= */}
-      <section id="hero-banner" className="relative pt-6 pb-12 px-4 sm:px-6 max-w-[1600px] mx-auto">
+      <section id="hero-banner" className="relative pt-6 pb-16 px-4 sm:px-6 max-w-[1600px] mx-auto">
         
-        <div className="relative rounded-3xl overflow-hidden border border-[#232A38] bg-[#0A0C10] shadow-2xl min-h-[580px] flex items-center heritage-radial-bg">
+        <div className="relative rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0A0C12] shadow-2xl min-h-[620px] flex items-center p-6 sm:p-10 lg:p-14">
           
-          {/* Background Heritage Architectural Imagery & 3D Wireframe Split */}
-          <div className="absolute inset-0 z-0 select-none">
-            
-            {/* Photographic Stone Background */}
+          {/* Deep Cinematic Architectural Background Image with Vignette */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-none">
             <img
               src="/monuments/khajuraho.jpg"
-              alt="Indian Built Heritage Architecture"
-              className={`absolute inset-0 w-full h-full object-cover object-center filter transition-all duration-700 ${
-                heroMode === 'wireframe' ? 'opacity-10 brightness-50' : 'opacity-85 brightness-90 contrast-105'
-              }`}
+              alt="Indian Built Heritage Masterpiece"
+              className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.45] contrast-110 saturate-[0.85]"
             />
-
-            {/* Dark Radial Gradient Mask on Left for High Readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#07080A] via-[#07080A]/90 to-transparent z-10 w-full lg:w-[68%]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#07080A] via-transparent to-transparent z-10" />
-
-            {/* 🌐 3D Wireframe / LiDAR Scanning Mesh Overlay (Right Half) */}
-            {(heroMode === 'split' || heroMode === 'wireframe') && (
-              <div 
-                className="absolute inset-y-0 right-0 w-full lg:w-[55%] z-10 pointer-events-none opacity-70"
-                style={{
-                  maskImage: 'linear-gradient(to right, transparent, black 25%)',
-                  WebkitMaskImage: 'linear-gradient(to right, transparent, black 25%)'
-                }}
-              >
-                {/* Wireframe Grid */}
-                <div className="absolute inset-0 bg-wireframe-grid opacity-80" />
-                <div className="absolute inset-0 bg-lidar-cyan-grid opacity-50" />
-
-                {/* Sweeping Laser Scanline */}
-                <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#38BDF8] to-transparent shadow-[0_0_15px_#38BDF8] animate-laser-scan z-20" />
-
-                {/* Animated Pulsing Coordinate Nodes */}
-                <div className="absolute top-1/4 right-1/4 w-3 h-3 rounded-full bg-[#C5A059] animate-ping" />
-                <div className="absolute top-1/3 right-1/3 w-2.5 h-2.5 rounded-full bg-[#38BDF8] animate-pulse" />
-                <div className="absolute bottom-1/3 right-1/5 w-3 h-3 rounded-full bg-emerald-400 animate-ping" />
-                <div className="absolute bottom-1/4 right-2/5 w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-              </div>
-            )}
-
+            {/* Center Warm Terracotta Spotlight Refraction */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#07080B]/95 via-[#07080B]/75 to-[#07080B]/90 z-10" />
+            <div className="absolute inset-0 museum-spotlight z-10 opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#07080B] via-transparent to-[#07080B]/60 z-10" />
           </div>
 
-          {/* Foreground Hero Content (Left Side) */}
-          <div className="relative z-20 p-8 sm:p-12 lg:p-16 max-w-2xl space-y-6">
+          {/* Two-Column Grid: Left Floating Showcase Card (Matching Ref) + Right Majestic Headline */}
+          <div className="relative z-20 w-full grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            {/* National Sentinel Status Eyebrow */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#141722]/90 border border-[#C5A059]/40 backdrop-blur-md shadow-lg">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[11px] font-mono text-[#E5C07B] uppercase tracking-wider font-bold">
-                National Built Heritage Command · 3,690+ Monuments Monitored
-              </span>
+            {/* 📱 LEFT COLUMN: Floating Showcase Card (Directly Styled from Reference Artifact Card) */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-start">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="w-full max-w-sm rounded-[2.25rem] border border-white/15 bg-[#0C0E16]/80 backdrop-blur-2xl shadow-2xl p-4 sm:p-5 space-y-4 relative group"
+                style={{
+                  boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.08) inset'
+                }}
+              >
+                {/* Showcase Top Bar */}
+                <div className="flex justify-between items-center text-xs font-mono px-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-[#E06D44] animate-pulse" />
+                    <span className="text-[10px] text-gray-300 font-bold uppercase tracking-wider">
+                      Artefact Twin #{selectedTwinSiteIdx + 1}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setSelectedTwinSiteIdx((selectedTwinSiteIdx - 1 + sites.length) % sites.length)}
+                      className="w-7 h-7 rounded-full bg-white/10 hover:bg-[#E06D44] border border-white/15 text-white flex items-center justify-center transition cursor-pointer text-xs"
+                      title="Previous Monument"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      onClick={() => setSelectedTwinSiteIdx((selectedTwinSiteIdx + 1) % sites.length)}
+                      className="w-7 h-7 rounded-full bg-white/10 hover:bg-[#E06D44] border border-white/15 text-white flex items-center justify-center transition cursor-pointer text-xs"
+                      title="Next Monument"
+                    >
+                      ›
+                    </button>
+                  </div>
+                </div>
+
+                {/* Monument Showcase Image Display */}
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-black/60 shadow-inner">
+                  <img
+                    src={sites[selectedTwinSiteIdx]?.imageUrl || '/monuments/qutub_minar.jpg'}
+                    alt={sites[selectedTwinSiteIdx]?.name}
+                    className="w-full h-full object-cover filter brightness-95 group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C0E16] via-transparent to-black/30" />
+                  
+                  {/* Status Tag Overlay */}
+                  <div className="absolute top-3 right-3">
+                    <span 
+                      className="px-2.5 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider backdrop-blur-md border shadow"
+                      style={{
+                        backgroundColor: `${sites[selectedTwinSiteIdx]?.color}25`,
+                        color: sites[selectedTwinSiteIdx]?.color,
+                        borderColor: `${sites[selectedTwinSiteIdx]?.color}60`
+                      }}
+                    >
+                      ● {sites[selectedTwinSiteIdx]?.status}
+                    </span>
+                  </div>
+
+                  {/* Bottom Image Overlay Details */}
+                  <div className="absolute bottom-3 left-3 right-3 space-y-1">
+                    <span className="text-[10px] font-mono text-[#E5C07B] font-semibold block">
+                      📍 {sites[selectedTwinSiteIdx]?.location}, {sites[selectedTwinSiteIdx]?.state}
+                    </span>
+                    <h4 className="text-lg font-serif font-bold text-white leading-tight">
+                      {sites[selectedTwinSiteIdx]?.name}
+                    </h4>
+                  </div>
+                </div>
+
+                {/* Card Bottom Meta & Interactive CTA */}
+                <div className="space-y-3 pt-1">
+                  <p className="text-xs text-gray-300 font-sans leading-relaxed line-clamp-2">
+                    {sites[selectedTwinSiteIdx]?.builtEra} · {sites[selectedTwinSiteIdx]?.material}
+                  </p>
+
+                  <button
+                    onClick={() => onSelectMonument ? onSelectMonument(selectedTwinSiteIdx) : onEnterDashboard()}
+                    className="w-full py-3 rounded-xl terracotta-btn font-mono text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+                  >
+                    <span>Explore 3D Living Twin</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </motion.div>
             </div>
 
-            {/* Main Editorial Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-6xl lg:text-6xl font-serif font-bold text-white tracking-tight leading-[1.08]"
-            >
-              Living Digital Twins for <span className="gold-text-shimmer">National Heritage</span> Conservation
-            </motion.h1>
-
-            {/* Clean Subtitle Paragraph */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-lg text-gray-300 font-sans leading-relaxed"
-            >
-              Heritage Shield transforms drone scans, meteorological hazard feeds, and AI computer vision diagnostics into living 3D twins — empowering archaeological authorities with auditable predictive triage before irreversible decay occurs.
-            </motion.p>
-
-            {/* Action Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-3.5 pt-2"
-            >
-              <button
-                onClick={onEnterDashboard}
-                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:from-[#D8B46E] hover:to-[#E5C07B] text-[#0A0C10] font-mono text-xs font-bold tracking-wide shadow-xl shadow-amber-950/40 transition flex items-center gap-2 cursor-pointer border border-[#E5C07B]/40"
+            {/* 🏛️ RIGHT COLUMN: Majestic Editorial Headline & Cultural Pitch (Matching Ref) */}
+            <div className="lg:col-span-7 space-y-6 text-left">
+              
+              {/* National Authority Eyebrow Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-md shadow-lg"
               >
-                <span>Launch National Heritage Studio</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+                <span className="w-2 h-2 rounded-full bg-[#E06D44] animate-pulse" />
+                <span className="text-[11px] font-mono text-[#F5E6CC] uppercase tracking-widest font-bold">
+                  National Built Heritage Command Center · SIH 2026
+                </span>
+              </motion.div>
 
-              <a
-                href="#decision-modules"
-                className="px-5 py-3.5 rounded-xl bg-[#12151D]/80 hover:bg-[#1A1F2B] border border-[#2B313D] hover:border-[#C5A059]/60 text-gray-200 text-xs font-mono font-semibold transition flex items-center gap-2 backdrop-blur-md cursor-pointer"
+              {/* Main Display Headline */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-white tracking-tight leading-[1.12]"
               >
-                <span>Explore Architecture</span>
-              </a>
-            </motion.div>
+                Custodian of Heritage & <span className="gold-cream-text">Living Digital Twins</span>
+              </motion.h1>
+
+              {/* Authoritative Cultural Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-base sm:text-lg text-gray-300 font-sans leading-relaxed max-w-xl"
+              >
+                Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 3,690+ protected monuments with auditable foresight.
+              </motion.p>
+
+              {/* Action Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex flex-wrap items-center gap-4 pt-2"
+              >
+                <button
+                  onClick={onEnterDashboard}
+                  className="px-7 py-3.5 rounded-xl terracotta-btn font-mono text-xs font-bold tracking-wider uppercase transition flex items-center gap-2 cursor-pointer shadow-xl"
+                >
+                  <span>Launch National Studio</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+
+                <a
+                  href="#monument-registry"
+                  className="px-6 py-3.5 rounded-xl frosted-btn font-mono text-xs font-bold tracking-wider uppercase transition flex items-center gap-2 cursor-pointer"
+                >
+                  <span>View Heritage Registry</span>
+                </a>
+              </motion.div>
+
+            </div>
 
           </div>
 
@@ -366,10 +459,10 @@ export default function LandingPageView({
         
         {/* Section Header */}
         <div className="max-w-3xl space-y-3">
-          <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
+          <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold">
             Workflow & System Architecture
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#F3EFE6] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-[#FDFBF7] tracking-tight">
             The decision layer, module by module
           </h2>
           <p className="text-base sm:text-lg text-gray-400 font-sans leading-relaxed">
@@ -385,21 +478,23 @@ export default function LandingPageView({
               <div
                 key={mod.step}
                 onClick={() => setActiveWorkflowIndex(idx)}
-                className={`p-6 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-4 group ${
+                className={`p-6 rounded-3xl border transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-4 group ${
                   isSelected
-                    ? 'bg-[#12151D] border-[#C5A059] shadow-2xl shadow-amber-950/20 ring-1 ring-[#C5A059]/50 -translate-y-1'
-                    : 'bg-[#0B0D12] border-[#1A1F29] hover:border-[#2B313D] hover:bg-[#0E1117]'
+                    ? 'bg-[#121522]/90 border-[#E06D44] shadow-2xl shadow-[#E06D44]/15 ring-1 ring-[#E06D44]/40 -translate-y-1'
+                    : 'frosted-glass-card hover:border-[#E06D44]/40'
                 }`}
               >
                 <div className="space-y-3">
                   <div className="flex justify-between items-center text-xs font-mono">
-                    <span className={`font-bold px-2 py-0.5 rounded ${isSelected ? 'bg-[#C5A059] text-black' : 'bg-[#161922] text-[#C5A059]'}`}>
+                    <span className={`font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider text-[10px] ${
+                      isSelected ? 'bg-[#E06D44] text-[#07080B]' : 'bg-white/10 text-[#E06D44]'
+                    }`}>
                       Step {mod.step}
                     </span>
-                    <span className="text-gray-500 font-semibold">{mod.kicker.split('·')[1]}</span>
+                    <span className="text-gray-400 font-semibold">{mod.kicker.split('·')[1]}</span>
                   </div>
 
-                  <h3 className="text-lg font-serif font-bold text-[#F3EFE6] group-hover:text-white leading-snug">
+                  <h3 className="text-lg font-serif font-bold text-[#FDFBF7] group-hover:text-white leading-snug">
                     {mod.title}
                   </h3>
 
@@ -418,24 +513,27 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       {/* 💻 4. INTERACTIVE LIVE CONSOLE SANDBOX SHOWCASE                           */}
       {/* ========================================================================= */}
-      <section id="sandbox-showcase" className="py-16 px-6 bg-[#090B0E] border-y border-[#181C24]">
+      <section id="sandbox-showcase" className="py-20 px-6 bg-[#090B10]/80 border-y border-white/[0.08] relative">
         <div className="max-w-[1600px] mx-auto space-y-8">
           
           <div className="flex flex-wrap justify-between items-end gap-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#F3EFE6] mt-1">
+              <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold">
+                Live Interactive Sandbox
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#FDFBF7] mt-1">
                 Experience the 4 Core Intelligence Consoles
               </h2>
             </div>
 
             {/* Showcase Tabs */}
-            <div className="bg-[#10131B] p-1.5 rounded-2xl border border-[#232A38] flex items-center gap-1.5 font-mono text-xs overflow-x-auto shadow-inner">
+            <div className="bg-[#0C0E16]/90 p-1.5 rounded-2xl border border-white/10 flex items-center gap-1.5 font-mono text-xs overflow-x-auto shadow-xl backdrop-blur-md">
               <button
                 onClick={() => setShowcaseTab('twin')}
-                className={`px-4 py-2 rounded-xl transition flex items-center gap-2 cursor-pointer ${
+                className={`px-4 py-2 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
                   showcaseTab === 'twin'
-                    ? 'bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-[#0A0C10] font-bold shadow-md'
-                    : 'text-gray-400 hover:text-white hover:bg-[#161B26]'
+                    ? 'terracotta-btn shadow-md'
+                    : 'text-gray-400 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <span>🏛️</span>
@@ -443,10 +541,10 @@ export default function LandingPageView({
               </button>
               <button
                 onClick={() => setShowcaseTab('vision')}
-                className={`px-4 py-2 rounded-xl transition flex items-center gap-2 cursor-pointer ${
+                className={`px-4 py-2 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
                   showcaseTab === 'vision'
-                    ? 'bg-sky-600 text-white font-bold shadow-md'
-                    : 'text-gray-400 hover:text-white hover:bg-[#161B26]'
+                    ? 'bg-sky-600 text-white shadow-md'
+                    : 'text-gray-400 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <span>🔍</span>
@@ -454,10 +552,10 @@ export default function LandingPageView({
               </button>
               <button
                 onClick={() => setShowcaseTab('temporal')}
-                className={`px-4 py-2 rounded-xl transition flex items-center gap-2 cursor-pointer ${
+                className={`px-4 py-2 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
                   showcaseTab === 'temporal'
-                    ? 'bg-amber-600 text-white font-bold shadow-md'
-                    : 'text-gray-400 hover:text-white hover:bg-[#161B26]'
+                    ? 'bg-amber-600 text-white shadow-md'
+                    : 'text-gray-400 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <span>📈</span>
@@ -465,10 +563,10 @@ export default function LandingPageView({
               </button>
               <button
                 onClick={() => setShowcaseTab('gis')}
-                className={`px-4 py-2 rounded-xl transition flex items-center gap-2 cursor-pointer ${
+                className={`px-4 py-2 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
                   showcaseTab === 'gis'
-                    ? 'bg-emerald-600 text-white font-bold shadow-md'
-                    : 'text-gray-400 hover:text-white hover:bg-[#161B26]'
+                    ? 'bg-emerald-600 text-white shadow-md'
+                    : 'text-gray-400 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <span>🗺️</span>
@@ -478,7 +576,7 @@ export default function LandingPageView({
           </div>
 
           {/* Sandbox Showcase Display Container */}
-          <div className="bg-[#0D0F14] border border-[#232A38] rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-8 heritage-radial-bg">
+          <div className="bg-[#0A0C14]/90 border border-white/10 rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-8 backdrop-blur-xl relative">
             
             {showcaseTab === 'twin' && (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -735,21 +833,24 @@ export default function LandingPageView({
       <section id="climate-simulator" className="py-20 px-6 max-w-[1600px] mx-auto space-y-12">
         
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <h2 className="text-3xl font-serif font-bold text-[#F3EFE6]">
+          <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold">
+            Physics-Informed Climate Stress Test
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#FDFBF7]">
             Extreme Climate & Seismic Stress Simulator
           </h2>
-          <p className="text-xs text-gray-400 font-sans">
+          <p className="text-sm text-gray-400 font-sans">
             Adjust environmental parameters to see how climatic anomalies affect heritage site degradation in real-time.
           </p>
         </div>
 
-        <div className="bg-[#0E1013] border border-[#1E2228] p-8 rounded-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="bg-[#0C0E16]/80 border border-white/10 p-8 sm:p-10 rounded-3xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center backdrop-blur-xl shadow-2xl">
           
           <div className="lg:col-span-7 space-y-6">
             <div className="space-y-2">
               <div className="flex justify-between text-xs font-mono text-gray-300">
                 <span>🌧️ Monsoon Cloudburst Anomaly:</span>
-                <strong className="text-sky-400">+{simMonsoon}% Excess Precipitation</strong>
+                <strong className="text-sky-400 font-bold">+{simMonsoon}% Excess Precipitation</strong>
               </div>
               <input
                 type="range"
@@ -757,14 +858,14 @@ export default function LandingPageView({
                 max="80"
                 value={simMonsoon}
                 onChange={(e) => setSimMonsoon(Number(e.target.value))}
-                className="w-full accent-sky-400 h-2 bg-[#1A1D24] rounded-lg cursor-pointer"
+                className="w-full accent-[#E06D44] h-2 bg-white/10 rounded-lg cursor-pointer"
               />
             </div>
 
             <div className="space-y-2">
               <div className="flex justify-between text-xs font-mono text-gray-300">
                 <span>🌋 Seismic Ground Motion Velocity:</span>
-                <strong className="text-rose-400">{simSeismic.toFixed(2)}x (Peak Zone Factor)</strong>
+                <strong className="text-rose-400 font-bold">{simSeismic.toFixed(2)}x (Peak Zone Factor)</strong>
               </div>
               <input
                 type="range"
@@ -773,25 +874,25 @@ export default function LandingPageView({
                 step="0.05"
                 value={simSeismic}
                 onChange={(e) => setSimSeismic(Number(e.target.value))}
-                className="w-full accent-rose-500 h-2 bg-[#1A1D24] rounded-lg cursor-pointer"
+                className="w-full accent-[#E06D44] h-2 bg-white/10 rounded-lg cursor-pointer"
               />
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-[#14171E] border border-[#232A38] p-6 rounded-xl text-center space-y-3">
-            <span className="text-[10px] font-mono uppercase text-gray-400">Simulated Health Score</span>
-            <div className="text-5xl font-serif font-bold text-[#C5A059]">
+          <div className="lg:col-span-5 bg-[#121522]/90 border border-white/10 p-7 rounded-2xl text-center space-y-3 shadow-xl">
+            <span className="text-[10px] font-mono uppercase text-[#E06D44] tracking-widest font-bold">Simulated Health Score</span>
+            <div className="text-5xl font-serif font-bold">
               <span style={{ color: simulatedHealth < 45 ? '#F43F5E' : simulatedHealth < 70 ? '#F59E0B' : '#10B981' }}>
                 {simulatedHealth}
               </span>
-              <span className="text-xs text-gray-500"> / 100</span>
+              <span className="text-xs text-gray-400 font-mono font-normal"> / 100</span>
             </div>
             <div
-              className="text-xs font-mono px-3 py-1 rounded-full font-bold uppercase inline-block"
+              className="text-xs font-mono px-3.5 py-1.5 rounded-full font-bold uppercase inline-block border"
               style={{
                 backgroundColor: simulatedHealth < 45 ? '#F43F5E20' : simulatedHealth < 70 ? '#F59E0B20' : '#10B98120',
                 color: simulatedHealth < 45 ? '#F43F5E' : simulatedHealth < 70 ? '#F59E0B' : '#10B981',
-                border: `1px solid ${simulatedHealth < 45 ? '#F43F5E50' : simulatedHealth < 70 ? '#F59E0B50' : '#10B98150'}`
+                borderColor: simulatedHealth < 45 ? '#F43F5E50' : simulatedHealth < 70 ? '#F59E0B50' : '#10B98150'
               }}
             >
               STATUS: {simulatedUrgency}
@@ -804,7 +905,7 @@ export default function LandingPageView({
                   onEnterDashboard();
                 }
               }}
-              className="w-full mt-4 py-2.5 rounded-xl bg-[#C5A059] text-black font-mono text-xs font-bold hover:bg-[#D8B46E] transition cursor-pointer"
+              className="w-full mt-4 py-3 rounded-xl terracotta-btn font-mono text-xs font-bold tracking-wider uppercase cursor-pointer shadow-lg"
             >
               Run 2030 Longitudinal Simulation →
             </button>
@@ -821,47 +922,62 @@ export default function LandingPageView({
         
         <div className="flex flex-wrap justify-between items-end gap-4">
           <div>
-            <h2 className="text-3xl font-serif font-bold text-[#F3EFE6] mt-1">
-              Monitored UNESCO Heritage Sites
+            <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold">
+              National Heritage Registry
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#FDFBF7] mt-1">
+              Protected UNESCO Heritage Sites
             </h2>
           </div>
 
           <button
             onClick={onEnterDashboard}
-            className="px-4 py-2 rounded-xl bg-[#14171E] hover:bg-[#1E232E] border border-[#2B313D] text-xs font-mono text-gray-200 transition flex items-center gap-1.5 cursor-pointer"
+            className="px-5 py-2.5 rounded-xl frosted-btn text-xs font-mono tracking-wider uppercase transition flex items-center gap-2 cursor-pointer font-bold"
           >
             <span>View All 12 Heritage Sites</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
           {flagshipSites.map((s, idx) => (
             <div
               key={s.id || idx}
               onClick={() => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
-              className="bg-[#0E1013] border border-[#1E2228] rounded-2xl overflow-hidden shadow-xl hover:border-[#C5A059] transition-all duration-300 group cursor-pointer flex flex-col justify-between"
+              className="frosted-glass-card rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 group cursor-pointer flex flex-col justify-between"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-black">
+              <div className="relative aspect-[16/10] overflow-hidden bg-black/60">
                 <img
                   src={s.imageUrl || '/monuments/qutub_minar.jpg'}
                   alt={s.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 filter brightness-90"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-105"
                 />
+                <div className="absolute top-3 right-3">
+                  <span 
+                    className="px-2.5 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider backdrop-blur-md border shadow"
+                    style={{
+                      backgroundColor: `${s.color}25`,
+                      color: s.color,
+                      borderColor: `${s.color}60`
+                    }}
+                  >
+                    ● {s.status}
+                  </span>
+                </div>
               </div>
 
-              <div className="p-5 space-y-3">
+              <div className="p-6 space-y-3">
                 <div>
-                  <span className="text-[10px] font-mono text-gray-400 uppercase">{s.state} · {s.period}</span>
-                  <h3 className="text-lg font-serif font-bold text-white group-hover:text-[#C5A059] transition">
+                  <span className="text-[10px] font-mono text-[#E5C07B] uppercase font-semibold">{s.state} · {s.period}</span>
+                  <h3 className="text-lg font-serif font-bold text-[#FDFBF7] group-hover:text-[#E06D44] transition mt-0.5">
                     {s.name}
                   </h3>
                 </div>
 
-                <div className="flex justify-between items-center text-xs font-mono pt-2 border-t border-[#1E2228]">
-                  <span className="text-gray-400">Seismic: <strong className="text-amber-400">{s.seismicZone}</strong></span>
-                  <span className="text-emerald-400 font-bold flex items-center gap-1">
-                    <span>Explore 3D Twin</span>
+                <div className="flex justify-between items-center text-xs font-mono pt-3 border-t border-white/10">
+                  <span className="text-gray-400">Hazard: <strong className="text-amber-400">{s.seismicZone}</strong></span>
+                  <span className="text-[#E06D44] font-bold flex items-center gap-1">
+                    <span>Explore Twin</span>
                     <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>
@@ -878,32 +994,32 @@ export default function LandingPageView({
       <section id="faq" className="py-20 px-6 max-w-4xl mx-auto space-y-8">
         
         <div className="text-center space-y-2">
-          <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider font-bold">
+          <span className="text-xs font-mono text-[#E06D44] uppercase tracking-widest font-bold">
             Frequently Answered Questions
           </span>
-          <h2 className="text-3xl font-serif font-bold text-[#F3EFE6]">
+          <h2 className="text-3xl font-serif font-bold text-[#FDFBF7]">
             Heritage Shield Technical Architecture
           </h2>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3.5">
           {faqs.map((faq, idx) => {
             const isOpen = activeFaq === idx;
             return (
               <div
                 key={idx}
-                className="bg-[#0E1013] border border-[#1E2228] rounded-xl overflow-hidden transition"
+                className="frosted-glass-card rounded-2xl overflow-hidden transition"
               >
                 <button
                   onClick={() => setActiveFaq(isOpen ? null : idx)}
-                  className="w-full p-5 text-left flex justify-between items-center gap-4 font-serif font-bold text-base text-gray-200 hover:text-white cursor-pointer"
+                  className="w-full p-5 text-left flex justify-between items-center gap-4 font-serif font-bold text-base text-[#FDFBF7] hover:text-[#E06D44] cursor-pointer transition"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-5 h-5 text-[#C5A059] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-5 h-5 text-[#E06D44] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 text-xs text-gray-400 font-sans leading-relaxed border-t border-[#181B22] pt-3">
+                  <div className="px-5 pb-5 text-xs text-gray-300 font-sans leading-relaxed border-t border-white/10 pt-3.5">
                     {faq.a}
                   </div>
                 )}
@@ -917,7 +1033,7 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       {/* 🛡️ 9. INSTITUTIONAL FOOTER                                                */}
       {/* ========================================================================= */}
-      <footer className="border-t border-[#181C24] bg-[#050608] py-12 px-6">
+      <footer className="border-t border-white/10 bg-[#050609] py-12 px-6">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-6 text-xs font-mono text-gray-400">
           
           <div className="flex items-center gap-3">

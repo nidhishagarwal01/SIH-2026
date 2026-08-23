@@ -395,10 +395,10 @@ export default function App() {
   // 🏛️ VIEW 3: DEDICATED MONUMENT STUDIO & COMMAND CENTER
   // ---------------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-[#0A0C10] text-[#E8E6E3] font-sans antialiased selection:bg-[#C5A059] selection:text-[#090A0C] flex flex-col heritage-radial-bg">
+    <div className="min-h-screen bg-[#07080B] text-[#EDE8DE] font-sans antialiased selection:bg-[#E06D44] selection:text-[#07080B] flex flex-col museum-bg">
       
       {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
-      <header className="sticky top-0 z-[9999] bg-[#0A0C10]/95 backdrop-blur-xl border-b border-[#232A38] px-6 py-3 shadow-2xl">
+      <header className="sticky top-0 z-[9999] bg-[#07080B]/85 backdrop-blur-2xl border-b border-white/[0.08] px-6 py-3.5 shadow-2xl">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
           {/* Brand & Return to Portal Button */}
@@ -407,15 +407,15 @@ export default function App() {
             <HeritageShieldLogo
               size="sm"
               showText={true}
-              textClassName="text-sm tracking-wide font-serif"
+              textClassName="text-sm tracking-wider font-serif font-bold text-[#FDFBF7]"
               onClick={() => setViewMode('landing')}
             />
 
-            <div className="w-[1px] h-6 bg-[#232A38]" />
+            <div className="w-[1px] h-6 bg-white/10" />
 
             <button
               onClick={() => setViewMode('portal')}
-              className="px-3.5 py-1.5 rounded-xl bg-[#12151E] hover:bg-[#C5A059] border border-[#2B313D] hover:border-[#C5A059] text-gray-300 hover:text-[#0A0C10] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow cursor-pointer"
+              className="px-3.5 py-1.5 rounded-xl frosted-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow cursor-pointer"
               title="Return to National Map & Directory"
             >
               <span>🗺️</span>
@@ -426,7 +426,7 @@ export default function App() {
           {/* Active Heritage Site Switcher Pill */}
           <button
             onClick={() => setIsAssetSwitcherOpen(true)}
-            className="flex items-center gap-3 bg-[#12151E] hover:bg-[#181D2A] border border-[#2B313D] hover:border-[#C5A059] px-4 py-2 rounded-xl transition shadow-md group cursor-pointer"
+            className="flex items-center gap-3 bg-[#121522]/80 hover:bg-[#181D2E] border border-white/15 hover:border-[#E06D44]/60 px-4 py-2 rounded-2xl transition shadow-md group cursor-pointer backdrop-blur-md"
             title="Switch Heritage Site"
           >
             <span
@@ -437,10 +437,10 @@ export default function App() {
               <div className="text-[9px] font-mono uppercase text-gray-400 font-semibold flex items-center gap-1.5">
                 <span>Active Heritage Site:</span>
               </div>
-              <div className="text-xs font-serif font-bold text-[#F3EFE6] group-hover:text-[#C5A059] flex items-center gap-1.5">
+              <div className="text-xs font-serif font-bold text-[#FDFBF7] group-hover:text-[#E06D44] flex items-center gap-1.5">
                 <span>{curSite.name}</span>
                 <span className="text-[10px] text-gray-400 font-mono">({curSite.state})</span>
-                <span className="text-[10px] text-[#C5A059] font-mono">▼ Switch</span>
+                <span className="text-[10px] text-[#E06D44] font-mono font-bold">▼ Switch</span>
               </div>
             </div>
           </button>
@@ -459,7 +459,7 @@ export default function App() {
 
             <button
               onClick={() => setIsFieldReportOpen(true)}
-              className="px-3.5 py-2 rounded-xl bg-[#12151E] border border-[#282E38] hover:border-emerald-500/50 text-emerald-400 text-xs font-mono font-medium transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-white/[0.06] border border-white/10 hover:border-emerald-500/50 text-emerald-400 text-xs font-mono font-medium transition flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               <span>Field Sentinel</span>
@@ -467,7 +467,7 @@ export default function App() {
 
             <button
               onClick={() => setIsReportOpen(true)}
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#D4AF37] hover:brightness-110 text-[#0A0C10] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-950/30 cursor-pointer border border-[#E5C07B]/40"
+              className="px-4 py-2 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md cursor-pointer"
             >
               <span>📄 ASI Dossier</span>
             </button>
@@ -477,7 +477,7 @@ export default function App() {
       </header>
 
       {/* 🎛️ 2. STUDIO CONSOLE TABS */}
-      <div className="bg-[#0D0F16] border-b border-[#1E2330] px-6">
+      <div className="bg-[#0C0E16]/80 border-b border-white/[0.08] px-6 backdrop-blur-xl">
         <div className="max-w-[1600px] mx-auto flex items-center gap-2 overflow-x-auto py-2.5">
           
           <button
@@ -487,8 +487,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'twin'
-                ? 'bg-[#181D2A] text-[#F3EFE6] border border-[#C5A059] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#12151E] border border-transparent'
+                ? 'bg-[#181D2E] text-[#FDFBF7] border border-[#E06D44] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.06] border border-transparent'
             }`}
           >
             <span className="text-sm">🏛️</span>
@@ -502,8 +502,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'vision'
-                ? 'bg-[#181D2A] text-[#F3EFE6] border border-[#C5A059] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#12151E] border border-transparent'
+                ? 'bg-[#181D2E] text-[#FDFBF7] border border-[#E06D44] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.06] border border-transparent'
             }`}
           >
             <span className="text-sm">🔍</span>
@@ -517,8 +517,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'risk'
-                ? 'bg-[#181D2A] text-[#F3EFE6] border border-[#C5A059] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#12151E] border border-transparent'
+                ? 'bg-[#181D2E] text-[#FDFBF7] border border-[#E06D44] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.06] border border-transparent'
             }`}
           >
             <span className="text-sm">📊</span>
@@ -532,8 +532,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'queue'
-                ? 'bg-[#181D2A] text-[#F3EFE6] border border-[#C5A059] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-[#12151E] border border-transparent'
+                ? 'bg-[#181D2E] text-[#FDFBF7] border border-[#E06D44] shadow-md'
+                : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.06] border border-transparent'
             }`}
           >
             <span className="text-sm">📋</span>
