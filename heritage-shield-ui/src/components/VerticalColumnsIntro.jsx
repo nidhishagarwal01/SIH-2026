@@ -5,13 +5,36 @@ import HeritageShieldLogo from './HeritageShieldLogo';
 
 export default function VerticalColumnsIntro({ onComplete }) {
   useEffect(() => {
+    // 🔒 Lock background scrolling completely on macOS & Mobile
+    const originalOverflow = document.body.style.overflow;
+    const originalTouchAction = document.body.style.touchAction;
+
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    window.scrollTo(0, 0);
+
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
         if (onComplete) onComplete();
       }
     };
+
+    const preventScroll = (e) => {
+      e.preventDefault();
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('wheel', preventScroll, { passive: false });
+    window.addEventListener('touchmove', preventScroll, { passive: false });
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.touchAction = originalTouchAction;
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('touchmove', preventScroll);
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    };
   }, [onComplete]);
 
   // 12 Distinct Monuments arranged across 4 vertical columns
@@ -40,7 +63,7 @@ export default function VerticalColumnsIntro({ onComplete }) {
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.03, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }}
-      className="fixed inset-0 z-[100000] bg-[#FDFBF7] flex items-center justify-center overflow-hidden select-none"
+      className="fixed inset-0 z-[100000] bg-[#FDFBF7] flex items-center justify-center overflow-hidden select-none overscroll-none touch-none"
     >
       {/* 🏛️ 3 VERTICAL PARALLAX IMAGE COLUMNS */}
       <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:p-6 opacity-40 hover:opacity-60 transition-opacity duration-700 pointer-events-none">
