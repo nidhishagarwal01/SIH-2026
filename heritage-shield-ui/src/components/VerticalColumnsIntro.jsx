@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Sparkles, Compass } from 'lucide-react';
+import { ArrowRight, Sparkles, Compass, Scan, Zap } from 'lucide-react';
 import HeritageShieldLogo from './HeritageShieldLogo';
 
 export default function VerticalColumnsIntro({ onComplete }) {
@@ -94,24 +94,24 @@ export default function VerticalColumnsIntro({ onComplete }) {
   // 3. ♾️ 12 DISTINCT MONUMENTS ACROSS 3 INFINITE SEAMLESS MARQUEE COLUMNS
   // ---------------------------------------------------------------------------
   const column1Base = [
-    { name: "Taj Mahal", location: "Agra, Uttar Pradesh", era: "1632 CE", img: "/monuments/taj_mahal.jpg" },
-    { name: "Qutub Minar", location: "New Delhi", era: "1192 CE", img: "/monuments/qutub_minar.jpg" },
-    { name: "Hampi Monument Complex", location: "Vijayanagara, Karnataka", era: "1336 CE", img: "/monuments/hampi.jpg" },
-    { name: "Sanchi Great Stupa", location: "Raisen, Madhya Pradesh", era: "3rd Century BCE", img: "/monuments/sanchi.jpg" }
+    { name: "Taj Mahal", location: "Agra, Uttar Pradesh", era: "1632 CE", img: "/monuments/taj_mahal.jpg", coords: "27.1751° N, 78.0421° E" },
+    { name: "Qutub Minar", location: "New Delhi", era: "1192 CE", img: "/monuments/qutub_minar.jpg", coords: "28.5245° N, 77.1855° E" },
+    { name: "Hampi Monument Complex", location: "Vijayanagara, Karnataka", era: "1336 CE", img: "/monuments/hampi.jpg", coords: "15.3350° N, 76.4600° E" },
+    { name: "Sanchi Great Stupa", location: "Raisen, Madhya Pradesh", era: "3rd Century BCE", img: "/monuments/sanchi.jpg", coords: "23.4873° N, 77.7418° E" }
   ];
 
   const column2Base = [
-    { name: "Konark Sun Temple", location: "Puri, Odisha", era: "1250 CE", img: "/monuments/konark.jpg" },
-    { name: "Khajuraho Monument Group", location: "Chhatarpur, Madhya Pradesh", era: "950 CE", img: "/monuments/khajuraho.jpg" },
-    { name: "Ellora Rock-Cut Caves", location: "Aurangabad, Maharashtra", era: "600 CE", img: "/monuments/ellora.jpg" },
-    { name: "Brihadisvara Great Temple", location: "Thanjavur, Tamil Nadu", era: "1010 CE", img: "/monuments/chola_temple.jpg" }
+    { name: "Konark Sun Temple", location: "Puri, Odisha", era: "1250 CE", img: "/monuments/konark.jpg", coords: "19.8876° N, 86.0945° E" },
+    { name: "Khajuraho Monument Group", location: "Chhatarpur, Madhya Pradesh", era: "950 CE", img: "/monuments/khajuraho.jpg", coords: "24.8318° N, 79.9199° E" },
+    { name: "Ellora Rock-Cut Caves", location: "Aurangabad, Maharashtra", era: "600 CE", img: "/monuments/ellora.jpg", coords: "20.0268° N, 75.1780° E" },
+    { name: "Brihadisvara Great Temple", location: "Thanjavur, Tamil Nadu", era: "1010 CE", img: "/monuments/chola_temple.jpg", coords: "10.7828° N, 79.1318° E" }
   ];
 
   const column3Base = [
-    { name: "Golconda Fort Complex", location: "Hyderabad, Telangana", era: "1518 CE", img: "/monuments/golconda.jpg" },
-    { name: "Ajanta Fresco Caves", location: "Aurangabad, Maharashtra", era: "2nd Century BCE", img: "/monuments/ajanta.jpg" },
-    { name: "Rani Ki Vav Stepwell", location: "Patan, Gujarat", era: "1063 CE", img: "/monuments/rani_ki_vav.jpg" },
-    { name: "Dholavira Harappan City", location: "Kutch, Gujarat", era: "3000 BCE", img: "/monuments/dholavira.jpg" }
+    { name: "Golconda Fort Complex", location: "Hyderabad, Telangana", era: "1518 CE", img: "/monuments/golconda.jpg", coords: "17.3833° N, 78.4011° E" },
+    { name: "Ajanta Fresco Caves", location: "Aurangabad, Maharashtra", era: "2nd Century BCE", img: "/monuments/ajanta.jpg", coords: "20.5519° N, 75.7033° E" },
+    { name: "Rani Ki Vav Stepwell", location: "Patan, Gujarat", era: "1063 CE", img: "/monuments/rani_ki_vav.jpg", coords: "23.8589° N, 72.1017° E" },
+    { name: "Dholavira Harappan City", location: "Kutch, Gujarat", era: "3000 BCE", img: "/monuments/dholavira.jpg", coords: "23.8864° N, 70.2131° E" }
   ];
 
   // Tripled for perfectly continuous, seamless looping without visual jumps
@@ -163,18 +163,26 @@ export default function VerticalColumnsIntro({ onComplete }) {
             {col1Items.map((item, idx) => (
               <div 
                 key={`c1-${idx}`} 
-                className="rounded-3xl overflow-hidden shadow-md border border-[#EDE6DA] bg-white aspect-[4/3] relative"
+                className="rounded-3xl overflow-hidden shadow-md border border-[#EDE6DA] bg-white aspect-[4/3] relative group"
               >
                 <img 
                   src={item.img} 
                   alt={item.name} 
                   className="w-full h-full object-cover filter brightness-105 contrast-105" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/75 via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-4 text-white">
-                  <span className="text-[10px] font-mono text-[#E5C07B] uppercase font-bold tracking-wider block">
-                    {item.location}
-                  </span>
+                
+                {/* Precision HUD Crosshairs */}
+                <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[#E06D44]/70 rounded-tl-sm pointer-events-none" />
+                <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#E06D44]/70 rounded-tr-sm pointer-events-none" />
+                <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[#E06D44]/70 rounded-bl-sm pointer-events-none" />
+                <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[#E06D44]/70 rounded-br-sm pointer-events-none" />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/80 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 text-white space-y-0.5">
+                  <div className="flex justify-between items-center text-[9px] font-mono text-[#E5C07B] uppercase font-bold tracking-wider">
+                    <span>{item.location}</span>
+                    <span className="text-cyan-300 opacity-80">{item.coords}</span>
+                  </div>
                   <h4 className="text-sm font-serif font-bold leading-snug">
                     {item.name}
                   </h4>
@@ -199,18 +207,26 @@ export default function VerticalColumnsIntro({ onComplete }) {
             {col2Items.map((item, idx) => (
               <div 
                 key={`c2-${idx}`} 
-                className="rounded-3xl overflow-hidden shadow-md border border-[#EDE6DA] bg-white aspect-[4/3] relative"
+                className="rounded-3xl overflow-hidden shadow-md border border-[#EDE6DA] bg-white aspect-[4/3] relative group"
               >
                 <img 
                   src={item.img} 
                   alt={item.name} 
                   className="w-full h-full object-cover filter brightness-105 contrast-105" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/75 via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-4 text-white">
-                  <span className="text-[10px] font-mono text-[#E5C07B] uppercase font-bold tracking-wider block">
-                    {item.location}
-                  </span>
+
+                {/* Precision HUD Crosshairs */}
+                <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[#E06D44]/70 rounded-tl-sm pointer-events-none" />
+                <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#E06D44]/70 rounded-tr-sm pointer-events-none" />
+                <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[#E06D44]/70 rounded-bl-sm pointer-events-none" />
+                <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[#E06D44]/70 rounded-br-sm pointer-events-none" />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/80 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 text-white space-y-0.5">
+                  <div className="flex justify-between items-center text-[9px] font-mono text-[#E5C07B] uppercase font-bold tracking-wider">
+                    <span>{item.location}</span>
+                    <span className="text-cyan-300 opacity-80">{item.coords}</span>
+                  </div>
                   <h4 className="text-sm font-serif font-bold leading-snug">
                     {item.name}
                   </h4>
@@ -235,18 +251,26 @@ export default function VerticalColumnsIntro({ onComplete }) {
             {col3Items.map((item, idx) => (
               <div 
                 key={`c3-${idx}`} 
-                className="rounded-3xl overflow-hidden shadow-md border border-[#EDE6DA] bg-white aspect-[4/3] relative"
+                className="rounded-3xl overflow-hidden shadow-md border border-[#EDE6DA] bg-white aspect-[4/3] relative group"
               >
                 <img 
                   src={item.img} 
                   alt={item.name} 
                   className="w-full h-full object-cover filter brightness-105 contrast-105" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/75 via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-4 text-white">
-                  <span className="text-[10px] font-mono text-[#E5C07B] uppercase font-bold tracking-wider block">
-                    {item.location}
-                  </span>
+
+                {/* Precision HUD Crosshairs */}
+                <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-[#E06D44]/70 rounded-tl-sm pointer-events-none" />
+                <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-[#E06D44]/70 rounded-tr-sm pointer-events-none" />
+                <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-[#E06D44]/70 rounded-bl-sm pointer-events-none" />
+                <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-[#E06D44]/70 rounded-br-sm pointer-events-none" />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0E1B2E]/80 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 text-white space-y-0.5">
+                  <div className="flex justify-between items-center text-[9px] font-mono text-[#E5C07B] uppercase font-bold tracking-wider">
+                    <span>{item.location}</span>
+                    <span className="text-cyan-300 opacity-80">{item.coords}</span>
+                  </div>
                   <h4 className="text-sm font-serif font-bold leading-snug">
                     {item.name}
                   </h4>
@@ -256,6 +280,32 @@ export default function VerticalColumnsIntro({ onComplete }) {
           </motion.div>
         </motion.div>
 
+      </motion.div>
+
+      {/* ========================================================================= */}
+      {/* ⚡ 2. LIDAR LASER SCAN SWEEP BEAM ACROSS MONUMENTS (Option 2)              */}
+      {/* ========================================================================= */}
+      <motion.div
+        animate={{ y: ["-10%", "110%"] }}
+        transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut", repeatType: "reverse" }}
+        className="absolute inset-x-0 h-28 pointer-events-none z-[100001] flex flex-col justify-end"
+      >
+        {/* Soft Trailing Glow Gradient */}
+        <div className="w-full h-full bg-gradient-to-b from-transparent via-[#E06D44]/10 to-[#38BDF8]/20" />
+        
+        {/* Glowing Laser Beam Line */}
+        <div className="w-full h-[2.5px] bg-gradient-to-r from-transparent via-[#E06D44] via-[#38BDF8] to-transparent shadow-[0_0_15px_#38BDF8]" />
+
+        {/* Telemetry Tracking Readout Flag */}
+        <div className="max-w-[1400px] mx-auto w-full flex justify-between items-center px-8 text-[9px] font-mono text-cyan-700 font-bold tracking-wider py-1 opacity-75">
+          <span className="flex items-center gap-1 bg-white/85 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-cyan-300/60 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] animate-ping" />
+            <span>LiDAR 0.8mm SPATIAL INGESTION</span>
+          </span>
+          <span className="hidden sm:inline bg-white/85 backdrop-blur-md px-2.5 py-0.5 rounded-full border border-[#EDE6DA] shadow-sm text-[#0E1B2E]">
+            ISRO BHUVAN WGS84 MAPPING
+          </span>
+        </div>
       </motion.div>
 
       {/* ========================================================================= */}
