@@ -20,9 +20,17 @@ import {
   TrendingDown,
   Sparkles,
   Sliders,
-  ExternalLink
+  ExternalLink,
+  Compass,
+  Cpu,
+  Eye,
+  Award,
+  Box,
+  Scan,
+  Workflow
 } from 'lucide-react';
 
+import HeritageShieldLogo from './HeritageShieldLogo';
 import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
@@ -53,7 +61,7 @@ export default function LandingPageView({
   // State for FAQ Accordion
   const [activeFaq, setActiveFaq] = useState(null);
 
-  // Scroll Progress
+  // Scroll Progress Bar
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 120,
@@ -129,7 +137,7 @@ export default function LandingPageView({
 
   const faqs = [
     {
-      q: 'How does the platform adhere to UNESCO & ASI standards?',
+      q: 'How does Heritage Shield adhere to UNESCO & ASI standards?',
       a: 'The platform integrates ISO 31000 risk management frameworks with UNESCO ICOMOS conservation charters, calculating auditable risk indices across physical, environmental, and socio-cultural factors.'
     },
     {
@@ -147,77 +155,76 @@ export default function LandingPageView({
   ];
 
   const flagshipSites = sites.slice(0, 6);
+  const curHeroSite = sites[selectedTwinSiteIdx] || sites[0];
   const smoothEase = [0.16, 1, 0.3, 1];
 
   return (
     <div className="min-h-screen bg-[#000000] text-white font-sans selection:bg-[#7b39fc] selection:text-white overflow-x-hidden relative">
       
-      {/* 🚀 TOP PURPLE ACCENT PROGRESS BAR */}
+      {/* 🚀 TOP PURPLE/GOLD PROGRESS BAR */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#7b39fc] via-[#a855f7] to-[#ec4899] z-[100001] origin-left shadow-sm pointer-events-none"
         style={{ scaleX }}
       />
 
       {/* ========================================================================= */}
-      {/* 🎬 EXACT SPEC HERO SECTION                                                */}
+      {/* 🎬 1. HIGH-IMPACT HERO SECTION OPTIMIZED FOR HERITAGE SHIELD (SIH 2026)   */}
       {/* ========================================================================= */}
       <section className="relative w-full min-h-screen bg-[#000000] overflow-hidden flex flex-col justify-between">
         
-        {/* ----------------------------------------------------------------------- */}
-        {/* 📹 1. BACKGROUND VIDEO (Scaled to 120%, centered, anchored bottom, z-0)  */}
-        {/* ----------------------------------------------------------------------- */}
+        {/* 📹 BACKGROUND VIDEO (120% scaled, horizontally centered, anchored bottom) */}
         <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="absolute top-0 left-1/2 -translate-x-1/2 min-w-[120%] min-h-[120%] w-[120%] h-[120%] object-cover object-bottom opacity-85"
+            className="absolute top-0 left-1/2 -translate-x-1/2 min-w-[120%] min-h-[120%] w-[120%] h-[120%] object-cover object-bottom opacity-80"
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260215_121759_424f8e9c-d8bd-4974-9567-52709dfb6842.mp4"
           />
-          {/* Subtle dark vignette overlay for optimum text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
+          {/* Subtle dark vignette overlay for optimum contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/20 to-black/90" />
         </div>
 
-        {/* ----------------------------------------------------------------------- */}
-        {/* 🔮 2. BLURRED BACKGROUND ELEMENT (801px × 384px, top 215px, blur 77.5px) */}
-        {/* ----------------------------------------------------------------------- */}
+        {/* 🔮 BLURRED BACKGROUND PILL (801px × 384px, top 215px, blur 77.5px) */}
         <div 
           className="absolute left-1/2 -translate-x-1/2 top-[215px] w-[801px] max-w-[95vw] h-[384px] rounded-full bg-[#000000] pointer-events-none z-[1]"
           style={{ filter: 'blur(77.5px)' }}
         />
 
-        {/* ----------------------------------------------------------------------- */}
-        {/* 🌟 3. NAVBAR & HERO CONTENT (z-index: 2, above everything)              */}
-        {/* ----------------------------------------------------------------------- */}
+        {/* 🌟 HERO UI & CONTENT (z-index: 2) */}
         <div className="relative z-[2] w-full flex flex-col items-center">
           
           {/* 🧭 NAVBAR: Max width 1440px, padding 120px/16px, height 102px */}
           <header className="w-full max-w-[1440px] mx-auto px-6 sm:px-12 md:px-[120px] py-[16px] min-h-[102px] flex items-center justify-between">
             
-            {/* Left side: Logo + nav links with 80px gap */}
+            {/* Left side: Heritage Shield Brand + Nav links with 80px gap */}
             <div className="flex items-center gap-6 lg:gap-[80px]">
               
-              {/* Logo: LOGOIPSUM SVG mark, 134px × 25px, white fill */}
-              <a 
-                href="#hero" 
-                onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                className="flex items-center cursor-pointer transition hover:opacity-90 shrink-0"
+              {/* Brand Logo & Name */}
+              <div 
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="flex items-center gap-3 cursor-pointer shrink-0 group"
               >
-                <svg width="134" height="25" viewBox="0 0 134 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12.5 0C5.59644 0 0 5.59644 0 12.5C0 19.4036 5.59644 25 12.5 25C19.4036 25 25 19.4036 25 12.5C25 5.59644 19.4036 0 12.5 0ZM12.5 4.5C16.9183 4.5 20.5 8.08172 20.5 12.5C20.5 16.9183 16.9183 20.5 12.5 20.5C8.08172 20.5 4.5 16.9183 4.5 12.5C4.5 8.08172 8.08172 4.5 12.5 4.5Z" fill="white"/>
-                  <path d="M12.5 8C10.0147 8 8 10.0147 8 12.5C8 14.9853 10.0147 17 12.5 17C14.9853 17 17 14.9853 17 12.5C17 10.0147 14.9853 8 12.5 8Z" fill="white"/>
-                  <text x="35" y="18" fill="white" font-family="'Inter', sans-serif" font-weight="800" font-size="16" letter-spacing="1.2">LOGOIPSUM</text>
-                </svg>
-              </a>
+                <HeritageShieldLogo size="sm" showText={false} />
+                <div className="flex flex-col text-left">
+                  <span className="font-inter font-bold text-[16px] text-white tracking-wider flex items-center gap-1.5">
+                    HERITAGE SHIELD
+                  </span>
+                  <span className="font-mono text-[9px] text-[#a855f7] tracking-widest uppercase">
+                    LIVING DIGITAL TWIN · SIH 2026
+                  </span>
+                </div>
+              </div>
 
-              {/* Nav links in a row with 10px gap between items */}
+              {/* Nav links with 10px gap between items */}
               <nav className="hidden md:flex items-center gap-[10px]">
                 <a 
                   href="#hero" 
+                  onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="font-manrope font-medium text-[14px] leading-[22px] text-white px-[10px] py-[4px] hover:text-[#a855f7] transition"
                 >
-                  Home
+                  Overview
                 </a>
                 
                 <div className="relative">
@@ -225,18 +232,19 @@ export default function LandingPageView({
                     onClick={() => setShowServicesMenu(!showServicesMenu)}
                     className="font-manrope font-medium text-[14px] leading-[22px] text-white px-[10px] py-[4px] hover:text-[#a855f7] transition flex items-center gap-[3px] cursor-pointer"
                   >
-                    <span>Services</span>
+                    <span>Architecture</span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </button>
 
-                  {/* Dropdown Menu */}
+                  {/* Architecture Dropdown */}
                   {showServicesMenu && (
-                    <div className="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-[#121216]/95 backdrop-blur-xl border border-white/10 p-2 shadow-2xl z-50">
-                      <a href="#pipeline" onClick={() => setShowServicesMenu(false)} className="block px-3 py-2 text-xs font-manrope font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-xl">Autonomous Pipeline</a>
-                      <a href="#consoles" onClick={() => setShowServicesMenu(false)} className="block px-3 py-2 text-xs font-manrope font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-xl">Living Twins</a>
-                      <a href="#simulator" onClick={() => setShowServicesMenu(false)} className="block px-3 py-2 text-xs font-manrope font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-xl">2030 Decay Predictor</a>
+                    <div className="absolute top-full left-0 mt-2 w-64 rounded-2xl bg-[#121216]/95 backdrop-blur-xl border border-white/10 p-2 shadow-2xl z-50">
+                      <a href="#pipeline" onClick={() => setShowServicesMenu(false)} className="block px-3 py-2 text-xs font-manrope font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-xl">8-Module Autonomous Pipeline</a>
+                      <a href="#consoles" onClick={() => setShowServicesMenu(false)} className="block px-3 py-2 text-xs font-manrope font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-xl">4-Console Intelligence Sandbox</a>
+                      <a href="#simulator" onClick={() => setShowServicesMenu(false)} className="block px-3 py-2 text-xs font-manrope font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-xl">2030 Climate Stress Simulator</a>
+                      <a href="#registry" onClick={() => setShowServicesMenu(false)} className="block px-3 py-2 text-xs font-manrope font-medium text-white/80 hover:text-white hover:bg-white/5 rounded-xl">UNESCO Heritage Registry</a>
                     </div>
                   )}
                 </div>
@@ -245,20 +253,27 @@ export default function LandingPageView({
                   href="#consoles" 
                   className="font-manrope font-medium text-[14px] leading-[22px] text-white px-[10px] py-[4px] hover:text-[#a855f7] transition"
                 >
-                  Reviews
+                  Living Twins
+                </a>
+
+                <a 
+                  href="#registry" 
+                  className="font-manrope font-medium text-[14px] leading-[22px] text-white px-[10px] py-[4px] hover:text-[#a855f7] transition"
+                >
+                  Heritage Sites
                 </a>
                 
                 <a 
                   href="#faq" 
                   className="font-manrope font-medium text-[14px] leading-[22px] text-white px-[10px] py-[4px] hover:text-[#a855f7] transition"
                 >
-                  Contact us
+                  Archive FAQ
                 </a>
               </nav>
 
             </div>
 
-            {/* Right side: Two buttons with 12px gap */}
+            {/* Right side: Authority Sign In & Studio CTA */}
             <div className="flex items-center gap-[12px]">
               {currentUser ? (
                 <div className="flex items-center gap-2 bg-white/10 border border-white/15 px-[16px] py-[8px] rounded-[8px]">
@@ -275,7 +290,7 @@ export default function LandingPageView({
                   onClick={() => setIsAuthModalOpen(true)}
                   className="bg-white px-[16px] py-[8px] rounded-[8px] font-manrope font-semibold text-[14px] leading-[22px] text-[#171717] border border-[#d4d4d4] hover:bg-[#f5f5f5] transition cursor-pointer shadow-sm"
                 >
-                  Sign In
+                  Authority 2FA
                 </button>
               )}
 
@@ -283,7 +298,7 @@ export default function LandingPageView({
                 onClick={onEnterDashboard}
                 className="bg-[#7b39fc] px-[16px] py-[8px] rounded-[8px] font-manrope font-semibold text-[14px] leading-[22px] text-[#fafafa] shadow-[0px_4px_16px_rgba(23,23,23,0.04)] hover:bg-[#6d28d9] transition cursor-pointer"
               >
-                Get Started
+                Launch Studio
               </button>
             </div>
 
@@ -292,6 +307,19 @@ export default function LandingPageView({
           {/* 🎯 HERO CONTENT: Flex column, centered, max-width 871px, top margin 162px */}
           <div className="flex flex-col items-center text-center max-w-[871px] mx-auto px-6 mt-[60px] md:mt-[162px] gap-[24px]">
             
+            {/* National Authority Pill */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.08] border border-white/15 backdrop-blur-md"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#7b39fc] animate-ping" />
+              <span className="text-[11px] font-mono text-[#a855f7] font-bold uppercase tracking-widest">
+                National Built Heritage Command Center · SIH 2026
+              </span>
+            </motion.div>
+
             {/* Heading block: flex column, 10px gap, center-aligned text */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
@@ -299,19 +327,19 @@ export default function LandingPageView({
               transition={{ duration: 0.8, ease: smoothEase }}
               className="flex flex-col items-center gap-[10px]"
             >
-              {/* Line 1: "Automate repetitive." — font Inter, medium weight, 76px, white, letter-spacing -2px, line-height 1.15 */}
+              {/* Line 1: "Safeguard ancient stone." — font Inter, medium weight, 76px, white */}
               <h1 className="font-inter font-medium text-[36px] sm:text-[54px] lg:text-[76px] text-white tracking-[-2px] leading-[1.15]">
-                Automate repetitive.
+                Safeguard ancient stone.
               </h1>
 
-              {/* Line 2: "Focus on growth." — font Instrument Serif, italic, 76px, white, letter-spacing -2px, line-height 1.15 */}
+              {/* Line 2: "Engineer digital futures." — font Instrument Serif, italic, 76px, white */}
               <h2 className="font-instrument italic text-[40px] sm:text-[60px] lg:text-[76px] text-white tracking-[-2px] leading-[1.15]">
-                Focus on growth.
+                Engineer digital futures.
               </h2>
 
-              {/* Subtitle: font Manrope, regular weight, 18px, 26px line-height, color #f6f7f9, opacity 90%, max-width 613px */}
+              {/* Subtitle: font Manrope, regular weight, 18px, 26px line-height */}
               <p className="font-manrope font-normal text-[16px] sm:text-[18px] leading-[26px] text-[#f6f7f9] opacity-90 max-w-[613px] mx-auto pt-2">
-                The next-generation AI agent platform that handles lead generation, customer support, and data entry while you build.
+                The autonomous AI conservation platform uniting LiDAR digital twins, computer vision defect diagnostics, and Paris-Erdogan crack fracture physics across India's 3,690+ protected monuments.
               </p>
             </motion.div>
 
@@ -322,15 +350,13 @@ export default function LandingPageView({
               transition={{ duration: 0.8, delay: 0.15, ease: smoothEase }}
               className="flex flex-row flex-wrap items-center justify-center gap-[22px] pt-1"
             >
-              {/* "Get Started Free": background #7b39fc, padding 24px horizontal / 14px vertical, 10px border-radius, font Cabin medium 16px, line-height 1.7, white text */}
               <button
                 onClick={onEnterDashboard}
                 className="bg-[#7b39fc] px-[24px] py-[14px] rounded-[10px] font-cabin font-medium text-[16px] leading-[1.7] text-white hover:bg-[#6d28d9] transition cursor-pointer shadow-lg hover:scale-105"
               >
-                Get Started Free
+                Launch National Studio
               </button>
 
-              {/* "Watch 2min Demo": background #2b2344 (dark purple), same padding/radius/font specs, color #f6f7f9 */}
               <button
                 onClick={() => {
                   const el = document.getElementById('consoles');
@@ -339,13 +365,13 @@ export default function LandingPageView({
                 }}
                 className="bg-[#2b2344] px-[24px] py-[14px] rounded-[10px] font-cabin font-medium text-[16px] leading-[1.7] text-[#f6f7f9] hover:bg-[#3b315c] transition cursor-pointer shadow-md hover:scale-105"
               >
-                Watch 2min Demo
+                Explore 3D Living Twins
               </button>
             </motion.div>
 
           </div>
 
-          {/* 🖼️ DASHBOARD IMAGE: Centered, top margin 80px, bottom padding 40px, 1163px wide, 24px border-radius, backdrop-blur 10px, background rgba(255,255,255,0.05), transparent border 1.5px, inner padding 22.5px */}
+          {/* 🖼️ DASHBOARD CONTAINER: 1163px wide, 24px border-radius, backdrop-blur 10px, background rgba(255,255,255,0.05), inner padding 22.5px */}
           <motion.div 
             initial={{ opacity: 0, y: 50, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -354,27 +380,56 @@ export default function LandingPageView({
           >
             <div className="w-full rounded-[24px] backdrop-blur-[10px] bg-white/[0.05] border-[1.5px] border-white/10 p-[22.5px] shadow-2xl relative overflow-hidden group">
               
-              {/* Dashboard Preview / Living Digital Twin Showcase Screen */}
-              <div className="relative w-full aspect-[16/9] sm:aspect-[21/10] rounded-[8px] overflow-hidden bg-[#0A0C10] border border-white/10">
-                <img
-                  src="/monuments/qutub_minar.jpg"
-                  alt="AI Agent Intelligence Platform Dashboard"
-                  className="w-full h-full object-cover rounded-[8px] filter brightness-105 group-hover:scale-[1.02] transition-transform duration-700"
+              {/* Interactive Monument Selector & Telemetry Strip */}
+              <div className="flex flex-wrap justify-between items-center gap-3 font-mono text-xs pb-4 border-b border-white/10">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#7b39fc] animate-pulse" />
+                  <span className="font-bold text-white uppercase tracking-wider">
+                    Live Digital Twin #{selectedTwinSiteIdx + 1}: {curHeroSite.name} ({curHeroSite.state})
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setSelectedTwinSiteIdx((selectedTwinSiteIdx - 1 + sites.length) % sites.length)}
+                    className="w-8 h-8 rounded-lg bg-white/10 hover:bg-[#7b39fc] text-white flex items-center justify-center transition cursor-pointer text-xs font-bold"
+                    title="Previous Monument"
+                  >‹</button>
+                  <button
+                    onClick={() => setSelectedTwinSiteIdx((selectedTwinSiteIdx + 1) % sites.length)}
+                    className="w-8 h-8 rounded-lg bg-white/10 hover:bg-[#7b39fc] text-white flex items-center justify-center transition cursor-pointer text-xs font-bold"
+                    title="Next Monument"
+                  >›</button>
+                </div>
+              </div>
+
+              {/* 3D Living Twin Viewport */}
+              <div className="relative w-full aspect-[16/9] sm:aspect-[21/10] rounded-[8px] overflow-hidden bg-[#0A0C10] border border-white/10 mt-3">
+                <MonumentViewer3D
+                  siteIndex={selectedTwinSiteIdx}
+                  siteData={curHeroSite}
+                  activeComponent={0}
+                  isEmbedded={true}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/90 via-transparent to-black/20" />
                 
                 {/* Floating Telemetry Badge Overlay */}
-                <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
-                  <div className="flex items-center gap-3 bg-black/75 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/15">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#7b39fc] animate-pulse" />
-                    <span className="text-white font-bold">Autonomous AI Diagnostic Agent · Active</span>
+                <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-3 text-xs font-mono z-10 pointer-events-none">
+                  <div className="flex items-center gap-3 bg-black/80 backdrop-blur-md px-3.5 py-2 rounded-xl border border-white/15">
+                    <span 
+                      className="px-2 py-0.5 rounded text-[10px] font-bold uppercase"
+                      style={{ backgroundColor: `${curHeroSite.color}30`, color: curHeroSite.color }}
+                    >
+                      ● {curHeroSite.status}
+                    </span>
+                    <span className="text-gray-300">{curHeroSite.builtEra} · {curHeroSite.material}</span>
                   </div>
+
                   <button
-                    onClick={onEnterDashboard}
-                    className="bg-[#7b39fc] hover:bg-[#6d28d9] text-white px-5 py-2.5 rounded-xl font-bold font-manrope text-xs transition flex items-center gap-2 shadow-lg"
+                    onClick={() => onSelectMonument ? onSelectMonument(selectedTwinSiteIdx) : onEnterDashboard()}
+                    className="pointer-events-auto bg-[#7b39fc] hover:bg-[#6d28d9] text-white px-4 py-2 rounded-xl font-bold font-manrope text-xs transition flex items-center gap-2 shadow-lg"
                   >
-                    <span>Open Live Console</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>Launch 3D Studio</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>
@@ -708,7 +763,80 @@ export default function LandingPageView({
       </section>
 
       {/* ========================================================================= */}
-      {/* ❓ 5. FAQ SECTION & INSTITUTIONAL FOOTER                                   */}
+      {/* 🏛️ 5. UNESCO PROTECTED HERITAGE REGISTRY                                  */}
+      {/* ========================================================================= */}
+      <section id="registry" className="py-24 px-6 max-w-[1440px] mx-auto space-y-12 border-t border-white/10">
+        
+        <div className="flex flex-wrap justify-between items-end gap-4">
+          <div>
+            <span className="text-xs font-mono text-[#a855f7] uppercase tracking-widest font-bold block">
+              National Heritage Registry
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-inter font-bold text-white mt-1">
+              Protected UNESCO Heritage Sites
+            </h2>
+          </div>
+
+          <button
+            onClick={onEnterDashboard}
+            className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-manrope font-bold uppercase tracking-wider transition flex items-center gap-2 cursor-pointer shadow-sm"
+          >
+            <span>View All 12 Heritage Sites</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+          {flagshipSites.map((s, idx) => (
+            <div
+              key={s.id || idx}
+              onClick={() => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
+              className="bg-white/[0.03] border border-white/10 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:border-[#7b39fc]/50 transition-all duration-500 group cursor-pointer flex flex-col justify-between"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden bg-black">
+                <img
+                  src={s.imageUrl || '/monuments/qutub_minar.jpg'}
+                  alt={s.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-100"
+                />
+                <div className="absolute top-3 right-3">
+                  <span 
+                    className="px-2.5 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider backdrop-blur-md border shadow"
+                    style={{
+                      backgroundColor: `${s.color}20`,
+                      color: s.color,
+                      borderColor: `${s.color}50`
+                    }}
+                  >
+                    ● {s.status}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-6 space-y-3">
+                <div>
+                  <span className="text-[10px] font-mono text-[#a855f7] uppercase font-semibold">{s.state} · {s.period}</span>
+                  <h3 className="text-lg font-inter font-bold text-white group-hover:text-[#a855f7] transition mt-0.5">
+                    {s.name}
+                  </h3>
+                </div>
+
+                <div className="flex justify-between items-center text-xs font-mono pt-3 border-t border-white/10">
+                  <span className="text-gray-400">Hazard: <strong className="text-white">{s.seismicZone}</strong></span>
+                  <span className="text-[#a855f7] font-bold flex items-center gap-1">
+                    <span>Explore Twin</span>
+                    <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </section>
+
+      {/* ========================================================================= */}
+      {/* ❓ 6. FAQ SECTION & INSTITUTIONAL FOOTER                                   */}
       {/* ========================================================================= */}
       <section id="faq" className="py-24 px-6 max-w-4xl mx-auto space-y-8 border-t border-white/10">
         <div className="text-center space-y-2">
@@ -747,15 +875,15 @@ export default function LandingPageView({
       <footer className="border-t border-white/10 bg-[#000000] py-12 px-6">
         <div className="max-w-[1440px] mx-auto flex flex-wrap justify-between items-center gap-6 text-xs font-mono text-gray-500">
           <div className="flex items-center gap-3">
-            <span className="text-white font-bold font-inter">LOGOIPSUM</span>
+            <HeritageShieldLogo size="xs" showText={true} />
             <span className="text-gray-600">|</span>
             <span>Smart India Hackathon 2026 · Team Qualified (Team ID: 031)</span>
           </div>
 
-          <div className="flex items-center gap-6">
-            <span>Standard: ISRO Bhuvan WGS84</span>
-            <span>Framework: ISO 31000:2018</span>
-            <span>Authority: Archaeological Survey of India (ASI)</span>
+          <div className="flex items-center gap-4 text-[11px]">
+            <span>ISRO Bhuvan WGS84</span>
+            <span>ISO 31000:2018</span>
+            <span>Archaeological Survey of India (ASI)</span>
           </div>
         </div>
       </footer>
