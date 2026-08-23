@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LandingPageView from './components/LandingPageView';
 import MonumentPortalView from './components/MonumentPortalView';
 import MonumentViewer3D from './components/MonumentViewer3D';
