@@ -18,7 +18,6 @@ import {
 
 import HeritageGisMap from './HeritageGisMap';
 import HeritageShieldLogo from './HeritageShieldLogo';
-import ThemeToggle from './ThemeToggle';
 
 export default function MonumentPortalView({
   sites = [],
@@ -103,10 +102,6 @@ export default function MonumentPortalView({
                 Clear ✕
               </button>
             )}
-          </div>
-
-          <div className="flex items-center gap-3 text-xs font-mono shrink-0">
-            <ThemeToggle />
           </div>
 
         </div>

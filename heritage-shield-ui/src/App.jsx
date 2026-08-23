@@ -12,7 +12,6 @@ import LongitudinalAnalytics from './components/LongitudinalAnalytics';
 import LiveIngestModal from './components/LiveIngestModal';
 import AssetSwitcherModal from './components/AssetSwitcherModal';
 import HeritageShieldLogo from './components/HeritageShieldLogo';
-import ThemeToggle from './components/ThemeToggle';
 import MuseumCursorTorch from './components/MuseumCursorTorch';
 
 import { UNESCO_SITES } from './data/unescoSites';
@@ -455,8 +454,6 @@ export default function App() {
 
           {/* Action CTAs */}
           <div className="flex items-center gap-2.5">
-            <ThemeToggle />
-
             <button
               onClick={() => setIsLiveIngestOpen(true)}
               className="px-3.5 py-2 rounded-xl bg-sky-50 border border-sky-200 hover:bg-sky-100 text-sky-800 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"

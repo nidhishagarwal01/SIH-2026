@@ -35,11 +35,9 @@ import {
   UserCheck
 } from 'lucide-react';
 
-import CinematicIntroReveal from './CinematicIntroReveal';
 import HeritageShieldLogo from './HeritageShieldLogo';
 import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
-import ThemeToggle from './ThemeToggle';
 import AuthModal from './AuthModal';
 
 export default function LandingPageView({ 
@@ -67,9 +65,6 @@ export default function LandingPageView({
   // State for FAQ Accordion
   const [activeFaq, setActiveFaq] = useState(null);
 
-  // State for Cinematic Split-Reveal Intro
-  const [showIntro, setShowIntro] = useState(true);
-
   // ---------------------------------------------------------------------------
   // 🌟 FLUID SMOOTH SCROLL HOOKS (Framer Motion)
   // ---------------------------------------------------------------------------
@@ -81,10 +76,6 @@ export default function LandingPageView({
     damping: 30,
     restDelta: 0.001
   });
-
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-  };
 
   // Environmental stress formula
   const baselineHealth = 84;
@@ -187,11 +178,6 @@ export default function LandingPageView({
         style={{ scaleX }}
       />
 
-      {/* 🎬 Split-Reveal of Monument Images & Rising Heritage Shield Intro */}
-      <AnimatePresence>
-        {showIntro && <CinematicIntroReveal onComplete={handleIntroComplete} />}
-      </AnimatePresence>
-
       {/* 🌟 1. TOP MINIMALIST ARCHIVAL IVORY & DEEP INDIGO NAVIGATION BAR */}
       <motion.nav 
         initial={{ y: -25, opacity: 0 }}
@@ -253,17 +239,6 @@ export default function LandingPageView({
 
           {/* Right: Actions & Login */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => setShowIntro(true)}
-              className="px-3.5 py-1.5 rounded-xl frosted-btn text-[11px] font-mono font-bold text-[#E06D44] hover:text-white hover:bg-[#E06D44] transition flex items-center gap-1.5 cursor-pointer shadow-sm"
-              title="Replay Intro"
-            >
-              <span>🎬</span>
-              <span className="hidden sm:inline">Replay Intro</span>
-            </button>
-
-            <ThemeToggle />
-
             {currentUser ? (
               <div className="flex items-center gap-2.5 bg-white border border-[#EDE6DA] px-3.5 py-1.5 rounded-xl shadow-sm">
                 <span className="text-xs font-mono font-bold text-[#0E1B2E] flex items-center gap-1.5">
@@ -320,14 +295,6 @@ export default function LandingPageView({
             transition={{ duration: 0.85, ease: smoothEase }}
             className="lg:col-span-7 space-y-6 text-left"
           >
-            {/* National Authority Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-[#EDE6DA] shadow-sm">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#E06D44] animate-ping" />
-              <span className="text-[11px] font-mono text-[#E06D44] font-bold uppercase tracking-widest">
-                National Built Heritage Command Center · SIH 2026
-              </span>
-            </div>
-
             {/* Display Headline */}
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#0E1B2E] tracking-tight leading-[1.1]">
               Custodian of Heritage & <span className="gold-cream-text">Living Digital Twins</span>
