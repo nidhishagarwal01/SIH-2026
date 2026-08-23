@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import HeritageShieldLogo from './HeritageShieldLogo';
 
 export default function CinematicIntroReveal({ onComplete }) {
@@ -11,13 +11,28 @@ export default function CinematicIntroReveal({ onComplete }) {
   const containerRef = useRef(null);
 
   // ---------------------------------------------------------------------------
-  // 4. 🧲 INTERACTIVE CURSOR-REACTIVE SEAM GLOW
+  // 1. 🧭 INTERACTIVE 3D CURSOR PARALLAX & TILT SPRINGS
   // ---------------------------------------------------------------------------
+  const mouseX = useMotionValue(typeof window !== 'undefined' ? window.innerWidth / 2 : 600);
   const mouseY = useMotionValue(typeof window !== 'undefined' ? window.innerHeight / 2 : 400);
+  
   const smoothMouseY = useSpring(mouseY, { damping: 25, stiffness: 120 });
+  const tiltX = useSpring(0, { damping: 22, stiffness: 110 });
+  const tiltY = useSpring(0, { damping: 22, stiffness: 110 });
 
   const handleMouseMove = (e) => {
+    mouseX.set(e.clientX);
     mouseY.set(e.clientY);
+
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (rect) {
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const xOffset = (e.clientX - centerX) / centerX;
+      const yOffset = (e.clientY - centerY) / centerY;
+      tiltY.set(xOffset * 8); // Rotate Y +/- 8 deg
+      tiltX.set(-yOffset * 8); // Rotate X +/- 8 deg
+    }
   };
 
   useEffect(() => {
@@ -134,7 +149,7 @@ export default function CinematicIntroReveal({ onComplete }) {
             ease: [0.76, 0, 0.24, 1]
           }}
         >
-          {/* Seamless Multi-Monument Grid with 3. 🎬 Cinematic Ken Burns Push-In */}
+          {/* Seamless Multi-Monument Grid with Cinematic Ken Burns Push-In */}
           <motion.div 
             animate={isSplit ? { scale: 1.08 } : { scale: 1 }}
             transition={{ duration: 3.5, ease: "easeOut" }}
@@ -164,7 +179,7 @@ export default function CinematicIntroReveal({ onComplete }) {
             transition={{ duration: 2, repeat: Infinity }}
           />
 
-          {/* 4. 🧲 Cursor-Reactive Seam Flare */}
+          {/* Cursor-Reactive Seam Flare */}
           {!isSplit && (
             <motion.div
               style={{ top: smoothMouseY }}
@@ -187,7 +202,7 @@ export default function CinematicIntroReveal({ onComplete }) {
             ease: [0.76, 0, 0.24, 1]
           }}
         >
-          {/* Seamless Multi-Monument Grid with 3. 🎬 Cinematic Ken Burns Push-In */}
+          {/* Seamless Multi-Monument Grid with Cinematic Ken Burns Push-In */}
           <motion.div 
             animate={isSplit ? { scale: 1.08 } : { scale: 1 }}
             transition={{ duration: 3.5, ease: "easeOut" }}
@@ -217,7 +232,7 @@ export default function CinematicIntroReveal({ onComplete }) {
             transition={{ duration: 2, repeat: Infinity }}
           />
 
-          {/* 4. 🧲 Cursor-Reactive Seam Flare */}
+          {/* Cursor-Reactive Seam Flare */}
           {!isSplit && (
             <motion.div
               style={{ top: smoothMouseY }}
@@ -229,15 +244,29 @@ export default function CinematicIntroReveal({ onComplete }) {
       </div>
 
       {/* ========================================================================= */}
-      {/* 🌟 2. MEDIUM-TONE TERRACOTTA OCHRE & BRONZE AMBIENCE                       */}
+      {/* 🌟 2. MEDIUM-TONE TERRACOTTA OCHRE & 3. 📜 BRAHMI EPIGRAPHIC WATERMARK    */}
       {/* ========================================================================= */}
       <div className="absolute inset-0 museum-spotlight opacity-80 pointer-events-none" />
       
+      {/* 3. 📜 Ancient Brahmi Epigraphic Motif Shimmer Background Watermark */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-15 overflow-hidden">
+        <svg viewBox="0 0 1000 600" className="w-full h-full text-[#BA532B]" fill="none" stroke="currentColor">
+          {/* Ancient Temple Geometries & Epigraphic Watermark Grid */}
+          <circle cx="500" cy="300" r="280" strokeWidth="0.8" strokeDasharray="6 6" />
+          <circle cx="500" cy="300" r="210" strokeWidth="1.2" strokeDasharray="3 3" />
+          <polygon points="500,120 656,390 344,390" strokeWidth="0.8" opacity="0.6" />
+          <polygon points="500,480 656,210 344,210" strokeWidth="0.8" opacity="0.6" />
+          {/* Sanskrit/Brahmi Style Inscription Ring Lines */}
+          <path d="M 200,300 Q 500,220 800,300" strokeWidth="0.8" strokeDasharray="4 8" />
+          <path d="M 200,300 Q 500,380 800,300" strokeWidth="0.8" strokeDasharray="4 8" />
+        </svg>
+      </div>
+
       {/* Radial Sandstone Amber-Rust Flare */}
       <div 
         className="absolute w-[680px] h-[680px] rounded-full pointer-events-none blur-[100px] opacity-35 animate-pulse"
         style={{
-          background: 'radial-gradient(circle, rgba(186, 83, 43, 0.45) 0%, rgba(184, 134, 54, 0.25) 45%, transparent 75%)'
+          background: 'radial-gradient(circle, rgba(186, 83, 43, 0.45) 0%, rgba(194, 146, 68, 0.25) 45%, transparent 75%)'
         }}
       />
 
@@ -270,11 +299,18 @@ export default function CinematicIntroReveal({ onComplete }) {
       </div>
 
       {/* ========================================================================= */}
-      {/* 🛡️ 3. RISING WARM PARCHMENT EMBLEM CARD WITH ASHOKA MANDALA HALO           */}
+      {/* 🛡️ 3. RISING CARD WITH 1. 🧭 3D CURSOR PARALLAX & TILT & SPECULAR SHEEN    */}
       {/* ========================================================================= */}
-      <div className="relative z-30 flex flex-col items-center justify-center text-center px-6 max-w-4xl space-y-6">
+      <motion.div 
+        style={{
+          rotateX: tiltX,
+          rotateY: tiltY,
+          transformStyle: "preserve-3d"
+        }}
+        className="relative z-30 flex flex-col items-center justify-center text-center px-6 max-w-4xl space-y-6"
+      >
         
-        {/* 🏛️ Official Royal Logo Emblem with 1. ☀️ Ashoka Solar Mandala Halo (Layered Behind) */}
+        {/* 🏛️ Official Royal Logo Emblem with Rotating Ashoka Solar Mandala Halo */}
         <motion.div
           initial={{ opacity: 0, y: 80, scale: 0.7, rotateX: 20 }}
           animate={{
@@ -287,7 +323,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           className="relative group cursor-pointer z-10"
           onClick={handleEnter}
         >
-          {/* 1. ☀️ Rotating Ashoka Solar Mandala Ray Halo (Layered Strictly Behind) */}
+          {/* Rotating Ashoka Solar Mandala Ray Halo (Layered Behind) */}
           <motion.div
             className="absolute -inset-10 pointer-events-none flex items-center justify-center -z-10"
             animate={{ rotate: 360 }}
@@ -324,7 +360,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           <HeritageShieldLogo size="2xl" showText={false} />
         </motion.div>
 
-        {/* 🏛️ Grand Monolithic Title (Layered Above on z-20) */}
+        {/* 🏛️ Grand Monolithic Title with 1. 🧭 Specular Gold Light Sweep */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{
@@ -334,9 +370,18 @@ export default function CinematicIntroReveal({ onComplete }) {
           transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="space-y-3 relative z-20"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] tracking-tight leading-none drop-shadow-sm">
-            HERITAGE <span className="text-[#BA532B]">SHIELD</span>
-          </h1>
+          <div className="relative inline-block">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] tracking-tight leading-none drop-shadow-sm">
+              HERITAGE <span className="text-[#BA532B]">SHIELD</span>
+            </h1>
+            {/* Specular Glint Reflection Sweeping Across */}
+            <motion.div
+              animate={{ x: ["-100%", "200%"] }}
+              transition={{ duration: 3.5, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+              className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/35 to-transparent skew-x-12 pointer-events-none"
+            />
+          </div>
+
           <p className="text-sm sm:text-lg text-[#4D3425] font-sans leading-relaxed max-w-2xl mx-auto font-medium">
             Preserving India's Architectural Soul Through Living Digital Twins & Autonomous Intelligence
           </p>
@@ -369,7 +414,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           </motion.button>
         </motion.div>
 
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

@@ -55,6 +55,11 @@ export default function LandingPageView({
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
 
+  // 🎛️ 4. Interactive Hero Twin Scan Mode & 6. 🔦 Museum Cursor Follower
+  const [heroScanMode, setHeroScanMode] = useState('photo'); // 'photo' | 'lidar' | 'fea'
+  const [activePin, setActivePin] = useState(null);
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+
   // State for Sandbox Showcase
   const [showcaseTab, setShowcaseTab] = useState('twin');
   const [selectedTwinSiteIdx, setSelectedTwinSiteIdx] = useState(0);
@@ -172,7 +177,19 @@ export default function LandingPageView({
   const smoothEase = [0.16, 1, 0.3, 1];
 
   return (
-    <div className="min-h-screen bg-[#F0E7DA] text-[#24160E] font-sans selection:bg-[#BA532B] selection:text-white overflow-x-hidden relative museum-bg">
+    <div 
+      onMouseMove={(e) => setMousePos({ x: e.clientX, y: e.clientY })}
+      className="min-h-screen bg-[#F0E7DA] text-[#24160E] font-sans selection:bg-[#BA532B] selection:text-white overflow-x-hidden relative museum-bg"
+    >
+      {/* 6. 🔦 Museum Amber Spotlight Cursor Follower */}
+      <div 
+        className="fixed pointer-events-none w-[500px] h-[500px] rounded-full -translate-x-1/2 -translate-y-1/2 z-0 blur-[100px] opacity-20 transition-transform duration-75 ease-out"
+        style={{
+          left: mousePos.x,
+          top: mousePos.y,
+          background: 'radial-gradient(circle, rgba(186, 83, 43, 0.5) 0%, rgba(194, 146, 68, 0.25) 45%, transparent 70%)'
+        }}
+      />
       
       {/* 🚀 TOP SPRING-SMOOTHED SCROLL PROGRESS BAR (Active only after intro) */}
       {!showIntro && (
@@ -281,32 +298,37 @@ export default function LandingPageView({
       </motion.nav>
 
       {/* ========================================================================= */}
-      {/* 🚀 2. GRAND SUBMERGED HERO EXHIBITION (Option 3 Royal Ivory & Indigo)     */}
+      {/* 🚀 2. GRAND SUBMERGED HERO EXHIBITION                                      */}
       {/* ========================================================================= */}
       <section id="hero-section" className="relative min-h-[90vh] flex items-center px-6 sm:px-12 lg:px-20 py-16 max-w-[1600px] mx-auto overflow-hidden">
         
         {/* Subtle Ambient Background Watermark */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full opacity-15 pointer-events-none select-none overflow-hidden">
           <img
-            src="/monuments/khajuraho.jpg"
-            alt="Heritage Background"
-            className="w-full h-full object-cover filter brightness-110 contrast-105"
+            src="/monuments/qutub_minar.jpg"
+            alt="Heritage Motif"
+            className="w-full h-full object-cover filter blur-[90px] brightness-[0.78] contrast-[1.28] sepia-[0.38] saturate-[1.45]"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#F0E7DA]/80 to-[#F0E7DA]" />
         </div>
 
-        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full relative z-10">
           
-          {/* Left: Editorial Master Display */}
+          {/* Left: Monolithic Editorial Text Column */}
           <motion.div 
-            initial={{ opacity: 0, y: 60 }}
+            initial={{ opacity: 0, y: 35 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: smoothEase }}
+            transition={{ duration: 0.8, ease: smoothEase }}
             className="lg:col-span-7 space-y-6 text-left"
           >
-            {/* Display Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] tracking-tight leading-[1.1]">
-              Custodian of Heritage & <span className="gold-cream-text">Living Digital Twins</span>
+            {/* Monument Category Chip */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-[#DACDB8] text-[#BA532B] text-xs font-mono font-bold tracking-wider uppercase shadow-xs">
+              <span className="w-2 h-2 rounded-full bg-[#BA532B] animate-ping" />
+              <span>National Built Heritage Command Center · SIH 2026</span>
+            </div>
+
+            {/* Editorial Serif Heading */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] leading-[1.08] tracking-tight">
+              Safeguarding Monumental Soul with <span className="gold-cream-text">Autonomous AI Twins</span>
             </h1>
 
             {/* Subtitle */}
@@ -326,14 +348,14 @@ export default function LandingPageView({
             </div>
           </motion.div>
 
-          {/* Right: Floating 3D Artefact Showcase */}
+          {/* Right: Floating 3D Artefact Showcase with 4. 🎛️ Interactive Twin Scan Mode */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.15, ease: smoothEase }}
             className="lg:col-span-5 flex justify-center"
           >
-            <div className="w-full max-w-md bg-white border border-[#DACDB8] rounded-3xl p-5 shadow-2xl space-y-4 relative group">
+            <div className="w-full max-w-md bg-white border border-[#DACDB8] rounded-3xl p-5 shadow-2xl space-y-3.5 relative group">
               
               {/* Top Control Strip */}
               <div className="flex justify-between items-center text-xs font-mono px-1">
@@ -357,14 +379,93 @@ export default function LandingPageView({
                 </div>
               </div>
 
-              {/* Monument Showcase Image Display */}
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#DACDB8] bg-[#FAF5ED]">
+              {/* 4. 🎛️ Interactive 3-Mode Scan Selector Strip */}
+              <div className="grid grid-cols-3 gap-1 bg-[#FAF5ED] p-1 rounded-xl border border-[#DACDB8] text-[10px] font-mono font-bold uppercase">
+                <button
+                  onClick={() => setHeroScanMode('photo')}
+                  className={`py-1.5 rounded-lg transition-all cursor-pointer ${heroScanMode === 'photo' ? 'bg-[#BA532B] text-white shadow-xs' : 'text-[#4D3425] hover:text-[#BA532B]'}`}
+                >
+                  📸 Surface
+                </button>
+                <button
+                  onClick={() => setHeroScanMode('lidar')}
+                  className={`py-1.5 rounded-lg transition-all cursor-pointer ${heroScanMode === 'lidar' ? 'bg-[#BA532B] text-white shadow-xs' : 'text-[#4D3425] hover:text-[#BA532B]'}`}
+                >
+                  🕸️ LiDAR Mesh
+                </button>
+                <button
+                  onClick={() => setHeroScanMode('fea')}
+                  className={`py-1.5 rounded-lg transition-all cursor-pointer ${heroScanMode === 'fea' ? 'bg-[#BA532B] text-white shadow-xs' : 'text-[#4D3425] hover:text-[#BA532B]'}`}
+                >
+                  🔥 FEA Stress
+                </button>
+              </div>
+
+              {/* Monument Showcase Image Display with Scan Layers */}
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#DACDB8] bg-[#140B07]">
                 <img
                   src={sites[selectedTwinSiteIdx]?.imageUrl || '/monuments/qutub_minar.jpg'}
                   alt={sites[selectedTwinSiteIdx]?.name}
-                  className="w-full h-full object-cover filter brightness-100 group-hover:scale-105 transition-transform duration-700"
+                  className={`w-full h-full object-cover transition-all duration-500 ${
+                    heroScanMode === 'lidar' ? 'filter brightness-50 contrast-150 grayscale' :
+                    heroScanMode === 'fea' ? 'filter brightness-65 contrast-125 saturate-150' :
+                    'filter brightness-[0.92] contrast-[1.12]'
+                  }`}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#24160E]/85 via-transparent to-black/20" />
+
+                {/* Mode Overlay: LiDAR Laser & Point Cloud Mesh */}
+                {heroScanMode === 'lidar' && (
+                  <div className="absolute inset-0 pointer-events-none">
+                    {/* LiDAR Point Grid */}
+                    <div 
+                      className="absolute inset-0 opacity-40"
+                      style={{
+                        backgroundImage: 'radial-gradient(#34D399 1.2px, transparent 1.2px)',
+                        backgroundSize: '14px 14px'
+                      }}
+                    />
+                    {/* Animated Scanning Laser Line */}
+                    <motion.div
+                      animate={{ y: [0, 240, 0] }}
+                      transition={{ duration: 2.2, repeat: Infinity, ease: "linear" }}
+                      className="w-full h-[2px] bg-emerald-400 shadow-[0_0_12px_#34D399]"
+                    />
+                    {/* LiDAR Telemetry Badge */}
+                    <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2 py-1 rounded-md border border-emerald-500/40 text-[9px] font-mono text-emerald-400">
+                      ⚡ 14,800 pts/m² · σ: ±0.02mm
+                    </div>
+                  </div>
+                )}
+
+                {/* Mode Overlay: FEA Finite Element Stress Heatmap */}
+                {heroScanMode === 'fea' && (
+                  <div className="absolute inset-0">
+                    {/* Stress Color Gradient Contour */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/35 via-amber-500/40 to-rose-600/50 mix-blend-color-burn pointer-events-none" />
+                    
+                    {/* Stress Legend */}
+                    <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md px-2 py-1 rounded-md border border-[#BA532B]/40 text-[9px] font-mono text-[#FFA57E]">
+                      🔥 Peak Load: 4.82 MPa [Tension]
+                    </div>
+
+                    {/* Interactive Clickable Hotspot Pins */}
+                    <button
+                      onClick={() => setActivePin(activePin === 1 ? null : 1)}
+                      className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-rose-500/80 border-2 border-white flex items-center justify-center text-white text-[9px] font-mono animate-bounce cursor-pointer shadow-lg z-20"
+                      title="Inspect Fracture Anomaly"
+                    >
+                      !
+                    </button>
+                    {activePin === 1 && (
+                      <div className="absolute top-[42%] left-1/2 -translate-x-1/2 bg-[#FAF5ED] border border-[#BA532B] p-2 rounded-xl shadow-2xl text-[10px] font-mono text-[#24160E] w-48 z-30">
+                        <span className="font-bold text-rose-600 block">⚠️ Micro-Crack Anomaly</span>
+                        <span>Length: 142mm · Paris-Erdogan da/dN: 0.08mm/yr</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#24160E]/85 via-transparent to-black/20 pointer-events-none" />
                 
                 {/* Status Tag Overlay */}
                 <div className="absolute top-3 right-3">
@@ -381,7 +482,7 @@ export default function LandingPageView({
                 </div>
 
                 {/* Bottom Image Overlay Details */}
-                <div className="absolute bottom-3 left-3 right-3 space-y-1">
+                <div className="absolute bottom-3 left-3 right-3 space-y-1 pointer-events-none">
                   <span className="text-[10px] font-mono text-[#C29244] font-semibold block">
                     📍 {sites[selectedTwinSiteIdx]?.location}, {sites[selectedTwinSiteIdx]?.state}
                   </span>
