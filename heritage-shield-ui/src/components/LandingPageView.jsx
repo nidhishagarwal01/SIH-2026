@@ -470,18 +470,23 @@ export default function LandingPageView({
           </p>
         </div>
 
-        {/* 8-Module Interactive Grid */}
+        {/* 8-Module Interactive Grid with Staggered Scroll Motion & Hover Lift */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {workflowSteps.map((mod, idx) => {
             const isSelected = activeWorkflowIndex === idx;
             return (
-              <div
+              <motion.div
                 key={mod.step}
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: idx * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -7, scale: 1.02 }}
                 onClick={() => setActiveWorkflowIndex(idx)}
                 className={`p-6 rounded-3xl border transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-4 group ${
                   isSelected
-                    ? 'bg-[#121522]/90 border-[#E06D44] shadow-2xl shadow-[#E06D44]/15 ring-1 ring-[#E06D44]/40 -translate-y-1'
-                    : 'frosted-glass-card hover:border-[#E06D44]/40'
+                    ? 'bg-[#121522]/95 border-[#E06D44] shadow-2xl shadow-[#E06D44]/20 ring-1 ring-[#E06D44]/50'
+                    : 'frosted-glass-card hover:border-[#E06D44]/50 hover:shadow-2xl'
                 }`}
               >
                 <div className="space-y-3">
@@ -503,7 +508,7 @@ export default function LandingPageView({
                   </p>
                 </div>
 
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -941,8 +946,13 @@ export default function LandingPageView({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
           {flagshipSites.map((s, idx) => (
-            <div
+            <motion.div
               key={s.id || idx}
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -8, scale: 1.02 }}
               onClick={() => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
               className="frosted-glass-card rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 group cursor-pointer flex flex-col justify-between"
             >
@@ -950,7 +960,7 @@ export default function LandingPageView({
                 <img
                   src={s.imageUrl || '/monuments/qutub_minar.jpg'}
                   alt={s.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-105"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95 contrast-105"
                 />
                 <div className="absolute top-3 right-3">
                   <span 
@@ -982,7 +992,7 @@ export default function LandingPageView({
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

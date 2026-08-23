@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import HeritageGisMap from './HeritageGisMap';
 import HeritageShieldLogo from './HeritageShieldLogo';
 import ThemeToggle from './ThemeToggle';
@@ -220,11 +221,16 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredSites.map((site) => (
-              <div
+            {filteredSites.map((site, idx) => (
+              <motion.div
                 key={site.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.45, delay: (idx % 4) * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -8, scale: 1.02 }}
                 onClick={() => onSelectMonument(site.index)}
-                className="group cursor-pointer frosted-glass-card rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-1.5 flex flex-col justify-between"
+                className="group cursor-pointer frosted-glass-card rounded-3xl overflow-hidden transition-all duration-500 flex flex-col justify-between"
               >
                 <div>
                   {/* Image Container with Badges */}
@@ -318,7 +324,7 @@ export default function MonumentPortalView({ sites, onSelectMonument, onBackToLa
                     <span>🔍 AI Vision</span>
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         )}

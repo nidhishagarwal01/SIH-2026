@@ -13,6 +13,7 @@ import LiveIngestModal from './components/LiveIngestModal';
 import AssetSwitcherModal from './components/AssetSwitcherModal';
 import HeritageShieldLogo from './components/HeritageShieldLogo';
 import ThemeToggle from './components/ThemeToggle';
+import MuseumCursorTorch from './components/MuseumCursorTorch';
 
 import { UNESCO_SITES } from './data/unescoSites';
 
@@ -356,21 +357,24 @@ export default function App() {
   // ---------------------------------------------------------------------------
   if (viewMode === 'landing') {
     return (
-      <LandingPageView
-        onEnterDashboard={() => {
-          setViewMode('portal');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-        onSelectMonument={handleLaunchMonumentStudio}
-        onOpenStudio={() => {
-          setViewMode('portal');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-        currentUser={currentUser}
-        onLoginSuccess={(user) => setCurrentUser(user)}
-        onLogout={() => setCurrentUser(null)}
-        sites={sites}
-      />
+      <>
+        <MuseumCursorTorch />
+        <LandingPageView
+          onEnterDashboard={() => {
+            setViewMode('portal');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          onSelectMonument={handleLaunchMonumentStudio}
+          onOpenStudio={() => {
+            setViewMode('portal');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          currentUser={currentUser}
+          onLoginSuccess={(user) => setCurrentUser(user)}
+          onLogout={() => setCurrentUser(null)}
+          sites={sites}
+        />
+      </>
     );
   }
 
@@ -379,15 +383,18 @@ export default function App() {
   // ---------------------------------------------------------------------------
   if (viewMode === 'portal') {
     return (
-      <MonumentPortalView
-        sites={sites}
-        onSelectMonument={handleLaunchMonumentStudio}
-        onBackToLanding={() => {
-          setViewMode('landing');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-        liveWeather={liveWeather}
-      />
+      <>
+        <MuseumCursorTorch />
+        <MonumentPortalView
+          sites={sites}
+          onSelectMonument={handleLaunchMonumentStudio}
+          onBackToLanding={() => {
+            setViewMode('landing');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          liveWeather={liveWeather}
+        />
+      </>
     );
   }
 
@@ -396,6 +403,7 @@ export default function App() {
   // ---------------------------------------------------------------------------
   return (
     <div className="min-h-screen bg-[#07080B] text-[#EDE8DE] font-sans antialiased selection:bg-[#E06D44] selection:text-[#07080B] flex flex-col museum-bg">
+      <MuseumCursorTorch />
       
       {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
       <header className="sticky top-0 z-[9999] bg-[#07080B]/85 backdrop-blur-2xl border-b border-white/[0.08] px-6 py-3.5 shadow-2xl">
