@@ -402,11 +402,11 @@ export default function App() {
   // 🏛️ VIEW 3: DEDICATED MONUMENT STUDIO & COMMAND CENTER
   // ---------------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-[#07080B] text-[#EDE8DE] font-sans antialiased selection:bg-[#E06D44] selection:text-[#07080B] flex flex-col museum-bg">
+    <div className="min-h-screen bg-[#F7F5F0] text-[#181B1F] font-sans antialiased selection:bg-[#C85A32] selection:text-white flex flex-col museum-bg">
       <MuseumCursorTorch />
       
       {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
-      <header className="sticky top-0 z-[9999] bg-[#07080B]/85 backdrop-blur-2xl border-b border-white/[0.08] px-6 py-3.5 shadow-2xl">
+      <header className="sticky top-0 z-[9999] bg-[#FAF8F5]/90 backdrop-blur-2xl border-b border-[#E6E1D8] px-6 py-3.5 shadow-sm">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
           {/* Brand & Return to Portal Button */}
@@ -415,15 +415,15 @@ export default function App() {
             <HeritageShieldLogo
               size="sm"
               showText={true}
-              textClassName="text-sm tracking-wider font-serif font-bold text-[#FDFBF7]"
+              textClassName="text-sm tracking-wider font-serif font-bold text-[#181B1F]"
               onClick={() => setViewMode('landing')}
             />
 
-            <div className="w-[1px] h-6 bg-white/10" />
+            <div className="w-[1px] h-6 bg-[#E6E1D8]" />
 
             <button
               onClick={() => setViewMode('portal')}
-              className="px-3.5 py-1.5 rounded-xl frosted-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow cursor-pointer"
+              className="px-3.5 py-1.5 rounded-xl frosted-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
               title="Return to National Map & Directory"
             >
               <span>🗺️</span>
@@ -434,7 +434,7 @@ export default function App() {
           {/* Active Heritage Site Switcher Pill */}
           <button
             onClick={() => setIsAssetSwitcherOpen(true)}
-            className="flex items-center gap-3 bg-[#121522]/80 hover:bg-[#181D2E] border border-white/15 hover:border-[#E06D44]/60 px-4 py-2 rounded-2xl transition shadow-md group cursor-pointer backdrop-blur-md"
+            className="flex items-center gap-3 bg-white hover:bg-[#FAF8F5] border border-[#E6E1D8] hover:border-[#C85A32]/60 px-4 py-2 rounded-2xl transition shadow-sm group cursor-pointer"
             title="Switch Heritage Site"
           >
             <span
@@ -442,13 +442,13 @@ export default function App() {
               style={{ backgroundColor: curSite.color }}
             />
             <div className="text-left">
-              <div className="text-[9px] font-mono uppercase text-gray-400 font-semibold flex items-center gap-1.5">
+              <div className="text-[9px] font-mono uppercase text-[#64748B] font-semibold flex items-center gap-1.5">
                 <span>Active Heritage Site:</span>
               </div>
-              <div className="text-xs font-serif font-bold text-[#FDFBF7] group-hover:text-[#E06D44] flex items-center gap-1.5">
+              <div className="text-xs font-serif font-bold text-[#181B1F] group-hover:text-[#C85A32] flex items-center gap-1.5">
                 <span>{curSite.name}</span>
-                <span className="text-[10px] text-gray-400 font-mono">({curSite.state})</span>
-                <span className="text-[10px] text-[#E06D44] font-mono font-bold">▼ Switch</span>
+                <span className="text-[10px] text-[#64748B] font-mono">({curSite.state})</span>
+                <span className="text-[10px] text-[#C85A32] font-mono font-bold">▼ Switch</span>
               </div>
             </div>
           </button>
@@ -459,17 +459,17 @@ export default function App() {
 
             <button
               onClick={() => setIsLiveIngestOpen(true)}
-              className="px-3.5 py-2 rounded-xl bg-cyan-950/30 border border-cyan-700/40 hover:bg-cyan-900/40 text-cyan-300 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-sky-50 border border-sky-200 hover:bg-sky-100 text-sky-800 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              <span className="w-2 h-2 rounded-full bg-sky-600 animate-ping"></span>
               <span>🌐 Live Ingest</span>
             </button>
 
             <button
               onClick={() => setIsFieldReportOpen(true)}
-              className="px-3.5 py-2 rounded-xl bg-white/[0.06] border border-white/10 hover:border-emerald-500/50 text-emerald-400 text-xs font-mono font-medium transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 text-emerald-800 text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
               <span>Field Sentinel</span>
             </button>
 
@@ -485,7 +485,7 @@ export default function App() {
       </header>
 
       {/* 🎛️ 2. STUDIO CONSOLE TABS */}
-      <div className="bg-[#0C0E16]/80 border-b border-white/[0.08] px-6 backdrop-blur-xl">
+      <div className="bg-white border-b border-[#E6E1D8] px-6">
         <div className="max-w-[1600px] mx-auto flex items-center gap-2 overflow-x-auto py-2.5">
           
           <button
@@ -495,8 +495,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'twin'
-                ? 'bg-[#181D2E] text-[#FDFBF7] border border-[#E06D44] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.06] border border-transparent'
+                ? 'bg-[#FAF8F5] text-[#C85A32] border border-[#C85A32] shadow-sm'
+                : 'text-[#64748B] hover:text-[#181B1F] hover:bg-[#FAF8F5] border border-transparent'
             }`}
           >
             <span className="text-sm">🏛️</span>
@@ -510,8 +510,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'vision'
-                ? 'bg-[#181D2E] text-[#FDFBF7] border border-[#E06D44] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.06] border border-transparent'
+                ? 'bg-[#FAF8F5] text-[#C85A32] border border-[#C85A32] shadow-sm'
+                : 'text-[#64748B] hover:text-[#181B1F] hover:bg-[#FAF8F5] border border-transparent'
             }`}
           >
             <span className="text-sm">🔍</span>
@@ -525,8 +525,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'risk'
-                ? 'bg-[#181D2E] text-[#FDFBF7] border border-[#E06D44] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.06] border border-transparent'
+                ? 'bg-[#FAF8F5] text-[#C85A32] border border-[#C85A32] shadow-sm'
+                : 'text-[#64748B] hover:text-[#181B1F] hover:bg-[#FAF8F5] border border-transparent'
             }`}
           >
             <span className="text-sm">📊</span>
@@ -540,8 +540,8 @@ export default function App() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer ${
               activeTab === 'queue'
-                ? 'bg-[#181D2E] text-[#FDFBF7] border border-[#E06D44] shadow-md'
-                : 'text-gray-400 hover:text-gray-200 hover:bg-white/[0.06] border border-transparent'
+                ? 'bg-[#FAF8F5] text-[#C85A32] border border-[#C85A32] shadow-sm'
+                : 'text-[#64748B] hover:text-[#181B1F] hover:bg-[#FAF8F5] border border-transparent'
             }`}
           >
             <span className="text-sm">📋</span>
@@ -561,10 +561,10 @@ export default function App() {
           <div className="space-y-6">
             
             {/* Top Studio Control Bar */}
-            <div className="bg-[#0D1017] border border-[#232A38] p-5 rounded-2xl space-y-3 shadow-xl heritage-card-glow">
+            <div className="bg-white border border-[#E6E1D8] p-5 rounded-2xl space-y-3 shadow-sm">
               <div className="flex flex-wrap justify-between items-center gap-4">
                 <div>
-                  <h2 className="text-xl font-serif font-bold text-[#F3EFE6] tracking-wide">
+                  <h2 className="text-xl font-serif font-bold text-[#181B1F] tracking-wide">
                     {curSite.name} — Living 3D Digital Twin
                   </h2>
                 </div>
@@ -572,7 +572,7 @@ export default function App() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setShowPhotogrammetryDrawer(!showPhotogrammetryDrawer)}
-                    className="px-3.5 py-2 rounded-xl bg-[#141822] border border-[#2B313D] text-cyan-300 text-xs font-mono font-semibold hover:bg-[#1C2230] transition flex items-center gap-1.5 cursor-pointer shadow"
+                    className="px-3.5 py-2 rounded-xl bg-[#FAF8F5] border border-[#E6E1D8] text-sky-700 text-xs font-mono font-semibold hover:bg-sky-50 transition flex items-center gap-1.5 cursor-pointer shadow-sm"
                   >
                     <span>🏗️ {showPhotogrammetryDrawer ? 'Hide' : 'Show'} Scan-to-Twin Pipeline</span>
                   </button>
@@ -580,19 +580,19 @@ export default function App() {
               </div>
 
               {/* Clean Organized Telemetry Strip */}
-              <div className="pt-3 border-t border-[#1E2433] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-gray-400">
+              <div className="pt-3 border-t border-[#E6E1D8] flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#4B5563]">
                 <div className="flex items-center gap-5 flex-wrap">
                   <span className="flex items-center gap-1.5">
-                    <span className="text-gray-500 uppercase text-[10px] font-bold">🌋 Hazard:</span>
-                    <strong className="text-amber-400 font-semibold">{curSite.seismicZone}</strong>
+                    <span className="text-[#64748B] uppercase text-[10px] font-bold">🌋 Hazard:</span>
+                    <strong className="text-amber-800 font-semibold">{curSite.seismicZone}</strong>
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <span className="text-gray-500 uppercase text-[10px] font-bold">🌦️ Weather:</span>
-                    <strong className="text-sky-400 font-semibold">{liveWeather.temp} · {liveWeather.humidity} RH</strong>
+                    <span className="text-[#64748B] uppercase text-[10px] font-bold">🌦️ Weather:</span>
+                    <strong className="text-sky-800 font-semibold">{liveWeather.temp} · {liveWeather.humidity} RH</strong>
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <span className="text-gray-500 uppercase text-[10px] font-bold">📍 WGS84:</span>
-                    <span className="text-gray-300 font-medium">
+                    <span className="text-[#64748B] uppercase text-[10px] font-bold">📍 WGS84:</span>
+                    <span className="text-[#181B1F] font-medium">
                       {Array.isArray(curSite.coords) ? `${curSite.coords[0]}° N, ${curSite.coords[1]}° E` : curSite.coords}
                     </span>
                   </span>

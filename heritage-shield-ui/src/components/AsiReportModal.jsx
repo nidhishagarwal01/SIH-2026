@@ -110,18 +110,18 @@ export default function AsiReportModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/90 backdrop-blur-2xl p-4 overflow-y-auto">
-      <div className="bg-[#0C0E16] text-[#EDE8DE] border border-white/15 rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-[#181B1F]/60 backdrop-blur-md p-4 overflow-y-auto">
+      <div className="bg-white text-[#181B1F] border border-[#E6E1D8] rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         
         {/* Modal Action Header */}
-        <div className="print:hidden bg-[#07080B] border-b border-white/10 px-6 py-4 flex flex-wrap justify-between items-center gap-3">
+        <div className="print:hidden bg-[#FAF8F5] border-b border-[#E6E1D8] px-6 py-4 flex flex-wrap justify-between items-center gap-3">
           <div className="flex items-center gap-2.5">
-            <span className={`w-3 h-3 rounded-full ${isAuthenticated ? 'bg-emerald-400 animate-pulse' : 'bg-[#E06D44] animate-ping'}`} />
+            <span className={`w-3 h-3 rounded-full ${isAuthenticated ? 'bg-emerald-600 animate-pulse' : 'bg-[#C85A32] animate-ping'}`} />
             <div>
-              <span className="text-xs font-mono font-bold text-[#FDFBF7] uppercase tracking-wider">
+              <span className="text-xs font-mono font-bold text-[#181B1F] uppercase tracking-wider">
                 Archaeological Survey of India · Form HS-2026 Dispatcher
               </span>
-              <div className="text-[10px] font-mono text-gray-400">
+              <div className="text-[10px] font-mono text-[#64748B]">
                 Security Gate: {isAuthenticated ? '🟢 ASI Officer Authenticated & Unlocked' : '🔒 Officer Authentication Required'}
               </div>
             </div>
@@ -132,7 +132,7 @@ export default function AsiReportModal({
               <>
                 <button
                   onClick={handlePrint}
-                  className="px-4 py-2 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-2 shadow cursor-pointer"
+                  className="px-4 py-2 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-2 shadow-sm cursor-pointer"
                 >
                   <span>🖨️ Print / Save PDF</span>
                 </button>
@@ -144,7 +144,7 @@ export default function AsiReportModal({
                 </button>
                 <button
                   onClick={() => setIsAuthenticated(false)}
-                  className="px-3.5 py-2 rounded-xl bg-white/[0.06] border border-white/15 text-amber-300 font-mono text-xs font-bold hover:text-white transition cursor-pointer"
+                  className="px-3.5 py-2 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 font-mono text-xs font-bold hover:bg-amber-100 transition cursor-pointer"
                 >
                   🔒 Lock & Sign Out
                 </button>
@@ -153,7 +153,7 @@ export default function AsiReportModal({
 
             <button
               onClick={onClose}
-              className="px-3.5 py-2 rounded-xl frosted-btn text-gray-400 hover:text-white font-mono text-xs font-bold transition cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-white border border-[#E6E1D8] text-[#181B1F] hover:text-[#C85A32] hover:border-[#C85A32] font-mono text-xs font-bold transition cursor-pointer shadow-sm"
             >
               ✕ Close
             </button>
@@ -161,11 +161,11 @@ export default function AsiReportModal({
         </div>
 
         {/* Modal Body */}
-        <div className="overflow-y-auto p-6 space-y-6">
+        <div className="overflow-y-auto p-6 space-y-6 bg-[#FAF8F5]">
 
           {/* 🔒 1. COMPLETE OFFICER LOGIN SECURITY GATE (REPORT IS TOTALLY HIDDEN UNTIL LOGGED IN) */}
           {!isAuthenticated ? (
-            <div className="bg-[#101216] border-2 border-amber-500/30 rounded-2xl p-8 shadow-2xl space-y-6 text-center my-4">
+            <div className="bg-white border-2 border-[#C85A32]/25 rounded-3xl p-8 shadow-xl space-y-6 text-center my-4">
               
               {/* National Crest & Header */}
               <div className="flex justify-center my-2">
@@ -173,36 +173,36 @@ export default function AsiReportModal({
               </div>
 
               <div className="space-y-1 max-w-lg mx-auto">
-                <div className="text-[11px] font-mono uppercase text-[#C5A059] font-bold tracking-widest">
+                <div className="text-[11px] font-mono uppercase text-[#C85A32] font-bold tracking-widest">
                   Government of India · Ministry of Culture
                 </div>
-                <h2 className="text-xl font-serif font-bold text-[#F3EFE6]">
+                <h2 className="text-xl font-serif font-bold text-[#181B1F]">
                   ASI Officer Identity Verification Required
                 </h2>
-                <p className="text-xs text-gray-400 font-mono leading-relaxed mt-2">
+                <p className="text-xs text-[#4B5563] font-mono leading-relaxed mt-2">
                   Technical conservation work-orders and executive fund allocations are classified under the <strong>AMASR Act 1958</strong>. Report contents are confidential and locked behind official ASI employee credentials.
                 </p>
               </div>
 
               {/* Security PIN Login Form */}
-              <form onSubmit={handleOfficerLogin} className="max-w-md mx-auto space-y-4 bg-[#0A0C0E] p-6 rounded-xl border border-[#2B313D] text-left text-xs font-mono">
+              <form onSubmit={handleOfficerLogin} className="max-w-md mx-auto space-y-4 bg-[#FAF8F5] p-6 rounded-2xl border border-[#E6E1D8] text-left text-xs font-mono">
                 <div>
-                  <label className="text-gray-400 block mb-1 font-semibold">Officer Name & Academic Title</label>
+                  <label className="text-[#181B1F] block mb-1 font-semibold">Officer Name & Academic Title</label>
                   <input
                     type="text"
                     value={officerName}
                     onChange={(e) => setOfficerName(e.target.value)}
-                    className="w-full bg-[#14171C] border border-[#2B313D] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#C5A059]"
+                    className="w-full bg-white border border-[#E6E1D8] rounded-xl px-3 py-2 text-[#181B1F] focus:outline-none focus:border-[#C85A32]"
                     placeholder="e.g. Dr. Rajeshwar Sharma"
                   />
                 </div>
 
                 <div>
-                  <label className="text-gray-400 block mb-1 font-semibold">Official Designation</label>
+                  <label className="text-[#181B1F] block mb-1 font-semibold">Official Designation</label>
                   <select
                     value={officerDesignation}
                     onChange={(e) => setOfficerDesignation(e.target.value)}
-                    className="w-full bg-[#14171C] border border-[#2B313D] rounded-lg px-3 py-2 text-[#C5A059] focus:outline-none focus:border-[#C5A059]"
+                    className="w-full bg-white border border-[#E6E1D8] rounded-xl px-3 py-2 text-[#C85A32] focus:outline-none focus:border-[#C85A32] font-bold"
                   >
                     <option value="Superintending Archaeologist">Superintending Archaeologist (Circle Head)</option>
                     <option value="Director General (Conservation)">Director General (Conservation Branch)</option>
@@ -213,18 +213,18 @@ export default function AsiReportModal({
                 </div>
 
                 <div>
-                  <label className="text-gray-400 block mb-1 font-semibold">ASI Security Service PIN</label>
+                  <label className="text-[#181B1F] block mb-1 font-semibold">ASI Security Service PIN</label>
                   <div className="flex gap-2">
                     <input
                       type="password"
                       placeholder="Enter 4-digit PIN (Demo: 2026)"
                       value={authPin}
                       onChange={(e) => setAuthPin(e.target.value)}
-                      className="w-full bg-[#14171C] border border-[#2B313D] rounded-lg px-3 py-2 text-white placeholder-gray-600 focus:outline-none focus:border-[#C5A059]"
+                      className="w-full bg-white border border-[#E6E1D8] rounded-xl px-3 py-2 text-[#181B1F] placeholder-[#94A3B8] focus:outline-none focus:border-[#C85A32]"
                     />
                     <button
                       type="submit"
-                      className="px-5 py-2 bg-[#C5A059] hover:brightness-110 text-[#090A0C] font-bold rounded-lg transition whitespace-nowrap shadow"
+                      className="px-5 py-2 terracotta-btn font-bold rounded-xl transition whitespace-nowrap shadow-sm cursor-pointer"
                     >
                       Unlock Report
                     </button>
@@ -232,23 +232,23 @@ export default function AsiReportModal({
                 </div>
 
                 {authError && (
-                  <p className="text-xs text-rose-400 font-mono mt-1">{authError}</p>
+                  <p className="text-xs text-rose-600 font-mono mt-1">{authError}</p>
                 )}
               </form>
 
               {/* Fast 1-Click Officer Sign-In Profiles */}
-              <div className="pt-4 border-t border-[#1E2228] max-w-lg mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
-                <span className="text-gray-400 text-[11px]">⚡ Fast Demo Access:</span>
+              <div className="pt-4 border-t border-[#E6E1D8] max-w-lg mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
+                <span className="text-[#64748B] text-[11px]">⚡ Fast Demo Access:</span>
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleQuickLogin('Dr. Rajeshwar Sharma, Ph.D.', 'Superintending Archaeologist', 'ASI-AGRA-2026-0842', site?.circle || 'Agra Circle')}
-                    className="px-3 py-1.5 rounded-lg bg-[#181B22] hover:bg-[#222730] border border-[#C5A059]/40 text-[#C5A059] transition text-xs font-bold"
+                    className="px-3 py-1.5 rounded-xl bg-white hover:bg-amber-50 border border-amber-300 text-amber-900 transition text-xs font-bold shadow-sm"
                   >
                     👨‍💼 Dr. R. Sharma (Agra Circle)
                   </button>
                   <button
                     onClick={() => handleQuickLogin('Er. Sunita Sen, M.Tech', 'Chief Structural Conservationist', 'ASI-HQ-DL-2026-1108', 'Delhi HQ')}
-                    className="px-3 py-1.5 rounded-lg bg-[#181B22] hover:bg-[#222730] border border-cyan-700/40 text-cyan-300 transition text-xs font-bold"
+                    className="px-3 py-1.5 rounded-xl bg-white hover:bg-sky-50 border border-sky-300 text-sky-900 transition text-xs font-bold shadow-sm"
                   >
                     👩‍💼 Er. Sunita Sen (Delhi HQ)
                   </button>

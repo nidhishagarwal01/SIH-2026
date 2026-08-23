@@ -3,8 +3,8 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #0A0C10;
-    color: #E8E6E3;
+    background-color: #F7F5F0;
+    color: #181B1F;
   }
 
   .font-serif {
@@ -20,76 +20,89 @@
   }
 }
 
-/* 🏛️ Cinematic Museum & Heritage Archive Theme */
+/* 🏛️ Sovereign Sandstone & Charcoal Slate Architecture System */
 .museum-bg {
-  background-color: #07080B;
+  background-color: #F7F5F0;
   background-image: 
-    radial-gradient(circle at 50% 25%, rgba(200, 90, 50, 0.12) 0%, rgba(197, 160, 89, 0.06) 35%, transparent 70%),
-    radial-gradient(circle at 85% 75%, rgba(200, 90, 50, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 15% 85%, rgba(197, 160, 89, 0.04) 0%, transparent 50%);
+    radial-gradient(circle at 50% 15%, rgba(200, 90, 50, 0.05) 0%, rgba(212, 175, 55, 0.03) 40%, transparent 70%),
+    radial-gradient(circle at 85% 65%, rgba(200, 90, 50, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 15% 75%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+}
+
+.sandstone-bg {
+  background-color: #F7F5F0;
 }
 
 .museum-spotlight {
-  background: radial-gradient(ellipse at 50% 35%, rgba(224, 109, 68, 0.18) 0%, rgba(212, 175, 55, 0.08) 45%, transparent 75%);
+  background: radial-gradient(ellipse at 50% 35%, rgba(224, 109, 68, 0.08) 0%, rgba(212, 175, 55, 0.04) 45%, transparent 75%);
 }
 
 .frosted-glass {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  background: rgba(18, 20, 28, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid #E6E1D8;
+}
+
+.sandstone-card {
+  background: #FFFFFF;
+  border: 1px solid #E6E1D8;
+  box-shadow: 0 10px 30px -5px rgba(28, 25, 23, 0.05), 0 2px 6px -1px rgba(28, 25, 23, 0.03);
 }
 
 .frosted-glass-card {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  background: rgba(15, 17, 24, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #E4DFD5;
+  box-shadow: 0 12px 35px -8px rgba(28, 25, 23, 0.06), 0 1px 3px rgba(28, 25, 23, 0.03);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .frosted-glass-card:hover {
-  border-color: rgba(224, 109, 68, 0.4);
-  box-shadow: 0 25px 60px -12px rgba(200, 90, 50, 0.15), 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(224, 109, 68, 0.15) inset;
+  border-color: rgba(200, 90, 50, 0.45);
+  box-shadow: 0 20px 45px -10px rgba(200, 90, 50, 0.14), 0 4px 12px rgba(28, 25, 23, 0.04);
 }
 
 .frosted-btn {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #FDFBF7;
+  background: #FFFFFF;
+  border: 1px solid #DCD6CA;
+  color: #181B1F;
+  box-shadow: 0 2px 5px rgba(28, 25, 23, 0.04);
   transition: all 0.25s ease;
 }
 
 .frosted-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: #FFFFFF;
+  background: #F4EFEA;
+  border-color: #C85A32;
+  color: #C85A32;
+  box-shadow: 0 4px 12px rgba(200, 90, 50, 0.12);
 }
 
 .terracotta-btn {
   background: linear-gradient(135deg, #C85A32 0%, #E06D44 100%);
-  border: 1px solid rgba(255, 180, 150, 0.35);
-  color: #FDFBF7;
-  box-shadow: 0 10px 25px -5px rgba(200, 90, 50, 0.35);
+  border: 1px solid rgba(200, 90, 50, 0.3);
+  color: #FFFFFF;
+  box-shadow: 0 8px 20px -4px rgba(200, 90, 50, 0.35);
   transition: all 0.25s ease;
 }
 
 .terracotta-btn:hover {
-  background: linear-gradient(135deg, #D96B43 0%, #EB7E55 100%);
-  box-shadow: 0 15px 30px -5px rgba(200, 90, 50, 0.5);
+  background: linear-gradient(135deg, #B84620 0%, #D35E35 100%);
+  box-shadow: 0 12px 28px -4px rgba(200, 90, 50, 0.45);
   transform: translateY(-1px);
 }
 
 .gold-cream-text {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F5E6CC 50%, #D4AF37 100%);
+  background: linear-gradient(135deg, #181B1F 0%, #C85A32 50%, #B8860B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gold-text-shimmer {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F5E6CC 40%, #E06D44 80%, #D4AF37 100%);
+  background: linear-gradient(135deg, #181B1F 0%, #C85A32 40%, #B8860B 80%, #D9532F 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -101,26 +114,26 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #0D0F12;
+  background: #F1EDE6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #252830;
+  background: #D4CDC2;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3A3F4D;
+  background: #B5AB9D;
 }
 
-/* Leaflet Custom Dark Theme Overrides */
+/* Leaflet Custom Light Theme Overrides */
 .leaflet-popup-content-wrapper {
-  background: #111317 !important;
-  color: #E8E6E3 !important;
-  border: 1px solid #282C35 !important;
+  background: #FFFFFF !important;
+  color: #181B1F !important;
+  border: 1px solid #E6E1D8 !important;
   border-radius: 12px !important;
   padding: 0 !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.12) !important;
 }
 
 .leaflet-popup-content {
@@ -129,8 +142,8 @@
 }
 
 .leaflet-popup-tip {
-  background: #111317 !important;
-  border: 1px solid #282C35 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E6E1D8 !important;
 }
 
 .custom-gis-pin {
@@ -149,120 +162,11 @@
     opacity: 0;
   }
   100% {
-    transform: scale(1.6);
+    transform: scale(2.0);
     opacity: 0;
   }
 }
 
 .animate-radar {
-  animation: radar-ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: radar-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-
-/* ☀️ Light Mode Global Adaptive Overrides */
-html.light body {
-  background-color: #F8F9FA !important;
-  color: #1A1D23 !important;
-}
-
-html.light nav,
-html.light header {
-  background-color: rgba(255, 255, 255, 0.92) !important;
-  border-color: #E2E8F0 !important;
-}
-
-html.light .bg-\[\#07080A\],
-html.light .bg-\[\#090A0C\],
-html.light .bg-\[\#090B0E\],
-html.light .bg-\[\#0A0C10\],
-html.light .bg-\[\#0C0E12\],
-html.light .bg-\[\#0D0E11\],
-html.light .bg-\[\#0E1013\],
-html.light .bg-\[\#0E1117\],
-html.light .bg-\[\#111317\],
-html.light .bg-\[\#121418\],
-html.light .bg-\[\#14171C\],
-html.light .bg-\[\#14171E\],
-html.light .bg-\[\#14171F\],
-html.light .bg-\[\#161920\],
-html.light .bg-\[\#161A22\],
-html.light .bg-\[\#181B22\],
-html.light .bg-\[\#181C24\],
-html.light .bg-\[\#08090C\] {
-  background-color: #FFFFFF !important;
-  border-color: #E2E8F0 !important;
-  color: #1E293B !important;
-}
-
-html.light .text-white,
-html.light .text-\[\#EDE8DE\],
-html.light .text-\[\#F3EFE6\],
-html.light .text-\[\#E8E6E3\] {
-  color: #0F172A !important;
-}
-
-html.light .text-gray-300,
-html.light .text-gray-400 {
-  color: #475569 !important;
-}
-
-html.light .border-\[\#1A1D23\],
-html.light .border-\[\#1A1E26\],
-html.light .border-\[\#1A1F29\],
-html.light .border-\[\#1C212C\],
-html.light .border-\[\#1E2228\],
-html.light .border-\[\#1E232E\],
-html.light .border-\[\#222730\],
-html.light .border-\[\#232A36\],
-html.light .border-\[\#232A38\],
-html.light .border-\[\#252C3A\],
-html.light .border-\[\#282E38\],
-html.light .border-\[\#2B313D\] {
-  border-color: #E2E8F0 !important;
-}
-
-/* ⚡ LiDAR Laser Scanline Animation */
-@keyframes laser-sweep {
-  0% {
-    top: 0%;
-    opacity: 0.9;
-  }
-  50% {
-    top: 98%;
-    opacity: 1;
-  }
-  100% {
-    top: 0%;
-    opacity: 0.9;
-  }
-}
-
-.animate-laser-scan {
-  animation: laser-sweep 4s ease-in-out infinite;
-}
-
-/* 🌐 Holographic Wireframe Grid */
-.bg-wireframe-grid {
-  background-image: 
-    linear-gradient(to right, rgba(197, 160, 89, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(197, 160, 89, 0.15) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.bg-lidar-cyan-grid {
-  background-image: 
-    linear-gradient(to right, rgba(56, 189, 248, 0.18) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(56, 189, 248, 0.18) 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-/* Shimmer gradient */
-@keyframes shimmer-fast {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.animate-shimmer {
-  animation: shimmer-fast 2.5s infinite;
-}
-
-

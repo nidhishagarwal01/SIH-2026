@@ -40,7 +40,7 @@ export default function CinematicIntroReveal({ onComplete }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100000] bg-[#07080B] flex items-center justify-center overflow-hidden select-none pointer-events-auto"
+      className="fixed inset-0 z-[100000] bg-[#F7F5F0] flex items-center justify-center overflow-hidden select-none pointer-events-auto"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
@@ -49,13 +49,14 @@ export default function CinematicIntroReveal({ onComplete }) {
       <div className="absolute top-6 right-6 z-[100002] pointer-events-auto">
         <button
           onClick={handleEnter}
-          className="px-4 py-2 rounded-xl frosted-btn text-xs font-mono font-bold text-gray-300 hover:text-white flex items-center gap-1.5 cursor-pointer shadow-lg hover:border-[#E06D44]"
+          className="px-4 py-2 rounded-xl bg-white border border-[#E6E1D8] text-xs font-mono font-bold text-[#181B1F] hover:text-[#C85A32] hover:border-[#C85A32] flex items-center gap-1.5 cursor-pointer shadow-md transition"
           title="Skip to Website"
         >
           <span>Skip Intro</span>
           <span className="text-sm">✕</span>
         </button>
       </div>
+
       {/* ========================================================================= */}
       {/* 🏛️ 1. 3D APERTURE SPLIT PANELS (MULTI-MONUMENT MOSAIC SHUTTERS)            */}
       {/* ========================================================================= */}
@@ -63,12 +64,12 @@ export default function CinematicIntroReveal({ onComplete }) {
         
         {/* 🏛️ Left 3D Shutter (Khajuraho & Hampi Heritage Imagery) */}
         <motion.div
-          className="w-1/2 h-full relative overflow-hidden bg-[#0A0C12] border-r border-[#E06D44]/40 shadow-2xl origin-left"
-          initial={{ x: "0%", rotateY: 0, filter: "brightness(0.9)" }}
+          className="w-1/2 h-full relative overflow-hidden bg-[#FAF8F5] border-r border-[#C85A32]/40 shadow-2xl origin-left"
+          initial={{ x: "0%", rotateY: 0, filter: "brightness(0.95)" }}
           animate={{
             x: isSplit ? "-102%" : "0%",
             rotateY: isSplit ? -20 : 0,
-            filter: isSplit ? "brightness(0.4)" : "brightness(0.9)"
+            filter: isSplit ? "brightness(0.7)" : "brightness(0.95)"
           }}
           transition={{
             duration: 1.6,
@@ -81,27 +82,27 @@ export default function CinematicIntroReveal({ onComplete }) {
               <img
                 src="/monuments/khajuraho.jpg"
                 alt="Khajuraho Sandstone Relief"
-                className="w-full h-full object-cover object-left filter brightness-[0.75] contrast-110 saturate-[0.95]"
+                className="w-full h-full object-cover object-left filter brightness-[0.85] contrast-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
             </div>
             <div className="relative h-full overflow-hidden">
               <img
                 src="/monuments/hampi.jpg"
                 alt="Hampi Stone Chariot"
-                className="w-full h-full object-cover object-left filter brightness-[0.7] contrast-110 saturate-[0.9]"
+                className="w-full h-full object-cover object-left filter brightness-[0.8] contrast-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
             </div>
           </div>
 
           {/* Shutter Atmospheric Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#07080B]/90 via-[#07080B]/40 to-transparent" />
-          <div className="absolute inset-0 bg-[#E06D44]/15 mix-blend-color-dodge" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#181B1F]/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[#C85A32]/10 mix-blend-color-dodge" />
 
           {/* Shutter Laser Telemetry Line */}
           <motion.div
-            className="absolute right-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#E06D44] to-[#D4AF37] shadow-[0_0_15px_#E06D44]"
+            className="absolute right-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#C85A32] to-[#B8860B] shadow-[0_0_15px_#C85A32]"
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -109,12 +110,12 @@ export default function CinematicIntroReveal({ onComplete }) {
 
         {/* 🏛️ Right 3D Shutter (Konark & Qutub Minar Heritage Imagery) */}
         <motion.div
-          className="w-1/2 h-full relative overflow-hidden bg-[#0A0C12] border-l border-[#E06D44]/40 shadow-2xl origin-right"
-          initial={{ x: "0%", rotateY: 0, filter: "brightness(0.9)" }}
+          className="w-1/2 h-full relative overflow-hidden bg-[#FAF8F5] border-l border-[#C85A32]/40 shadow-2xl origin-right"
+          initial={{ x: "0%", rotateY: 0, filter: "brightness(0.95)" }}
           animate={{
             x: isSplit ? "102%" : "0%",
             rotateY: isSplit ? 20 : 0,
-            filter: isSplit ? "brightness(0.4)" : "brightness(0.9)"
+            filter: isSplit ? "brightness(0.7)" : "brightness(0.95)"
           }}
           transition={{
             duration: 1.6,
@@ -127,27 +128,27 @@ export default function CinematicIntroReveal({ onComplete }) {
               <img
                 src="/monuments/konark.jpg"
                 alt="Konark Sun Temple Carvings"
-                className="w-full h-full object-cover object-right filter brightness-[0.75] contrast-110 saturate-[0.95]"
+                className="w-full h-full object-cover object-right filter brightness-[0.85] contrast-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-l from-black/60 via-transparent to-transparent" />
             </div>
             <div className="relative h-full overflow-hidden">
               <img
                 src="/monuments/qutub_minar.jpg"
                 alt="Qutub Minar Fluted Masonry"
-                className="w-full h-full object-cover object-right filter brightness-[0.7] contrast-110 saturate-[0.9]"
+                className="w-full h-full object-cover object-right filter brightness-[0.8] contrast-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-l from-black/60 via-transparent to-transparent" />
             </div>
           </div>
 
           {/* Shutter Atmospheric Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-l from-[#07080B]/90 via-[#07080B]/40 to-transparent" />
-          <div className="absolute inset-0 bg-[#D4AF37]/15 mix-blend-color-dodge" />
+          <div className="absolute inset-0 bg-gradient-to-l from-[#181B1F]/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[#B8860B]/10 mix-blend-color-dodge" />
 
           {/* Shutter Laser Telemetry Line */}
           <motion.div
-            className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#E06D44] to-[#D4AF37] shadow-[0_0_15px_#E06D44]"
+            className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#FFA57E] via-[#C85A32] to-[#B8860B] shadow-[0_0_15px_#C85A32]"
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -156,39 +157,39 @@ export default function CinematicIntroReveal({ onComplete }) {
       </div>
 
       {/* ========================================================================= */}
-      {/* 🌟 2. CINEMATIC 3D BACKGROUND AMBIENCE & RADIANT LIGHT RAYS               */}
+      {/* 🌟 2. CINEMATIC BACKGROUND AMBIENCE & RADIANT LIGHT RAYS                   */}
       {/* ========================================================================= */}
-      <div className="absolute inset-0 museum-spotlight opacity-95 pointer-events-none" />
+      <div className="absolute inset-0 museum-spotlight opacity-70 pointer-events-none" />
       
-      {/* Radial Gold Flare */}
+      {/* Radial Sandstone Gold Flare */}
       <div 
-        className="absolute w-[600px] h-[600px] rounded-full pointer-events-none blur-[90px] opacity-40 animate-pulse"
+        className="absolute w-[600px] h-[600px] rounded-full pointer-events-none blur-[90px] opacity-25 animate-pulse"
         style={{
-          background: 'radial-gradient(circle, rgba(224, 109, 68, 0.35) 0%, rgba(212, 175, 55, 0.15) 50%, transparent 75%)'
+          background: 'radial-gradient(circle, rgba(200, 90, 50, 0.35) 0%, rgba(184, 134, 11, 0.15) 50%, transparent 75%)'
         }}
       />
 
       {/* Floating 3D Heritage Dust Motes */}
       <div className="absolute inset-0 pointer-events-none z-0">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(16)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-[#FFA57E]"
+            className="absolute rounded-full bg-[#C85A32]"
             style={{
               width: (i % 3) + 2,
               height: (i % 3) + 2,
               top: `${(i * 17 + 5) % 100}%`,
               left: `${(i * 23 + 7) % 100}%`,
-              opacity: 0.3 + (i % 3) * 0.2,
-              boxShadow: '0 0 8px rgba(255, 165, 126, 0.8)'
+              opacity: 0.2 + (i % 3) * 0.15,
+              boxShadow: '0 0 6px rgba(200, 90, 50, 0.6)'
             }}
             animate={{
-              y: [0, -40, 0],
-              x: [0, i % 2 === 0 ? 20 : -20, 0],
-              opacity: [0.3, 0.8, 0.3],
+              y: [0, -35, 0],
+              x: [0, i % 2 === 0 ? 15 : -15, 0],
+              opacity: [0.2, 0.5, 0.2],
             }}
             transition={{
-              duration: 6 + (i % 4) * 2,
+              duration: 7 + (i % 4) * 2,
               repeat: Infinity,
               ease: "easeInOut"
             }}
@@ -201,7 +202,7 @@ export default function CinematicIntroReveal({ onComplete }) {
       {/* ========================================================================= */}
       <div className="relative z-30 flex flex-col items-center justify-center text-center px-6 max-w-4xl space-y-6">
         
-        {/* 🏛️ Official Royal Logo Emblem (3D Floating with Radiant Aura) */}
+        {/* 🏛️ Official Royal Logo Emblem */}
         <motion.div
           initial={{ opacity: 0, y: 80, scale: 0.7, rotateX: 20 }}
           animate={{
@@ -215,7 +216,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           onClick={handleEnter}
         >
           {/* Outer Pulsing Halo */}
-          <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#C85A32]/40 via-[#E06D44]/30 to-[#D4AF37]/40 blur-2xl animate-pulse" />
+          <div className="absolute -inset-4 rounded-full bg-gradient-to-r from-[#C85A32]/25 via-[#E06D44]/20 to-[#B8860B]/25 blur-2xl animate-pulse" />
           
           <HeritageShieldLogo size="2xl" showText={false} />
         </motion.div>
@@ -228,10 +229,10 @@ export default function CinematicIntroReveal({ onComplete }) {
             y: isRevealed ? 0 : 50
           }}
           transition={{ duration: 0.85, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/[0.06] border border-white/15 backdrop-blur-2xl shadow-xl"
+          className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white border border-[#E6E1D8] shadow-md"
         >
-          <span className="w-2 h-2 rounded-full bg-[#E06D44] animate-ping" />
-          <span className="text-[11px] font-mono text-[#F5E6CC] uppercase tracking-widest font-bold">
+          <span className="w-2 h-2 rounded-full bg-[#C85A32] animate-ping" />
+          <span className="text-[11px] font-mono text-[#C85A32] uppercase tracking-widest font-bold">
             Autonomous Digital Twin Architecture · SIH 2026
           </span>
         </motion.div>
@@ -246,10 +247,10 @@ export default function CinematicIntroReveal({ onComplete }) {
           transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
           className="space-y-3"
         >
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#FDFBF7] tracking-tight leading-none">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#181B1F] tracking-tight leading-none">
             HERITAGE <span className="gold-cream-text">SHIELD</span>
           </h1>
-          <p className="text-sm sm:text-lg text-gray-300 font-sans leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm sm:text-lg text-[#4B5563] font-sans leading-relaxed max-w-2xl mx-auto">
             Preserving India's Architectural Soul Through Living Digital Twins & Autonomous Intelligence
           </p>
         </motion.div>
@@ -268,7 +269,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           {/* Main High-Impact CTA Button */}
           <button
             onClick={handleEnter}
-            className="px-9 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-3 cursor-pointer shadow-[0_0_35px_rgba(224,109,68,0.45)] hover:shadow-[0_0_50px_rgba(224,109,68,0.7)] hover:scale-105"
+            className="px-9 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold tracking-widest uppercase transition-all flex items-center gap-3 cursor-pointer shadow-lg hover:scale-105"
           >
             <span>Enter Command Portal</span>
             <ArrowRight className="w-4 h-4" />
