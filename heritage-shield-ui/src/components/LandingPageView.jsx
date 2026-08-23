@@ -33,7 +33,8 @@ import {
   Workflow,
   Lock,
   LogOut,
-  UserCheck
+  UserCheck,
+  Sun
 } from 'lucide-react';
 
 import HeritageShieldLogo from './HeritageShieldLogo';
@@ -56,6 +57,19 @@ export default function LandingPageView({
   const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkTheme(prev => {
+      const next = !prev;
+      if (next) {
+        document.body.classList.add('dark-theme');
+      } else {
+        document.body.classList.remove('dark-theme');
+      }
+      return next;
+    });
+  };
 
   // 🎛️ 4. Interactive Hero Twin Scan Mode
   const [heroScanMode, setHeroScanMode] = useState('photo'); // 'photo' | 'lidar' | 'fea'
@@ -262,6 +276,18 @@ export default function LandingPageView({
 
           {/* Right: Actions & Login */}
           <div className="flex items-center gap-3">
+            {/* ☀️ Theme Toggle Button (Sun Icon Only) */}
+            <motion.button
+              whileHover={{ scale: 1.08, rotate: 18 }}
+              whileTap={{ scale: 0.92 }}
+              onClick={toggleTheme}
+              title="Toggle Heritage Theme"
+              className="p-2.5 rounded-xl bg-white border border-[#DACDB8] hover:border-[#BA532B] text-[#BA532B] shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-center"
+              aria-label="Theme Toggle"
+            >
+              <Sun className={`w-4 h-4 transition-transform duration-500 ${isDarkTheme ? 'rotate-180 text-[#C29244]' : 'text-[#BA532B]'}`} />
+            </motion.button>
+
             {currentUser ? (
               <div className="flex items-center gap-2.5 bg-white border border-[#DACDB8] px-4 py-2 rounded-xl shadow-sm">
                 <span className="text-xs font-mono font-bold text-[#24160E] flex items-center gap-1.5">

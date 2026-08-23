@@ -39,6 +39,51 @@
   --accent-bronze: #C29244;
 }
 
+.dark-theme {
+  --bg-canvas: #140B07;
+  --bg-canvas-subtle: #1C100A;
+  --bg-card: #22150E;
+  --border-stone: #42291B;
+  --text-primary: #FAF5ED;
+  --text-secondary: #D8C7B8;
+  --text-muted: #A89080;
+  background-color: #140B07 !important;
+  color: #FAF5ED !important;
+}
+
+.dark-theme nav, .dark-theme header {
+  background-color: rgba(30, 18, 11, 0.94) !important;
+  border-color: #42291B !important;
+}
+
+.dark-theme .bg-white {
+  background-color: #20130C !important;
+  border-color: #42291B !important;
+  color: #FAF5ED !important;
+}
+
+.dark-theme .bg-\[\#FAF5ED\] {
+  background-color: #1C100A !important;
+  border-color: #42291B !important;
+  color: #FAF5ED !important;
+}
+
+.dark-theme .text-\[\#24160E\] {
+  color: #FAF5ED !important;
+}
+
+.dark-theme .text-\[\#4D3425\] {
+  color: #D8C7B8 !important;
+}
+
+.dark-theme .text-\[\#7A5B49\] {
+  color: #A89080 !important;
+}
+
+.dark-theme .border-\[\#DACDB8\] {
+  border-color: #42291B !important;
+}
+
 .museum-bg {
   background-color: #F0E7DA;
   background-image: 

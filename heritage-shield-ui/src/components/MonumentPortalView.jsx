@@ -13,7 +13,8 @@ import {
   TrendingDown,
   Layers,
   Sparkles,
-  Award
+  Award,
+  Sun
 } from 'lucide-react';
 
 import HeritageGisMap from './HeritageGisMap';
@@ -104,6 +105,16 @@ export default function MonumentPortalView({
               </button>
             )}
           </div>
+
+          {/* ☀️ Sun Theme Toggle Button (Icon Only) */}
+          <button
+            onClick={() => document.body.classList.toggle('dark-theme')}
+            title="Toggle Heritage Theme"
+            className="p-2.5 rounded-xl bg-white border border-[#DACDB8] hover:border-[#BA532B] text-[#BA532B] shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-center shrink-0"
+            aria-label="Theme Toggle"
+          >
+            <Sun className="w-4 h-4 text-[#BA532B]" />
+          </button>
 
         </div>
       </header>
