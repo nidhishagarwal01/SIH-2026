@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useScroll } from 'framer-motion';
+import OglMouseTrail from './OglMouseTrail';
 
 export default function MuseumCursorTorch() {
   const mouseX = useMotionValue(-500);
@@ -53,7 +54,10 @@ export default function MuseumCursorTorch() {
         style={{ scaleX }}
       />
 
-      {/* 🔦 2. Interactive Cursor Torch & Ambient Spotlight (Follows Mouse Fluidly) */}
+      {/* 🎨 2. OGL / WebGL Polyline Fluid Mouse Ribbon Effect */}
+      <OglMouseTrail />
+
+      {/* 🔦 3. Interactive Cursor Torch & Ambient Spotlight (Follows Mouse Fluidly) */}
       {isVisible && (
         <div className="fixed inset-0 pointer-events-none z-[40] overflow-hidden">
           
