@@ -39,6 +39,7 @@ import HeritageShieldLogo from './HeritageShieldLogo';
 import MonumentViewer3D from './MonumentViewer3D';
 import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
+import VerticalColumnsIntro from './VerticalColumnsIntro';
 
 export default function LandingPageView({ 
   onEnterDashboard, 
@@ -52,6 +53,7 @@ export default function LandingPageView({
   // Navigation & Interactive States
   const [activeWorkflowIndex, setActiveWorkflowIndex] = useState(0);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
 
   // State for Sandbox Showcase
   const [showcaseTab, setShowcaseTab] = useState('twin');
@@ -177,6 +179,11 @@ export default function LandingPageView({
         className="fixed top-0 left-0 right-0 h-[3.5px] bg-gradient-to-r from-[#E06D44] via-[#C5A059] to-[#0E1B2E] z-[100001] origin-left shadow-sm pointer-events-none"
         style={{ scaleX }}
       />
+
+      {/* 🏛️ Vertical Columns Image Parallax Intro Page */}
+      <AnimatePresence>
+        {showIntro && <VerticalColumnsIntro onComplete={() => setShowIntro(false)} />}
+      </AnimatePresence>
 
       {/* 🌟 1. TOP MINIMALIST ARCHIVAL IVORY & DEEP INDIGO NAVIGATION BAR */}
       <motion.nav 
@@ -314,25 +321,6 @@ export default function LandingPageView({
                 <span>Launch National Studio</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-
-              <a
-                href="#registry-section"
-                className="px-7 py-4 rounded-2xl frosted-btn font-mono text-xs font-bold uppercase tracking-wider transition flex items-center gap-2 cursor-pointer shadow-sm"
-              >
-                <span>View Heritage Registry</span>
-              </a>
-            </div>
-
-            {/* Live National Telemetry Strip */}
-            <div className="pt-6 border-t border-[#EDE6DA] flex flex-wrap items-center gap-6 text-xs font-mono text-[#64748B]">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                <span><strong className="text-[#0E1B2E]">12</strong> UNESCO Living Twins</span>
-              </span>
-              <span>•</span>
-              <span>Standard: ISRO Bhuvan WGS84</span>
-              <span>•</span>
-              <span>Framework: ISO 31000:2018</span>
             </div>
           </motion.div>
 
@@ -348,9 +336,9 @@ export default function LandingPageView({
               {/* Top Control Strip */}
               <div className="flex justify-between items-center text-xs font-mono px-1">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#E06D44] animate-pulse" />
-                  <span className="text-[10px] text-[#0E1B2E] font-bold uppercase tracking-wider">
-                    Artefact Twin #{selectedTwinSiteIdx + 1}
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#E06D44] animate-pulse" />
+                  <span className="text-[11px] text-[#0E1B2E] font-bold uppercase tracking-wider">
+                    {sites[selectedTwinSiteIdx]?.name}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5">

@@ -171,12 +171,9 @@ export default function HeritageShieldLogo({
 
       {/* Brand Typographic Wordmark */}
       {showText && (
-        <div className="flex flex-col text-left">
+        <div className="flex items-center text-left">
           <span className={`font-serif font-bold tracking-wider text-[#0E1B2E] group-hover:text-[#E06D44] transition-colors leading-none ${dim.text} ${textClassName}`}>
             HERITAGE <span className="text-[#E06D44]">SHIELD</span>
-          </span>
-          <span className="text-[9px] font-mono tracking-widest text-[#475569] uppercase mt-1 font-bold">
-            Living Digital Twin
           </span>
         </div>
       )}
