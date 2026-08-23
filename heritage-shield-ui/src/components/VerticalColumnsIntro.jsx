@@ -42,17 +42,6 @@ export default function VerticalColumnsIntro({ onComplete }) {
       exit={{ opacity: 0, scale: 1.03, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }}
       className="fixed inset-0 z-[100000] bg-[#FDFBF7] flex items-center justify-center overflow-hidden select-none"
     >
-      {/* ⚡ Top-Right Skip Button */}
-      <div className="absolute top-6 right-6 z-[100002]">
-        <button
-          onClick={onComplete}
-          className="px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-[#EDE6DA] text-xs font-mono font-bold text-[#0E1B2E] hover:text-[#E06D44] hover:border-[#E06D44] shadow-md transition cursor-pointer flex items-center gap-1.5"
-        >
-          <span>Skip Intro</span>
-          <span>✕</span>
-        </button>
-      </div>
-
       {/* 🏛️ 3 VERTICAL PARALLAX IMAGE COLUMNS */}
       <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:p-6 opacity-40 hover:opacity-60 transition-opacity duration-700 pointer-events-none">
         
