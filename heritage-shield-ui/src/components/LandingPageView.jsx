@@ -22,15 +22,6 @@ import {
   CheckCircle2,
   Zap,
   TrendingDown,
-  Sparkles,
-  RefreshCw,
-  Compass,
-  Cpu,
-  Eye,
-  Award,
-  Box,
-  Scan,
-  Workflow,
   Lock,
   LogOut,
   UserCheck,
@@ -98,7 +89,7 @@ export default function LandingPageView({
   // ---------------------------------------------------------------------------
   // 🌟 FLUID SMOOTH SCROLL HOOKS (Framer Motion)
   // ---------------------------------------------------------------------------
-  const { scrollYProgress, scrollY } = useScroll();
+  const { scrollYProgress } = useScroll();
 
   // Top hardware-accelerated spring progress bar in Royal Amber & Gold
   const scaleX = useSpring(scrollYProgress, {
@@ -258,25 +249,25 @@ export default function LandingPageView({
             </button>
             <button 
               onClick={() => scrollToSection('consoles-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
+              className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
             >
               Living Twins
             </button>
             <button 
               onClick={() => scrollToSection('simulator-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
+              className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
             >
               2030 Predictor
             </button>
             <button 
               onClick={() => scrollToSection('registry-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
+              className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
             >
               Heritage Sites
             </button>
             <button 
               onClick={() => scrollToSection('faq-section')}
-              className="text-[#4D3425] hover:text-[#BA532B] hover:bg-white px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer"
+              className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
             >
               Archive FAQ
             </button>
@@ -931,7 +922,7 @@ export default function LandingPageView({
               viewport={{ once: false, margin: "-40px" }}
               transition={{ duration: 0.5, delay: (idx % 3) * 0.08, ease: smoothEase }}
               whileHover={{ y: -10, scale: 1.02 }}
-              onClick={() => onSelectMonument ? onSelectMonument(idx) : onEnterDashboard()}
+              onClick={() => onSelectMonument ? onSelectMonument(s.index !== undefined ? s.index : idx) : onEnterDashboard()}
               className="bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] rounded-3xl p-4 shadow-sm hover:shadow-2xl transition-all duration-500 group cursor-pointer flex flex-col justify-between space-y-4"
             >
               {/* Image Frame with Floating Period Tag & Status Pill */}

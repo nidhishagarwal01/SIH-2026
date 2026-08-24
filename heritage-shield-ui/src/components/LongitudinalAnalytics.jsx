@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { RefreshCw, Activity, AlertTriangle, ShieldCheck, TrendingDown, TrendingUp, Cpu } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { RefreshCw, Activity } from 'lucide-react';
 
 export default function LongitudinalAnalytics({
   activeComponent = 'North Façade Wall (Main Shaft)',
@@ -37,7 +37,7 @@ export default function LongitudinalAnalytics({
   });
 
   // Call real backend API for temporal progression
-  const fetchPredictionFromApi = async () => {
+  const fetchPredictionFromApi = useCallback(async () => {
     setIsLoading(true);
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -75,12 +75,12 @@ export default function LongitudinalAnalytics({
         }
       }
     } catch (err) {
-      console.warn('API predict-decay failed, using client-side 2030 physics model', err);
+      console.log('Using client-side 2030 physics model', err);
     }
 
     // Fallback: Compute dynamic 2020-2030 curve client-side with exact math
     const envFactor = 1.0 + (monsoonAnomaly / 100) * 0.45;
-    const computed = fallbackDataset.map((pt, i) => {
+    const computed = fallbackDataset.map((pt) => {
       if (pt.type === 'forecast') {
         const yr = parseInt(pt.year, 10);
         const dt = yr - 2026;
@@ -100,11 +100,11 @@ export default function LongitudinalAnalytics({
     setTimeSeriesData(computed);
     setApiConnected(false);
     setIsLoading(false);
-  };
+  }, [activeComponent, materialTypology, seismicZone, monsoonAnomaly, seismicMultiplier]);
 
   useEffect(() => {
     fetchPredictionFromApi();
-  }, [activeComponent, materialTypology, seismicZone, monsoonAnomaly, seismicMultiplier]);
+  }, [fetchPredictionFromApi]);
 
   const activePoint = timeSeriesData[hoveredIndex] || timeSeriesData[3];
 

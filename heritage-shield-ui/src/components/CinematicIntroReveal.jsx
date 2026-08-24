@@ -48,7 +48,15 @@ export default function CinematicIntroReveal({ onComplete }) {
       e.preventDefault();
     };
 
-    window.addEventListener('wheel', preventScroll, { passive: false });
+    let wheelDelta = 0;
+    const handleWheel = (e) => {
+      wheelDelta += Math.abs(e.deltaY);
+      if (wheelDelta > 60) {
+        handleEnter();
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: true });
     window.addEventListener('touchmove', preventScroll, { passive: false });
 
     // Start 3D split immediately upon load (100ms)
@@ -56,10 +64,10 @@ export default function CinematicIntroReveal({ onComplete }) {
       setIsSplit(true);
     }, 100);
 
-    // Reveal the Heritage Shield Center & Entrance (700ms)
+    // Reveal the Heritage Shield Center & Entrance (600ms)
     const t2 = setTimeout(() => {
       setIsRevealed(true);
-    }, 700);
+    }, 600);
 
     const handleKeyDown = (e) => {
       if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
@@ -72,12 +80,11 @@ export default function CinematicIntroReveal({ onComplete }) {
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
-      document.body.style.overflow = originalOverflow;
-      document.body.style.touchAction = originalTouchAction;
+      document.body.style.overflow = originalOverflow || '';
+      document.body.style.touchAction = originalTouchAction || '';
       window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('wheel', preventScroll);
+      window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('touchmove', preventScroll);
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     };
   }, [onComplete]);
 
@@ -87,9 +94,11 @@ export default function CinematicIntroReveal({ onComplete }) {
   const handleEnter = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
+    document.body.style.overflow = '';
+    document.body.style.touchAction = '';
     setTimeout(() => {
       if (onComplete) onComplete();
-    }, 650);
+    }, 550);
   };
 
   // 12 Distinct Monuments arranged seamlessly with ZERO gaps
@@ -120,6 +129,15 @@ export default function CinematicIntroReveal({ onComplete }) {
       exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
     >
+      {/* ⏩ Quick Skip Button (Top Right) */}
+      <button
+        onClick={handleEnter}
+        className="absolute top-6 right-6 z-50 px-4 py-2 rounded-xl bg-[#FAF5ED]/90 backdrop-blur-md border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] font-mono text-xs font-bold transition shadow-md flex items-center gap-1.5 cursor-pointer"
+        title="Skip Intro and Enter Platform"
+      >
+        <span>Skip to Platform</span>
+        <ArrowRight className="w-3.5 h-3.5" />
+      </button>
       {/* 5. ✨ Expanding Terracotta-Rust Light Wave Shockwave */}
       {isTransitioning && (
         <motion.div

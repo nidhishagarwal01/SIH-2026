@@ -80,10 +80,7 @@ export default function MonumentViewer3D({
   siteData = null,
   activeComponent = 0,
   onSelectComponent,
-  components = [],
-  isEmbedded = false,
-  availableSites = [],
-  onSelectSite
+  isEmbedded = false
 }) {
   const mountRef = useRef(null);
   const [viewMode, setViewMode] = useState('stone'); // 'stone' | 'lidar' | 'heatmap'
@@ -105,10 +102,6 @@ export default function MonumentViewer3D({
     activeComponentRef.current = activeComponent;
     onSelectComponentRef.current = onSelectComponent;
   }, [activeComponent, onSelectComponent]);
-
-  const currentTitle = siteData?.name
-    ? `${siteData.name}`
-    : `Qutub Minar Complex`;
 
   useEffect(() => {
     const container = mountRef.current;
@@ -409,7 +402,7 @@ export default function MonumentViewer3D({
       bodyGroup.add(mainCube);
 
       // Four Grand Iwan Portals (Front, Back, Left, Right recessed niches)
-      [[0, 0, 1.62], [0, 0, -1.62], [1.62, 0, 0], [-1.62, 0, 0]].forEach(([px, py, pz], idx) => {
+      [[0, 0, 1.62], [0, 0, -1.62], [1.62, 0, 0], [-1.62, 0, 0]].forEach(([px, _py, pz], idx) => {
         const iwan = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.7, 0.15), materials.ochreSandstone);
         iwan.position.set(px, 1.5, pz);
         if (idx >= 2) iwan.rotation.y = Math.PI / 2;
@@ -1155,7 +1148,6 @@ export default function MonumentViewer3D({
     let clock = new THREE.Clock();
     const animate = () => {
       animFrameIdRef.current = requestAnimationFrame(animate);
-      const delta = clock.getDelta();
       controls.update();
 
       // Pulsating golden highlight on selected component
@@ -1213,7 +1205,7 @@ export default function MonumentViewer3D({
       renderer.dispose();
       scene.clear();
     };
-  }, [siteIndex, siteData, autoRotate, viewMode]);
+  }, [siteIndex, siteData, autoRotate, viewMode, isEmbedded]);
 
 
   // Set Camera View Presets
