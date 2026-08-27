@@ -103,11 +103,22 @@ export default function MonumentViewer3D({
 
   const activeComponentRef = useRef(activeComponent);
   const onSelectComponentRef = useRef(onSelectComponent);
+  const viewModeRef = useRef(viewMode);
 
   useEffect(() => {
     activeComponentRef.current = activeComponent;
     onSelectComponentRef.current = onSelectComponent;
   }, [activeComponent, onSelectComponent]);
+
+  useEffect(() => {
+    viewModeRef.current = viewMode;
+  }, [viewMode]);
+
+  useEffect(() => {
+    if (controlsRef.current) {
+      controlsRef.current.autoRotate = autoRotate;
+    }
+  }, [autoRotate]);
 
   useEffect(() => {
     const container = mountRef.current;
@@ -1176,6 +1187,7 @@ export default function MonumentViewer3D({
 
         // Pulsating golden highlight on selected component
         const time = clock.getElapsedTime();
+        const curMode = viewModeRef.current || 'stone';
         if (Array.isArray(activeMeshes)) {
           activeMeshes.forEach((meshGroup, idx) => {
             const isSelected = activeComponentRef.current === idx;
@@ -1185,12 +1197,12 @@ export default function MonumentViewer3D({
                 const mats = Array.isArray(child.material) ? child.material : [child.material];
                 mats.forEach(mat => {
                   if (!mat) return;
-                  if (viewMode === 'lidar') {
+                  if (curMode === 'lidar') {
                     mat.wireframe = true;
                     if (mat.color && typeof mat.color.setHex === 'function') {
                       mat.color.setHex(isSelected ? 0x00FFCC : 0x38BDF8);
                     }
-                  } else if (viewMode === 'heatmap') {
+                  } else if (curMode === 'heatmap') {
                     mat.wireframe = false;
                     const stressColor = idx === 2 ? 0xFF3333 : idx === 1 ? 0xFFA500 : 0x2288EE;
                     if (mat.color && typeof mat.color.setHex === 'function') {
@@ -1255,7 +1267,7 @@ export default function MonumentViewer3D({
       }
       if (scene) scene.clear();
     };
-  }, [siteIndex, siteData, autoRotate, viewMode, isEmbedded]);
+  }, [siteIndex, siteData?.typology, isEmbedded]);
 
 
   // Set Camera View Presets
