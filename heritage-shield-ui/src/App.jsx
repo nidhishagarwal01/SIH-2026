@@ -753,15 +753,13 @@ export default function App() {
               
               {/* 3D Canvas */}
               <div className="lg:col-span-8">
-                <ErrorBoundary title="3D Digital Twin Viewport">
-                  <MonumentViewer3D
-                    siteIndex={activeSite}
-                    siteData={curSite}
-                    activeComponent={activeComponent}
-                    onSelectComponent={handleSelectComponent}
-                    components={components}
-                  />
-                </ErrorBoundary>
+                <MonumentViewer3D
+                  siteIndex={activeSite}
+                  siteData={curSite}
+                  activeComponent={activeComponent}
+                  onSelectComponent={handleSelectComponent}
+                  components={components}
+                />
               </div>
 
               {/* Architectural Hierarchy & Telemetry Sidebar */}

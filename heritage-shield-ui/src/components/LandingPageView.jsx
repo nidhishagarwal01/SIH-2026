@@ -652,14 +652,12 @@ export default function LandingPageView({
               </div>
 
               <div className="lg:col-span-7 h-[530px] min-h-[500px] relative rounded-[24px] overflow-hidden border border-[#DACDB8] shadow-lg bg-[#FAF5ED] box-border p-0">
-                <ErrorBoundary title="3D Digital Twin Showcase">
-                  <MonumentViewer3D
-                    siteIndex={selectedTwinSiteIdx}
-                    siteData={sites[selectedTwinSiteIdx] || sites[0]}
-                    activeComponent={0}
-                    isEmbedded={true}
-                  />
-                </ErrorBoundary>
+                <MonumentViewer3D
+                  siteIndex={selectedTwinSiteIdx}
+                  siteData={sites[selectedTwinSiteIdx] || sites[0]}
+                  activeComponent={0}
+                  isEmbedded={true}
+                />
               </div>
             </div>
           )}
