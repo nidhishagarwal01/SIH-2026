@@ -18,10 +18,16 @@ def _try_yolov8_heritage_inference(image_bytes: bytes, width: int, height: int) 
     2. Falls back to Roboflow Cloud API if API key present
     3. Falls back gracefully to local OpenCV if offline/unconfigured
     """
-    # 1. Check for local trained PyTorch weights
+    # 1. Check for local trained PyTorch weights.
+    # Resolve relative to this file first so it works regardless of the
+    # server's working directory (uvicorn runs with CWD=heritage-shield-backend,
+    # Docker runs with CWD=/app), then fall back to CWD-relative paths.
+    _backend_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     local_weights_paths = [
+        os.path.join(_backend_root, "data", "models", "yolov8_heritage_crack.pt"),
         "heritage-shield-backend/data/models/yolov8_heritage_crack.pt",
         "./heritage-shield-backend/data/models/yolov8_heritage_crack.pt",
+        "data/models/yolov8_heritage_crack.pt",
         "runs/detect/runs/detect/heritage_crack_yolov8/weights/best.pt",
         "runs/detect/heritage_crack_yolov8/weights/best.pt"
     ]
@@ -43,7 +49,9 @@ def _try_yolov8_heritage_inference(image_bytes: bytes, width: int, height: int) 
                 yolo_detections = []
                 for idx, box in enumerate(results[0].boxes):
                     xywh = box.xywh[0].cpu().numpy()
-                    cx, cy, pw, ph = xywh[0], xywh[1], xywh[2], xywh[3]
+                    # Cast to native Python floats so FastAPI/Pydantic can
+                    # JSON-serialize the response (numpy.float32 is not encodable).
+                    cx, cy, pw, ph = float(xywh[0]), float(xywh[1]), float(xywh[2]), float(xywh[3])
                     px = cx - (pw / 2)
                     py = cy - (ph / 2)
                     conf = round(float(box.conf[0].cpu().numpy()) * 100, 1)

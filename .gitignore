@@ -33,3 +33,9 @@ yarn-error.log*
 SIH 2026/
 SIH-2026/
 
+# ML training artifacts (keep only the trained model in data/models/)
+runs/
+*.cache
+train_log.txt
+yolov8n.pt
+

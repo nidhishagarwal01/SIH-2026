@@ -150,4 +150,4 @@ def seed_initial_heritage_data(db: Session):
     db.add(golconda)
 
     db.commit()
-    print("✓ Heritage Shield SQLite database successfully seeded with 3 ASI pilot sites!")
+    print("[OK] Heritage Shield SQLite database successfully seeded with 3 ASI pilot sites!")
