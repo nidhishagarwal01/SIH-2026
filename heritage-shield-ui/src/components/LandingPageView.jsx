@@ -346,49 +346,49 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       <section id="hero-section" className="relative min-h-[92vh] flex items-center justify-center px-6 sm:px-12 lg:px-20 py-20 max-w-[1600px] mx-auto overflow-hidden">
         
-        {/* 🏛️ Full-Page Animated Heritage Monument Cinematic Backdrop */}
+        {/* 🏛️ Full-Page Animated Konark Sun Temple Cinematic Backdrop */}
         <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
           <motion.img
-            src="/monuments/hampi.jpg"
-            alt="Heritage Monument Backdrop"
+            src="/monuments/konark.jpg"
+            alt="Konark Sun Temple Surya Chariot Backdrop"
             animate={{ 
-              scale: [1.02, 1.09, 1.02],
-              y: [0, -15, 0]
+              scale: [1.02, 1.08, 1.02],
+              y: [0, -12, 0]
             }}
             transition={{ 
-              duration: 22, 
+              duration: 20, 
               repeat: Infinity, 
               ease: "easeInOut" 
             }}
-            className={`w-full h-full object-cover object-center ${isDarkTheme ? 'brightness-[0.72] contrast-[1.24] sepia-[0.24] saturate-[1.2]' : 'brightness-[0.92] contrast-[1.18] sepia-[0.16] saturate-[1.25]'} transition-all duration-700`}
+            className={`w-full h-full object-cover object-center ${isDarkTheme ? 'brightness-[0.70] contrast-[1.28] sepia-[0.28] saturate-[1.25]' : 'brightness-[0.90] contrast-[1.20] sepia-[0.20] saturate-[1.3]'} transition-all duration-700`}
           />
 
           {/* Sunlit Sandstone & Balanced Nocturnal Lighting Gradients */}
           <div className={`absolute inset-0 bg-gradient-to-t ${isDarkTheme ? 'from-[#120A06] via-[#120A06]/45 to-[#120A06]/25' : 'from-[#F0E7DA] via-[#F0E7DA]/35 to-[#F0E7DA]/15'} transition-all duration-500`} />
           <div className={`absolute inset-0 bg-gradient-to-r ${isDarkTheme ? 'from-[#120A06]/70 via-transparent to-[#120A06]/70' : 'from-[#F0E7DA]/55 via-transparent to-[#F0E7DA]/55'} transition-all duration-500`} />
-          <div className={`absolute inset-0 ${isDarkTheme ? 'bg-[#BA532B]/10 mix-blend-overlay' : 'bg-[#BA532B]/6 mix-blend-multiply'}`} />
+          <div className={`absolute inset-0 ${isDarkTheme ? 'bg-[#BA532B]/12 mix-blend-overlay' : 'bg-[#BA532B]/8 mix-blend-multiply'}`} />
 
           {/* Floating Subtle Ambient Sandstone Motes */}
           <div className="absolute inset-0">
-            {[...Array(14)].map((_, i) => (
+            {[...Array(16)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute rounded-full bg-[#BA532B]"
+                className="absolute rounded-full bg-[#C29244]"
                 style={{
                   width: (i % 3) + 2,
                   height: (i % 3) + 2,
-                  top: `${(i * 19 + 7) % 100}%`,
-                  left: `${(i * 29 + 11) % 100}%`,
+                  top: `${(i * 17 + 5) % 100}%`,
+                  left: `${(i * 23 + 9) % 100}%`,
                   opacity: 0.2 + (i % 3) * 0.15,
-                  boxShadow: '0 0 8px rgba(186, 83, 43, 0.5)'
+                  boxShadow: '0 0 10px rgba(194, 146, 68, 0.6)'
                 }}
                 animate={{
-                  y: [0, -40, 0],
-                  x: [0, i % 2 === 0 ? 20 : -20, 0],
-                  opacity: [0.15, 0.45, 0.15],
+                  y: [0, -45, 0],
+                  x: [0, i % 2 === 0 ? 25 : -25, 0],
+                  opacity: [0.15, 0.55, 0.15],
                 }}
                 transition={{
-                  duration: 8 + (i % 4) * 2,
+                  duration: 7 + (i % 4) * 2,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
@@ -400,6 +400,21 @@ export default function LandingPageView({
         {/* Centered Grand Editorial Column */}
         <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center space-y-8 py-10">
           
+          {/* Monument Context Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: smoothEase }}
+            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-mono font-semibold ${
+              isDarkTheme
+                ? 'bg-[#20130C]/80 border-[#BA532B]/40 text-[#FAF5ED]'
+                : 'bg-white/80 border-[#DACDB8] text-[#24160E]'
+            } shadow-sm backdrop-blur-md`}
+          >
+            <span className="w-2 h-2 rounded-full bg-[#BA532B] animate-pulse" />
+            <span>Featured National Monument: Konark Sun Temple (1250 CE · UNESCO Grade-I)</span>
+          </motion.div>
+
           {/* Editorial Serif Heading */}
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
@@ -429,10 +444,23 @@ export default function LandingPageView({
           >
             <button
               onClick={onEnterDashboard}
-              className="px-9 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold uppercase tracking-wider transition flex items-center gap-2.5 cursor-pointer shadow-xl hover:scale-105"
+              className="px-8 py-3.5 rounded-2xl terracotta-btn font-mono text-xs font-bold uppercase tracking-wider transition flex items-center gap-2.5 cursor-pointer shadow-xl hover:scale-105"
             >
               <span>Launch National Studio</span>
               <ArrowRight className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => {
+                setShowcaseTab('cinema');
+                scrollToSection('consoles-section');
+              }}
+              className={`px-8 py-3.5 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition flex items-center gap-2.5 cursor-pointer border shadow-lg hover:scale-105 ${
+                isDarkTheme
+                  ? 'bg-[#20130C] border-[#C29244]/50 text-[#FAF5ED] hover:border-[#C29244]'
+                  : 'bg-white border-[#DACDB8] text-[#24160E] hover:border-[#BA532B]'
+              }`}
+            >
+              <span>✨ Konark 3D Cinematic Story</span>
             </button>
           </motion.div>
 

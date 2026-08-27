@@ -23,7 +23,7 @@ export default function CinematicScrollShowcase() {
               </span>
             </div>
             <h3 className="text-base font-serif font-bold text-[#F0E7DA]">
-              Konark Sun Temple & Mostar Heritage Cinematic Scroll Experience
+              Konark Sun Temple · 3D Spatial Cinematic Scroll Experience
             </h3>
           </div>
         </div>
