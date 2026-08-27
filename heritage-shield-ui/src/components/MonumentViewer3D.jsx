@@ -1237,21 +1237,21 @@ export default function MonumentViewer3D({
 
   if (isEmbedded) {
     return (
-      <div className="flex flex-col h-full w-full bg-[#08090C] rounded-2xl overflow-hidden border border-[#1E2228] shadow-2xl">
+      <div className="w-full max-w-[1100px] mx-auto box-border flex flex-col h-full bg-[#08090C] rounded-[24px] overflow-hidden border border-[#1E2228] shadow-2xl">
         
-        {/* Top Header Outside 3D Canvas (Single Row, No Overlap) */}
-        <div className="bg-[#0E1013] border-b border-[#1E2228] px-4 py-2.5 flex items-center justify-between gap-3 z-10 shrink-0">
-          <div className="flex items-center gap-2">
-            <h3 className="text-sm sm:text-base font-serif font-bold text-[#F3EFE6] tracking-wide truncate">
+        {/* Top Header Outside 3D Canvas (Responsive Flex, No Horizontal Clipping) */}
+        <div className="w-full flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#0d1117] border-b border-white/10 z-10 shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
+            <h3 className="shrink-0 text-sm md:text-base font-serif font-semibold text-white tracking-wide truncate">
               {siteData?.name || "Qutub Minar Complex"} · 3D Twin
             </h3>
           </div>
 
           {/* Mode Switcher Buttons */}
-          <div className="flex items-center gap-1.5 font-mono text-xs shrink-0">
+          <div className="flex items-center gap-1.5 md:gap-2 shrink-0 flex-wrap font-mono text-xs md:text-sm">
             <button
               onClick={() => setViewMode('stone')}
-              className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                 viewMode === 'stone'
                   ? 'bg-[#C5A059] text-[#090A0C] font-bold shadow'
                   : 'text-gray-400 hover:text-white bg-[#14171E] border border-[#2B313D]'
@@ -1262,7 +1262,7 @@ export default function MonumentViewer3D({
             </button>
             <button
               onClick={() => setViewMode('lidar')}
-              className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                 viewMode === 'lidar'
                   ? 'bg-cyan-600 text-white font-bold shadow'
                   : 'text-gray-400 hover:text-white bg-[#14171E] border border-[#2B313D]'
@@ -1273,7 +1273,7 @@ export default function MonumentViewer3D({
             </button>
             <button
               onClick={() => setViewMode('heatmap')}
-              className={`px-3 py-1 rounded-lg transition flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg transition-all whitespace-nowrap flex items-center gap-1.5 cursor-pointer ${
                 viewMode === 'heatmap'
                   ? 'bg-rose-600 text-white font-bold shadow'
                   : 'text-gray-400 hover:text-white bg-[#14171E] border border-[#2B313D]'
@@ -1291,11 +1291,11 @@ export default function MonumentViewer3D({
         </div>
 
         {/* Bottom Control Ribbon Outside 3D Canvas */}
-        <div className="bg-[#0E1013] border-t border-[#1E2228] px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 font-mono text-xs z-10">
-          <div className="flex items-center gap-2">
+        <div className="w-full flex flex-wrap items-center justify-between gap-2 px-4 py-3 bg-[#0d1117] border-t border-white/10 shrink-0 font-mono text-xs md:text-sm z-10">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               onClick={() => setAutoRotate(!autoRotate)}
-              className={`px-3 py-1 rounded-lg border transition cursor-pointer flex items-center gap-1.5 ${
+              className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg border transition-all cursor-pointer whitespace-nowrap flex items-center gap-1.5 ${
                 autoRotate
                   ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#C5A059] font-bold'
                   : 'border-[#1E2228] text-gray-400 hover:text-white'
@@ -1313,7 +1313,7 @@ export default function MonumentViewer3D({
               >
                 +
               </button>
-              <span className="text-[10px] text-gray-500 px-1">Zoom</span>
+              <span className="text-[10px] text-gray-500 px-1 select-none">Zoom</span>
               <button
                 onClick={() => handleZoom('out')}
                 title="Zoom Out (Intentional)"
@@ -1324,10 +1324,10 @@ export default function MonumentViewer3D({
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 flex-wrap">
             <button
               onClick={() => setPresetView('iso')}
-              className={`px-2.5 py-1 rounded-lg transition text-xs ${
+              className={`px-2.5 py-1 md:px-3 py-1.5 rounded-lg transition text-xs md:text-sm whitespace-nowrap ${
                 cameraView === 'iso' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
               }`}
             >
@@ -1335,7 +1335,7 @@ export default function MonumentViewer3D({
             </button>
             <button
               onClick={() => setPresetView('front')}
-              className={`px-2.5 py-1 rounded-lg transition text-xs ${
+              className={`px-2.5 py-1 md:px-3 py-1.5 rounded-lg transition text-xs md:text-sm whitespace-nowrap ${
                 cameraView === 'front' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
               }`}
             >
@@ -1343,7 +1343,7 @@ export default function MonumentViewer3D({
             </button>
             <button
               onClick={() => setPresetView('top')}
-              className={`px-2.5 py-1 rounded-lg transition text-xs ${
+              className={`px-2.5 py-1 md:px-3 py-1.5 rounded-lg transition text-xs md:text-sm whitespace-nowrap ${
                 cameraView === 'top' ? 'bg-[#1E2228] text-[#C5A059] font-bold border border-[#C5A059]/40' : 'text-gray-400 hover:text-white'
               }`}
             >
@@ -1357,25 +1357,25 @@ export default function MonumentViewer3D({
   }
 
   return (
-    <div className="flex flex-col h-[640px] w-full bg-[#07080B] rounded-2xl border border-[#232A38] shadow-2xl overflow-hidden heritage-card-glow">
+    <div className="w-full max-w-[1100px] mx-auto box-border flex flex-col min-h-[520px] max-h-[85vh] bg-[#07080B] rounded-[24px] border border-[#232A38] shadow-2xl overflow-hidden heritage-card-glow">
       
-      {/* Top Header Outside 3D Canvas (No Overlap on 3D Model) */}
-      <div className="bg-[#0C0E14] border-b border-[#202636] px-5 py-3 flex flex-wrap items-center justify-between gap-3 z-10 shrink-0">
-        <div className="flex items-center gap-2">
+      {/* Top Header Outside 3D Canvas (Responsive Flex, No Horizontal Overflow) */}
+      <div className="w-full flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#0d1117] border-b border-white/10 z-10 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <h3 className="text-sm font-serif font-bold text-[#F3EFE6] tracking-wide">
+          <h3 className="shrink-0 text-sm md:text-base font-serif font-semibold text-white tracking-wide">
             {siteData?.name || "Protected Heritage Site"} · Living 3D Twin
           </h3>
         </div>
 
         {/* View Mode & Camera Angles Controls Outside Canvas */}
-        <div className="flex items-center gap-3 flex-wrap font-mono text-xs">
+        <div className="flex items-center gap-2 md:gap-3 flex-wrap font-mono text-xs md:text-sm shrink-0">
           {/* Material Mode Switcher */}
-          <div className="flex items-center gap-1 bg-[#121622] p-1 rounded-xl border border-[#283042] shadow-inner">
+          <div className="flex items-center gap-1 bg-[#121622] p-1 rounded-xl border border-[#283042] shadow-inner flex-wrap">
             <button
               onClick={() => setViewMode('stone')}
               title="Realistic 3D Stone Texture"
-              className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer font-bold ${
+              className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg transition-all whitespace-nowrap cursor-pointer font-bold flex items-center gap-1.5 ${
                 viewMode === 'stone'
                   ? 'bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-[#0A0C10] shadow'
                   : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
@@ -1387,7 +1387,7 @@ export default function MonumentViewer3D({
             <button
               onClick={() => setViewMode('lidar')}
               title="LiDAR Wireframe Mesh"
-              className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer font-bold ${
+              className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg transition-all whitespace-nowrap cursor-pointer font-bold flex items-center gap-1.5 ${
                 viewMode === 'lidar'
                   ? 'bg-cyan-600 text-white shadow'
                   : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
@@ -1399,7 +1399,7 @@ export default function MonumentViewer3D({
             <button
               onClick={() => setViewMode('heatmap')}
               title="Stress Heatmap"
-              className={`px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 cursor-pointer font-bold ${
+              className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg transition-all whitespace-nowrap cursor-pointer font-bold flex items-center gap-1.5 ${
                 viewMode === 'heatmap'
                   ? 'bg-rose-600 text-white shadow'
                   : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
@@ -1411,11 +1411,11 @@ export default function MonumentViewer3D({
           </div>
 
           {/* Camera Angles */}
-          <div className="flex items-center gap-1 bg-[#121622] p-1 rounded-xl border border-[#283042] shadow-inner">
+          <div className="flex items-center gap-1 bg-[#121622] p-1 rounded-xl border border-[#283042] shadow-inner flex-wrap">
             <button
               onClick={() => setPresetView('iso')}
               title="3D Isometric Perspective"
-              className={`px-2.5 py-1.5 rounded-lg transition cursor-pointer font-bold ${
+              className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg transition whitespace-nowrap cursor-pointer font-bold ${
                 cameraView === 'iso' ? 'bg-[#1C2230] text-[#E5C07B] border border-[#C5A059]/40 shadow-sm' : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
               }`}
             >
@@ -1424,7 +1424,7 @@ export default function MonumentViewer3D({
             <button
               onClick={() => setPresetView('front')}
               title="Front Elevation"
-              className={`px-2.5 py-1.5 rounded-lg transition cursor-pointer font-bold ${
+              className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg transition whitespace-nowrap cursor-pointer font-bold ${
                 cameraView === 'front' ? 'bg-[#1C2230] text-[#E5C07B] border border-[#C5A059]/40 shadow-sm' : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
               }`}
             >
@@ -1433,7 +1433,7 @@ export default function MonumentViewer3D({
             <button
               onClick={() => setPresetView('top')}
               title="Top-Down Plan"
-              className={`px-2.5 py-1.5 rounded-lg transition cursor-pointer font-bold ${
+              className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg transition whitespace-nowrap cursor-pointer font-bold ${
                 cameraView === 'top' ? 'bg-[#1C2230] text-[#E5C07B] border border-[#C5A059]/40 shadow-sm' : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
               }`}
             >
@@ -1448,13 +1448,13 @@ export default function MonumentViewer3D({
         <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing max-w-[90vw] max-h-[75vh] mx-auto object-contain responsive-stage-bounds" />
       </div>
 
-      {/* Bottom Controls Outside 3D Canvas (No Overlap on 3D Model) */}
-      <div className="bg-[#0C0E14] border-t border-[#202636] px-5 py-3 flex flex-wrap items-center justify-between gap-3 font-mono text-xs z-10 shrink-0">
-        <div className="flex items-center gap-3">
+      {/* Bottom Controls Outside 3D Canvas (Responsive Flex, No Overlap) */}
+      <div className="w-full flex flex-wrap items-center justify-between gap-2.5 px-4 py-3 bg-[#0d1117] border-t border-white/10 font-mono text-xs md:text-sm z-10 shrink-0">
+        <div className="flex items-center gap-3 flex-wrap">
           <button
             onClick={() => setAutoRotate(!autoRotate)}
             title="Toggle continuous 360-degree rotation of the 3D twin"
-            className={`px-3.5 py-1.5 rounded-xl border transition cursor-pointer flex items-center gap-2 font-bold ${
+            className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-xl border transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 font-bold ${
               autoRotate
                 ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#E5C07B] shadow-sm'
                 : 'border-[#232A38] bg-[#121622] text-gray-400 hover:text-white'
