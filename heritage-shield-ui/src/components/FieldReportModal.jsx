@@ -6,8 +6,6 @@ export default function FieldReportModal({
   onSubmitReport,
   monuments = []
 }) {
-  if (!isOpen) return null;
-
   const [reporterRole, setReporterRole] = useState('officer'); // 'officer' | 'citizen'
   const [selectedMonument, setSelectedMonument] = useState(0);
   const [componentName, setComponentName] = useState('North Façade Wall');
@@ -18,6 +16,8 @@ export default function FieldReportModal({
   const [gpsLocation, setGpsLocation] = useState('28.5244° N, 77.1855° E (Accuracy: ±2.4m)');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef(null);
+
+  if (!isOpen) return null;
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];

@@ -410,7 +410,7 @@ def inspect_database(db: Session = Depends(get_db)):
                 for v in validations
             ],
             "field_incident_reports": [
-                {"id": r.id, "monument": r.monument_name, "status": r.status, "severity": r.severity_level, "surveyor": r.surveyor_name}
+                {"id": r.id, "report_code": r.report_code, "monument": r.monument_name, "component": r.component_name, "status": r.status, "severity": r.severity, "role": r.role}
                 for r in reports
             ]
         }

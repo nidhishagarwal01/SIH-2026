@@ -778,12 +778,12 @@ export default function App() {
               <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
                 
                 {/* Node Selector List */}
-                <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-5 space-y-3 shadow-xl">
-                  <div className="flex justify-between items-center border-b border-[#1E2433] pb-2.5">
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#C29244] font-bold">
+                <div className="bg-white dark:bg-[#1E120B] border border-[#DACDB8] dark:border-[#3D2416] rounded-2xl p-5 space-y-3 shadow-md">
+                  <div className="flex justify-between items-center border-b border-[#DACDB8] dark:border-[#3D2416] pb-2.5">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#BA532B] font-bold">
                       Architectural Nodes
                     </span>
-                    <span className="text-[10px] font-mono text-gray-400">
+                    <span className="text-[10px] font-mono text-[#7A5B49] dark:text-gray-400">
                       {components.length} Monitored Segments
                     </span>
                   </div>
@@ -795,18 +795,18 @@ export default function App() {
                         onClick={() => handleSelectComponent(idx)}
                         className={`w-full p-3 rounded-xl border text-left flex justify-between items-center transition cursor-pointer ${
                           activeComponent === idx
-                            ? 'border-[#C29244] bg-[#C29244]/15 text-[#F3EFE6] shadow-md'
-                            : 'border-[#1E2433] bg-[#11141D] text-gray-400 hover:border-[#384152] hover:bg-[#151924]'
+                            ? 'border-[#BA532B] bg-[#BA532B]/10 text-[#24160E] dark:text-[#FAF5ED] shadow-sm font-semibold'
+                            : 'border-[#DACDB8] dark:border-[#3D2416] bg-[#FAF5ED]/50 dark:bg-[#160D08] text-[#7A5B49] dark:text-gray-400 hover:border-[#BA532B] hover:text-[#24160E] dark:hover:text-white'
                         }`}
                       >
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-bold text-[#C29244] bg-black/60 px-2 py-0.5 rounded border border-[#C29244]/40">
+                            <span className="font-mono text-xs font-bold text-[#BA532B] bg-white dark:bg-black/60 px-2 py-0.5 rounded border border-[#DACDB8] dark:border-[#3D2416]">
                               {c.code}
                             </span>
-                            <span className="font-medium text-xs text-gray-200">{c.name}</span>
+                            <span className="font-medium text-xs text-[#24160E] dark:text-gray-200">{c.name}</span>
                           </div>
-                          <div className="text-[10px] font-mono text-gray-400 mt-1">
+                          <div className="text-[10px] font-mono text-[#7A5B49] dark:text-gray-400 mt-1">
                             Elevation: {c.elevation} · Inspected: {c.inspected}
                           </div>
                         </div>
@@ -832,11 +832,11 @@ export default function App() {
                 </div>
 
                 {/* Selected Node Details Card */}
-                <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-5 space-y-4 shadow-xl">
+                <div className="bg-white dark:bg-[#1E120B] border border-[#DACDB8] dark:border-[#3D2416] rounded-2xl p-5 space-y-4 shadow-md">
                   <div className="flex justify-between items-start">
                     <div>
-                      <span className="text-[10px] font-mono uppercase text-[#C29244] font-bold tracking-wider">Node Telemetry Profile</span>
-                      <h3 className="text-base font-serif font-bold text-[#F3EFE6] mt-0.5">
+                      <span className="text-[10px] font-mono uppercase text-[#BA532B] font-bold tracking-wider">Node Telemetry Profile</span>
+                      <h3 className="text-base font-serif font-bold text-[#24160E] dark:text-[#FAF5ED] mt-0.5">
                         {curComp.name} ({curComp.code})
                       </h3>
                     </div>
@@ -844,27 +844,27 @@ export default function App() {
                       <div className="text-3xl font-serif font-bold" style={{ color: curComp.color }}>
                         {curComp.score}
                       </div>
-                      <span className="text-[9px] font-mono text-gray-400">Health Index</span>
+                      <span className="text-[9px] font-mono text-[#7A5B49] dark:text-gray-400">Health Index</span>
                     </div>
                   </div>
 
-                  <div className="bg-[#11141D] p-3 rounded-xl border border-[#1E2433] space-y-1">
-                    <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider block">
+                  <div className="bg-[#FAF5ED] dark:bg-[#160D08] p-3 rounded-xl border border-[#DACDB8] dark:border-[#3D2416] space-y-1">
+                    <span className="text-[10px] font-mono text-[#BA532B] font-bold uppercase tracking-wider block">
                       Mandated Conservation Action
                     </span>
-                    <p className="text-xs text-gray-200 font-sans leading-relaxed">
+                    <p className="text-xs text-[#4D3425] dark:text-gray-200 font-sans leading-relaxed">
                       {curComp.action}
                     </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-                    <div className="bg-[#0E1013] p-2.5 rounded border border-[#1E2228]">
-                      <span className="text-[9px] text-gray-500 uppercase block">Vulnerability Risk</span>
-                      <span className="text-rose-400 font-bold text-sm">{computedRisk}/100</span>
+                    <div className="bg-[#FAF5ED] dark:bg-[#160D08] p-2.5 rounded border border-[#DACDB8] dark:border-[#3D2416]">
+                      <span className="text-[9px] text-[#7A5B49] uppercase block font-bold">Vulnerability Risk</span>
+                      <span className="text-rose-600 dark:text-rose-400 font-bold text-sm">{computedRisk}/100</span>
                     </div>
-                    <div className="bg-[#0E1013] p-2.5 rounded border border-[#1E2228]">
-                      <span className="text-[9px] text-gray-500 uppercase block">Spatial Coordinates</span>
-                      <span className="text-gray-300 font-bold text-xs">{curComp.elevation}</span>
+                    <div className="bg-[#FAF5ED] dark:bg-[#160D08] p-2.5 rounded border border-[#DACDB8] dark:border-[#3D2416]">
+                      <span className="text-[9px] text-[#7A5B49] uppercase block font-bold">Spatial Coordinates</span>
+                      <span className="text-[#24160E] dark:text-gray-300 font-bold text-xs">{curComp.elevation}</span>
                     </div>
                   </div>
                 </div>
@@ -1379,37 +1379,45 @@ export default function App() {
       </main>
 
       {/* 🏛️ ASI WORK ORDER MODAL */}
-      <AsiReportModal
-        isOpen={isReportOpen}
-        onClose={() => setIsReportOpen(false)}
-        site={curSite}
-        component={curComp}
-        riskFactors={riskFactors}
-        computedRisk={computedRisk}
-      />
+      {isReportOpen && (
+        <AsiReportModal
+          isOpen={isReportOpen}
+          onClose={() => setIsReportOpen(false)}
+          site={curSite}
+          component={curComp}
+          riskFactors={riskFactors}
+          computedRisk={computedRisk}
+        />
+      )}
 
       {/* 📱 FIELD REPORT MODAL */}
-      <FieldReportModal
-        isOpen={isFieldReportOpen}
-        onClose={() => setIsFieldReportOpen(false)}
-        onSubmitReport={handleAddReport}
-        monuments={sites}
-      />
+      {isFieldReportOpen && (
+        <FieldReportModal
+          isOpen={isFieldReportOpen}
+          onClose={() => setIsFieldReportOpen(false)}
+          onSubmitReport={handleAddReport}
+          monuments={sites}
+        />
+      )}
 
       {/* 🌐 AUTONOMOUS LIVE INGESTION & EXAMINATION MODAL */}
-      <LiveIngestModal
-        isOpen={isLiveIngestOpen}
-        onClose={() => setIsLiveIngestOpen(false)}
-        currentSite={curSite}
-      />
+      {isLiveIngestOpen && (
+        <LiveIngestModal
+          isOpen={isLiveIngestOpen}
+          onClose={() => setIsLiveIngestOpen(false)}
+          currentSite={curSite}
+        />
+      )}
 
       {/* 🏛️ NATIONAL ASSET MATRIX SWITCHER MODAL */}
-      <AssetSwitcherModal
-        isOpen={isAssetSwitcherOpen}
-        onClose={() => setIsAssetSwitcherOpen(false)}
-        activeSiteIndex={activeSite}
-        onSelectSite={handleSelectSite}
-      />
+      {isAssetSwitcherOpen && (
+        <AssetSwitcherModal
+          isOpen={isAssetSwitcherOpen}
+          onClose={() => setIsAssetSwitcherOpen(false)}
+          activeSiteIndex={activeSite}
+          onSelectSite={handleSelectSite}
+        />
+      )}
 
       {/* 🏛️ NATIONAL HERITAGE SOVEREIGNTY FOOTER */}
       <footer className="border-t border-[#1E2228] bg-[#07080A] py-8 px-6 mt-auto">

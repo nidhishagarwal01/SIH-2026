@@ -124,11 +124,11 @@ export default function MonumentViewer3D({
     const container = mountRef.current;
     if (!container) return;
 
-    // 1. Scene setup
+    // 1. Scene setup with rich warm sandstone umber museum atmosphere
     const scene = new THREE.Scene();
     sceneRef.current = scene;
-    scene.background = new THREE.Color(0x08090C);
-    scene.fog = new THREE.FogExp2(0x08090C, 0.025);
+    scene.background = new THREE.Color(0x18120E);
+    scene.fog = new THREE.FogExp2(0x18120E, 0.022);
 
     const width = Math.max(container.clientWidth || 0, isEmbedded ? 560 : 750);
     const height = Math.max(container.clientHeight || 0, isEmbedded ? 420 : 520);
@@ -146,7 +146,7 @@ export default function MonumentViewer3D({
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.25;
     rendererRef.current = renderer;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
@@ -181,11 +181,11 @@ export default function MonumentViewer3D({
     controlsRef.current = controls;
 
     // 5. Cinematic Heritage Lighting Rig
-    const ambientLight = new THREE.AmbientLight(0xFFF7EB, 0.85);
+    const ambientLight = new THREE.AmbientLight(0xFFF0DD, 1.2);
     scene.add(ambientLight);
 
-    const sunLight = new THREE.DirectionalLight(0xFFE8D0, 2.2);
-    sunLight.position.set(10, 16, 8);
+    const sunLight = new THREE.DirectionalLight(0xFFECC8, 2.5);
+    sunLight.position.set(12, 18, 10);
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 2048;
     sunLight.shadow.mapSize.height = 2048;
@@ -1419,13 +1419,13 @@ export default function MonumentViewer3D({
   }
 
   return (
-    <div className="w-full max-w-[1100px] mx-auto box-border flex flex-col min-h-[520px] max-h-[85vh] bg-[#07080B] rounded-[24px] border border-[#232A38] shadow-2xl overflow-hidden heritage-card-glow">
+    <div className="w-full max-w-[1100px] mx-auto box-border flex flex-col min-h-[520px] max-h-[85vh] bg-[#FAF5ED] dark:bg-[#1E120B] rounded-[24px] border border-[#DACDB8] dark:border-[#3D2416] shadow-xl overflow-hidden">
       
       {/* Top Header Outside 3D Canvas (Responsive Flex, No Horizontal Overflow) */}
-      <div className="w-full flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#0d1117] border-b border-white/10 z-10 shrink-0">
+      <div className="w-full flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#FAF5ED] dark:bg-[#180E09] border-b border-[#DACDB8] dark:border-[#3D2416] z-10 shrink-0">
         <div className="flex items-center gap-2 shrink-0">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <h3 className="shrink-0 text-sm md:text-base font-serif font-semibold text-white tracking-wide">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <h3 className="shrink-0 text-sm md:text-base font-serif font-semibold text-[#24160E] dark:text-[#FAF5ED] tracking-wide">
             {siteData?.name || "Protected Heritage Site"} · Living 3D Twin
           </h3>
         </div>
@@ -1433,14 +1433,14 @@ export default function MonumentViewer3D({
         {/* View Mode & Camera Angles Controls Outside Canvas */}
         <div className="flex items-center gap-2 md:gap-3 flex-wrap font-mono text-xs md:text-sm shrink-0">
           {/* Material Mode Switcher */}
-          <div className="flex items-center gap-1 bg-[#121622] p-1 rounded-xl border border-[#283042] shadow-inner flex-wrap">
+          <div className="flex items-center gap-1 bg-white dark:bg-[#120A06] p-1 rounded-xl border border-[#DACDB8] dark:border-[#3D2416] shadow-sm flex-wrap">
             <button
               onClick={() => setViewMode('stone')}
               title="Realistic 3D Stone Texture"
               className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg transition-all whitespace-nowrap cursor-pointer font-bold flex items-center gap-1.5 ${
                 viewMode === 'stone'
-                  ? 'bg-gradient-to-r from-[#C5A059] to-[#D4AF37] text-[#0A0C10] shadow'
-                  : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+                  ? 'bg-[#BA532B] text-white shadow'
+                  : 'text-[#7A5B49] dark:text-gray-400 hover:text-[#BA532B]'
               }`}
             >
               <span>🧱</span>
@@ -1451,8 +1451,8 @@ export default function MonumentViewer3D({
               title="LiDAR Wireframe Mesh"
               className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg transition-all whitespace-nowrap cursor-pointer font-bold flex items-center gap-1.5 ${
                 viewMode === 'lidar'
-                  ? 'bg-cyan-600 text-white shadow'
-                  : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+                  ? 'bg-cyan-700 text-white shadow'
+                  : 'text-[#7A5B49] dark:text-gray-400 hover:text-cyan-600'
               }`}
             >
               <span>🌐</span>
@@ -1463,8 +1463,8 @@ export default function MonumentViewer3D({
               title="Stress Heatmap"
               className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-lg transition-all whitespace-nowrap cursor-pointer font-bold flex items-center gap-1.5 ${
                 viewMode === 'heatmap'
-                  ? 'bg-rose-600 text-white shadow'
-                  : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+                  ? 'bg-rose-700 text-white shadow'
+                  : 'text-[#7A5B49] dark:text-gray-400 hover:text-rose-600'
               }`}
             >
               <span>🔥</span>
@@ -1473,12 +1473,12 @@ export default function MonumentViewer3D({
           </div>
 
           {/* Camera Angles */}
-          <div className="flex items-center gap-1 bg-[#121622] p-1 rounded-xl border border-[#283042] shadow-inner flex-wrap">
+          <div className="flex items-center gap-1 bg-white dark:bg-[#120A06] p-1 rounded-xl border border-[#DACDB8] dark:border-[#3D2416] shadow-sm flex-wrap">
             <button
               onClick={() => setPresetView('iso')}
               title="3D Isometric Perspective"
               className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg transition whitespace-nowrap cursor-pointer font-bold ${
-                cameraView === 'iso' ? 'bg-[#1C2230] text-[#E5C07B] border border-[#C5A059]/40 shadow-sm' : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+                cameraView === 'iso' ? 'bg-[#FAF5ED] dark:bg-[#1E120B] text-[#BA532B] border border-[#DACDB8] dark:border-[#3D2416] shadow-sm' : 'text-[#7A5B49] dark:text-gray-400 hover:text-[#BA532B]'
               }`}
             >
               📐 3D Angle
@@ -1487,7 +1487,7 @@ export default function MonumentViewer3D({
               onClick={() => setPresetView('front')}
               title="Front Elevation"
               className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg transition whitespace-nowrap cursor-pointer font-bold ${
-                cameraView === 'front' ? 'bg-[#1C2230] text-[#E5C07B] border border-[#C5A059]/40 shadow-sm' : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+                cameraView === 'front' ? 'bg-[#FAF5ED] dark:bg-[#1E120B] text-[#BA532B] border border-[#DACDB8] dark:border-[#3D2416] shadow-sm' : 'text-[#7A5B49] dark:text-gray-400 hover:text-[#BA532B]'
               }`}
             >
               🏛️ Front
@@ -1496,7 +1496,7 @@ export default function MonumentViewer3D({
               onClick={() => setPresetView('top')}
               title="Top-Down Plan"
               className={`px-2.5 py-1 md:px-3 md:py-1.5 rounded-lg transition whitespace-nowrap cursor-pointer font-bold ${
-                cameraView === 'top' ? 'bg-[#1C2230] text-[#E5C07B] border border-[#C5A059]/40 shadow-sm' : 'text-gray-400 hover:text-white hover:bg-[#181D2B]'
+                cameraView === 'top' ? 'bg-[#FAF5ED] dark:bg-[#1E120B] text-[#BA532B] border border-[#DACDB8] dark:border-[#3D2416] shadow-sm' : 'text-[#7A5B49] dark:text-gray-400 hover:text-[#BA532B]'
               }`}
             >
               🗺️ Top
@@ -1506,39 +1506,39 @@ export default function MonumentViewer3D({
       </div>
 
       {/* Pure 3D Canvas Mount (100% Dedicated & Unobstructed, ZERO buttons inside) */}
-      <div className="relative flex-1 w-full min-h-[420px] h-[540px] bg-[#07080B] overflow-hidden">
+      <div className="relative flex-1 w-full min-h-[420px] h-[540px] bg-[#18110D] dark:bg-[#0E0906] overflow-hidden">
         <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
       </div>
 
       {/* Bottom Controls Outside 3D Canvas (Responsive Flex, No Overlap) */}
-      <div className="w-full flex flex-wrap items-center justify-between gap-2.5 px-4 py-3 bg-[#0d1117] border-t border-white/10 font-mono text-xs md:text-sm z-10 shrink-0">
+      <div className="w-full flex flex-wrap items-center justify-between gap-2.5 px-4 py-3 bg-[#FAF5ED] dark:bg-[#180E09] border-t border-[#DACDB8] dark:border-[#3D2416] font-mono text-xs md:text-sm z-10 shrink-0">
         <div className="flex items-center gap-3 flex-wrap">
           <button
             onClick={() => setAutoRotate(!autoRotate)}
             title="Toggle continuous 360-degree rotation of the 3D twin"
             className={`px-2.5 py-1 md:px-3.5 md:py-1.5 text-xs md:text-sm rounded-xl border transition-all cursor-pointer whitespace-nowrap flex items-center gap-2 font-bold ${
               autoRotate
-                ? 'border-[#C5A059] bg-[#C5A059]/20 text-[#E5C07B] shadow-sm'
-                : 'border-[#232A38] bg-[#121622] text-gray-400 hover:text-white'
+                ? 'border-[#BA532B] bg-[#BA532B]/10 text-[#BA532B] shadow-sm'
+                : 'border-[#DACDB8] dark:border-[#3D2416] bg-white dark:bg-[#120A06] text-[#7A5B49] dark:text-gray-400 hover:text-[#BA532B]'
             }`}
           >
             <span>{autoRotate ? '⏸ Pause 360° Orbit' : '▶ Play 360° Orbit'}</span>
           </button>
 
           {/* Manual Zoom In / Out Buttons */}
-          <div className="flex items-center bg-[#121622] border border-[#283042] rounded-xl shadow-inner overflow-hidden">
+          <div className="flex items-center bg-white dark:bg-[#120A06] border border-[#DACDB8] dark:border-[#3D2416] rounded-xl shadow-sm overflow-hidden">
             <button
               onClick={() => handleZoom('in')}
               title="Zoom In (Click)"
-              className="px-3 py-1.5 text-gray-300 hover:text-white hover:bg-[#1C2230] transition font-bold cursor-pointer"
+              className="px-3 py-1.5 text-[#24160E] dark:text-[#FAF5ED] hover:text-[#BA532B] hover:bg-[#FAF5ED] dark:hover:bg-[#1E120B] transition font-bold cursor-pointer"
             >
               +
             </button>
-            <span className="text-[10px] text-gray-400 px-2 font-mono select-none">Zoom</span>
+            <span className="text-[10px] text-[#7A5B49] px-2 font-mono select-none">Zoom</span>
             <button
               onClick={() => handleZoom('out')}
               title="Zoom Out (Click)"
-              className="px-3 py-1.5 text-gray-300 hover:text-white hover:bg-[#1C2230] transition font-bold cursor-pointer"
+              className="px-3 py-1.5 text-[#24160E] dark:text-[#FAF5ED] hover:text-[#BA532B] hover:bg-[#FAF5ED] dark:hover:bg-[#1E120B] transition font-bold cursor-pointer"
             >
               −
             </button>
