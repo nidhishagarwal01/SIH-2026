@@ -382,6 +382,7 @@ export default function MonumentViewer3D({
       monumentGroup.add(plinthMesh);
 
       // 2. Four Corner Minarets (Three-stage tapering minars with chhatris)
+      const minaretsGroup = new THREE.Group();
       const minaretCoords = [[-2.5, -2.5], [2.5, -2.5], [-2.5, 2.5], [2.5, 2.5]];
       minaretCoords.forEach(([mx, mz]) => {
         const mGroup = new THREE.Group();
@@ -405,8 +406,10 @@ export default function MonumentViewer3D({
         const finial = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.3, 8), materials.goldFinial);
         finial.position.set(mx, 4.6, mz);
         mGroup.add(finial);
-        monumentGroup.add(mGroup);
+        minaretsGroup.add(mGroup);
       });
+      minaretsGroup.userData = { componentIndex: 1, name: 'Four Freestanding Corner Minarets', baseColor: 0xF5F4F0 };
+      monumentGroup.add(minaretsGroup);
 
       // 3. Central Cubic Body with Chamfered Corners & Grand Pishtaq Arches
       const bodyGroup = new THREE.Group();
@@ -461,7 +464,7 @@ export default function MonumentViewer3D({
       domeGroup.userData = { componentIndex: 0, name: 'Grand Bulbous White Marble Dome', baseColor: 0xF5F4F0 };
       monumentGroup.add(domeGroup);
 
-      activeMeshes = [domeGroup, bodyGroup, plinthMesh];
+      activeMeshes = [domeGroup, minaretsGroup, bodyGroup, plinthMesh];
     }
 
     // =========================================================================

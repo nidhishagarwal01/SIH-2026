@@ -254,11 +254,60 @@ export default function App() {
         defaultRisk: { condition: 25, deterioration: 20, hazard: 40, environment: 65, significance: 95 },
         action: "Perimeter cyclone drain clearance"
       }
+    ],
+    4: [ // Ajanta Caves (Cave 19 Chaitya)
+      { name: "Chaitya Horseshoe Sun-Window Arch", code: "AC-01", elevation: "+14m", status: "Critical", score: 60, color: "#E05A47", inspected: "Apr 2026", defaultRisk: { condition: 76, deterioration: 70, hazard: 50, environment: 75, significance: 95 }, action: "Basalt rock fissure grouting & seepage deflection" },
+      { name: "Monolithic Votive Stupa & Buddha", code: "AC-02", elevation: "+6.0m", status: "Watch", score: 75, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 45, deterioration: 38, hazard: 40, environment: 60, significance: 95 }, action: "Micro-climate relative humidity stabilization" },
+      { name: "Fluted Pillar Colonnades & Murals", code: "AC-03", elevation: "+3.5m", status: "Watch", score: 70, color: "#D4AF37", inspected: "Apr 2026", defaultRisk: { condition: 52, deterioration: 48, hazard: 35, environment: 70, significance: 95 }, action: "Tempera mural pigment consolidation & biocide" },
+      { name: "Basalt Cliff Escarpment & Apron", code: "AC-04", elevation: "Ground (0.0m)", status: "Stable", score: 82, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 25, deterioration: 22, hazard: 45, environment: 55, significance: 95 }, action: "Monsoon rockfall mesh anchoring & drainage" }
+    ],
+    5: [ // Taj Mahal Mausoleum
+      { name: "Grand Bulbous Onion Dome & Kalasha", code: "TM-01", elevation: "+73m", status: "Watch", score: 74, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 48, deterioration: 42, hazard: 55, environment: 68, significance: 98 }, action: "Fuller's earth clay pack (Multani Mitti) pollutant cleansing" },
+      { name: "North & South Pishtaq Iwan Façades", code: "TM-02", elevation: "+32m", status: "Critical", score: 61, color: "#E05A47", inspected: "Apr 2026", defaultRisk: { condition: 80, deterioration: 74, hazard: 50, environment: 75, significance: 98 }, action: "Makrana marble micro-crack repointing & pietra dura stabilization" },
+      { name: "Four Freestanding Corner Minarets", code: "TM-03", elevation: "+42m", status: "Watch", score: 72, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 50, deterioration: 45, hazard: 55, environment: 60, significance: 98 }, action: "High-precision vertical inclination & tilt telemetry monitoring" },
+      { name: "Yamuna Riverfront Sandstone Plinth", code: "TM-04", elevation: "Ground (0.0m)", status: "Stable", score: 83, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 26, deterioration: 20, hazard: 60, environment: 50, significance: 98 }, action: "Sub-surface sal wood well foundation hydrology monitoring" }
+    ],
+    6: [ // Ellora Kailasa Temple (Cave 16)
+      { name: "Monolithic Rock Shikhara Spire", code: "EL-01", elevation: "+32m", status: "Critical", score: 58, color: "#E05A47", inspected: "Mar 2026", defaultRisk: { condition: 82, deterioration: 78, hazard: 45, environment: 72, significance: 96 }, action: "Monolithic volcanic basalt seam stitching & crack sealing" },
+      { name: "Nandi Mandapa & Two Victory Pillars", code: "EL-02", elevation: "+16m", status: "Watch", score: 73, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 48, deterioration: 40, hazard: 40, environment: 65, significance: 96 }, action: "Surface lichen removal & laser non-destructive cleaning" },
+      { name: "Life-Size Elephant Frieze Plinth", code: "EL-03", elevation: "+4.0m", status: "Watch", score: 69, color: "#D4AF37", inspected: "Apr 2026", defaultRisk: { condition: 55, deterioration: 50, hazard: 35, environment: 68, significance: 96 }, action: "Exfoliated basalt consolidation with ethyl silicate" },
+      { name: "Excavated U-Shaped Quarry Pit Basin", code: "EL-04", elevation: "Ground (0.0m)", status: "Stable", score: 84, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 22, deterioration: 18, hazard: 45, environment: 55, significance: 96 }, action: "Runoff catchpit desilting & drainage channel repair" }
+    ],
+    7: [ // Khajuraho Kandariya Mahadeva
+      { name: "Towering 84-Urushringa Shikhara", code: "KM-01", elevation: "+31m", status: "Critical", score: 62, color: "#E05A47", inspected: "Apr 2026", defaultRisk: { condition: 76, deterioration: 70, hazard: 35, environment: 65, significance: 92 }, action: "Interlocking dry-masonry joint lime repointing & stabilization" },
+      { name: "Gudhamandapa & Sculptural Terraces", code: "KM-02", elevation: "+14m", status: "Watch", score: 71, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 50, deterioration: 45, hazard: 30, environment: 60, significance: 92 }, action: "Biocide application for micro-flora mitigation" },
+      { name: "Ardhamandapa Entrance Porch", code: "KM-03", elevation: "+6.5m", status: "Stable", score: 80, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 30, deterioration: 25, hazard: 30, environment: 50, significance: 92 }, action: "Torana archway non-invasive ultrasonic inspection" },
+      { name: "High Jagati Masonry Platform", code: "KM-04", elevation: "Ground (0.0m)", status: "Stable", score: 86, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 20, deterioration: 16, hazard: 35, environment: 45, significance: 92 }, action: "Perimeter flagstone regrading for positive storm runoff" }
+    ],
+    8: [ // Great Stupa at Sanchi
+      { name: "Harmika & Triple Chhatra Finial", code: "SS-01", elevation: "+17m", status: "Stable", score: 87, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 20, deterioration: 15, hazard: 30, environment: 40, significance: 94 }, action: "Balustrade stone dowel integrity verification" },
+      { name: "Hemispherical Anda Dome Core", code: "SS-02", elevation: "+10m", status: "Watch", score: 76, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 42, deterioration: 36, hazard: 35, environment: 55, significance: 94 }, action: "Breathable moisture barrier sealing on sandstone cladding" },
+      { name: "Four Ornate Torana Gateways", code: "SS-03", elevation: "+8.5m", status: "Watch", score: 72, color: "#D4AF37", inspected: "Apr 2026", defaultRisk: { condition: 50, deterioration: 44, hazard: 30, environment: 60, significance: 94 }, action: "Architrave bracket structural cantilever strain gauge check" },
+      { name: "Circular Medhi Processional Terrace", code: "SS-04", elevation: "Ground (0.0m)", status: "Stable", score: 89, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 16, deterioration: 12, hazard: 30, environment: 35, significance: 94 }, action: "Routine visitor path weed control & stone resetting" }
+    ],
+    9: [ // Brihadisvara Temple (Chola Dynasty)
+      { name: "80-Tonne Monolithic Kumbam Apex", code: "BT-01", elevation: "+66m", status: "Watch", score: 77, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 42, deterioration: 38, hazard: 40, environment: 58, significance: 96 }, action: "Granite capstone acoustic pulse velocity inspection" },
+      { name: "13-Tier Pyramidal Vimana Spire", code: "BT-02", elevation: "+35m", status: "Critical", score: 63, color: "#E05A47", inspected: "Apr 2026", defaultRisk: { condition: 74, deterioration: 68, hazard: 45, environment: 65, significance: 96 }, action: "Interlocking granite block mortar repointing & micro-grouting" },
+      { name: "Monolithic Nandi Mandapa Pavilion", code: "BT-03", elevation: "+4.5m", status: "Stable", score: 85, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 22, deterioration: 18, hazard: 35, environment: 50, significance: 96 }, action: "Granite monolithic carving micro-dusting & conservation" },
+      { name: "Prakara Cloistered Enclosure Wall", code: "BT-04", elevation: "Ground (0.0m)", status: "Stable", score: 88, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 18, deterioration: 14, hazard: 35, environment: 40, significance: 96 }, action: "Moat and storm water discharge channel clearance" }
+    ],
+    10: [ // Rani Ki Vav Stepwell
+      { name: "Deep Cylindrical Well Reservoir Shaft", code: "RV-01", elevation: "-28m", status: "Critical", score: 57, color: "#E05A47", inspected: "Mar 2026", defaultRisk: { condition: 84, deterioration: 78, hazard: 55, environment: 82, significance: 95 }, action: "Groundwater capillary hydrostatic pressure relief & pumping" },
+      { name: "7-Storey Subterranean Stepped Terraces", code: "RV-02", elevation: "-14m", status: "Critical", score: 62, color: "#E05A47", inspected: "Apr 2026", defaultRisk: { condition: 76, deterioration: 70, hazard: 50, environment: 78, significance: 95 }, action: "Sandstone pavilion bracket anchoring & tilt sensor array" },
+      { name: "Sculptural Colonnades & 500+ Niches", code: "RV-03", elevation: "-6.0m", status: "Watch", score: 70, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 54, deterioration: 48, hazard: 40, environment: 70, significance: 95 }, action: "High-relief avatar sculpture consolidation & salt poultice" },
+      { name: "Ground Entrance Plinth & Pavilion", code: "RV-04", elevation: "Ground (0.0m)", status: "Stable", score: 83, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 25, deterioration: 20, hazard: 45, environment: 50, significance: 95 }, action: "Perimeter security barrier and stormwater interceptor drains" }
+    ],
+    11: [ // Dholavira Harappan Citadel
+      { name: "Acropolis Royal Castle & Signboard Chamber", code: "DH-01", elevation: "+15m", status: "Watch", score: 73, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 50, deterioration: 44, hazard: 65, environment: 70, significance: 96 }, action: "Mud-brick & limestone dressed masonry erosion stabilization" },
+      { name: "Monumental Northern Ceremonial Gateway", code: "DH-02", elevation: "+8.0m", status: "Critical", score: 64, color: "#E05A47", inspected: "Apr 2026", defaultRisk: { condition: 72, deterioration: 68, hazard: 60, environment: 72, significance: 96 }, action: "Harappan ten-character signboard chamber environmental shelter" },
+      { name: "Monolithic Stepped Water Reservoirs", code: "DH-03", elevation: "-6.0m", status: "Watch", score: 75, color: "#D4AF37", inspected: "May 2026", defaultRisk: { condition: 46, deterioration: 40, hazard: 55, environment: 65, significance: 96 }, action: "Hydraulic lime stone bund preservation against flash rain" },
+      { name: "Massive Dressed-Stone Outer Ramparts", code: "DH-04", elevation: "Ground (0.0m)", status: "Stable", score: 85, color: "#4E878C", inspected: "Jun 2026", defaultRisk: { condition: 24, deterioration: 18, hazard: 65, environment: 50, significance: 96 }, action: "Kutch salt-desert windbreak fence maintenance & monitoring" }
     ]
   };
 
   const getComponentsForSite = (idx) => {
-    return siteComponents[idx] || siteComponents[0];
+    const validIdx = typeof idx === 'number' && idx >= 0 && idx < 12 ? idx : 0;
+    return siteComponents[validIdx] || siteComponents[0];
   };
 
   const components = getComponentsForSite(activeSite);
@@ -411,15 +460,24 @@ export default function App() {
 
   // Compute live auditable risk
   const computedRisk = Math.round(
-    0.30 * riskFactors.condition +
-    0.25 * riskFactors.deterioration +
-    0.15 * riskFactors.hazard +
-    0.15 * riskFactors.environment +
-    0.15 * riskFactors.significance
+    0.30 * (riskFactors?.condition || 50) +
+    0.25 * (riskFactors?.deterioration || 50) +
+    0.15 * (riskFactors?.hazard || 50) +
+    0.15 * (riskFactors?.environment || 50) +
+    0.15 * (riskFactors?.significance || 90)
   );
 
-  const curSite = sites[activeSite] || sites[0];
-  const curComp = components[activeComponent] || components[0];
+  const curSite = (sites && sites[activeSite]) || (sites && sites[0]) || { name: "Qutub Minar Complex", state: "Delhi", color: "#E05A47", coords: [28.5244, 77.1855] };
+  const curComp = (components && components[activeComponent]) || (components && components[0]) || {
+    name: "North Façade Wall (Main Shaft)",
+    code: "C-01",
+    score: 62,
+    color: "#E05A47",
+    action: "Structural scaffolding inspection & moisture-barrier sealing within 30 days",
+    elevation: "+12.0m",
+    inspected: "Apr 2026",
+    status: "Critical"
+  };
 
   // ---------------------------------------------------------------------------
   // 🏛️ VIEW 1: IMMERSIVE NATIONAL LANDING PAGE
