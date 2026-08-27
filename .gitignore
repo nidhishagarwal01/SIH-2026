@@ -14,6 +14,8 @@ __pycache__/
 heritage-shield-backend/venv/
 heritage-shield-backend/__pycache__/
 heritage-shield-backend/heritage_shield.db
+heritage_shield.db
+*.db
 
 # Node & Frontend Build
 node_modules/
