@@ -277,8 +277,26 @@ export default function LandingPageView({
             </button>
           </div>
 
-          {/* Right: Actions & Login */}
-          <div className="flex items-center gap-3">
+          {/* Right: Actions, Quick View Switcher & Login */}
+          <div className="flex items-center gap-2.5">
+            <button
+              onClick={() => onSelectMonument ? onSelectMonument(0) : onEnterDashboard()}
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] text-xs font-mono font-bold transition shadow-sm cursor-pointer"
+              title="Go to National GIS Map & Monument Directory"
+            >
+              <span>🗺️</span>
+              <span>Map Portal</span>
+            </button>
+
+            <button
+              onClick={onEnterDashboard}
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl frosted-btn text-xs font-mono font-bold transition shadow-sm cursor-pointer"
+              title="Open 3D Living Twin Studio"
+            >
+              <span>🏛️</span>
+              <span>3D Studio</span>
+            </button>
+
             {/* ☀️ Theme Toggle Button (Sun Icon Only) */}
             <motion.button
               whileHover={{ scale: 1.08, rotate: 18 }}

@@ -533,8 +533,8 @@ export default function App() {
       <header className="sticky top-0 z-[9999] bg-[#FAF5ED]/90 backdrop-blur-2xl border-b border-[#DACDB8] px-6 py-3.5 shadow-sm">
         <div className="max-w-[1600px] mx-auto flex flex-wrap justify-between items-center gap-4">
           
-          {/* Brand & Return to Portal Button */}
-          <div className="flex items-center gap-3">
+          {/* Brand & Universal Return Navigation Buttons */}
+          <div className="flex items-center gap-2.5">
             {/* Clickable Home Brand */}
             <HeritageShieldLogo
               size="sm"
@@ -546,12 +546,21 @@ export default function App() {
             <div className="w-[1px] h-6 bg-[#DACDB8]" />
 
             <button
+              onClick={() => setViewMode('landing')}
+              className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              title="Return to Main Landing Page"
+            >
+              <span>←</span>
+              <span>Home</span>
+            </button>
+
+            <button
               onClick={() => setViewMode('portal')}
               className="px-3.5 py-1.5 rounded-xl frosted-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
               title="Return to National Map & Directory"
             >
               <span>🗺️</span>
-              <span>Map Dashboard</span>
+              <span>Map Portal</span>
             </button>
           </div>
 

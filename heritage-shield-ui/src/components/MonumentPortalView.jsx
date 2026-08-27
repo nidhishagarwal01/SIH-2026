@@ -84,17 +84,30 @@ export default function MonumentPortalView({
         style={{ scaleX }}
       />
 
-      {/* 🏛️ 1. TOP COMMAND BAR */}
-      <header className="sticky top-0 z-[9999] bg-[#FAF5ED]/90 backdrop-blur-2xl border-b border-[#DACDB8] px-6 py-4 shadow-sm">
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-4">
+      {/* 🏛️ 1. TOP COMMAND BAR WITH FULL BACK NAVIGATION */}
+      <header className="sticky top-0 z-[9999] bg-[#FAF5ED]/90 backdrop-blur-2xl border-b border-[#DACDB8] px-6 py-3.5 shadow-sm">
+        <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
           
-          {/* Clickable Home Brand */}
-          <HeritageShieldLogo
-            size="md"
-            showText={true}
-            textClassName="text-lg tracking-wider font-serif font-bold text-[#24160E]"
-            onClick={onBackToLanding}
-          />
+          {/* Brand & Explicit Back to Home Navigation Button */}
+          <div className="flex items-center gap-3">
+            <HeritageShieldLogo
+              size="md"
+              showText={true}
+              textClassName="text-lg tracking-wider font-serif font-bold text-[#24160E]"
+              onClick={onBackToLanding}
+            />
+
+            <div className="w-[1px] h-6 bg-[#DACDB8]" />
+
+            <button
+              onClick={onBackToLanding}
+              className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              title="Return to Main Landing Page"
+            >
+              <span>←</span>
+              <span>Back to Home</span>
+            </button>
+          </div>
 
           {/* Persistent Universal Search Bar */}
           <div className="relative flex-1 max-w-xl mx-2 sm:mx-6">
@@ -116,15 +129,27 @@ export default function MonumentPortalView({
             )}
           </div>
 
-          {/* ☀️ Sun Theme Toggle Button (Icon Only) */}
-          <button
-            onClick={handleToggle}
-            title="Toggle Heritage Theme"
-            className="p-2.5 rounded-xl bg-white border border-[#DACDB8] hover:border-[#BA532B] text-[#BA532B] shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-center shrink-0"
-            aria-label="Theme Toggle"
-          >
-            <Sun className={`w-4 h-4 transition-transform duration-500 ${isDarkTheme ? 'rotate-180 text-[#C29244]' : 'text-[#BA532B]'}`} />
-          </button>
+          {/* Right: Direct Studio Jump & Theme Toggle */}
+          <div className="flex items-center gap-2.5">
+            <button
+              onClick={() => onSelectMonument(0)}
+              className="px-3.5 py-2 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+              title="Open 3D Living Twin Studio"
+            >
+              <span>🏛️</span>
+              <span>Open 3D Studio</span>
+            </button>
+
+            {/* ☀️ Sun Theme Toggle Button (Icon Only) */}
+            <button
+              onClick={handleToggle}
+              title="Toggle Heritage Theme"
+              className="p-2.5 rounded-xl bg-white border border-[#DACDB8] hover:border-[#BA532B] text-[#BA532B] shadow-sm hover:shadow-md transition cursor-pointer flex items-center justify-center shrink-0"
+              aria-label="Theme Toggle"
+            >
+              <Sun className={`w-4 h-4 transition-transform duration-500 ${isDarkTheme ? 'rotate-180 text-[#C29244]' : 'text-[#BA532B]'}`} />
+            </button>
+          </div>
 
         </div>
       </header>
