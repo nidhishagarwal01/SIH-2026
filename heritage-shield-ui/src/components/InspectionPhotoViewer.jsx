@@ -378,12 +378,12 @@ export default function InspectionPhotoViewer({
     setSelectedDefect(0);
   }, [siteData?.id]);
 
-  const curPreset = presetData[activePreset] || presetData.target_1;
-  const [detections, setDetections] = useState(curPreset.detections);
+  const curPreset = presetData[activePreset] || presetData.target_1 || Object.values(presetData)[0] || { detections: [], material: "Masonry", title: "Inspection Image", imageUrl: "/monuments/qutub_minar.jpg" };
+  const [detections, setDetections] = useState(curPreset.detections || []);
 
   useEffect(() => {
     if (!uploadedImage) {
-      setDetections(curPreset.detections);
+      setDetections(curPreset.detections || []);
       setSelectedDefect(0);
     }
   }, [activePreset, siteData?.id, curPreset]);
@@ -456,12 +456,12 @@ export default function InspectionPhotoViewer({
                 Photo Condition Preset:
               </span>
               <div className="flex bg-[#121622] p-1 rounded-xl border border-[#283042] gap-1">
-                {presets.map((p, idx) => {
-                  const isCur = currentPresetIdx === idx && !uploadedImage;
+                {Object.entries(presetData).map(([key, p]) => {
+                  const isCur = activePreset === key && !uploadedImage;
                   return (
                     <button
-                      key={p.id}
-                      onClick={() => handleSelectPreset(idx)}
+                      key={key}
+                      onClick={() => handleSelectPreset(key)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-mono transition cursor-pointer font-bold ${
                         isCur
                           ? 'bg-gradient-to-r from-[#C29244] to-[#D4AF37] text-[#0A0C10] shadow-sm'
