@@ -80,6 +80,17 @@ class LiveIngestRequest(BaseModel):
 # SITES & ASSET ENDPOINTS (Section 3 of Blueprint)
 # -------------------------------------------------------------
 
+@app.get("/")
+def root():
+    return {
+        "status": "online",
+        "service": "Heritage Shield API",
+        "version": "1.0.0",
+        "interactive_docs": "/docs",
+        "redoc": "/redoc",
+        "health_check": "/api/health"
+    }
+
 @app.get("/api/health")
 def health_check():
     return {
