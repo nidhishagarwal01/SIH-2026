@@ -16,6 +16,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { Sun } from 'lucide-react';
 
 import { UNESCO_SITES } from './data/unescoSites';
+import { NavigationProvider, useNavigation } from './context/NavigationContext';
+import BackButton from './components/ui/BackButton';
 
 export default function App() {
   // Global Theme State (Persisted in LocalStorage)
@@ -536,6 +538,9 @@ export default function App() {
           
           {/* Brand & Universal Return Navigation Buttons */}
           <div className="flex items-center gap-2.5">
+            {/* Universal Back Button */}
+            <BackButton label="Back" />
+
             {/* Clickable Home Brand */}
             <HeritageShieldLogo
               size="sm"
@@ -551,7 +556,6 @@ export default function App() {
               className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
               title="Return to Main Landing Page"
             >
-              <span>←</span>
               <span>Home</span>
             </button>
 

@@ -20,6 +20,7 @@ import {
 import HeritageGisMap from './HeritageGisMap';
 import HeritageShieldLogo from './HeritageShieldLogo';
 import EpigraphicWatermarkDivider from './EpigraphicWatermarkDivider';
+import BackButton from './ui/BackButton';
 
 export default function MonumentPortalView({
   sites = [],
@@ -71,7 +72,7 @@ export default function MonumentPortalView({
     if (typeof onToggleTheme === 'function') {
       onToggleTheme();
     } else {
-      document.body.classList.toggle('dark-theme');
+      setLocalDarkTheme(prev => !prev);
     }
   };
 
@@ -90,6 +91,8 @@ export default function MonumentPortalView({
           
           {/* Brand & Explicit Back to Home Navigation Button */}
           <div className="flex items-center gap-3">
+            <BackButton label="Back" onClick={onBackToLanding} />
+
             <HeritageShieldLogo
               size="md"
               showText={true}
@@ -104,8 +107,7 @@ export default function MonumentPortalView({
               className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
               title="Return to Main Landing Page"
             >
-              <span>←</span>
-              <span>Back to Home</span>
+              <span>Home</span>
             </button>
           </div>
 
