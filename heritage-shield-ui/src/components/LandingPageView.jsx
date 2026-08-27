@@ -34,6 +34,7 @@ import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
 import CinematicIntroReveal from './CinematicIntroReveal';
 import EpigraphicWatermarkDivider from './EpigraphicWatermarkDivider';
+import CinematicScrollShowcase from './CinematicScrollShowcase';
 
 export default function LandingPageView({ 
   onEnterDashboard, 
@@ -264,6 +265,15 @@ export default function LandingPageView({
               className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
             >
               AI Vision
+            </button>
+            <button 
+              onClick={() => {
+                setShowcaseTab('cinema');
+                scrollToSection('consoles-section');
+              }}
+              className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
+            >
+              3D Story
             </button>
             <button 
               onClick={() => scrollToSection('simulator-section')}
@@ -583,12 +593,27 @@ export default function LandingPageView({
               <span>🗺️</span>
               <span>GIS Radar</span>
             </button>
+            <button
+              onClick={() => setShowcaseTab('cinema')}
+              className={`px-4 py-2.5 rounded-xl transition flex items-center gap-2 cursor-pointer font-bold ${
+                showcaseTab === 'cinema'
+                  ? 'bg-[#BA532B] text-white shadow-md'
+                  : 'text-[#4D3425] hover:text-[#24160E] hover:bg-[#FAF5ED]'
+              }`}
+            >
+              <span>✨</span>
+              <span>3D Cinematic Story</span>
+            </button>
           </div>
         </div>
 
         {/* Viewport Display Area */}
         <div className="bg-white border border-[#DACDB8] rounded-3xl overflow-hidden shadow-xl p-6 sm:p-8 relative">
           
+          {showcaseTab === 'cinema' && (
+            <CinematicScrollShowcase />
+          )}
+
           {showcaseTab === 'twin' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-5 space-y-4 text-left">
