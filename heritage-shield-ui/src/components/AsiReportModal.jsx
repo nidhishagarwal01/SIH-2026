@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HeritageShieldLogo from './HeritageShieldLogo';
+import { getMonumentCostData } from '../utils/costCalculator';
 
 export default function AsiReportModal({
   isOpen,
@@ -21,18 +22,8 @@ export default function AsiReportModal({
 
   // Editable Authorized Parameters (Only editable by authenticated ASI Officer)
   const getMonumentCost = () => {
-    const sid = (site?.id || '').toLowerCase();
-    if (sid.includes('taj')) return '₹ 8.40 Lakhs (AI Conservation Model Estimate)';
-    if (sid.includes('konark')) return '₹ 6.80 Lakhs (AI Conservation Model Estimate)';
-    if (sid.includes('hampi')) return '₹ 3.80 Lakhs (AI Conservation Model Estimate)';
-    if (sid.includes('golconda')) return '₹ 5.60 Lakhs (AI Conservation Model Estimate)';
-    if (sid.includes('dholavira')) return '₹ 2.10 Lakhs (AI Conservation Model Estimate)';
-    if (sid.includes('khajuraho')) return '₹ 5.20 Lakhs (AI Conservation Model Estimate)';
-    if (sid.includes('ajanta') || sid.includes('ellora')) return '₹ 6.10 Lakhs (AI Conservation Model Estimate)';
-    if (sid.includes('rani')) return '₹ 4.50 Lakhs (AI Conservation Model Estimate)';
-    if (sid.includes('sanchi')) return '₹ 3.20 Lakhs (AI Conservation Model Estimate)';
-    if (sid.includes('chola') || sid.includes('brihadisvara')) return '₹ 6.40 Lakhs (AI Conservation Model Estimate)';
-    return '₹ 4.85 Lakhs (AI Conservation Model Estimate)';
+    const data = getMonumentCostData(site?.id || site?.name, computedRisk);
+    return `₹ ${data.proactiveLakhs} Lakhs (ConservationCostAI Model Estimate)`;
   };
 
   const [sanctionedAmount, setSanctionedAmount] = useState(getMonumentCost());

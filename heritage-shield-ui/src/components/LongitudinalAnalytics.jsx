@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { RefreshCw, Activity } from 'lucide-react';
+import { getMonumentCostData } from '../utils/costCalculator';
 
 export default function LongitudinalAnalytics({
+  siteData,
   activeComponent = 'North Façade Wall (Main Shaft)',
   materialTypology = 'sandstone',
-  seismicZone = 'Zone IV'
+  seismicZone = 'Zone IV',
+  computedRisk = 65
 }) {
   const [selectedMetric, setSelectedMetric] = useState('health'); // 'health' | 'crack' | 'moisture'
   const [hoveredIndex, setHoveredIndex] = useState(3); // Default to 2026
@@ -97,28 +100,20 @@ export default function LongitudinalAnalytics({
       console.log('Using client-side 2030 physics model', err);
     }
 
-    // Dynamic material & monument specific cost calculation fallback
-    const matRates = {
-      marble: { base: 8.4, emergency: 114.6, scaffolding: 2.8, materials: 3.5, labor: 2.1, carbon: 1550 },
-      khondalite: { base: 6.8, emergency: 98.2, scaffolding: 2.2, materials: 2.9, labor: 1.7, carbon: 1260 },
-      granite: { base: 3.8, emergency: 52.4, scaffolding: 1.2, materials: 1.6, labor: 1.0, carbon: 680 },
-      terracotta: { base: 2.1, emergency: 28.5, scaffolding: 0.6, materials: 0.9, labor: 0.6, carbon: 390 },
-      sandstone: { base: 4.85, emergency: 74.8, scaffolding: 1.45, materials: 2.1, labor: 1.3, carbon: 890 }
-    };
-    const cMat = (materialTypology || 'sandstone').toLowerCase();
-    const rate = matRates[cMat] || (cMat.includes('marble') ? matRates.marble : cMat.includes('granite') ? matRates.granite : cMat.includes('khondalite') ? matRates.khondalite : matRates.sandstone);
+    // Dynamic material & monument specific cost calculation using ConservationCostAI
+    const monumentCost = getMonumentCostData(siteData?.id || siteData?.name || materialTypology, computedRisk);
 
     setCostData({
-      proactive_cost_lakhs: rate.base,
-      emergency_repair_cost_lakhs: rate.emergency,
-      net_savings_lakhs: Number((rate.emergency - rate.base).toFixed(2)),
-      cost_multiplier_emergency_vs_proactive: Number((rate.emergency / rate.base).toFixed(1)),
-      carbon_footprint_saved_kg_co2: rate.carbon,
-      recommended_timeline_weeks: 6,
+      proactive_cost_lakhs: monumentCost.proactiveLakhs,
+      emergency_repair_cost_lakhs: monumentCost.emergencyLakhs,
+      net_savings_lakhs: monumentCost.netSavingsLakhs,
+      cost_multiplier_emergency_vs_proactive: monumentCost.costMultiplier,
+      carbon_footprint_saved_kg_co2: monumentCost.carbonKg,
+      recommended_timeline_weeks: monumentCost.timelineWeeks,
       budget_breakdown: {
-        scaffolding_and_shoring_lakhs: rate.scaffolding,
-        materials_and_grouting_lakhs: rate.materials,
-        artisanal_stone_masonry_lakhs: rate.labor
+        scaffolding_and_shoring_lakhs: monumentCost.budgetBreakdown.scaffoldingLakhs,
+        materials_and_grouting_lakhs: monumentCost.budgetBreakdown.materialsLakhs,
+        artisanal_stone_masonry_lakhs: monumentCost.budgetBreakdown.laborLakhs
       }
     });
 
@@ -144,7 +139,7 @@ export default function LongitudinalAnalytics({
     setTimeSeriesData(computed);
     setApiConnected(false);
     setIsLoading(false);
-  }, [activeComponent, materialTypology, seismicZone, monsoonAnomaly, seismicMultiplier]);
+  }, [siteData, computedRisk, activeComponent, materialTypology, seismicZone, monsoonAnomaly, seismicMultiplier]);
 
   useEffect(() => {
     fetchPredictionFromApi();

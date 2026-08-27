@@ -16,6 +16,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { Sun } from 'lucide-react';
 
 import { UNESCO_SITES } from './data/unescoSites';
+import { getMonumentCostData } from './utils/costCalculator';
 import { NavigationProvider, useNavigation } from './context/NavigationContext';
 import BackButton from './components/ui/BackButton';
 
@@ -1166,46 +1167,56 @@ export default function App() {
             </div>
 
             {/* 💰 Preventive Conservation ROI Analysis */}
-            <div className="bg-[#0D1017] border border-[#232A38] rounded-2xl p-6 space-y-5 shadow-2xl heritage-card-glow">
-              <div className="flex flex-wrap justify-between items-center gap-3">
-                <div>
-                  <span className="text-[10px] font-mono text-[#C29244] uppercase tracking-widest font-bold">
-                    Cost-Benefit Intelligence · Preventive vs Reactive
-                  </span>
-                  <h3 className="text-lg font-serif font-bold text-[#F3EFE6] mt-0.5">
-                    Preventive Conservation ROI Analysis — {curSite.name}
-                  </h3>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                {/* Reactive Cost */}
-                <div className="bg-[#0A0C12] border border-rose-800/30 rounded-2xl p-5 text-center shadow">
-                  <span className="text-[10px] font-mono uppercase text-rose-400/80 tracking-wider font-bold">Reactive Restoration Cost</span>
-                  <div className="text-3xl font-bold text-rose-400 font-mono mt-2">₹14.2 Cr</div>
-                  <p className="text-[10px] text-gray-400 mt-2 font-mono leading-relaxed">Emergency rebuilding, heavy scaffolding, structural stone loss</p>
-                </div>
-
-                {/* Preventive Cost */}
-                <div className="bg-[#0A0C12] border border-emerald-800/30 rounded-2xl p-5 text-center shadow">
-                  <span className="text-[10px] font-mono uppercase text-emerald-400/80 tracking-wider font-bold">Preventive Monitoring Cost</span>
-                  <div className="text-3xl font-bold text-emerald-400 font-mono mt-2">₹0.94 Cr</div>
-                  <p className="text-[10px] text-gray-400 mt-2 font-mono leading-relaxed">IoT sensors, routine drone photogrammetry, AI diagnostics</p>
-                </div>
-
-                {/* Net Savings */}
-                <div className="bg-[#0A0C12] border border-[#C29244]/40 rounded-2xl p-5 text-center shadow-lg heritage-card-glow">
-                  <span className="text-[10px] font-mono uppercase text-[#E5C07B] tracking-wider font-bold">Net National Savings</span>
-                  <div className="text-3xl font-bold text-emerald-300 font-mono mt-2">₹13.26 Cr</div>
-                  <div className="mt-2">
-                    <div className="w-full bg-[#141822] rounded-full h-2.5 overflow-hidden">
-                      <div className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2.5 rounded-full transition-all duration-700 shadow" style={{ width: '93.4%' }} />
+            {(() => {
+              const monumentCost = getMonumentCostData(curSite.id || curSite.name, computedRisk);
+              return (
+                <div className="bg-white dark:bg-[#1E120B] border border-[#DACDB8] dark:border-[#3D2416] rounded-2xl p-6 space-y-5 shadow-md">
+                  <div className="flex flex-wrap justify-between items-center gap-3">
+                    <div>
+                      <span className="text-[10px] font-mono text-[#BA532B] uppercase tracking-widest font-bold">
+                        Cost-Benefit Intelligence · Preventive vs Reactive
+                      </span>
+                      <h3 className="text-lg font-serif font-bold text-[#24160E] dark:text-[#FAF5ED] mt-0.5">
+                        Preventive Conservation ROI Analysis — {curSite.name} ({monumentCost.material})
+                      </h3>
                     </div>
-                    <span className="text-xs font-mono text-emerald-400 font-bold mt-1.5 inline-block">93.4% Cost Efficiency</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono px-3 py-1 rounded-full bg-[#BA532B]/10 text-[#BA532B] border border-[#BA532B]/30 font-bold">
+                        AI Cost Model: {monumentCost.costMultiplier}x ROI
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    {/* Reactive Cost */}
+                    <div className="bg-[#FAF5ED] dark:bg-[#160D08] border border-rose-600/30 rounded-2xl p-5 text-center shadow-sm">
+                      <span className="text-[10px] font-mono uppercase text-rose-700 dark:text-rose-400 tracking-wider font-bold">Reactive Restoration Cost</span>
+                      <div className="text-3xl font-bold text-rose-600 dark:text-rose-400 font-mono mt-2">₹{monumentCost.reactiveCostCr} Cr</div>
+                      <p className="text-[10px] text-[#7A5B49] dark:text-gray-400 mt-2 font-mono leading-relaxed">Emergency rebuilding, heavy structural shoring, irreversible stone loss</p>
+                    </div>
+
+                    {/* Preventive Cost */}
+                    <div className="bg-[#FAF5ED] dark:bg-[#160D08] border border-emerald-600/30 rounded-2xl p-5 text-center shadow-sm">
+                      <span className="text-[10px] font-mono uppercase text-emerald-700 dark:text-emerald-400 tracking-wider font-bold">Preventive Monitoring Cost</span>
+                      <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-400 font-mono mt-2">₹{monumentCost.preventiveCostCr} Cr</div>
+                      <p className="text-[10px] text-[#7A5B49] dark:text-gray-400 mt-2 font-mono leading-relaxed">IoT sensors, routine drone photogrammetry, early micro-grouting</p>
+                    </div>
+
+                    {/* Net Savings */}
+                    <div className="bg-[#FAF5ED] dark:bg-[#160D08] border border-[#BA532B]/40 rounded-2xl p-5 text-center shadow-sm">
+                      <span className="text-[10px] font-mono uppercase text-[#BA532B] tracking-wider font-bold">Net National Savings</span>
+                      <div className="text-3xl font-bold text-emerald-600 dark:text-emerald-300 font-mono mt-2">₹{monumentCost.savingsCr} Cr</div>
+                      <div className="mt-2">
+                        <div className="w-full bg-[#DACDB8] dark:bg-[#2A180E] rounded-full h-2.5 overflow-hidden">
+                          <div className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-2.5 rounded-full transition-all duration-700 shadow" style={{ width: `${monumentCost.efficiencyPct}%` }} />
+                        </div>
+                        <span className="text-xs font-mono text-emerald-700 dark:text-emerald-400 font-bold mt-1.5 inline-block">{monumentCost.efficiencyPct}% Cost Efficiency</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              );
+            })()}
 
             {/* Extreme Climate & Disaster Scenario Simulator */}
             <ScenarioSimulator
@@ -1216,9 +1227,11 @@ export default function App() {
 
             {/* Longitudinal Analytics & 2030 Forecast */}
             <LongitudinalAnalytics
+              siteData={curSite}
               activeComponent={curComp.name}
               materialTypology={curSite.material || 'sandstone'}
               seismicZone={curSite.seismicZone || 'Zone IV'}
+              computedRisk={computedRisk}
             />
 
 
