@@ -331,7 +331,8 @@ export default function App() {
     if (targetSite && targetSite.coords && Array.isArray(targetSite.coords)) {
       try {
         const [lat, lon] = targetSite.coords;
-        const res = await fetch(`http://localhost:8000/api/weather/live?lat=${lat}&lon=${lon}`);
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await fetch(`${apiUrl}/api/weather/live?lat=${lat}&lon=${lon}`);
         if (res.ok) {
           const wData = await res.json();
           setLiveWeather({
@@ -342,7 +343,7 @@ export default function App() {
           });
         }
       } catch (e) {
-        console.log("Using cached meteorological telemetry for", targetSite.name);
+        // Fallback gracefully
       }
     }
   };
