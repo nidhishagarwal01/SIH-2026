@@ -73,7 +73,7 @@ export function createMorphingConstellation(count = 2000) {
       const theta = (j / ptsInRing) * Math.PI * 2 + (r % 2) * (Math.PI / ptsInRing);
       const x = MONUMENT_X + radius * Math.cos(theta);
       const y = h;
-      const z = radius * Math.sin(theta) * 0.85;
+      const z = radius * Math.sin(theta) * 0.85 - 2.5;
       stage1Positions.push(new THREE.Vector3(x, y, z));
       pIdx++;
     }
@@ -87,7 +87,7 @@ export function createMorphingConstellation(count = 2000) {
     const theta = (col / 30) * Math.PI * 2;
     const y = 0.6 + (row / 3) * 0.4;
     const x = MONUMENT_X + 1.35 * Math.cos(theta);
-    const z = 1.35 * Math.sin(theta) * 0.85;
+    const z = 1.35 * Math.sin(theta) * 0.85 - 2.5;
     stage1Positions.push(new THREE.Vector3(x, y, z));
     pIdx++;
   }
@@ -101,7 +101,7 @@ export function createMorphingConstellation(count = 2000) {
     const theta = t * Math.PI * 6;
     const x = MONUMENT_X + r * Math.cos(theta);
     const y = h;
-    const z = r * Math.sin(theta);
+    const z = r * Math.sin(theta) - 2.5;
     stage1Positions.push(new THREE.Vector3(x, y, z));
     pIdx++;
   }
@@ -122,7 +122,7 @@ export function createMorphingConstellation(count = 2000) {
       const theta = (i % 8) * (Math.PI / 4);
       const x = cx + r * Math.cos(theta);
       const y = h;
-      const z = cz + r * Math.sin(theta);
+      const z = cz + r * Math.sin(theta) - 2.5;
       stage1Positions.push(new THREE.Vector3(x, y, z));
       pIdx++;
     }
@@ -141,7 +141,7 @@ export function createMorphingConstellation(count = 2000) {
 
     const isCentralArch = Math.abs(u) < 0.45 && v < 0.85;
     const isSideNiche = Math.abs(u) > 0.55 && Math.abs(u) < 0.85;
-    const z = isCentralArch ? -0.45 : isSideNiche ? -0.2 : 0.05;
+    const z = (isCentralArch ? -0.45 : isSideNiche ? -0.2 : 0.05) - 2.5;
 
     stage1Positions.push(new THREE.Vector3(x, y, z));
     pIdx++;
@@ -165,7 +165,7 @@ export function createMorphingConstellation(count = 2000) {
       const theta = (i % 8) * (Math.PI / 4);
       const x = mx + r * Math.cos(theta);
       const y = h;
-      const z = mz + r * Math.sin(theta);
+      const z = mz + r * Math.sin(theta) - 2.5;
       stage1Positions.push(new THREE.Vector3(x, y, z));
       pIdx++;
     }
@@ -180,7 +180,7 @@ export function createMorphingConstellation(count = 2000) {
     const v = (row / 4) * 2 - 1;
     const x = MONUMENT_X + u * 3.8;
     const y = -1.85 - Math.floor(i / 160) * 0.22;
-    const z = v * 2.0;
+    const z = v * 2.0 - 2.5;
     stage1Positions.push(new THREE.Vector3(x, y, z));
     pIdx++;
   }
@@ -189,13 +189,13 @@ export function createMorphingConstellation(count = 2000) {
   // STAGES 2, 3, 4 TARGET POSITIONS
   // ---------------------------------------------------------------------------
   for (let i = 0; i < count; i++) {
-    // STAGE 2: Volumetric Scatter
+    // STAGE 2: Volumetric Scatter with Central Radial Clearance Void
     const phi = Math.acos(1 - (2 * (i + 0.5)) / count);
     const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-    const r2 = 2.2 + Math.cbrt(i / count) * 4.4;
-    const s2x = r2 * Math.sin(phi) * Math.cos(theta);
-    const s2y = r2 * Math.sin(phi) * Math.sin(theta) * 0.8;
-    const s2z = r2 * Math.cos(phi) * 0.7;
+    const r2 = 3.0 + Math.cbrt(i / count) * 3.6;
+    const s2x = r2 * Math.sin(phi) * Math.cos(theta) * 1.3;
+    const s2y = r2 * Math.sin(phi) * Math.sin(theta) * 0.95;
+    const s2z = -3.0 + r2 * Math.cos(phi) * 0.4;
     stage2Positions.push(new THREE.Vector3(s2x, s2y, s2z));
 
     // STAGE 3: Analytical Defect Mesh
@@ -206,36 +206,37 @@ export function createMorphingConstellation(count = 2000) {
       const t = (i % 300) / 300;
       s3x = -3.4 + Math.sin(t * 6) * 0.45;
       s3y = -2.6 + t * 5.2;
-      s3z = (i % 2 === 0 ? 0.08 : -0.08);
+      s3z = -3.0 + (i % 2 === 0 ? 0.08 : -0.08);
     } else {
       const col = (i % 30) / 29;
       const row = Math.floor((i % 1500) / 30) / 49;
       s3x = -5.6 + col * 4.2;
       s3y = -2.8 + row * 5.6;
-      s3z = ((i % 3) - 1) * 0.15;
+      s3z = -3.0 + ((i % 3) - 1) * 0.15;
     }
     stage3Positions.push(new THREE.Vector3(s3x, s3y, s3z));
 
-    // STAGE 4: Orbital Celestial Mandala
+    // STAGE 4: Orbital Celestial Perimeter Halo (Central Void & Deep Z)
     const ringTier = i % 3;
     const ringPts = Math.floor(count / 3);
     const ringAngle = ((i % ringPts) / ringPts) * Math.PI * 2;
     let s4Radius, s4Y;
 
     if (ringTier === 0) {
-      s4Radius = 3.6;
-      s4Y = Math.sin(ringAngle * 3) * 0.3;
+      s4Radius = 4.4 + (i % 5) * 0.15;
+      s4Y = Math.sin(ringAngle * 3) * 0.4;
     } else if (ringTier === 1) {
-      s4Radius = 4.8;
-      s4Y = Math.cos(ringAngle * 2) * 0.5;
+      s4Radius = 5.6 + (i % 7) * 0.15;
+      s4Y = Math.cos(ringAngle * 2) * 0.6;
     } else {
-      s4Radius = 5.8;
-      s4Y = Math.sin(ringAngle * 4) * 0.7;
+      s4Radius = 6.8 + (i % 9) * 0.15;
+      s4Y = Math.sin(ringAngle * 4) * 0.8;
     }
 
-    const s4x = s4Radius * Math.cos(ringAngle);
-    const s4z = s4Radius * Math.sin(ringAngle) * 0.85;
-    stage4Positions.push(new THREE.Vector3(s4x, s4Y, s4z));
+    const s4x = s4Radius * Math.cos(ringAngle) * 1.25;
+    const s4y = s4Y + s4Radius * Math.sin(ringAngle) * 0.55;
+    const s4z = -3.2 + Math.sin(ringAngle * 2) * 0.8;
+    stage4Positions.push(new THREE.Vector3(s4x, s4y, s4z));
 
     // Setup initial Mesh Matrix
     const p1 = stage1Positions[i];
@@ -305,10 +306,10 @@ export function createMorphingConstellation(count = 2000) {
           const angle = time * 0.08 * t;
           const cosA = Math.cos(angle);
           const sinA = Math.sin(angle);
-          const rx = currentPos.x * cosA - currentPos.z * sinA;
-          const rz = currentPos.x * sinA + currentPos.z * cosA;
+          const rx = currentPos.x * cosA - currentPos.y * sinA;
+          const ry = currentPos.x * sinA + currentPos.y * cosA;
           currentPos.x = rx;
-          currentPos.z = rz;
+          currentPos.y = ry;
         }
       }
 

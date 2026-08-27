@@ -108,39 +108,21 @@ export default function LandingPageView({
             <a href="#architecture" className="void-link">Monitored Assets</a>
             <a href="#faq" className="void-link">Technical Rigor</a>
           </div>
-
-          <button
-            onClick={onEnterDashboard}
-            className="iris-pill-btn text-xs py-2"
-          >
-            <span>Open Studio</span>
-            <span>→</span>
-          </button>
         </div>
       </div>
 
       {/* 3. Module 01 Showcase: Living 3D Digital Twin */}
       <section id="digital-twin" className="py-24 px-6 sm:px-10 max-w-[1500px] mx-auto space-y-12">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <div className="text-[12px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider mb-2">
-              Module 01 · Persistent Spatial Identity
-            </div>
-            <h2 className="section-title text-white">
-              Procedural Living Digital Twin
-            </h2>
-            <p className="body-copy-sm max-w-2xl mt-2 text-[#bdbdbd]">
-              Dynamic 3D representation associating temporal condition observations with exact architectural components across years.
-            </p>
+        <div>
+          <div className="text-[12px] font-mono uppercase text-[#8052ff] font-semibold tracking-wider mb-2">
+            Module 01 · Persistent Spatial Identity
           </div>
-
-          <button
-            onClick={() => onSelectMonument(0, 'twin')}
-            className="iris-pill-btn text-xs"
-          >
-            <span>Open Studio Workspace</span>
-            <span>→</span>
-          </button>
+          <h2 className="section-title text-white">
+            Procedural Living Digital Twin
+          </h2>
+          <p className="body-copy-sm max-w-2xl mt-2 text-[#bdbdbd]">
+            Dynamic 3D representation associating temporal condition observations with exact architectural components across years.
+          </p>
         </div>
 
         {/* Full-width 3D Canvas */}

@@ -235,7 +235,7 @@ export default function ScrollytellingLanding({
           {/* ========================================================================= */}
           <div
             style={getStageStyle(0.0, 0.0, 0.17, 0.25)}
-            className="absolute left-6 sm:left-10 max-w-2xl space-y-6 transition-opacity duration-200"
+            className="absolute left-6 sm:left-10 max-w-2xl space-y-6 transition-opacity duration-200 p-8 sm:p-10 rounded-[40px] bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.85)_0%,_rgba(0,0,0,0)_75%)] backdrop-blur-[2px]"
           >
             <div className="animate-premium-1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111] text-[11px] font-mono uppercase tracking-wider text-[#ffb829]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#ffb829] animate-void-pulse" />
@@ -288,7 +288,7 @@ export default function ScrollytellingLanding({
           {/* ========================================================================= */}
           <div
             style={getStageStyle(0.20, 0.26, 0.44, 0.52)}
-            className="absolute left-1/2 -translate-x-1/2 w-full max-w-3xl text-center space-y-6 transition-opacity duration-200 px-4"
+            className="absolute left-1/2 -translate-x-1/2 w-full max-w-3xl text-center space-y-6 transition-opacity duration-200 px-6 sm:px-12 py-8 sm:py-12 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.88)_0%,_rgba(0,0,0,0)_75%)] backdrop-blur-[2px]"
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111] text-[11px] font-mono uppercase tracking-wider text-[#ffb829]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#ffb829]" />
@@ -324,7 +324,7 @@ export default function ScrollytellingLanding({
           {/* ========================================================================= */}
           <div
             style={getStageStyle(0.46, 0.52, 0.69, 0.76)}
-            className="absolute right-6 sm:right-10 max-w-xl space-y-6 text-left transition-opacity duration-200 ml-auto"
+            className="absolute right-6 sm:right-10 lg:right-52 xl:right-60 max-w-xl space-y-6 text-left transition-opacity duration-200 ml-auto p-8 sm:p-10 rounded-[40px] bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.85)_0%,_rgba(0,0,0,0)_75%)] backdrop-blur-[2px]"
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111] text-[11px] font-mono uppercase tracking-wider text-[#ffb829]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#ffb829] animate-pulse" />
@@ -360,7 +360,7 @@ export default function ScrollytellingLanding({
           {/* ========================================================================= */}
           <div
             style={getStageStyle(0.70, 0.76, 0.98, 1.0)}
-            className="absolute left-1/2 -translate-x-1/2 w-full max-w-3xl text-center space-y-6 transition-opacity duration-200 px-4"
+            className="absolute left-1/2 -translate-x-1/2 w-full max-w-3xl text-center space-y-6 transition-opacity duration-200 px-6 sm:px-12 py-8 sm:py-12 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(0,0,0,0.88)_0%,_rgba(0,0,0,0)_75%)] backdrop-blur-[2px]"
           >
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111] text-[11px] font-mono uppercase tracking-wider text-[#8052ff]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#8052ff] animate-pulse" />
@@ -438,18 +438,8 @@ export default function ScrollytellingLanding({
             <span>Progress: {Math.round(scrollProgress * 100)}%</span>
           </div>
 
-          <div className="flex items-center gap-4">
-            {scrollProgress >= 0.65 && (
-              <button
-                onClick={onExplorePlatform}
-                className="iris-pill-btn text-xs px-4 py-2 cursor-pointer shadow-[0_0_15px_rgba(128,82,255,0.4)]"
-              >
-                <span>Open Studio →</span>
-              </button>
-            )}
-            <div className="animate-bounce text-[#9a9a9a]">
-              {scrollProgress < 0.9 ? '↓ Scroll to experience morphing telemetry' : '↓ Scroll into platform modules'}
-            </div>
+          <div className="animate-bounce text-[#9a9a9a]">
+            {scrollProgress < 0.9 ? '↓ Scroll to experience morphing telemetry' : '↓ Scroll into platform modules'}
           </div>
         </div>
 
