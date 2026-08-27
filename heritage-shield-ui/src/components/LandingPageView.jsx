@@ -221,12 +221,12 @@ export default function LandingPageView({
         {showIntro && <CinematicIntroReveal onComplete={() => setShowIntro(false)} />}
       </AnimatePresence>
 
-      {/* 🌟 1. TOP MINIMALIST ARCHIVAL IVORY & DEEP INDIGO NAVIGATION BAR */}
+      {/* 🌟 1. TOP PERMANENTLY PINNED FLOATING NAVIGATION BAR */}
       <motion.nav 
         initial={{ y: -25, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className={`sticky top-0 z-[9999] ${isDarkTheme ? 'bg-[#180E09]/92 border-[#3D2416]' : 'bg-[#FAF5ED]/95 border-[#DACDB8]/80'} backdrop-blur-2xl border-b px-6 sm:px-10 py-3.5 shadow-[0_4px_20px_-4px_rgba(36,22,14,0.05)] transition-colors duration-500`}
+        className={`fixed top-0 left-0 right-0 z-[99999] ${isDarkTheme ? 'bg-[#180E09]/95 border-[#3D2416]' : 'bg-[#FAF5ED]/95 border-[#DACDB8]/80'} backdrop-blur-2xl border-b px-6 sm:px-10 py-3.5 shadow-[0_4px_20px_-4px_rgba(36,22,14,0.10)] transition-colors duration-500`}
       >
         <div className="max-w-[1680px] mx-auto flex items-center justify-between gap-6">
           
@@ -344,7 +344,7 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       {/* 🚀 2. GRAND SUBMERGED HERO EXHIBITION (FULL-PAGE ANIMATED BACKDROP)        */}
       {/* ========================================================================= */}
-      <section id="hero-section" className="relative hero-viewport-clamp flex items-center justify-center px-6 sm:px-12 lg:px-20 py-16 max-w-[1600px] mx-auto overflow-hidden isolation-isolate gpu-accelerated">
+      <section id="hero-section" className="relative hero-viewport-clamp flex items-center justify-center px-6 sm:px-12 lg:px-20 pt-28 pb-16 max-w-[1600px] mx-auto overflow-hidden isolation-isolate gpu-accelerated">
         
         {/* 🏛️ Full-Page Animated Konark Sun Temple Cinematic Backdrop */}
         <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
