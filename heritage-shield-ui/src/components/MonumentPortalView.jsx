@@ -350,22 +350,19 @@ export default function MonumentPortalView({
                     </h4>
 
                     <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-[#7A5B49] pt-1">
-                      <div className="bg-[#FAF5ED] p-2 rounded-xl border border-[#DACDB8]">
+                      <div className="bg-[#FAF5ED] p-2 rounded-xl border border-[#DACDB8]" title={site.builtEra || 'Historical Monument'}>
                         <span className="block text-[9px] uppercase text-[#7A5B49]">Built Era</span>
-                        <strong className="text-[#24160E] truncate block">{site.period}</strong>
+                        <strong className="text-[#24160E] truncate block">{site.builtEra || site.period || 'Ancient Period'}</strong>
                       </div>
-                      <div className="bg-[#FAF5ED] p-2 rounded-xl border border-[#DACDB8]">
+                      <div className="bg-[#FAF5ED] p-2 rounded-xl border border-[#DACDB8]" title={site.material}>
                         <span className="block text-[9px] uppercase text-[#7A5B49]">Material</span>
-                        <strong className="text-[#24160E] truncate block">{site.material.split(',')[0]}</strong>
+                        <strong className="text-[#24160E] truncate block">{site.material ? site.material.split(',')[0] : 'Stone Ashlar'}</strong>
                       </div>
                     </div>
 
                     <div className="flex items-center justify-between text-[11px] font-mono pt-2 border-t border-[#DACDB8]">
                       <span className="text-[#7A5B49]">Seismic Risk: <strong className="text-[#24160E]">{site.seismicZone}</strong></span>
-                      <span className="text-[#BA532B] font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                        <span>Studio</span>
-                        <ArrowRight className="w-3 h-3" />
-                      </span>
+                      <span className="text-[#7A5B49] text-[10px]">Health: <strong className="text-[#BA532B] font-bold">{site.healthScore}/100</strong></span>
                     </div>
                   </div>
                 </div>
