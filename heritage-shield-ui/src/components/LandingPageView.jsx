@@ -30,6 +30,7 @@ import {
 
 import HeritageShieldLogo from './HeritageShieldLogo';
 import MonumentViewer3D from './MonumentViewer3D';
+import ErrorBoundary from './ErrorBoundary';
 import HeritageGisMap from './HeritageGisMap';
 import AuthModal from './AuthModal';
 import CinematicIntroReveal from './CinematicIntroReveal';
@@ -633,12 +634,14 @@ export default function LandingPageView({
               </div>
 
               <div className="lg:col-span-7 h-[530px] min-h-[500px] relative rounded-[24px] overflow-hidden border border-[#DACDB8] shadow-lg bg-[#FAF5ED] box-border p-0">
-                <MonumentViewer3D
-                  siteIndex={selectedTwinSiteIdx}
-                  siteData={sites[selectedTwinSiteIdx] || sites[0]}
-                  activeComponent={0}
-                  isEmbedded={true}
-                />
+                <ErrorBoundary title="3D Digital Twin Showcase">
+                  <MonumentViewer3D
+                    siteIndex={selectedTwinSiteIdx}
+                    siteData={sites[selectedTwinSiteIdx] || sites[0]}
+                    activeComponent={0}
+                    isEmbedded={true}
+                  />
+                </ErrorBoundary>
               </div>
             </div>
           )}

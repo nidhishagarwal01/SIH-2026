@@ -1162,38 +1162,56 @@ export default function MonumentViewer3D({
     let clock = new THREE.Clock();
     const animate = () => {
       animFrameIdRef.current = requestAnimationFrame(animate);
-      controls.update();
+      try {
+        if (controls) controls.update();
 
-      // Pulsating golden highlight on selected component
-      const time = clock.getElapsedTime();
-      activeMeshes.forEach((meshGroup, idx) => {
-        const isSelected = activeComponentRef.current === idx;
-        meshGroup.traverse(child => {
-          if (child.isMesh && child.material) {
-            if (viewMode === 'lidar') {
-              child.material.wireframe = true;
-              child.material.color.setHex(isSelected ? 0x00FFCC : 0x38BDF8);
-            } else if (viewMode === 'heatmap') {
-              child.material.wireframe = false;
-              // False color thermographic stress
-              const stressColor = idx === 2 ? 0xFF3333 : idx === 1 ? 0xFFA500 : 0x2288EE;
-              child.material.color.setHex(stressColor);
-            } else {
-              child.material.wireframe = false;
-              if (isSelected) {
-                const pulse = (Math.sin(time * 4) + 1) * 0.5;
-                child.material.emissive = new THREE.Color(0xC5A059);
-                child.material.emissiveIntensity = 0.35 + pulse * 0.45;
-              } else {
-                child.material.emissive = new THREE.Color(0x000000);
-                child.material.emissiveIntensity = 0;
+        // Pulsating golden highlight on selected component
+        const time = clock.getElapsedTime();
+        if (Array.isArray(activeMeshes)) {
+          activeMeshes.forEach((meshGroup, idx) => {
+            const isSelected = activeComponentRef.current === idx;
+            if (!meshGroup || typeof meshGroup.traverse !== 'function') return;
+            meshGroup.traverse(child => {
+              if (child?.isMesh && child.material) {
+                const mats = Array.isArray(child.material) ? child.material : [child.material];
+                mats.forEach(mat => {
+                  if (!mat) return;
+                  if (viewMode === 'lidar') {
+                    mat.wireframe = true;
+                    if (mat.color && typeof mat.color.setHex === 'function') {
+                      mat.color.setHex(isSelected ? 0x00FFCC : 0x38BDF8);
+                    }
+                  } else if (viewMode === 'heatmap') {
+                    mat.wireframe = false;
+                    const stressColor = idx === 2 ? 0xFF3333 : idx === 1 ? 0xFFA500 : 0x2288EE;
+                    if (mat.color && typeof mat.color.setHex === 'function') {
+                      mat.color.setHex(stressColor);
+                    }
+                  } else {
+                    mat.wireframe = false;
+                    if (mat.emissive && typeof mat.emissive.setHex === 'function') {
+                      if (isSelected) {
+                        const pulse = (Math.sin(time * 4) + 1) * 0.5;
+                        mat.emissive.setHex(0xC5A059);
+                        mat.emissiveIntensity = 0.35 + pulse * 0.45;
+                      } else {
+                        mat.emissive.setHex(0x000000);
+                        mat.emissiveIntensity = 0;
+                      }
+                    }
+                  }
+                });
               }
-            }
-          }
-        });
-      });
+            });
+          });
+        }
 
-      renderer.render(scene, camera);
+        if (renderer && scene && camera) {
+          renderer.render(scene, camera);
+        }
+      } catch (loopErr) {
+        console.warn('3D Render loop frame caught:', loopErr);
+      }
     };
     animate();
 

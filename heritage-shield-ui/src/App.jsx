@@ -12,6 +12,7 @@ import LongitudinalAnalytics from './components/LongitudinalAnalytics';
 import LiveIngestModal from './components/LiveIngestModal';
 import AssetSwitcherModal from './components/AssetSwitcherModal';
 import HeritageShieldLogo from './components/HeritageShieldLogo';
+import ErrorBoundary from './components/ErrorBoundary';
 import { Sun } from 'lucide-react';
 
 import { UNESCO_SITES } from './data/unescoSites';
@@ -685,13 +686,15 @@ export default function App() {
               
               {/* 3D Canvas */}
               <div className="lg:col-span-8">
-                <MonumentViewer3D
-                  siteIndex={activeSite}
-                  siteData={curSite}
-                  activeComponent={activeComponent}
-                  onSelectComponent={handleSelectComponent}
-                  components={components}
-                />
+                <ErrorBoundary title="3D Digital Twin Viewport">
+                  <MonumentViewer3D
+                    siteIndex={activeSite}
+                    siteData={curSite}
+                    activeComponent={activeComponent}
+                    onSelectComponent={handleSelectComponent}
+                    components={components}
+                  />
+                </ErrorBoundary>
               </div>
 
               {/* Architectural Hierarchy & Telemetry Sidebar */}
