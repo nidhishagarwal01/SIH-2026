@@ -557,16 +557,6 @@ export default function App() {
               onClick={() => navigateTo('landing')}
             />
 
-            <div className="w-[1px] h-6 bg-[#DACDB8]" />
-
-            <button
-              onClick={() => navigateTo('landing')}
-              className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
-              title="Return to Main Landing Page"
-            >
-              <span>Home</span>
-            </button>
-
             <button
               onClick={() => navigateTo('portal')}
               className="px-3.5 py-1.5 rounded-xl frosted-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
