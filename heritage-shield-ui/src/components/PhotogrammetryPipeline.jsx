@@ -315,7 +315,7 @@ export default function PhotogrammetryPipeline() {
               Why This Solves Scalability at National Scale:
             </div>
             <p className="text-gray-300 text-[11px]">
-              Humans are <strong>never</strong> manually creating 3D meshes for 3,690+ monuments. Any standard smartphone or drone photo batch passes through this automated headless cloud pipeline in under 5 minutes.
+              Humans are <strong>never</strong> manually creating 3D meshes for 12 monuments. Any standard smartphone or drone photo batch passes through this automated headless cloud pipeline in under 5 minutes.
             </p>
           </div>
 

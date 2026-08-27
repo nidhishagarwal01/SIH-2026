@@ -406,7 +406,7 @@ export default function LandingPageView({
                 : 'bg-[#F7F2EB]/45 border-[#DCD0BE]/70 text-[#1C0F08] shadow-[0_12px_36px_rgba(40,26,18,0.12)]'
             }`}
           >
-            Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 3,690+ protected monuments with auditable foresight.
+            Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 12 protected monuments with auditable foresight.
           </motion.p>
 
           {/* Action Buttons */}
