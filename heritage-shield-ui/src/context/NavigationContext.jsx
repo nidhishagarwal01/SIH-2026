@@ -10,8 +10,14 @@ const NavigationContext = createContext(null);
 export function NavigationProvider({ children, defaultView = 'landing', onViewChange, onSiteChange, onTabChange }) {
   // Stack Data Structure: array of navigation entries [{ view: 'landing', site: 0, tab: 'twin' }]
   const [historyStack, setHistoryStack] = useState(() => {
-    const initialHash = window.location.hash.replace('#', '') || defaultView;
-    return [{ view: initialHash, site: 0, tab: 'twin' }];
+    const rawHash = (typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '') || defaultView;
+    const viewPart = rawHash.split('?')[0];
+    const validView = ['landing', 'portal', 'studio'].includes(viewPart) ? viewPart : defaultView;
+    const siteMatch = rawHash.match(/site=(\d+)/);
+    const site = siteMatch ? parseInt(siteMatch[1], 10) : 0;
+    const tabMatch = rawHash.match(/tab=([a-zA-Z0-9_-]+)/);
+    const tab = tabMatch ? tabMatch[1] : 'twin';
+    return [{ view: validView, site, tab }];
   });
 
   const currentEntry = historyStack[historyStack.length - 1] || { view: defaultView, site: 0, tab: 'twin' };
@@ -94,12 +100,18 @@ export function NavigationProvider({ children, defaultView = 'landing', onViewCh
           return [{ view: popped.view, site: popped.site || 0, tab: popped.tab || 'twin' }];
         });
       } else {
-        const hash = window.location.hash.replace('#', '').split('?')[0] || 'landing';
+        const rawHash = (typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '') || 'landing';
+        const viewPart = rawHash.split('?')[0];
+        const validView = ['landing', 'portal', 'studio'].includes(viewPart) ? viewPart : 'landing';
+        const siteMatch = rawHash.match(/site=(\d+)/);
+        const site = siteMatch ? parseInt(siteMatch[1], 10) : 0;
+        const tabMatch = rawHash.match(/tab=([a-zA-Z0-9_-]+)/);
+        const tab = tabMatch ? tabMatch[1] : 'twin';
         setHistoryStack(prev => {
           if (prev.length > 1) {
             return prev.slice(0, -1);
           }
-          return [{ view: hash, site: 0, tab: 'twin' }];
+          return [{ view: validView, site, tab }];
         });
       }
     };
