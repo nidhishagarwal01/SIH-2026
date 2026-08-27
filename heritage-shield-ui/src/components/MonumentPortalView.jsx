@@ -248,7 +248,7 @@ export default function MonumentPortalView({
           <div className="h-[360px] sm:h-[400px] w-full rounded-2xl overflow-hidden border border-[#DACDB8] shadow-inner relative">
             <HeritageGisMap
               activeSiteIndex={0}
-              onSelectSite={(idx) => onSelectMonument(idx)}
+              onSelectSite={(idx, tab) => onSelectMonument(idx, tab || 'twin')}
               filterSites={filteredSites}
               hideQuickJump={true}
             />
