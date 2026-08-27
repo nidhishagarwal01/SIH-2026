@@ -3,33 +3,35 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 const NavigationContext = createContext(null);
 
 /**
- * 🧭 Client-Side Navigation Stack & History Manager
- * Implements a Stack data structure for seamless LIFO navigation flow,
- * synchronized with browser window.history (popstate) & hash routing.
+ * 🧭 Bulletproof Client-Side Navigation Stack & History Manager
+ * Syncs seamlessly with browser history (popstate), hash routing (#landing, #portal, #studio),
+ * and supports reliable Back button navigation across direct URL loads and app workflows.
  */
 export function NavigationProvider({ children, defaultView = 'landing', onViewChange, onSiteChange, onTabChange }) {
-  // Stack Data Structure: array of navigation entries [{ view: 'landing', site: 0, tab: 'twin' }]
-  const [historyStack, setHistoryStack] = useState(() => {
-    const rawHash = (typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '') || defaultView;
+  const parseHash = () => {
+    if (typeof window === 'undefined') return { view: defaultView, site: 0, tab: 'twin' };
+    const rawHash = window.location.hash.replace('#', '') || defaultView;
     const viewPart = rawHash.split('?')[0];
     const validView = ['landing', 'portal', 'studio'].includes(viewPart) ? viewPart : defaultView;
     const siteMatch = rawHash.match(/site=(\d+)/);
     const site = siteMatch ? parseInt(siteMatch[1], 10) : 0;
     const tabMatch = rawHash.match(/tab=([a-zA-Z0-9_-]+)/);
     const tab = tabMatch ? tabMatch[1] : 'twin';
-    return [{ view: validView, site, tab }];
-  });
+    return { view: validView, site, tab };
+  };
+
+  const [historyStack, setHistoryStack] = useState(() => [parseHash()]);
 
   const currentEntry = historyStack[historyStack.length - 1] || { view: defaultView, site: 0, tab: 'twin' };
 
-  // Sync state upward to App.jsx if callbacks provided
+  // Notify parent components on state changes
   useEffect(() => {
     if (onViewChange && currentEntry.view) onViewChange(currentEntry.view);
     if (onSiteChange && currentEntry.site !== undefined) onSiteChange(currentEntry.site);
     if (onTabChange && currentEntry.tab) onTabChange(currentEntry.tab);
   }, [currentEntry, onViewChange, onSiteChange, onTabChange]);
 
-  // 🚀 Push Operation: Navigate to a new page/view and push onto stack
+  // 🚀 Push State: Navigate to a new view
   const navigateTo = useCallback((view, options = {}) => {
     const nextEntry = {
       view,
@@ -37,7 +39,6 @@ export function NavigationProvider({ children, defaultView = 'landing', onViewCh
       tab: options.tab || currentEntry.tab || 'twin'
     };
 
-    // Prevent duplicate consecutive pushes of identical view state
     if (
       currentEntry.view === nextEntry.view &&
       currentEntry.site === nextEntry.site &&
@@ -48,8 +49,7 @@ export function NavigationProvider({ children, defaultView = 'landing', onViewCh
 
     setHistoryStack(prev => [...prev, nextEntry]);
 
-    // Synchronize browser history and hash URL
-    const hash = `#${view}${nextEntry.site ? `?site=${nextEntry.site}` : ''}`;
+    const hash = `#${view}${nextEntry.site ? `?site=${nextEntry.site}` : ''}${nextEntry.tab !== 'twin' ? `&tab=${nextEntry.tab}` : ''}`;
     try {
       window.history.pushState(nextEntry, '', hash);
     } catch (e) {
@@ -57,70 +57,47 @@ export function NavigationProvider({ children, defaultView = 'landing', onViewCh
     }
   }, [currentEntry]);
 
-  // 🔙 Pop Operation: Go back to previous page in history stack (LIFO)
+  // 🔙 Pop State: Go back reliably to previous page
   const goBack = useCallback(() => {
-    if (historyStack.length > 1) {
-      setHistoryStack(prev => {
-        const next = [...prev];
-        next.pop();
-        return next;
-      });
-
-      try {
-        window.history.back();
-      } catch (e) {
-        console.warn('History back error:', e);
-      }
+    if (window.history.length > 1 && historyStack.length > 1) {
+      window.history.back();
     } else {
-      // Fallback to landing page if at root of stack
-      const rootEntry = { view: 'landing', site: 0, tab: 'twin' };
-      setHistoryStack([rootEntry]);
-      try {
-        window.history.pushState(rootEntry, '', '#landing');
-      } catch (e) {}
+      // Deterministic hierarchical fallback when browser history or stack is empty
+      if (currentEntry.view === 'studio') {
+        navigateTo('portal');
+      } else if (currentEntry.view === 'portal') {
+        navigateTo('landing');
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
-  }, [historyStack.length]);
+  }, [historyStack.length, currentEntry.view, navigateTo]);
 
-  // Replace initial state so browser history knows the root page state
+  // Initial State Setup
   useEffect(() => {
     try {
-      window.history.replaceState(currentEntry, '', `#${currentEntry.view}`);
+      const initial = parseHash();
+      window.history.replaceState(initial, '', `#${initial.view}${initial.site ? `?site=${initial.site}` : ''}`);
     } catch (e) {}
   }, []);
 
-  // 🔄 Browser Back / Forward Button Interception (popstate event)
+  // 🔄 Native Browser Back / Forward Button Handler
   useEffect(() => {
     const handlePopState = (event) => {
-      if (event.state && event.state.view) {
-        const popped = event.state;
-        setHistoryStack(prev => {
-          if (prev.length > 1) {
-            return prev.slice(0, -1);
-          }
-          return [{ view: popped.view, site: popped.site || 0, tab: popped.tab || 'twin' }];
-        });
-      } else {
-        const rawHash = (typeof window !== 'undefined' ? window.location.hash.replace('#', '') : '') || 'landing';
-        const viewPart = rawHash.split('?')[0];
-        const validView = ['landing', 'portal', 'studio'].includes(viewPart) ? viewPart : 'landing';
-        const siteMatch = rawHash.match(/site=(\d+)/);
-        const site = siteMatch ? parseInt(siteMatch[1], 10) : 0;
-        const tabMatch = rawHash.match(/tab=([a-zA-Z0-9_-]+)/);
-        const tab = tabMatch ? tabMatch[1] : 'twin';
-        setHistoryStack(prev => {
-          if (prev.length > 1) {
-            return prev.slice(0, -1);
-          }
-          return [{ view: validView, site, tab }];
-        });
-      }
+      const targetState = event.state && event.state.view ? event.state : parseHash();
+      setHistoryStack(prev => {
+        if (prev.length > 1 && prev[prev.length - 2]?.view === targetState.view) {
+          return prev.slice(0, -1);
+        }
+        return [...prev, targetState];
+      });
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const canGoBack = historyStack.length > 1;
+  const canGoBack = currentEntry.view !== 'landing' || historyStack.length > 1;
 
   return (
     <NavigationContext.Provider
@@ -142,13 +119,12 @@ export function NavigationProvider({ children, defaultView = 'landing', onViewCh
 export function useNavigation() {
   const context = useContext(NavigationContext);
   if (!context) {
-    // Fallback safe dummy implementation if called outside provider
     return {
       currentView: 'landing',
       currentSite: 0,
       currentTab: 'twin',
-      canGoBack: false,
-      historyStack: ['landing'],
+      canGoBack: true,
+      historyStack: [{ view: 'landing', site: 0, tab: 'twin' }],
       navigateTo: () => {},
       goBack: () => {}
     };
