@@ -121,17 +121,8 @@ export default function MonumentPortalView({
             )}
           </div>
 
-          {/* Right: Direct Studio Jump & Theme Toggle */}
+          {/* Right: Theme Toggle */}
           <div className="flex items-center gap-2.5">
-            <button
-              onClick={() => onSelectMonument(0)}
-              className="px-3.5 py-2 rounded-xl terracotta-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
-              title="Open 3D Living Twin Studio"
-            >
-              <span>🏛️</span>
-              <span>Open 3D Studio</span>
-            </button>
-
             {/* ☀️ Sun Theme Toggle Button (Icon Only) */}
             <button
               onClick={handleToggle}
