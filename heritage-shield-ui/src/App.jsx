@@ -48,8 +48,12 @@ export default function App() {
 
   // Navigation Flow: 'landing' | 'portal' | 'studio'
   const viewMode = currentView || 'landing';
-  const activeTab = currentTab || 'twin';
   const activeSite = currentSite !== undefined ? currentSite : 0;
+  const [activeTab, setActiveTab] = useState(currentTab || 'twin');
+
+  useEffect(() => {
+    if (currentTab) setActiveTab(currentTab);
+  }, [currentTab]);
 
   const [activeComponent, setActiveComponent] = useState(2);
   const [sliderPos, setSliderPos] = useState(50);
