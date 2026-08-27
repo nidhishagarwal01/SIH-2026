@@ -345,8 +345,8 @@ export default function LandingPageView({
           />
 
           {/* Sunlit Sandstone & Balanced Nocturnal Lighting Gradients */}
-          <div className={`absolute inset-0 bg-gradient-to-t ${isDarkTheme ? 'from-[#120A06] via-[#120A06]/45 to-[#120A06]/25' : 'from-[#F0E7DA] via-[#F0E7DA]/35 to-[#F0E7DA]/15'} transition-all duration-500`} />
-          <div className={`absolute inset-0 bg-gradient-to-r ${isDarkTheme ? 'from-[#120A06]/70 via-transparent to-[#120A06]/70' : 'from-[#F0E7DA]/55 via-transparent to-[#F0E7DA]/55'} transition-all duration-500`} />
+          <div className={`absolute inset-0 bg-gradient-to-t ${isDarkTheme ? 'from-[#120A06] via-[#120A06]/70 to-[#120A06]/40' : 'from-[#F0E7DA] via-[#F0E7DA]/65 to-[#F0E7DA]/40'} transition-all duration-500`} />
+          <div className={`absolute inset-0 bg-gradient-to-r ${isDarkTheme ? 'from-[#120A06]/85 via-[#120A06]/40 to-[#120A06]/85' : 'from-[#F0E7DA]/75 via-[#F0E7DA]/35 to-[#F0E7DA]/75'} transition-all duration-500`} />
           <div className={`absolute inset-0 ${isDarkTheme ? 'bg-[#BA532B]/12 mix-blend-overlay' : 'bg-[#BA532B]/8 mix-blend-multiply'}`} />
 
           {/* Floating Subtle Ambient Sandstone Motes */}
@@ -401,17 +401,23 @@ export default function LandingPageView({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, ease: smoothEase }}
-            className="text-5xl sm:text-7xl lg:text-8xl font-serif font-bold text-[#24160E] leading-[1.05] tracking-tight max-w-4xl"
+            className={`text-5xl sm:text-7xl lg:text-8xl font-serif font-bold tracking-tight max-w-4xl drop-shadow-sm ${
+              isDarkTheme ? 'text-[#FAF5ED]' : 'text-[#1C0F08]'
+            }`}
           >
             HERITAGE <span className="text-[#BA532B]">SHIELD</span>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle with High Contrast Frosted Backdrop */}
           <motion.p 
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.15, ease: smoothEase }}
-            className="text-base sm:text-xl text-[#4D3425] font-sans leading-relaxed max-w-3xl font-medium"
+            className={`text-base sm:text-xl font-sans leading-relaxed max-w-3xl font-semibold px-6 py-4.5 rounded-2xl backdrop-blur-md border shadow-lg transition-all duration-300 ${
+              isDarkTheme
+                ? 'bg-[#180E09]/90 border-[#BA532B]/40 text-[#FAF5ED]'
+                : 'bg-[#FAF5ED]/95 border-[#DACDB8] text-[#1C0F08]'
+            }`}
           >
             Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 3,690+ protected monuments with auditable foresight.
           </motion.p>
