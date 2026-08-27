@@ -129,15 +129,7 @@ export default function CinematicIntroReveal({ onComplete }) {
       exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
     >
-      {/* ⏩ Quick Skip Button (Top Right) */}
-      <button
-        onClick={handleEnter}
-        className="absolute top-6 right-6 z-50 px-4 py-2 rounded-xl bg-[#FAF5ED]/90 backdrop-blur-md border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] font-mono text-xs font-bold transition shadow-md flex items-center gap-1.5 cursor-pointer"
-        title="Skip Intro and Enter Platform"
-      >
-        <span>Skip to Platform</span>
-        <ArrowRight className="w-3.5 h-3.5" />
-      </button>
+
       {/* 5. ✨ Expanding Terracotta-Rust Light Wave Shockwave */}
       {isTransitioning && (
         <motion.div
