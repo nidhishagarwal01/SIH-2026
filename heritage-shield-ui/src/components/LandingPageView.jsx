@@ -257,15 +257,6 @@ export default function LandingPageView({
               Living Twins
             </button>
             <button 
-              onClick={() => {
-                setShowcaseTab('vision');
-                scrollToSection('consoles-section');
-              }}
-              className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
-            >
-              AI Vision
-            </button>
-            <button 
               onClick={() => scrollToSection('simulator-section')}
               className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
             >
