@@ -7,11 +7,11 @@ import { NavigationProvider } from './context/NavigationContext'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <NavigationProvider>
-      <ThemeProvider>
+    <ThemeProvider>
+      <NavigationProvider>
         <App />
-      </ThemeProvider>
-    </NavigationProvider>
+      </NavigationProvider>
+    </ThemeProvider>
   </StrictMode>,
 )
 

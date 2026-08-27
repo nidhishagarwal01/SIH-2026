@@ -75,28 +75,31 @@ export function NavigationProvider({ children, defaultView = 'landing', onViewCh
     }
   }, [historyStack.length]);
 
+  // Replace initial state so browser history knows the root page state
+  useEffect(() => {
+    try {
+      window.history.replaceState(currentEntry, '', `#${currentEntry.view}`);
+    } catch (e) {}
+  }, []);
+
   // 🔄 Browser Back / Forward Button Interception (popstate event)
   useEffect(() => {
     const handlePopState = (event) => {
       if (event.state && event.state.view) {
+        const popped = event.state;
         setHistoryStack(prev => {
           if (prev.length > 1) {
-            const next = [...prev];
-            next.pop();
-            return next;
+            return prev.slice(0, -1);
           }
-          return [{ view: event.state.view, site: event.state.site || 0, tab: event.state.tab || 'twin' }];
+          return [{ view: popped.view, site: popped.site || 0, tab: popped.tab || 'twin' }];
         });
       } else {
-        const hash = window.location.hash.replace('#', '') || 'landing';
-        const view = hash.split('?')[0] || 'landing';
+        const hash = window.location.hash.replace('#', '').split('?')[0] || 'landing';
         setHistoryStack(prev => {
           if (prev.length > 1) {
-            const next = [...prev];
-            next.pop();
-            return next;
+            return prev.slice(0, -1);
           }
-          return [{ view, site: 0, tab: 'twin' }];
+          return [{ view: hash, site: 0, tab: 'twin' }];
         });
       }
     };

@@ -44,13 +44,13 @@ export default function App() {
 
   const toggleTheme = () => setIsDarkTheme(prev => !prev);
 
-  // Navigation Flow: 'landing' (Product Landing Page) | 'portal' (National Map & Monument Directory) | 'studio' (Work on Selected Monument)
-  const [viewMode, setViewMode] = useState('landing');
+  const { currentView, currentSite, currentTab, navigateTo, goBack } = useNavigation();
 
+  // Navigation Flow: 'landing' | 'portal' | 'studio'
+  const viewMode = currentView || 'landing';
+  const activeTab = currentTab || 'twin';
+  const activeSite = currentSite !== undefined ? currentSite : 0;
 
-  // Studio Sub-Tabs: 'twin' | 'vision' | 'gis' | 'risk' | 'queue'
-  const [activeTab, setActiveTab] = useState('twin');
-  const [activeSite, setActiveSite] = useState(0);
   const [activeComponent, setActiveComponent] = useState(2);
   const [sliderPos, setSliderPos] = useState(50);
 
@@ -359,11 +359,10 @@ export default function App() {
     return () => clearTimeout(timer);
   }, [viewMode, activeTab, activeSite]);
 
-  const handleLaunchMonumentStudio = (idx, targetTab = 'twin') => {
+  const handleLaunchMonumentStudio = (idx = 0, targetTab = 'twin') => {
     handleSelectSite(idx);
-    setActiveTab(targetTab);
-    setViewMode('studio');
-    window.scrollTo(0, 0);
+    navigateTo('studio', { site: idx, tab: targetTab });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
 
@@ -489,12 +488,12 @@ export default function App() {
     return (
       <LandingPageView
         onEnterDashboard={() => {
-          setViewMode('portal');
+          navigateTo('portal');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         onSelectMonument={handleLaunchMonumentStudio}
         onOpenStudio={() => {
-          setViewMode('portal');
+          navigateTo('portal');
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         currentUser={currentUser}
@@ -516,7 +515,7 @@ export default function App() {
         sites={sites}
         onSelectMonument={handleLaunchMonumentStudio}
         onBackToLanding={() => {
-          setViewMode('landing');
+          goBack();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         liveWeather={liveWeather}
@@ -546,13 +545,13 @@ export default function App() {
               size="sm"
               showText={true}
               textClassName="text-sm tracking-wider font-serif font-bold text-[#24160E]"
-              onClick={() => setViewMode('landing')}
+              onClick={() => navigateTo('landing')}
             />
 
             <div className="w-[1px] h-6 bg-[#DACDB8]" />
 
             <button
-              onClick={() => setViewMode('landing')}
+              onClick={() => navigateTo('landing')}
               className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
               title="Return to Main Landing Page"
             >
@@ -560,7 +559,7 @@ export default function App() {
             </button>
 
             <button
-              onClick={() => setViewMode('portal')}
+              onClick={() => navigateTo('portal')}
               className="px-3.5 py-1.5 rounded-xl frosted-btn text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
               title="Return to National Map & Directory"
             >
