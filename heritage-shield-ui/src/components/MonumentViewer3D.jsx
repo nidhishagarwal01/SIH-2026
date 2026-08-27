@@ -113,8 +113,8 @@ export default function MonumentViewer3D({
     scene.background = new THREE.Color(0x08090C);
     scene.fog = new THREE.FogExp2(0x08090C, 0.025);
 
-    const width = container.clientWidth;
-    const height = container.clientHeight || (isEmbedded ? 380 : 520);
+    const width = Math.max(container.clientWidth || 0, isEmbedded ? 560 : 750);
+    const height = Math.max(container.clientHeight || 0, isEmbedded ? 420 : 520);
 
     // 2. Camera with generous framing to ensure full monument is in view
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
@@ -122,11 +122,10 @@ export default function MonumentViewer3D({
     camera.position.set(0, 2.5, initDist);
     cameraRef.current = camera;
 
-
     // 3. Renderer with high-fidelity soft shadows
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -134,6 +133,21 @@ export default function MonumentViewer3D({
     rendererRef.current = renderer;
     container.innerHTML = '';
     container.appendChild(renderer.domElement);
+
+    // Dynamic ResizeObserver to prevent black screen when switching views
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const cr = entry.contentRect;
+        const w = cr.width || container.clientWidth || (isEmbedded ? 560 : 750);
+        const h = cr.height || container.clientHeight || (isEmbedded ? 420 : 520);
+        if (w > 0 && h > 0 && renderer && camera) {
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+          renderer.setSize(w, h);
+        }
+      }
+    });
+    resizeObserver.observe(container);
 
     // 4. OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -1202,6 +1216,7 @@ export default function MonumentViewer3D({
         renderer.domElement.removeEventListener('pointermove', handlePointerMove);
       }
       if (animFrameIdRef.current) cancelAnimationFrame(animFrameIdRef.current);
+      resizeObserver.disconnect();
       renderer.dispose();
       scene.clear();
     };
