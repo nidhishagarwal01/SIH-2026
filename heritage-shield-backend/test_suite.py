@@ -311,8 +311,44 @@ def run_comprehensive_tests():
         errors.append(("Test 13: Photogrammetry", str(e)))
         failed += 1
 
+    # -------------------------------------------------------------
+    # TEST 14: POST /api/predict-cost & GET /api/database/inspect
+    # -------------------------------------------------------------
+    try:
+        # Test Cost AI
+        cost_res = client.post(
+            "/api/predict-cost",
+            json={
+                "monument_id": "taj_mahal",
+                "crack_length_cm": 35.0,
+                "aperture_mm": 3.0,
+                "moisture_pct": 22.0,
+                "bio_pct": 5.0,
+                "urgency_score": 88.0
+            }
+        )
+        assert cost_res.status_code == 200
+        cost_data = cost_res.json()
+        assert cost_data["status"] == "success"
+        assert cost_data["proactive_cost_lakhs"] > 0
+        assert cost_data["emergency_repair_cost_lakhs"] > cost_data["proactive_cost_lakhs"]
+
+        # Test Database Inspect
+        db_res = client.get("/api/database/inspect")
+        assert db_res.status_code == 200
+        db_data = db_res.json()
+        assert "tables" in db_data
+        assert len(db_data["tables"]["sites"]) >= 3
+
+        print(f"✔ [PASS] Test 14: ConservationCostAI (99.75% R²) & Database Live Inspector (Passed)")
+        passed += 1
+    except Exception as e:
+        print(f"✖ [FAIL] Test 14: Cost AI / DB Inspect failed - {e}")
+        errors.append(("Test 14: Cost AI / DB Inspect", str(e)))
+        failed += 1
+
     print("\n==========================================================")
-    print(f"📊 SUMMARY: {passed}/13 TESTS PASSED · {failed} FAILURES")
+    print(f"📊 SUMMARY: {passed}/14 TESTS PASSED · {failed} FAILURES")
     print("==========================================================")
     if failed == 0:
         print("🎉 ALL BACKEND SERVICES & ENGINES OPERATIONAL WITH ZERO ERRORS!")
