@@ -314,33 +314,63 @@ export default function App() {
   };
 
 
-  // Field Sentinel Incidents Feed State
-  const [fieldReports, setFieldReports] = useState([
-    {
-      id: "REP-9102",
-      role: "officer",
-      monumentName: "Qutub Minar Complex",
-      component: "North Façade Wall (Section B)",
-      defectType: "Structural Tensile Crack",
-      severity: "High",
-      gps: "28.5244° N, 77.1855° E",
-      timestamp: "14 mins ago",
-      status: "Verified by Architect",
-      notes: "Branching fissure expanding along mortar joint after overnight precipitation."
-    },
-    {
-      id: "REP-8419",
-      role: "citizen",
-      monumentName: "Golconda Fort",
-      component: "East Bastion Outer Plinth",
-      defectType: "Capillary Moisture Ingress",
-      severity: "Moderate",
-      gps: "17.3833° N, 78.4011° E",
-      timestamp: "2 hours ago",
-      status: "Pending Verification",
-      notes: "Visible salt efflorescence and damp staining on lower stone course."
+  // Field Sentinel Incidents Feed State with Database & LocalStorage Persistence
+  const [fieldReports, setFieldReports] = useState(() => {
+    try {
+      const saved = localStorage.getItem('heritage_shield_field_reports');
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.warn('LocalStorage error:', e);
     }
-  ]);
+    return [
+      {
+        id: "REP-9102",
+        role: "officer",
+        monumentName: "Qutub Minar Complex",
+        component: "North Façade Wall (Section B)",
+        defectType: "Structural Tensile Crack",
+        severity: "High",
+        gps: "28.5244° N, 77.1855° E",
+        timestamp: "14 mins ago",
+        status: "Verified by Architect",
+        notes: "Branching fissure expanding along mortar joint after overnight precipitation."
+      },
+      {
+        id: "REP-8419",
+        role: "citizen",
+        monumentName: "Golconda Fort",
+        component: "East Bastion Outer Plinth",
+        defectType: "Capillary Moisture Ingress",
+        severity: "Moderate",
+        gps: "17.3833° N, 78.4011° E",
+        timestamp: "2 hours ago",
+        status: "Pending Verification",
+        notes: "Visible salt efflorescence and damp staining on lower stone course."
+      }
+    ];
+  });
+
+  // Fetch reports from backend SQLite database on mount
+  useEffect(() => {
+    const fetchReportsFromDb = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await fetch(`${apiUrl}/api/reports`);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setFieldReports(data);
+            try {
+              localStorage.setItem('heritage_shield_field_reports', JSON.stringify(data));
+            } catch (err) {}
+          }
+        }
+      } catch (err) {
+        console.log('Using local cached reports', err);
+      }
+    };
+    fetchReportsFromDb();
+  }, []);
 
   const priorityQueue = [
     { rank: 1, component: "North Façade Wall", site: "Qutub Minar Complex", score: 74, status: "High Urgency", action: "Structural scaffolding inspection & moisture-barrier sealing (30 days)" },
@@ -357,8 +387,25 @@ export default function App() {
     }
   };
 
-  const handleAddReport = (newReport) => {
-    setFieldReports([newReport, ...fieldReports]);
+  const handleAddReport = async (newReport) => {
+    // 1. Immediately update UI & LocalStorage
+    const updated = [newReport, ...fieldReports];
+    setFieldReports(updated);
+    try {
+      localStorage.setItem('heritage_shield_field_reports', JSON.stringify(updated));
+    } catch (err) {}
+
+    // 2. Persist directly to backend SQLite database
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      await fetch(`${apiUrl}/api/reports`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newReport)
+      });
+    } catch (err) {
+      console.warn('Backend SQLite sync offline, persisted in local edge storage:', err);
+    }
   };
 
   // Compute live auditable risk

@@ -167,3 +167,20 @@ class ConditionHistory(Base):
     notes = Column(Text, nullable=True)
 
     component = relationship("Component", back_populates="condition_history")
+
+class FieldIncidentReport(Base):
+    """User and Citizen Submitted Field Sentinel Incident Reports."""
+    __tablename__ = "field_incident_reports"
+
+    id = Column(Integer, primary_key=True, index=True)
+    report_code = Column(String(50), unique=True, index=True, nullable=False) # e.g. REP-9102
+    role = Column(String(50), default="officer") # officer | citizen
+    monument_name = Column(String(200), nullable=False)
+    component_name = Column(String(200), nullable=False)
+    defect_type = Column(String(100), nullable=False)
+    severity = Column(String(50), default="High")
+    gps_coordinates = Column(String(100), default="28.5244 N, 77.1855 E")
+    status = Column(String(100), default="Pending Verification")
+    notes = Column(Text, nullable=True)
+    image_data = Column(Text, nullable=True) # Base64 or image URI
+    created_at = Column(DateTime, default=datetime.utcnow)

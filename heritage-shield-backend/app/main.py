@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 import os
 
 from app.database import engine, Base, get_db
-from app.models import Site, Asset, Component, ConditionHistory, RiskScore, DamageDetection, ExpertValidation
+from app.models import Site, Asset, Component, ConditionHistory, RiskScore, DamageDetection, ExpertValidation, FieldIncidentReport
 from app.seed import seed_initial_heritage_data
 from app.services.vision import process_heritage_image, get_simulated_detection_result
 from app.services.risk import calculate_heritage_risk, predict_temporal_decay_trajectory
@@ -361,5 +361,161 @@ def list_all_unesco_sites():
         "authority": "Archaeological Survey of India (ASI) & UNESCO World Heritage Centre",
         "sites": UNESCO_WORLD_HERITAGE_SITES_INDIA
     }
+
+# -------------------------------------------------------------
+# FIELD INCIDENT & PARTICIPATORY REPORTS (Database Persistence)
+# -------------------------------------------------------------
+
+class FieldReportCreateInput(BaseModel):
+    id: Optional[str] = None
+    role: Optional[str] = "officer"
+    monumentName: str
+    component: str
+    defectType: str
+    severity: Optional[str] = "High"
+    gps: Optional[str] = "28.5244° N, 77.1855° E"
+    status: Optional[str] = "Pending Verification"
+    notes: Optional[str] = None
+    image: Optional[str] = None
+
+class FieldReportStatusUpdate(BaseModel):
+    status: str
+
+@app.post("/api/reports")
+def create_field_report(payload: FieldReportCreateInput, db: Session = Depends(get_db)):
+    """Persists a new participatory or field officer damage incident report to SQLite."""
+    code = payload.id or f"REP-{int(datetime.utcnow().timestamp())}"
+    
+    # Check if report code already exists
+    existing = db.query(FieldIncidentReport).filter(FieldIncidentReport.report_code == code).first()
+    if existing:
+        existing.status = payload.status or existing.status
+        existing.notes = payload.notes or existing.notes
+        db.commit()
+        db.refresh(existing)
+        return {
+            "status": "updated",
+            "report_id": existing.report_code,
+            "message": "Field incident report updated in database."
+        }
+
+    report = FieldIncidentReport(
+        report_code=code,
+        role=payload.role or "officer",
+        monument_name=payload.monumentName,
+        component_name=payload.component,
+        defect_type=payload.defectType,
+        severity=payload.severity or "High",
+        gps_coordinates=payload.gps or "28.5244° N, 77.1855° E",
+        status=payload.status or "Pending Verification",
+        notes=payload.notes or "Visual anomaly observed during field survey.",
+        image_data=payload.image
+    )
+    db.add(report)
+    db.commit()
+    db.refresh(report)
+
+    return {
+        "status": "created",
+        "id": report.report_code,
+        "report_code": report.report_code,
+        "created_at": report.created_at.isoformat(),
+        "message": "Field incident report successfully stored in SQLite database."
+    }
+
+@app.get("/api/reports")
+def list_field_reports(db: Session = Depends(get_db)):
+    """Retrieves all persisted participatory and field officer incident reports."""
+    reports = db.query(FieldIncidentReport).order_by(FieldIncidentReport.created_at.desc()).all()
+    
+    # Fallback initial sample records if database table is fresh
+    if not reports:
+        default_seed_reports = [
+            FieldIncidentReport(
+                report_code="REP-9102",
+                role="officer",
+                monument_name="Qutub Minar Complex",
+                component_name="North Façade Wall (Section B)",
+                defect_type="Structural Tensile Crack",
+                severity="High",
+                gps_coordinates="28.5244° N, 77.1855° E",
+                status="Verified by Architect",
+                notes="Branching fissure expanding along mortar joint after overnight precipitation."
+            ),
+            FieldIncidentReport(
+                report_code="REP-8841",
+                role="citizen",
+                monument_name="Group of Monuments at Hampi",
+                component_name="Garuda Sanctum Masonry",
+                defect_type="Granite Exfoliation & Joint Shift",
+                severity="Medium",
+                gps_coordinates="15.3350° N, 76.4600° E",
+                status="Work Order Dispatched",
+                notes="Granite ashlar joint displacement observed on upper molding."
+            ),
+            FieldIncidentReport(
+                report_code="REP-7629",
+                role="officer",
+                monument_name="Sun Temple, Konark",
+                component_name="South Chariot Wheel Hub",
+                defect_type="Marine Salt Efflorescence",
+                severity="Critical",
+                gps_coordinates="19.8876° N, 86.0945° E",
+                status="Pending Verification",
+                notes="Heavy chlorite chlorination and sub-surface salt crust buildup."
+            )
+        ]
+        for r in default_seed_reports:
+            db.add(r)
+        db.commit()
+        reports = db.query(FieldIncidentReport).order_by(FieldIncidentReport.created_at.desc()).all()
+
+    return [
+        {
+            "id": r.report_code,
+            "role": r.role,
+            "monumentName": r.monument_name,
+            "component": r.component_name,
+            "defectType": r.defect_type,
+            "severity": r.severity,
+            "gps": r.gps_coordinates,
+            "status": r.status,
+            "notes": r.notes,
+            "timestamp": r.created_at.strftime("%b %d, %Y · %H:%M UTC") if r.created_at else "Recent",
+            "image": r.image_data
+        }
+        for r in reports
+    ]
+
+@app.patch("/api/reports/{report_code}/status")
+def update_field_report_status(report_code: str, payload: FieldReportStatusUpdate, db: Session = Depends(get_db)):
+    """Updates the workflow status of a field incident report."""
+    report = db.query(FieldIncidentReport).filter(FieldIncidentReport.report_code == report_code).first()
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+    
+    report.status = payload.status
+    db.commit()
+    db.refresh(report)
+    return {
+        "status": "success",
+        "report_code": report.report_code,
+        "new_status": report.status
+    }
+
+@app.delete("/api/reports/{report_code}")
+def delete_field_report(report_code: str, db: Session = Depends(get_db)):
+    """Deletes a field incident report from SQLite database."""
+    report = db.query(FieldIncidentReport).filter(FieldIncidentReport.report_code == report_code).first()
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+    
+    db.delete(report)
+    db.commit()
+    return {
+        "status": "deleted",
+        "report_code": report_code
+    }
+
 
 

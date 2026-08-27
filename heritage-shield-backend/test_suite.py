@@ -243,8 +243,42 @@ def run_comprehensive_tests():
         errors.append(("Test 11: Live Ingestion", str(e)))
         failed += 1
 
+    # -------------------------------------------------------------
+    # TEST 12: POST & GET /api/reports (Field Incident Database)
+    # -------------------------------------------------------------
+    try:
+        test_report_id = f"TEST-REP-{int(datetime.utcnow().timestamp())}"
+        post_res = client.post("/api/reports", json={
+            "id": test_report_id,
+            "role": "officer",
+            "monumentName": "Qutub Minar Complex",
+            "component": "North Façade Wall",
+            "defectType": "Structural Tensile Crack",
+            "severity": "Critical",
+            "gps": "28.5244° N, 77.1855° E",
+            "status": "Pending Verification",
+            "notes": "Automated test validation report"
+        })
+        assert post_res.status_code == 200, f"Expected 200, got {post_res.status_code}"
+        
+        get_res = client.get("/api/reports")
+        assert get_res.status_code == 200
+        reports_list = get_res.json()
+        assert len(reports_list) >= 1
+        assert any(r["id"] == test_report_id for r in reports_list)
+        
+        # Clean up test report
+        client.delete(f"/api/reports/{test_report_id}")
+        
+        print(f"✔ [PASS] Test 12: Field Sentinel Database Storage & CRUD (Persisted in SQLite)")
+        passed += 1
+    except Exception as e:
+        print(f"✖ [FAIL] Test 12: Reports Database failed - {e}")
+        errors.append(("Test 12: Reports Database", str(e)))
+        failed += 1
+
     print("\n==========================================================")
-    print(f"📊 SUMMARY: {passed}/11 TESTS PASSED · {failed} FAILURES")
+    print(f"📊 SUMMARY: {passed}/12 TESTS PASSED · {failed} FAILURES")
     print("==========================================================")
     if failed == 0:
         print("🎉 ALL BACKEND SERVICES & ENGINES OPERATIONAL WITH ZERO ERRORS!")
@@ -254,5 +288,6 @@ def run_comprehensive_tests():
             print(f"  - {name}: {err}")
 
 if __name__ == "__main__":
+    from datetime import datetime
     run_comprehensive_tests()
 
