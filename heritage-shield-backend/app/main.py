@@ -271,6 +271,7 @@ def compute_risk_endpoint(factors: RiskFactorInput):
     return result
 
 class PredictDecayInput(BaseModel):
+    monument_id: Optional[str] = "qutub_minar"
     component_name: Optional[str] = "North Façade Wall (Main Shaft)"
     material_typology: Optional[str] = "sandstone"
     seismic_zone: Optional[str] = "Zone IV"
@@ -286,6 +287,7 @@ def predict_decay_post(payload: PredictDecayInput):
     Computes physics-informed multi-year temporal crack progression and decay trajectory (2020 to 2030).
     """
     return predict_temporal_decay_trajectory(
+        monument_id=payload.monument_id or "qutub_minar",
         component_name=payload.component_name or "North Façade Wall (Main Shaft)",
         material_typology=payload.material_typology or "sandstone",
         seismic_zone=payload.seismic_zone or "Zone IV",
@@ -298,6 +300,7 @@ def predict_decay_post(payload: PredictDecayInput):
 
 @app.get("/api/predict-decay")
 def predict_decay_get(
+    monument_id: Optional[str] = "qutub_minar",
     component_name: Optional[str] = "North Façade Wall (Main Shaft)",
     material_typology: Optional[str] = "sandstone",
     seismic_zone: Optional[str] = "Zone IV",
@@ -311,6 +314,7 @@ def predict_decay_get(
     GET endpoint for temporal crack progression and 2030 decay trajectories.
     """
     return predict_temporal_decay_trajectory(
+        monument_id=monument_id or "qutub_minar",
         component_name=component_name,
         material_typology=material_typology,
         seismic_zone=seismic_zone,

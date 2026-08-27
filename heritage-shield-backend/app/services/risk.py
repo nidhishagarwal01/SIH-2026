@@ -74,6 +74,7 @@ def get_temporal_ai_model():
     return _NEURAL_MODEL_INSTANCE
 
 def predict_temporal_decay_trajectory(
+    monument_id: str = "qutub_minar",
     component_name: str = "North Façade Wall (Main Shaft)",
     material_typology: str = "sandstone",
     seismic_zone: str = "Zone IV",
