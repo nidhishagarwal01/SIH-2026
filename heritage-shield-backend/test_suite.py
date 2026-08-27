@@ -277,8 +277,42 @@ def run_comprehensive_tests():
         errors.append(("Test 12: Reports Database", str(e)))
         failed += 1
 
+    # -------------------------------------------------------------
+    # TEST 13: GET /api/photogrammetry/status & SfM Pipeline
+    # -------------------------------------------------------------
+    try:
+        status_res = client.get("/api/photogrammetry/status")
+        assert status_res.status_code == 200
+        data = status_res.json()
+        assert data["status"] == "online"
+        assert "active_engine" in data
+
+        # Test multi-view photogrammetry with 2 synthetic orthophotos
+        img1 = Image.new("RGB", (320, 240), color=(180, 140, 110))
+        img2 = Image.new("RGB", (320, 240), color=(185, 145, 115))
+        b1, b2 = io.BytesIO(), io.BytesIO()
+        img1.save(b1, format="JPEG")
+        img2.save(b2, format="JPEG")
+
+        recon_res = client.post(
+            "/api/photogrammetry/reconstruct",
+            files=[
+                ("files", ("drone_scan_01.jpg", b1.getvalue(), "image/jpeg")),
+                ("files", ("drone_scan_02.jpg", b2.getvalue(), "image/jpeg"))
+            ]
+        )
+        assert recon_res.status_code == 200
+        recon_data = recon_res.json()
+        assert recon_data["status"] == "success"
+        print(f"✔ [PASS] Test 13: Photogrammetry & Structure-from-Motion ({recon_data['engine'].split('(')[0].strip()})")
+        passed += 1
+    except Exception as e:
+        print(f"✖ [FAIL] Test 13: Photogrammetry failed - {e}")
+        errors.append(("Test 13: Photogrammetry", str(e)))
+        failed += 1
+
     print("\n==========================================================")
-    print(f"📊 SUMMARY: {passed}/12 TESTS PASSED · {failed} FAILURES")
+    print(f"📊 SUMMARY: {passed}/13 TESTS PASSED · {failed} FAILURES")
     print("==========================================================")
     if failed == 0:
         print("🎉 ALL BACKEND SERVICES & ENGINES OPERATIONAL WITH ZERO ERRORS!")

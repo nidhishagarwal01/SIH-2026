@@ -14,6 +14,7 @@ from app.services.risk import calculate_heritage_risk, predict_temporal_decay_tr
 from app.services.llm_report import generate_conservation_assessment
 from app.services.weather import fetch_live_environmental_telemetry
 from app.services.live_ingest import fetch_and_examine_live_monument_data
+from app.services.photogrammetry import process_photogrammetry_pipeline, check_colmap_installed
 
 
 # Auto-create all relational database tables on launch
@@ -215,6 +216,39 @@ async def assess_damage_from_image(
 def assess_damage_demo(component_name: Optional[str] = "North Façade Wall (Main Shaft)"):
     """Returns simulated defect telemetry for live demonstration without photo upload."""
     return get_simulated_detection_result(component_name)
+
+# -------------------------------------------------------------
+# PHOTOGRAMMETRY & COLMAP STRUCTURE-FROM-MOTION (Module 01)
+# -------------------------------------------------------------
+
+@app.get("/api/photogrammetry/status")
+def photogrammetry_engine_status():
+    """Returns active Structure-from-Motion engine capabilities and COLMAP CLI status."""
+    is_colmap = check_colmap_installed()
+    return {
+        "status": "online",
+        "colmap_installed": is_colmap,
+        "active_engine": "COLMAP C++ SfM Bundle Adjustment" if is_colmap else "OpenCV Multi-View Epipolar Geometry & Triangulation",
+        "supported_formats": [".jpg", ".jpeg", ".png", ".tiff", ".ply", ".obj"],
+        "max_images_per_batch": 50
+    }
+
+@app.post("/api/photogrammetry/reconstruct")
+async def photogrammetry_reconstruct(files: List[UploadFile] = File(...)):
+    """
+    Ingests multiple multi-angle drone photographs, matches SIFT/ORB keypoints,
+    recovers camera poses (R, t), and reconstructs a 3D sparse/dense point cloud.
+    """
+    if len(files) < 2:
+        raise HTTPException(status_code=400, detail="Photogrammetric reconstruction requires at least 2 overlapping photos.")
+    
+    image_bytes_list = []
+    for f in files:
+        b = await f.read()
+        image_bytes_list.append(b)
+
+    result = process_photogrammetry_pipeline(image_bytes_list)
+    return result
 
 # -------------------------------------------------------------
 # RISK & PRIORITY ENGINE (Section 6 & 7 of Blueprint)
