@@ -117,51 +117,51 @@ export default function LandingPageView({
   const workflowSteps = [
     {
       step: '01',
-      title: 'Multimodal Spatial Ingestion',
-      kicker: 'Module 01 · Photogrammetry & LiDAR',
-      desc: 'Transforms drone imagery and terrestrial LiDAR point clouds into millimeter-accurate OBJ/glTF twins through Gaussian Splatting and dense mesh reconstruction.'
+      title: 'Create 3D Digital Twins',
+      kicker: '3D Mapping & Scans',
+      desc: 'Converts drone photos and laser scans into highly detailed 3D models of historic monuments.'
     },
     {
       step: '02',
-      title: 'Neural Defect Extraction',
-      kicker: 'Module 02 · Computer Vision AI',
-      desc: 'Deploys localized segmentation models detecting 8 distinct structural degradation classes: shear fractures, granite spalling, efflorescence, and moisture dampness.'
+      title: 'Detect Early Stone Defects',
+      kicker: 'AI Visual Inspector',
+      desc: 'Uses AI to automatically find cracks, surface moisture, salt buildup, and stone decay from inspection photos.'
     },
     {
       step: '03',
-      title: 'Multi-Epoch Chrono Registration',
-      kicker: 'Module 03 · Temporal ICP Alignment',
-      desc: 'Point-to-point iterative closest point (ICP) registration aligns multi-year laser scans, pinpointing volumetric erosion and millimeter surface loss.'
+      title: 'Track Changes Over Time',
+      kicker: 'Timeline Tracking',
+      desc: 'Compares past and present scans side-by-side to measure exact crack growth and surface erosion year after year.'
     },
     {
       step: '04',
-      title: 'Physics-Informed Decay Forecasting',
-      kicker: 'Module 04 · Paris-Erdogan Mechanics',
-      desc: 'Combines mechanical stress tensors with capillary moisture absorption and micro-climate telemetry to model 2026-2030 crack trajectory evolution.'
+      title: 'Forecast Long-Term Damage',
+      kicker: 'Future Decay Predictor',
+      desc: 'Simulates weather stress and physical aging to predict how damage will spread through 2030 if left untreated.'
     },
     {
       step: '05',
-      title: 'ISO 31000 Vulnerability Index',
-      kicker: 'Module 05 · Composite Risk Engine',
-      desc: 'Calculates explainable risk scores (0-100) weighing material typology, seismic zone factor, peak monsoon intensity, and tourism footfall load.'
+      title: 'Calculate Urgency Scores',
+      kicker: 'Risk Scoring',
+      desc: 'Combines defect severity, earthquake zones, monsoon rain, and tourist footfall into an easy 0–100 risk score.'
     },
     {
       step: '06',
-      title: 'National GIS Hazard Triangulation',
-      kicker: 'Module 06 · ISRO Bhuvan & IMD Radar',
-      desc: 'Overlays real-time Doppler rainfall alerts, BIS IS 1893 seismic fault buffers, and riverine flood plains across all 12 UNESCO heritage assets.'
+      title: 'Monitor Natural Hazards',
+      kicker: 'National Weather & Maps',
+      desc: 'Overlays live rainfall alerts, river flood risks, and seismic activity maps across all protected heritage sites.'
     },
     {
       step: '07',
-      title: 'Budget Optimization & Work-Orders',
-      kicker: 'Module 07 · Dynamic Scheduling',
-      desc: 'Rank-orders conservation interventions by cost-benefit payoff, proving that proactive ₹3 Lakh repointing prevents ₹75 Lakh emergency reconstructions.'
+      title: 'Prioritize Repair Work',
+      kicker: 'Action Priority',
+      desc: 'Ranks monuments by urgent repair needs to help officials fix small issues early before they turn into costly repairs.'
     },
     {
       step: '08',
-      title: 'Cryptographic ASI Dossier Dispatch',
-      kicker: 'Module 08 · AMASR Act Compliance',
-      desc: 'Generates tamper-evident executive dossiers with 2FA authorization gates, chemical conservation specs, and certified PDF export.'
+      title: 'Generate ASI Work Orders',
+      kicker: 'Official Reports',
+      desc: 'Instantly exports official, verified conservation dossiers and chemical repair steps ready for field officers.'
     }
   ];
 
@@ -447,11 +447,11 @@ export default function LandingPageView({
         {/* Section Header */}
         <div className="max-w-3xl space-y-3 text-left">
           <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#24160E] tracking-tight">
-            The decision layer, <span className="gold-cream-text">module by module</span>
+            How Heritage Shield Works, <span className="gold-cream-text">Step by Step</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-[#4D3425] font-sans leading-relaxed">
-            Eight synchronized AI & engineering subsystems executing autonomous diagnostics, structural physics calculations, and authoritative decision dispatch.
+          <p className="text-sm sm:text-base text-[#4D3425] font-sans leading-relaxed font-medium">
+            Eight intelligent modules that scan monuments, spot early stone damage, predict future risks, and generate instant conservation action plans.
           </p>
         </div>
 
