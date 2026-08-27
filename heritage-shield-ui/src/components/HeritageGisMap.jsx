@@ -54,11 +54,10 @@ export default function HeritageGisMap({
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
 
-    // Default Tile Layer (Dark Matter)
-    const darkTile = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; OpenStreetMap',
-      subdomains: 'abcd',
-      maxZoom: 19
+    // Default Tile Layer (Zero API Key - High Reliability ESRI Dark Canvas)
+    const darkTile = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; ISRO Bhuvan WGS84 Grid &copy; OpenStreetMap',
+      maxZoom: 16
     });
     darkTile.addTo(map);
     tileLayerRef.current = darkTile;
@@ -145,10 +144,9 @@ export default function HeritageGisMap({
       satelliteTile.addTo(map);
       tileLayerRef.current = satelliteTile;
     } else {
-      const darkTile = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CARTO &copy; OpenStreetMap',
-        subdomains: 'abcd',
-        maxZoom: 19
+      const darkTile = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; ISRO Bhuvan WGS84 Grid &copy; OpenStreetMap',
+        maxZoom: 16
       });
       darkTile.addTo(map);
       tileLayerRef.current = darkTile;
