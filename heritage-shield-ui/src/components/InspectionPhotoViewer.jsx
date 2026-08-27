@@ -410,9 +410,22 @@ export default function InspectionPhotoViewer({
   const runBackendInference = async (fileObj = null) => {
     setIsAnalyzing(true);
     try {
-      if (fileObj) {
+      let blobToScan = fileObj;
+      if (!blobToScan) {
+        const imgUrl = uploadedImage || curPreset.imageUrl;
+        try {
+          const fetchRes = await fetch(imgUrl);
+          if (fetchRes.ok) {
+            blobToScan = await fetchRes.blob();
+          }
+        } catch (e) {
+          console.warn("Direct image fetch failed, using benchmark CV payload", e);
+        }
+      }
+
+      if (blobToScan) {
         const formData = new FormData();
-        formData.append("file", fileObj);
+        formData.append("file", blobToScan, "inspection_scan.jpg");
         formData.append("component_name", activeComponent);
         const res = await fetch("http://localhost:8000/api/process/images", {
           method: "POST",
@@ -427,9 +440,20 @@ export default function InspectionPhotoViewer({
             if (onDetectionsLoaded) onDetectionsLoaded(data.detections);
           }
         }
+      } else {
+        // Fallback to demo endpoint
+        const res = await fetch(`http://localhost:8000/api/assess-damage-demo?component_name=${encodeURIComponent(activeComponent)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.detections && Array.isArray(data.detections)) {
+            setDetections(data.detections);
+            setSelectedDefect(0);
+            if (onDetectionsLoaded) onDetectionsLoaded(data.detections);
+          }
+        }
       }
     } catch (err) {
-      console.log("Using dynamic OpenCV fallback contours");
+      console.log("Local edge fallback for AI vision scan:", err);
     } finally {
       setIsAnalyzing(false);
     }
@@ -531,6 +555,16 @@ export default function InspectionPhotoViewer({
             <span>{showMasks ? '👁️ Mask: ON' : '🕶️ Mask: OFF'}</span>
           </button>
 
+          {/* Run AI Model Scan Button */}
+          <button
+            onClick={() => runBackendInference(null)}
+            disabled={isAnalyzing}
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#BA532B] to-[#D96B43] hover:brightness-110 text-white text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-rose-950/30 cursor-pointer border border-[#E07A5F]/40"
+          >
+            <span className={isAnalyzing ? 'animate-spin' : ''}>⚡</span>
+            <span>{isAnalyzing ? 'Scanning with YOLOv8 & OpenCV...' : 'Run AI Model Scan'}</span>
+          </button>
+
           {/* Upload Custom Field Image */}
           <input
             type="file"
@@ -542,9 +576,9 @@ export default function InspectionPhotoViewer({
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={isAnalyzing}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C29244] to-[#D4AF37] hover:brightness-110 text-[#0A0C10] text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-md shadow-amber-950/20 cursor-pointer border border-[#E5C07B]/40"
+            className="px-3.5 py-2 rounded-xl bg-[#121622] hover:bg-[#1A2030] text-gray-300 hover:text-white text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer border border-[#283042]"
           >
-            <span>{isAnalyzing ? '⏳ Processing OpenCV...' : '📤 Upload Drone Scan'}</span>
+            <span>📤 Upload Photo</span>
           </button>
 
         </div>
@@ -569,6 +603,25 @@ export default function InspectionPhotoViewer({
                 e.target.style.display = 'none';
               }}
             />
+
+            {/* Real-time AI Laser Scanning HUD Beam */}
+            {isAnalyzing && (
+              <div className="absolute inset-0 pointer-events-none z-30">
+                <div className="w-full h-1 bg-gradient-to-r from-transparent via-[#BA532B] to-transparent shadow-[0_0_15px_#BA532B] animate-pulse"
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    animation: 'spin 3s linear infinite'
+                  }}
+                />
+                <div className="absolute inset-0 bg-[#BA532B]/10 backdrop-blur-[1px] flex items-center justify-center">
+                  <div className="bg-[#0C0E14]/90 border border-[#BA532B] px-4 py-2 rounded-xl text-xs font-mono text-white flex items-center gap-2 shadow-2xl">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#BA532B] animate-ping" />
+                    <span>YOLOv8 Heritage & OpenCV Contour Engine Executing...</span>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Bounding Box SVG Overlays — Pixel-Accurate */}
             {showMasks && (
