@@ -126,46 +126,16 @@ export default function AsiReportModal({
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-2 sm:p-4 overflow-y-auto print:p-0 print:bg-white print:static print:inset-auto">
-      <div className="bg-white text-[#181B1F] border border-[#DACDB8] rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden print:max-h-none print:border-none print:shadow-none print:rounded-none">
+      <div className="relative bg-white text-[#181B1F] border border-[#DACDB8] rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden print:max-h-none print:border-none print:shadow-none print:rounded-none">
         
-        {/* 🌟 STICKY MODAL TOP ACTION HEADER (Always visible, never hidden) */}
-        <div className="sticky top-0 z-50 shrink-0 bg-[#FAF5ED] border-b border-[#DACDB8] px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 shadow-sm print:hidden">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <span className="w-3 h-3 rounded-full bg-emerald-600 animate-pulse shrink-0" />
-            <div className="truncate">
-              <span className="text-xs font-mono font-bold text-[#24160E] uppercase tracking-wider block truncate">
-                Archaeological Survey of India · Form HS-2026 Dossier
-              </span>
-              <div className="text-[10px] font-mono text-[#BA532B] truncate">
-                Authority: AMASR Act 1958 & National Mission on Monuments (NMMA)
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              onClick={handlePrint}
-              title="Print official Form HS-2026 work order or save as PDF"
-              className="px-3.5 py-2 rounded-xl bg-[#BA532B] hover:bg-[#A34723] text-white text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
-            >
-              <span>🖨️ Print / Save PDF</span>
-            </button>
-            <button
-              onClick={handleDownloadJson}
-              title="Download machine-readable JSON dossier"
-              className="px-3 py-2 rounded-xl bg-white border border-[#DACDB8] text-[#24160E] hover:border-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              <span>⬇️ Download JSON</span>
-            </button>
-            <button
-              onClick={onClose}
-              title="Close Dossier Window (Esc)"
-              className="px-3.5 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-mono text-xs font-bold transition flex items-center gap-1 cursor-pointer shadow-sm"
-            >
-              ✕ Close
-            </button>
-          </div>
-        </div>
+        {/* Floating Top-Right Close Button */}
+        <button
+          onClick={onClose}
+          title="Close Window (Esc)"
+          className="absolute top-4 right-4 z-50 w-8 h-8 rounded-full bg-stone-200/80 hover:bg-stone-300 text-stone-800 transition cursor-pointer print:hidden shadow-sm flex items-center justify-center font-mono text-sm font-bold"
+        >
+          ✕
+        </button>
 
         {/* Modal Body / Dossier Paper Canvas */}
         <div className="overflow-y-auto p-4 sm:p-8 space-y-6 bg-[#FAF5ED] print:p-0 print:bg-white flex-1">
