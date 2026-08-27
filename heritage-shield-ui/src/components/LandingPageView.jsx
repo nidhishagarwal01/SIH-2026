@@ -408,15 +408,15 @@ export default function LandingPageView({
             HERITAGE <span className="text-[#BA532B]">SHIELD</span>
           </motion.h1>
 
-          {/* Subtitle with High Contrast Pearl White Frosted Backdrop & Soft Drop Shadow */}
+          {/* Subtitle with Translucent Pearl Glass Backdrop & Soft Drop Shadow */}
           <motion.p 
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.15, ease: smoothEase }}
-            className={`text-base sm:text-xl font-sans leading-relaxed max-w-3xl font-semibold px-6 py-4.5 rounded-2xl backdrop-blur-md border transition-all duration-300 ${
+            className={`text-base sm:text-xl font-sans leading-relaxed max-w-3xl font-semibold px-6 py-4.5 rounded-2xl backdrop-blur-xl border transition-all duration-300 ${
               isDarkTheme
-                ? 'bg-[#1C110B]/90 border-[#BA532B]/35 text-[#F7F2EB] shadow-[0_12px_36px_rgba(0,0,0,0.55)]'
-                : 'bg-[#F7F2EB]/92 border-[#DCD0BE] text-[#281A12] shadow-[0_12px_36px_rgba(40,26,18,0.16)]'
+                ? 'bg-[#1C110B]/50 border-[#BA532B]/40 text-[#FAF5ED] shadow-[0_12px_36px_rgba(0,0,0,0.45)]'
+                : 'bg-[#F7F2EB]/45 border-[#DCD0BE]/70 text-[#1C0F08] shadow-[0_12px_36px_rgba(40,26,18,0.12)]'
             }`}
           >
             Heritage Shield bridges ancient architectural majesty with AI computer vision, IoT meteorological feeds, and Paris-Erdogan fracture mechanics — empowering conservation authorities to safeguard 3,690+ protected monuments with auditable foresight.
