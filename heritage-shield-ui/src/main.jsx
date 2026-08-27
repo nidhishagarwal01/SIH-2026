@@ -7,11 +7,9 @@ import { ThemeProvider } from './context/ThemeContext'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ErrorBoundary title="Heritage Shield Application">
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </ErrorBoundary>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
   </StrictMode>,
 )
 

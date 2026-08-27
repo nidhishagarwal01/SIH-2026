@@ -2,8 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
-// Procedural PBR Stone & Marble Texture Generator
+// Global Procedural Texture Cache (Prevents WebGL Texture / Context Exhaustion)
+const textureCache = {};
+
 function createProceduralTexture(type = 'sandstone') {
+  if (textureCache[type]) return textureCache[type];
+
   const canvas = document.createElement('canvas');
   canvas.width = 512;
   canvas.height = 512;
@@ -47,9 +51,10 @@ function createProceduralTexture(type = 'sandstone') {
     for (let i = 0; i < 3000; i++) {
       const x = Math.random() * 512;
       const y = Math.random() * 512;
+      const radius = Math.random() * 2.5 + 0.5;
       ctx.fillStyle = 'rgba(20,20,20,0.6)';
       ctx.beginPath();
-      ctx.arc(x, y, Math.random() * 2.5 + 0.5, 0, Math.PI * 2);
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
       ctx.fill();
     }
   } else {
@@ -72,6 +77,7 @@ function createProceduralTexture(type = 'sandstone') {
   texture.wrapS = THREE.RepeatWrapping;
   texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(2, 2);
+  textureCache[type] = texture;
   return texture;
 }
 
