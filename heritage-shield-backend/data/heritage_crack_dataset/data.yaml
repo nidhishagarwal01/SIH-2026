@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['crack']
+
+roboflow:
+  workspace: ved-waje-uxsri
+  project: heritage-site-crack-detection
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/ved-waje-uxsri/heritage-site-crack-detection/dataset/2
