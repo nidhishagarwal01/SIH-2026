@@ -37,6 +37,14 @@ export default function AsiReportModal({
     if (site?.circle) setOfficerCircle(site.circle);
   }, [site?.id, computedRisk]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
   if (!isOpen) return null;
 
   const reportId = `ASI-WO-2026-${(site?.id || 'ASI-01').replace(/[^a-zA-Z0-9]/g, '')}-${component?.code || 'C01'}`;
@@ -45,25 +53,6 @@ export default function AsiReportModal({
     month: 'long',
     year: 'numeric'
   });
-
-  const handleOfficerLogin = (e) => {
-    e?.preventDefault();
-    if (!authPin || authPin === '2026' || authPin === 'ASI2026' || authPin === 'admin' || authPin.length >= 4) {
-      setIsAuthenticated(true);
-      setAuthError('');
-    } else {
-      setAuthError('Invalid ASI Service PIN. (Demo PIN: 2026)');
-    }
-  };
-
-  const handleQuickLogin = (name, desig, serviceId, circle) => {
-    setOfficerName(name);
-    setOfficerDesignation(desig);
-    setOfficerServiceId(serviceId);
-    setOfficerCircle(circle);
-    setIsAuthenticated(true);
-    setAuthError('');
-  };
 
   const handlePrint = () => {
     window.print();
@@ -136,39 +125,42 @@ export default function AsiReportModal({
   };
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 backdrop-blur-md p-2 sm:p-4 overflow-y-auto print:p-0 print:bg-white">
-      <div className="bg-white text-[#181B1F] border border-[#DACDB8] rounded-3xl w-full max-w-4xl max-h-[94vh] flex flex-col shadow-2xl overflow-hidden print:max-h-none print:border-none print:shadow-none print:rounded-none">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-2 sm:p-4 overflow-y-auto print:p-0 print:bg-white print:static print:inset-auto">
+      <div className="bg-white text-[#181B1F] border border-[#DACDB8] rounded-3xl w-full max-w-4xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden print:max-h-none print:border-none print:shadow-none print:rounded-none">
         
-        {/* Modal Action Header (Hidden in Print Mode) */}
-        <div className="print:hidden bg-[#FAF5ED] border-b border-[#DACDB8] px-6 py-4 flex flex-wrap justify-between items-center gap-3">
-          <div className="flex items-center gap-2.5">
-            <span className="w-3 h-3 rounded-full bg-emerald-600 animate-pulse" />
-            <div>
-              <span className="text-xs font-mono font-bold text-[#24160E] uppercase tracking-wider">
-                Archaeological Survey of India · Form HS-2026 Dossier Dispatcher
+        {/* 🌟 STICKY MODAL TOP ACTION HEADER (Always visible, never hidden) */}
+        <div className="sticky top-0 z-50 shrink-0 bg-[#FAF5ED] border-b border-[#DACDB8] px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3 shadow-sm print:hidden">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="w-3 h-3 rounded-full bg-emerald-600 animate-pulse shrink-0" />
+            <div className="truncate">
+              <span className="text-xs font-mono font-bold text-[#24160E] uppercase tracking-wider block truncate">
+                Archaeological Survey of India · Form HS-2026 Dossier
               </span>
-              <div className="text-[10px] font-mono text-[#BA532B]">
+              <div className="text-[10px] font-mono text-[#BA532B] truncate">
                 Authority: AMASR Act 1958 & National Mission on Monuments (NMMA)
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={handlePrint}
-              className="px-4 py-2 rounded-xl bg-[#BA532B] hover:bg-[#A34723] text-white text-xs font-mono font-bold transition flex items-center gap-2 shadow-sm cursor-pointer"
+              title="Print official Form HS-2026 work order or save as PDF"
+              className="px-3.5 py-2 rounded-xl bg-[#BA532B] hover:bg-[#A34723] text-white text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
               <span>🖨️ Print / Save PDF</span>
             </button>
             <button
               onClick={handleDownloadJson}
-              className="px-3.5 py-2 rounded-xl bg-white border border-[#DACDB8] text-[#24160E] hover:border-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+              title="Download machine-readable JSON dossier"
+              className="px-3 py-2 rounded-xl bg-white border border-[#DACDB8] text-[#24160E] hover:border-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1 cursor-pointer shadow-sm"
             >
-              <span>⬇️ Export JSON</span>
+              <span>⬇️ Download JSON</span>
             </button>
             <button
               onClick={onClose}
-              className="px-3.5 py-2 rounded-xl bg-white border border-[#DACDB8] text-[#24160E] hover:text-[#BA532B] font-mono text-xs font-bold transition cursor-pointer shadow-sm"
+              title="Close Dossier Window (Esc)"
+              className="px-3.5 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-mono text-xs font-bold transition flex items-center gap-1 cursor-pointer shadow-sm"
             >
               ✕ Close
             </button>
@@ -176,7 +168,7 @@ export default function AsiReportModal({
         </div>
 
         {/* Modal Body / Dossier Paper Canvas */}
-        <div className="overflow-y-auto p-4 sm:p-8 space-y-6 bg-[#FAF5ED] print:p-0 print:bg-white">
+        <div className="overflow-y-auto p-4 sm:p-8 space-y-6 bg-[#FAF5ED] print:p-0 print:bg-white flex-1">
 
           {/* Official Printable Form HS-2026 Document */}
           <div className="p-6 sm:p-8 space-y-6 bg-white text-[#111827] font-sans rounded-2xl border border-stone-300 shadow-sm print:p-0 print:border-none print:shadow-none">
@@ -458,6 +450,35 @@ export default function AsiReportModal({
 
           </div>
 
+        </div>
+
+        {/* 🌟 STICKY MODAL BOTTOM ACTION FOOTER (Guaranteed visible at all times) */}
+        <div className="sticky bottom-0 z-50 shrink-0 bg-[#FAF5ED] border-t border-[#DACDB8] px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3 shadow-md print:hidden">
+          <div className="flex items-center gap-2 text-xs font-mono text-stone-600">
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span>Form HS-2026 Ready for Official Dispatch</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handlePrint}
+              className="px-3.5 py-1.5 rounded-xl bg-[#BA532B] hover:bg-[#A34723] text-white text-xs font-mono font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+            >
+              <span>🖨️ Print / Save PDF</span>
+            </button>
+            <button
+              onClick={handleDownloadJson}
+              className="px-3 py-1.5 rounded-xl bg-white border border-[#DACDB8] text-[#24160E] hover:border-[#BA532B] text-xs font-mono font-bold transition flex items-center gap-1 cursor-pointer shadow-sm"
+            >
+              <span>⬇️ Download JSON</span>
+            </button>
+            <button
+              onClick={onClose}
+              className="px-3.5 py-1.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-mono text-xs font-bold transition cursor-pointer shadow-sm"
+            >
+              ✕ Close
+            </button>
+          </div>
         </div>
 
       </div>
