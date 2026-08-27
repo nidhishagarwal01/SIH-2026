@@ -381,20 +381,7 @@ export default function LandingPageView({
         {/* Centered Grand Editorial Column */}
         <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center space-y-8 py-10">
           
-          {/* Monument Context Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: smoothEase }}
-            className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-mono font-semibold ${
-              isDarkTheme
-                ? 'bg-[#20130C]/80 border-[#BA532B]/40 text-[#FAF5ED]'
-                : 'bg-white/80 border-[#DACDB8] text-[#24160E]'
-            } shadow-sm backdrop-blur-md`}
-          >
-            <span className="w-2 h-2 rounded-full bg-[#BA532B] animate-pulse" />
-            <span>Featured National Monument: Konark Sun Temple (1250 CE · UNESCO Grade-I)</span>
-          </motion.div>
+
 
           {/* Editorial Serif Heading */}
           <motion.h1 
