@@ -325,7 +325,7 @@ export default function LandingPageView({
       {/* ========================================================================= */}
       {/* 🚀 2. GRAND SUBMERGED HERO EXHIBITION (FULL-PAGE ANIMATED BACKDROP)        */}
       {/* ========================================================================= */}
-      <section id="hero-section" className="relative min-h-[92vh] flex items-center justify-center px-6 sm:px-12 lg:px-20 py-20 max-w-[1600px] mx-auto overflow-hidden">
+      <section id="hero-section" className="relative hero-viewport-clamp flex items-center justify-center px-6 sm:px-12 lg:px-20 py-16 max-w-[1600px] mx-auto overflow-hidden isolation-isolate gpu-accelerated">
         
         {/* 🏛️ Full-Page Animated Konark Sun Temple Cinematic Backdrop */}
         <div className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0">
@@ -388,7 +388,7 @@ export default function LandingPageView({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, ease: smoothEase }}
-            className={`text-5xl sm:text-7xl lg:text-8xl font-serif font-bold tracking-tight max-w-4xl drop-shadow-sm ${
+            className={`fluid-hero-title font-serif font-bold tracking-tight max-w-4xl drop-shadow-sm ${
               isDarkTheme ? 'text-[#FAF5ED]' : 'text-[#1C0F08]'
             }`}
           >
@@ -400,7 +400,7 @@ export default function LandingPageView({
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.15, ease: smoothEase }}
-            className={`text-base sm:text-xl font-sans leading-relaxed max-w-3xl font-semibold px-6 py-4.5 rounded-2xl backdrop-blur-xl border transition-all duration-300 ${
+            className={`fluid-subtitle-copy font-sans leading-relaxed max-w-3xl font-semibold px-6 py-4.5 rounded-2xl backdrop-blur-xl border transition-all duration-300 ${
               isDarkTheme
                 ? 'bg-[#1C110B]/50 border-[#BA532B]/40 text-[#FAF5ED] shadow-[0_12px_36px_rgba(0,0,0,0.45)]'
                 : 'bg-[#F7F2EB]/45 border-[#DCD0BE]/70 text-[#1C0F08] shadow-[0_12px_36px_rgba(40,26,18,0.12)]'

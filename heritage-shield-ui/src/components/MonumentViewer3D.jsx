@@ -1444,8 +1444,8 @@ export default function MonumentViewer3D({
       </div>
 
       {/* Pure 3D Canvas Mount (100% Dedicated & Unobstructed, ZERO buttons inside) */}
-      <div className="relative flex-1 w-full min-h-[450px] bg-[#07080B] overflow-hidden">
-        <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+      <div className="relative flex-1 w-full min-h-[380px] max-h-[75vh] bg-[#07080B] overflow-hidden isolation-isolate gpu-accelerated">
+        <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing max-w-[90vw] max-h-[75vh] mx-auto object-contain responsive-stage-bounds" />
       </div>
 
       {/* Bottom Controls Outside 3D Canvas (No Overlap on 3D Model) */}

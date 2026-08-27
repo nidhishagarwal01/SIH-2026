@@ -5,6 +5,9 @@
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #F0E7DA;
     color: #24160E;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   .font-serif {
@@ -18,6 +21,65 @@
   .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
+}
+
+/* ⚡ 1. GPU HARDWARE ACCELERATION & SUB-PIXEL ANTIALIASING FLICKER PREVENTION */
+.gpu-accelerated,
+.animated-stage,
+.particle-container,
+.video-viewport,
+.sights-slider,
+.hero-title,
+.story-panel,
+canvas {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+}
+
+/* 🚀 2. DYNAMIC VIEWPORT & STAGE BOUNDARY CLAMPING FOR 14-INCH SCALED LAPTOPS */
+.sticky-stage-container {
+  overflow: hidden !important;
+  isolation: isolate !important;
+  min-height: 100dvh;
+  min-height: clamp(600px, 100dvh, 1080px);
+  max-height: 100dvh;
+}
+
+.hero-viewport-clamp {
+  min-height: clamp(600px, 92dvh, 1080px);
+  max-height: clamp(600px, 96dvh, 1080px);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.fluid-hero-title {
+  font-size: clamp(3.25rem, 7.5vw, 9.5rem) !important;
+  line-height: 1.02 !important;
+}
+
+.fluid-section-title {
+  font-size: clamp(2.25rem, 4.5vw, 4.75rem) !important;
+  line-height: 1.08 !important;
+}
+
+.fluid-subtitle-copy {
+  font-size: clamp(0.95rem, 1.6vw, 1.25rem) !important;
+  line-height: 1.6 !important;
+}
+
+.responsive-stage-bounds {
+  position: relative;
+  width: 100%;
+  max-width: 90vw;
+  max-height: 75vh;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
 }
 
 /* 🏛️ Option B: Sunlit Terracotta Sandstone & Sovereign Umber Architecture */

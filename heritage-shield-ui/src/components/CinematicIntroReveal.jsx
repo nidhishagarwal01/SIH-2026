@@ -124,7 +124,7 @@ export default function CinematicIntroReveal({ onComplete }) {
     <motion.div
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="fixed inset-0 z-[100000] bg-[#F0E7DA] flex items-center justify-center overflow-hidden select-none overscroll-none touch-none pointer-events-auto"
+      className="fixed inset-0 z-[100000] bg-[#F0E7DA] flex items-center justify-center overflow-hidden isolation-isolate select-none overscroll-none touch-none pointer-events-auto gpu-accelerated min-h-[100dvh] max-h-[100dvh]"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, scale: 1.05, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }}
       style={{ perspective: 1400 }}
@@ -381,7 +381,7 @@ export default function CinematicIntroReveal({ onComplete }) {
           className="space-y-3 relative z-20"
         >
           <div className="relative inline-block">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold text-[#24160E] tracking-tight leading-none drop-shadow-sm">
+            <h1 className="text-[clamp(2.25rem,5.5vw,5rem)] font-serif font-bold text-[#24160E] tracking-tight leading-none drop-shadow-sm">
               HERITAGE <span className="text-[#BA532B]">SHIELD</span>
             </h1>
             {/* Specular Glint Reflection Sweeping Across */}
@@ -392,7 +392,7 @@ export default function CinematicIntroReveal({ onComplete }) {
             />
           </div>
 
-          <p className="text-sm sm:text-lg text-[#4D3425] font-sans leading-relaxed max-w-2xl mx-auto font-medium">
+          <p className="text-[clamp(0.875rem,1.5vw,1.125rem)] text-[#4D3425] font-sans leading-relaxed max-w-2xl mx-auto font-medium">
             Preserving India's Architectural Soul Through Living Digital Twins & Autonomous Intelligence
           </p>
         </motion.div>
