@@ -37,10 +37,19 @@ export default function LiveIngestModal({ isOpen, onClose, currentSite }) {
         ]);
       }, 1400);
 
-      const lat = currentSite?.coords ? parseFloat(currentSite.coords.split('°')[0]) : 28.5244;
-      const lon = currentSite?.coords ? parseFloat(currentSite.coords.split(',')[1]) : 77.1855;
+      let lat = 28.5244;
+      let lon = 77.1855;
+      if (Array.isArray(currentSite?.coords)) {
+        lat = Number(currentSite.coords[0]) || 28.5244;
+        lon = Number(currentSite.coords[1]) || 77.1855;
+      } else if (typeof currentSite?.coords === 'string') {
+        const parts = currentSite.coords.split(',');
+        lat = parseFloat(parts[0]) || 28.5244;
+        lon = parseFloat(parts[1] || '77.1855') || 77.1855;
+      }
 
-      const res = await fetch("http://localhost:8000/api/live-ingest/examine", {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const res = await fetch(`${apiUrl}/api/live-ingest/examine`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
