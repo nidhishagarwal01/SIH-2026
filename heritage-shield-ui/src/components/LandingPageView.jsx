@@ -632,7 +632,7 @@ export default function LandingPageView({
                 </div>
               </div>
 
-              <div className="lg:col-span-7 h-[500px] min-h-[500px] relative rounded-2xl overflow-hidden border border-[#DACDB8] shadow-lg bg-[#FAF5ED]">
+              <div className="lg:col-span-7 h-[530px] min-h-[500px] relative rounded-[24px] overflow-hidden border border-[#DACDB8] shadow-lg bg-[#FAF5ED] box-border p-0">
                 <MonumentViewer3D
                   siteIndex={selectedTwinSiteIdx}
                   siteData={sites[selectedTwinSiteIdx] || sites[0]}

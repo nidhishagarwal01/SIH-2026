@@ -1237,10 +1237,10 @@ export default function MonumentViewer3D({
 
   if (isEmbedded) {
     return (
-      <div className="w-full max-w-[1100px] mx-auto box-border flex flex-col h-full bg-[#08090C] rounded-[24px] overflow-hidden border border-[#1E2228] shadow-2xl">
+      <div className="w-full max-w-[1100px] mx-auto box-border flex flex-col h-full bg-[#08090C] rounded-[24px] overflow-hidden border border-[#1E2228] shadow-2xl p-0">
         
         {/* Top Header Outside 3D Canvas (Responsive Flex, No Horizontal Clipping) */}
-        <div className="w-full flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#0d1117] border-b border-white/10 z-10 shrink-0">
+        <div className="w-full flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 bg-[#0d1117] border-b border-white/10 z-10 shrink-0">
           <div className="flex items-center gap-2 shrink-0">
             <h3 className="shrink-0 text-sm md:text-base font-serif font-semibold text-white tracking-wide truncate">
               {siteData?.name || "Qutub Minar Complex"} · 3D Twin
@@ -1285,8 +1285,8 @@ export default function MonumentViewer3D({
           </div>
         </div>
 
-        {/* Pure 3D Canvas Mount (100% Unobstructed) */}
-        <div className="relative flex-1 w-full min-h-[360px] bg-[#08090C] overflow-hidden">
+        {/* Pure 3D Canvas Mount (100% Unobstructed & Flexible Height) */}
+        <div className="relative flex-1 w-full min-h-[220px] bg-[#08090C] overflow-hidden">
           <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
         </div>
 
