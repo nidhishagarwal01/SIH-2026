@@ -277,26 +277,8 @@ export default function LandingPageView({
             </button>
           </div>
 
-          {/* Right: Actions, Quick View Switcher & Login */}
+          {/* Right: Actions & Theme Toggle */}
           <div className="flex items-center gap-2.5">
-            <button
-              onClick={onEnterDashboard}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-[#FAF5ED] border border-[#DACDB8] hover:border-[#BA532B] text-[#24160E] hover:text-[#BA532B] text-xs font-mono font-bold transition shadow-sm cursor-pointer"
-              title="Go to National GIS Map & Monument Directory"
-            >
-              <span>🗺️</span>
-              <span>Map Portal</span>
-            </button>
-
-            <button
-              onClick={() => onSelectMonument ? onSelectMonument(0) : onEnterDashboard()}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl terracotta-btn text-xs font-mono font-bold transition shadow-sm cursor-pointer"
-              title="Open 3D Living Twin Studio"
-            >
-              <span>🏛️</span>
-              <span>3D Studio</span>
-            </button>
-
             {/* ☀️ Theme Toggle Button (Sun Icon Only) */}
             <motion.button
               whileHover={{ scale: 1.08, rotate: 18 }}
@@ -436,18 +418,11 @@ export default function LandingPageView({
             className="flex flex-wrap items-center justify-center gap-4 pt-2"
           >
             <button
-              onClick={() => onSelectMonument ? onSelectMonument(0) : onEnterDashboard()}
+              onClick={onEnterDashboard}
               className="px-9 py-4 rounded-2xl terracotta-btn font-mono text-xs font-bold uppercase tracking-wider transition flex items-center gap-2.5 cursor-pointer shadow-xl hover:scale-105"
             >
-              <span>🏛️ Launch 3D Living Twin Studio</span>
+              <span>🗺️ Explore National GIS Map & Monument Directory</span>
               <ArrowRight className="w-4 h-4" />
-            </button>
-
-            <button
-              onClick={onEnterDashboard}
-              className={`px-8 py-4 rounded-2xl ${isDarkTheme ? 'bg-[#1F130B] border-[#3D2517] text-[#FAF5ED] hover:border-[#BA532B]' : 'bg-white border-[#DACDB8] text-[#24160E] hover:border-[#BA532B]'} border font-mono text-xs font-bold uppercase tracking-wider transition flex items-center gap-2.5 cursor-pointer shadow-md hover:scale-105`}
-            >
-              <span>🗺️ National Map & Directory</span>
             </button>
           </motion.div>
 
