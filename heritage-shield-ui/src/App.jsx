@@ -12,7 +12,6 @@ import LongitudinalAnalytics from './components/LongitudinalAnalytics';
 import LiveIngestModal from './components/LiveIngestModal';
 import AssetSwitcherModal from './components/AssetSwitcherModal';
 import HeritageShieldLogo from './components/HeritageShieldLogo';
-import MuseumCursorTorch from './components/MuseumCursorTorch';
 import { Sun } from 'lucide-react';
 
 import { UNESCO_SITES } from './data/unescoSites';
@@ -379,26 +378,23 @@ export default function App() {
   // ---------------------------------------------------------------------------
   if (viewMode === 'landing') {
     return (
-      <>
-        <MuseumCursorTorch />
-        <LandingPageView
-          onEnterDashboard={() => {
-            setViewMode('portal');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          onSelectMonument={handleLaunchMonumentStudio}
-          onOpenStudio={() => {
-            setViewMode('portal');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          currentUser={currentUser}
-          onLoginSuccess={(user) => setCurrentUser(user)}
-          onLogout={() => setCurrentUser(null)}
-          sites={sites}
-          isDarkTheme={isDarkTheme}
-          onToggleTheme={toggleTheme}
-        />
-      </>
+      <LandingPageView
+        onEnterDashboard={() => {
+          setViewMode('portal');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onSelectMonument={handleLaunchMonumentStudio}
+        onOpenStudio={() => {
+          setViewMode('portal');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        currentUser={currentUser}
+        onLoginSuccess={(user) => setCurrentUser(user)}
+        onLogout={() => setCurrentUser(null)}
+        sites={sites}
+        isDarkTheme={isDarkTheme}
+        onToggleTheme={toggleTheme}
+      />
     );
   }
 
@@ -407,20 +403,17 @@ export default function App() {
   // ---------------------------------------------------------------------------
   if (viewMode === 'portal') {
     return (
-      <>
-        <MuseumCursorTorch />
-        <MonumentPortalView
-          sites={sites}
-          onSelectMonument={handleLaunchMonumentStudio}
-          onBackToLanding={() => {
-            setViewMode('landing');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          liveWeather={liveWeather}
-          isDarkTheme={isDarkTheme}
-          onToggleTheme={toggleTheme}
-        />
-      </>
+      <MonumentPortalView
+        sites={sites}
+        onSelectMonument={handleLaunchMonumentStudio}
+        onBackToLanding={() => {
+          setViewMode('landing');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        liveWeather={liveWeather}
+        isDarkTheme={isDarkTheme}
+        onToggleTheme={toggleTheme}
+      />
     );
   }
 
@@ -429,7 +422,6 @@ export default function App() {
   // ---------------------------------------------------------------------------
   return (
     <div className={`min-h-screen ${isDarkTheme ? 'dark-theme bg-[#120A06] text-[#FAF5ED]' : 'bg-[#F0E7DA] text-[#24160E]'} font-sans antialiased selection:bg-[#BA532B] selection:text-white flex flex-col museum-bg transition-colors duration-500`}>
-      <MuseumCursorTorch />
       
       {/* 🏛️ 1. TOP ENTERPRISE HEADER / STUDIO NAVIGATION BAR */}
       <header className="sticky top-0 z-[9999] bg-[#FAF5ED]/90 backdrop-blur-2xl border-b border-[#DACDB8] px-6 py-3.5 shadow-sm">
