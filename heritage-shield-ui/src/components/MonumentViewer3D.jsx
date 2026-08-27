@@ -1241,11 +1241,19 @@ export default function MonumentViewer3D({
         renderer.domElement.removeEventListener('pointerdown', handlePointerDown);
         renderer.domElement.removeEventListener('pointerup', handlePointerUp);
         renderer.domElement.removeEventListener('pointermove', handlePointerMove);
+        if (renderer.domElement.parentNode) {
+          renderer.domElement.parentNode.removeChild(renderer.domElement);
+        }
       }
       if (animFrameIdRef.current) cancelAnimationFrame(animFrameIdRef.current);
       resizeObserver.disconnect();
-      renderer.dispose();
-      scene.clear();
+      if (renderer) {
+        renderer.dispose();
+        if (typeof renderer.forceContextLoss === 'function') {
+          renderer.forceContextLoss();
+        }
+      }
+      if (scene) scene.clear();
     };
   }, [siteIndex, siteData, autoRotate, viewMode, isEmbedded]);
 
