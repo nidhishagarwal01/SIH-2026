@@ -17,11 +17,15 @@ The GSD engine commands maximum velocity, relentless unblocking, and uncompromis
    - Provide crisp, high-signal explanations with exact architectural diagrams, mathematical equations, and direct verification proofs.
    - Avoid generic boilerplate; explain *what changed, why it changed, how it was verified, and how to present it*.
 
-3. **Triple-Sync Mandate**:
+3. **Team Collaboration & Continuous Pull Protocol**:
+   - Always run `git pull --rebase origin main` before making changes and before committing to stay continuously synchronized with teammates' commits.
+   - Automatically resolve and merge any remote additions with zero regressions.
+
+4. **Triple-Sync Mandate**:
    - Every single modification must simultaneously update:
-     1. **Localhost**: Verified with `npm run build` and backend test suites (`11/11 pass`).
-     2. **GitHub**: Committed with clean conventional commits and pushed to `main`.
+     1. **Localhost**: Verified with `npm run build` and backend test suites (`12/12 pass`).
+     2. **GitHub**: Pulled, committed with clean conventional commits, and pushed to `main`.
      3. **Vercel**: Verified for live production deployment.
 
-4. **Production Ship Mindset**:
+5. **Production Ship Mindset**:
    - Every feature must be hackathon-ready, judge-proof, offline-resilient, and fully wired end-to-end.
