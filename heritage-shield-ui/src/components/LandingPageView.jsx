@@ -248,10 +248,22 @@ export default function LandingPageView({
               Architecture
             </button>
             <button 
-              onClick={() => scrollToSection('consoles-section')}
+              onClick={() => {
+                setShowcaseTab('twin');
+                scrollToSection('consoles-section');
+              }}
               className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
             >
               Living Twins
+            </button>
+            <button 
+              onClick={() => {
+                setShowcaseTab('vision');
+                scrollToSection('consoles-section');
+              }}
+              className={`${isDarkTheme ? 'text-[#D8C7B8] hover:text-[#BA532B] hover:bg-[#1E120B]' : 'text-[#4D3425] hover:text-[#BA532B] hover:bg-white'} px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer`}
+            >
+              AI Vision
             </button>
             <button 
               onClick={() => scrollToSection('simulator-section')}
@@ -455,7 +467,22 @@ export default function LandingPageView({
                 viewport={{ once: false, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: (idx % 4) * 0.08, ease: smoothEase }}
                 whileHover={{ y: -8, scale: 1.02 }}
-                onClick={() => setActiveWorkflowIndex(idx)}
+                onClick={() => {
+                  setActiveWorkflowIndex(idx);
+                  if (idx === 1) {
+                    setShowcaseTab('vision');
+                    scrollToSection('consoles-section');
+                  } else if (idx === 0) {
+                    setShowcaseTab('twin');
+                    scrollToSection('consoles-section');
+                  } else if (idx === 3) {
+                    setShowcaseTab('temporal');
+                    scrollToSection('consoles-section');
+                  } else if (idx === 5) {
+                    setShowcaseTab('gis');
+                    scrollToSection('consoles-section');
+                  }
+                }}
                 className={`p-6 rounded-3xl border transition-all duration-300 cursor-pointer flex flex-col justify-between space-y-4 group ${
                   isSelected
                     ? 'bg-white border-[#BA532B] shadow-xl shadow-[#BA532B]/10 ring-1 ring-[#BA532B]'
