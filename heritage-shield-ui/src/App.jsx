@@ -625,8 +625,8 @@ export default function App() {
         </div>
       </header>
 
-      {/* 🎛️ 2. STUDIO CONSOLE TABS */}
-      <div className="bg-white border-b border-[#DACDB8] px-6">
+      {/* 🎛️ 2. STUDIO CONSOLE TABS (PERMANENTLY STICKY OVERLAY) */}
+      <div className="sticky top-[60px] z-[9998] bg-[#FAF5ED]/95 dark:bg-[#160D08]/95 backdrop-blur-2xl border-b border-[#DACDB8] dark:border-[#3D2416] px-6 shadow-sm transition-colors duration-300">
         <div className="max-w-[1600px] mx-auto flex items-center gap-2 overflow-x-auto py-2.5">
           
           <button

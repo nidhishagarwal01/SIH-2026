@@ -154,8 +154,8 @@ export default function MonumentPortalView({
         </div>
       </header>
 
-      {/* 🔍 2. QUICK FILTER BAR */}
-      <section className="bg-white border-b border-[#DACDB8] px-6 py-3.5 shadow-sm">
+      {/* 🔍 2. QUICK FILTER BAR (PERMANENTLY STICKY OVERLAY) */}
+      <section className="sticky top-[64px] z-[9998] bg-[#FAF5ED]/95 dark:bg-[#160D08]/95 backdrop-blur-2xl border-b border-[#DACDB8] dark:border-[#3D2416] px-6 py-3 shadow-sm transition-colors duration-300">
         <div className="max-w-[1600px] mx-auto">
           <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
             
