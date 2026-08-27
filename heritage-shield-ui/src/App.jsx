@@ -48,8 +48,12 @@ export default function App() {
 
   // Navigation Flow: 'landing' | 'portal' | 'studio'
   const viewMode = currentView || 'landing';
-  const activeSite = currentSite !== undefined ? currentSite : 0;
+  const [activeSite, setActiveSite] = useState(currentSite !== undefined ? currentSite : 0);
   const [activeTab, setActiveTab] = useState(currentTab || 'twin');
+
+  useEffect(() => {
+    if (currentSite !== undefined) setActiveSite(currentSite);
+  }, [currentSite]);
 
   useEffect(() => {
     if (currentTab) setActiveTab(currentTab);

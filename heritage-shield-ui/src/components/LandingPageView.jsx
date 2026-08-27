@@ -956,7 +956,7 @@ export default function LandingPageView({
           </div>
 
           <button
-            onClick={onEnterDashboard}
+            onClick={() => onSelectMonument ? onSelectMonument(0) : onEnterDashboard()}
             className="px-6 py-3.5 rounded-xl terracotta-btn text-xs font-mono tracking-wider uppercase transition flex items-center gap-2 cursor-pointer font-bold shadow-md hover:scale-105"
           >
             <span>Launch National Studio</span>
